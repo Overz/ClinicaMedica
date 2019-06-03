@@ -54,7 +54,7 @@ public class TelaPrincipal extends JFrame {
 
 	/*
 	 * public void fechar() {
-	 * 
+	 *
 	 * WindowEvent fechar = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
 	 * Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(fechar); }
 	 */
@@ -63,7 +63,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		JMenu mnCliente = new JMenu("Pessoa");
+		JMenu mnCliente = new JMenu("PessoaVO");
 		mnCliente.setIcon(
 				new ImageIcon(TelaPrincipal.class.getResource("/layouts/icones/icons8-gest\u00E3o-de-cliente.png")));
 		menuBar.add(mnCliente);

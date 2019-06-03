@@ -14,7 +14,6 @@ public class TelaInternaPedidos {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			@Override
 			public void run() {
 				try {
 					TelaInternaPedidos window = new TelaInternaPedidos();

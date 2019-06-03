@@ -14,7 +14,6 @@ public class TelaInternaRelatorioProdutos {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			@Override
 			public void run() {
 				try {
 					TelaInternaRelatorioProdutos window = new TelaInternaRelatorioProdutos();

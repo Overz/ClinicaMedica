@@ -1,6 +1,6 @@
 package model.vo;
 
-public abstract class Endereco {
+public abstract class EnderecoVO {
 	
 	private String cidade;
 	private String bairro;
@@ -41,7 +41,7 @@ public abstract class Endereco {
 
 	@Override
 	public String toString() {
-		return "Endereco [cidade=" + cidade + ", bairro=" + bairro + ", rua=" + rua + ", numero=" + numero
+		return "EnderecoVO [cidade=" + cidade + ", bairro=" + bairro + ", rua=" + rua + ", numero=" + numero
 				+ ", telefone=" + telefone + "]";
 	}
 }

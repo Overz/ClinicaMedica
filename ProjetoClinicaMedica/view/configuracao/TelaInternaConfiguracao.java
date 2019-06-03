@@ -14,7 +14,6 @@ public class TelaInternaConfiguracao {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			@Override
 			public void run() {
 				try {
 					TelaInternaConfiguracao window = new TelaInternaConfiguracao();

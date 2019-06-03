@@ -1,5 +1,5 @@
 package model.vo;
 
-public class Produto {
+public class NivelVO {
 
 }

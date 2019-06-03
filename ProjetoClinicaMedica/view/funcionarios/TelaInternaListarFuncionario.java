@@ -14,7 +14,6 @@ public class TelaInternaListarFuncionario {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			@Override
 			public void run() {
 				try {
 					TelaInternaListarFuncionario window = new TelaInternaListarFuncionario();
