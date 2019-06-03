@@ -1,11 +1,11 @@
-package view.funcionarios;
+package view.adm.funcionario;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-public class TelaInternaRelatorioFuncionario {
+public class TelaInternaCadastrarFuncionario {
 
 	private JFrame frame;
 
@@ -16,7 +16,7 @@ public class TelaInternaRelatorioFuncionario {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaRelatorioFuncionario window = new TelaInternaRelatorioFuncionario();
+					TelaInternaCadastrarFuncionario window = new TelaInternaCadastrarFuncionario();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -28,7 +28,7 @@ public class TelaInternaRelatorioFuncionario {
 	/**
 	 * Create the application.
 	 */
-	public TelaInternaRelatorioFuncionario() {
+	public TelaInternaCadastrarFuncionario() {
 		initialize();
 	}
 

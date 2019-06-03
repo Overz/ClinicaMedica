@@ -1,12 +1,11 @@
-package view.clientes;
+package view.adm.funcionario;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.WindowConstants;
 
-public class TelaInternaCadastroCliente extends JInternalFrame {
+public class TelaInternaListarFuncionario {
 
 	private JFrame frame;
 
@@ -17,7 +16,7 @@ public class TelaInternaCadastroCliente extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaCadastroCliente window = new TelaInternaCadastroCliente();
+					TelaInternaListarFuncionario window = new TelaInternaListarFuncionario();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,7 +28,7 @@ public class TelaInternaCadastroCliente extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public TelaInternaCadastroCliente() {
+	public TelaInternaListarFuncionario() {
 		initialize();
 	}
 

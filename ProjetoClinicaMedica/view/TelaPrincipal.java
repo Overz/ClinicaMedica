@@ -18,10 +18,10 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 import net.miginfocom.swing.MigLayout;
-import view.clientes.TelaInternaAtualizarCliente;
-import view.clientes.TelaInternaCadastroCliente;
-import view.clientes.TelaInternaListarCliente;
-import view.clientes.TelaInternaRelatorioCliente;
+import view.adm.cliente.TelaInternaAtualizarCliente;
+import view.adm.cliente.TelaInternaCadastroCliente;
+import view.adm.cliente.TelaInternaListarCliente;
+import view.adm.cliente.TelaInternaRelatorioCliente;
 
 public class TelaPrincipal extends JFrame {
 

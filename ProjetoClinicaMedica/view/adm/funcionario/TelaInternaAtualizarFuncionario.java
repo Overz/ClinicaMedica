@@ -1,12 +1,11 @@
-package view.clientes;
+package view.adm.funcionario;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.WindowConstants;
 
-public class TelaInternaAtualizarCliente extends JInternalFrame {
+public class TelaInternaAtualizarFuncionario {
 
 	private JFrame frame;
 
@@ -17,7 +16,7 @@ public class TelaInternaAtualizarCliente extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaAtualizarCliente window = new TelaInternaAtualizarCliente();
+					TelaInternaAtualizarFuncionario window = new TelaInternaAtualizarFuncionario();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,7 +28,7 @@ public class TelaInternaAtualizarCliente extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public TelaInternaAtualizarCliente() {
+	public TelaInternaAtualizarFuncionario() {
 		initialize();
 	}
 
