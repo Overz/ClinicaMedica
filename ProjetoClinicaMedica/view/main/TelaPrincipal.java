@@ -1,9 +1,11 @@
-package view;
+package view.main;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -26,121 +28,63 @@ import view.adm.cliente.TelaInternaRelatorioCliente;
 public class TelaPrincipal extends JFrame {
 
 	private JDesktopPane desktopPane;
-	private TelaInternaCadastroCliente janelinhaCadastroCliente;
-	private TelaInternaAtualizarCliente janelinhaAtualizarCliente;
-	private TelaInternaListarCliente janelinhaListarCliente;
+	private TelaInternaCadastroCliente janelinhaCadastroCliente = new TelaInternaCadastroCliente();
+	private TelaInternaAtualizarCliente janelinhaAtualizarCliente = new TelaInternaAtualizarCliente();
+	//private TelaInternaCadastrarHorario telaInternaCadastrarHorario = new TelaInternaCadastrarHorario();
+	private TelaInternaRelatorioCliente janelinhaRelatorioCliente = new TelaInternaRelatorioCliente();
+	
+	private ArrayList<Component> componentesDaTela = new ArrayList<Component>();
 
-	/*
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { TelaPrincipal window = new
-	 * TelaPrincipal(); window.setExtendedState(Frame.MAXIMIZED_BOTH);
-	 * window.setVisible(true); } catch (Exception e) { e.printStackTrace(); } } });
-	 * }
-	 */
 	public TelaPrincipal() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				TelaPrincipal.class.getResource("/layouts/icones/icons8-mensagem-de-avi\u00E3o-de-papel.png")));
 		setTitle("Tela de Administrador");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(100, 100, 531, 412);
+		setBounds(100, 100, 771, 626);
 		initialize();
 	}
 
-	public void fecharJanelinhas() {
-		// Fechando JInternalFrame/Proibir outra janela interna
-		janelinhaCadastroCliente = null;
-		janelinhaAtualizarCliente = null;
+	public void fecharJanelinha(JInternalFrame janelinha) {
+		componentesDaTela.remove(janelinha);
 	}
 
-	/*
-	 * public void fechar() {
-	 *
-	 * WindowEvent fechar = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-	 * Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(fechar); }
-	 */
 	private void initialize() {
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		JMenu mnCliente = new JMenu("PessoaVO");
-		mnCliente.setIcon(
-				new ImageIcon(TelaPrincipal.class.getResource("/layouts/icones/icons8-gest\u00E3o-de-cliente.png")));
+		JMenu mnCliente = new JMenu("Pessoa");
+		mnCliente.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-gestão-de-cliente.png")));
 		menuBar.add(mnCliente);
 
 		JMenuItem jmiCadastrarCliente = new JMenuItem("Cadastrar");
+		jmiCadastrarCliente.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
 		jmiCadastrarCliente.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
-		jmiCadastrarCliente.setIcon(new ImageIcon(
-				TelaPrincipal.class.getResource("/layouts/icones/icons8-adicionar-usu\u00E1rio-masculino.png")));
 		jmiCadastrarCliente.addActionListener(e -> {
-			// Fechando JInternalFrame/Proibir outra janela interna
-			if (janelinhaCadastroCliente == null) {
-				janelinhaCadastroCliente = new TelaInternaCadastroCliente();
-				desktopPane.add(janelinhaCadastroCliente);
-				janelinhaCadastroCliente.show();
-			}
-			// Fechando JInternalFrame/Proibir outra janela interna
-			janelinhaCadastroCliente.addInternalFrameListener(new InternalFrameAdapter() {
-				@Override
-				public void internalFrameClosed(InternalFrameEvent arg0) {
-					fecharJanelinhas();
-				}
-			});
-
+			adicionarInternalFrame(janelinhaCadastroCliente);
 		});
 		mnCliente.add(jmiCadastrarCliente);
 
 		JMenuItem jmiAtualizarCliente = new JMenuItem("Atualizar");
+		jmiAtualizarCliente.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-ao-banco-de-dados.png")));
 		jmiAtualizarCliente.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-		jmiAtualizarCliente.setIcon(new ImageIcon(
-				TelaPrincipal.class.getResource("/layouts/icones/icons8-adicionar-ao-banco-de-dados.png")));
 		jmiAtualizarCliente.addActionListener(e -> {
-
-			janelinhaAtualizarCliente = new TelaInternaAtualizarCliente();
-			desktopPane.add(janelinhaAtualizarCliente);
-			janelinhaAtualizarCliente.setVisible(true);
-			janelinhaAtualizarCliente.show();
-
-			if (janelinhaAtualizarCliente == null) {
-				janelinhaAtualizarCliente = new TelaInternaAtualizarCliente();
-				desktopPane.add(janelinhaAtualizarCliente);
-				janelinhaAtualizarCliente.show();
-			}
-			// Fechando JInternalFrame
-			janelinhaAtualizarCliente.addInternalFrameListener(new InternalFrameAdapter() {
-
-				@Override
-				public void internalFrameClosed(InternalFrameEvent arg0) {
-					fecharJanelinhas();
-				}
-			});
-
+			adicionarInternalFrame(janelinhaAtualizarCliente);
 		});
 		mnCliente.add(jmiAtualizarCliente);
 
 		JMenuItem mntmListar = new JMenuItem("Listar");
+		mntmListar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-confiança.png")));
 		mntmListar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
 		mntmListar.addActionListener(e -> {
-			if (janelinhaListarCliente == null) {
-				janelinhaListarCliente = new TelaInternaListarCliente();
-				getContentPane().add(janelinhaListarCliente);
-				janelinhaListarCliente.setVisible(true);
-				janelinhaListarCliente.show();
-			} else {
-				janelinhaListarCliente.setVisible(true);
-			}
+			//adicionarInternalFrame(telaInternaCadastrarHorario);
 		});
-		mntmListar.setIcon(
-				new ImageIcon(TelaPrincipal.class.getResource("/layouts/icones/icons8-documento-regular.png")));
 		mnCliente.add(mntmListar);
 
 		JMenuItem jmiRelatorioCliente = new JMenuItem("Relatorio");
+		jmiRelatorioCliente.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-imprimir-arquivo.png")));
 		jmiRelatorioCliente.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10, 0));
-		jmiRelatorioCliente
-				.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/layouts/icones/icons8-imprimir-arquivo.png")));
 		jmiRelatorioCliente.addActionListener(e -> {
 
-			TelaInternaRelatorioCliente janelinhaRelatorioCliente = new TelaInternaRelatorioCliente();
+			janelinhaRelatorioCliente = new TelaInternaRelatorioCliente();
 			desktopPane.add(janelinhaRelatorioCliente);
 			janelinhaRelatorioCliente.setVisible(true);
 			janelinhaRelatorioCliente.show();
@@ -149,13 +93,12 @@ public class TelaPrincipal extends JFrame {
 		mnCliente.add(jmiRelatorioCliente);
 
 		JMenu mnProduto = new JMenu("Produtos");
-		mnProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/layouts/icones/icons8-comprar.png")));
+		mnProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-comprar.png")));
 		menuBar.add(mnProduto);
 
 		JMenuItem jmiCadastrarProduto = new JMenuItem("Cadastrar");
+		jmiCadastrarProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-comprar.png")));
 		jmiCadastrarProduto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, InputEvent.CTRL_MASK));
-		jmiCadastrarProduto
-				.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/layouts/icones/icons8-comprar.png")));
 		jmiCadastrarProduto.addActionListener(e -> {
 
 			JInternalFrame frameCadastrarProduto = new JInternalFrame();
@@ -166,9 +109,8 @@ public class TelaPrincipal extends JFrame {
 		mnProduto.add(jmiCadastrarProduto);
 
 		JMenuItem jmiAtualizarProduto = new JMenuItem("Atualizar");
+		jmiAtualizarProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-ao-banco-de-dados.png")));
 		jmiAtualizarProduto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, InputEvent.CTRL_MASK));
-		jmiAtualizarProduto.setIcon(new ImageIcon(
-				TelaPrincipal.class.getResource("/layouts/icones/icons8-adicionar-ao-banco-de-dados.png")));
 		jmiAtualizarProduto.addActionListener(e -> {
 
 			JInternalFrame frameAtualizarProduto = new JInternalFrame();
@@ -180,9 +122,8 @@ public class TelaPrincipal extends JFrame {
 		mnProduto.add(jmiAtualizarProduto);
 
 		JMenuItem jmiListarProduto = new JMenuItem("Listar");
+		jmiListarProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-confiança.png")));
 		jmiListarProduto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, InputEvent.CTRL_MASK));
-		jmiListarProduto.setIcon(
-				new ImageIcon(TelaPrincipal.class.getResource("/layouts/icones/icons8-documento-regular.png")));
 		jmiListarProduto.addActionListener(e -> {
 
 			JInternalFrame frameListarProduto = new JInternalFrame();
@@ -194,13 +135,12 @@ public class TelaPrincipal extends JFrame {
 		mnProduto.add(jmiListarProduto);
 
 		JMenu mnFuncionario = new JMenu("Funcionarios");
-		mnFuncionario.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/layouts/icones/icons8-treinamento.png")));
+		mnFuncionario.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-fila.png")));
 		menuBar.add(mnFuncionario);
 
 		JMenuItem jmiCadastrarFuncionario = new JMenuItem("Cadastrar");
+		jmiCadastrarFuncionario.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
 		jmiCadastrarFuncionario.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, InputEvent.SHIFT_MASK));
-		jmiCadastrarFuncionario.setIcon(new ImageIcon(
-				TelaPrincipal.class.getResource("/layouts/icones/icons8-adicionar-usu\u00E1rio-masculino.png")));
 		jmiCadastrarFuncionario.addActionListener(e -> {
 
 			JInternalFrame frameCadastrarFuncionarios = new JInternalFrame();
@@ -212,9 +152,8 @@ public class TelaPrincipal extends JFrame {
 		mnFuncionario.add(jmiCadastrarFuncionario);
 
 		JMenuItem jmiAtualizarFuncionario = new JMenuItem("Atualizar");
+		jmiAtualizarFuncionario.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-ao-banco-de-dados.png")));
 		jmiAtualizarFuncionario.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, InputEvent.SHIFT_MASK));
-		jmiAtualizarFuncionario.setIcon(new ImageIcon(
-				TelaPrincipal.class.getResource("/layouts/icones/icons8-adicionar-ao-banco-de-dados.png")));
 		jmiAtualizarFuncionario.addActionListener(e -> {
 
 			JInternalFrame frameAtualizarFuncionario = new JInternalFrame();
@@ -226,9 +165,8 @@ public class TelaPrincipal extends JFrame {
 		mnFuncionario.add(jmiAtualizarFuncionario);
 
 		JMenuItem jmiListarFuncionario = new JMenuItem("Listar");
+		jmiListarFuncionario.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-confiança.png")));
 		jmiListarFuncionario.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, InputEvent.SHIFT_MASK));
-		jmiListarFuncionario.setIcon(
-				new ImageIcon(TelaPrincipal.class.getResource("/layouts/icones/icons8-documento-regular.png")));
 		jmiListarFuncionario.addActionListener(e -> {
 
 			JInternalFrame frameListarFuncionario = new JInternalFrame();
@@ -240,9 +178,8 @@ public class TelaPrincipal extends JFrame {
 		mnFuncionario.add(jmiListarFuncionario);
 
 		JMenuItem jmiSobre = new JMenuItem("Sobre");
+		jmiSobre.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-livro-de-física.png")));
 		jmiSobre.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F8, 0));
-		jmiSobre.setIcon(
-				new ImageIcon(TelaPrincipal.class.getResource("/layouts/icones/icons8-livro-de-f\u00EDsica.png")));
 		jmiSobre.addActionListener(e -> {
 
 		});
@@ -261,5 +198,39 @@ public class TelaPrincipal extends JFrame {
 
 		setContentPane(desktopPane);
 		desktopPane.setLayout(new MigLayout("", "[grow,fill]", "[grow,fill]"));
+	}
+
+	/*private void adicionarPainel(JInternalFrame janelinha) {
+
+		//TODO continuar
+		if (janelinha == null) {
+			telaInternaCadastrarHorario = new TelaInternaCadastrarHorario();
+			getContentPane().add(telaInternaCadastrarHorario);
+			telaInternaCadastrarHorario.setVisible(true);
+			telaInternaCadastrarHorario.show();
+
+			telaInternaCadastrarHorario.getBtnFechar().addActionListener(evt -> {
+				getContentPane().remove(telaInternaCadastrarHorario);
+				telaInternaCadastrarHorario = null;
+				this.repaint();
+			});
+		} else {
+			telaInternaCadastrarHorario.setVisible(true);
+		}
+	}*/
+
+	private void adicionarInternalFrame(JInternalFrame janelinha) {
+		if (!componentesDaTela.contains(janelinha)) {
+			desktopPane.add(janelinha);
+			componentesDaTela.add(janelinha);
+			janelinha.show();
+		}
+
+		janelinha.addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameClosed(InternalFrameEvent evt) {
+				fecharJanelinha(evt.getInternalFrame());
+			}
+		});
 	}
 }

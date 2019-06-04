@@ -1,11 +1,11 @@
-package view.configuracao;
+package view.adm.produtos;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-public class TelaInternaConfiguracao {
+public class TelaInternaRelatorioProdutos {
 
 	private JFrame frame;
 
@@ -16,7 +16,7 @@ public class TelaInternaConfiguracao {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaConfiguracao window = new TelaInternaConfiguracao();
+					TelaInternaRelatorioProdutos window = new TelaInternaRelatorioProdutos();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -28,7 +28,7 @@ public class TelaInternaConfiguracao {
 	/**
 	 * Create the application.
 	 */
-	public TelaInternaConfiguracao() {
+	public TelaInternaRelatorioProdutos() {
 		initialize();
 	}
 

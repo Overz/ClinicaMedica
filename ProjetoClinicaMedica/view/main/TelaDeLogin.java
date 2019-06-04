@@ -1,4 +1,4 @@
-package view;
+package view.main;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import controller.ControllerMedico;
 import model.vo.MedicoVO;
 import net.miginfocom.swing.MigLayout;
+import view.TelaCadastroMedico;
 
 public class TelaDeLogin extends JFrame {
 
@@ -89,10 +90,14 @@ public class TelaDeLogin extends JFrame {
 		getContentPane().add(btnLogin, "cell 3 6,growx,aligny top");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				ControllerMedico controller = new ControllerMedico();
+				
 				String usuario = txtUsuario.getText();
 				String senha = new String(passwordField.getPassword());
+				
 				MedicoVO medico = controller.login(usuario, senha);
+				
 				if (medico != null) {
 					JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
 
