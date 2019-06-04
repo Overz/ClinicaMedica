@@ -1,9 +1,11 @@
 package model.vo;
 
+import java.sql.Date;
+
 public abstract class PessoaVO {
 
 	private String nome;
-	private String dtNascimento;
+	private Date dtNascimento;
 	private String cpf;
 	private String telefone;
 	private String email;
@@ -12,7 +14,7 @@ public abstract class PessoaVO {
 		super();
 	}
 
-	public PessoaVO(String nome, String dtNascimento, String cpf, String telefone, String email) {
+	public PessoaVO(String nome, Date dtNascimento, String cpf, String telefone, String email) {
 		super();
 		this.nome = nome;
 		this.dtNascimento = dtNascimento;
@@ -29,11 +31,11 @@ public abstract class PessoaVO {
 		this.nome = nome;
 	}
 
-	public String getDtNascimento() {
+	public Date getDtNascimento() {
 		return this.dtNascimento;
 	}
 
-	public void setDtNascimento(String dtNascimento) {
+	public void setDtNascimento(Date dtNascimento) {
 		this.dtNascimento = dtNascimento;
 	}
 

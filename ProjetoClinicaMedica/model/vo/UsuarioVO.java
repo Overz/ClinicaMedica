@@ -1,5 +1,7 @@
 package model.vo;
 
+import java.sql.Date;
+
 public class UsuarioVO extends PessoaVO {
 
 	public static final String NIVEL_ADMIN = "Admin";
@@ -15,7 +17,7 @@ public class UsuarioVO extends PessoaVO {
 
 	}
 
-	public UsuarioVO(int idUsuario, String usuario, String senha, String nivel, String nome, String dtNascimento,
+	public UsuarioVO(int idUsuario, String usuario, String senha, String nivel, String nome, Date dtNascimento,
 			String cpf, String telefone, String email) {
 		super(nome, dtNascimento, cpf, telefone, email);
 		this.idUsuario = idUsuario;

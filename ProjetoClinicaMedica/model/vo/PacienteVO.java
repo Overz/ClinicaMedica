@@ -1,9 +1,13 @@
 package model.vo;
 
+import java.sql.Date;
+
 public class PacienteVO extends PessoaVO {
+	public static final String SEXO_MASCULINO = "M";
+	public static final String SEXO_FEMININO = "F";
 
 	private int idPaciente;
-	private char sexo;
+	private String sexo;
 	private String tipoSanguineo;
 	private String rua;
 	private int numero;
@@ -17,8 +21,8 @@ public class PacienteVO extends PessoaVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PacienteVO(int idPaciente, char sexo, String tipoSanguineo, String rua, int numero, String bairro,
-			String cidade, String estado, String cep, String nome, String dtNascimento, String cpf, String telefone,
+	public PacienteVO(int idPaciente, String sexo, String tipoSanguineo, String rua, int numero, String bairro,
+			String cidade, String estado, String cep, String nome, Date dtNascimento, String cpf, String telefone,
 			String email) {
 		super(nome, dtNascimento, cpf, telefone, email);
 		this.idPaciente = idPaciente;
@@ -40,11 +44,11 @@ public class PacienteVO extends PessoaVO {
 		this.idPaciente = idPaciente;
 	}
 
-	public char getSexo() {
+	public String getSexo() {
 		return this.sexo;
 	}
 
-	public void setSexo(char sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 

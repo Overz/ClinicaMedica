@@ -1,18 +1,20 @@
 package model.vo;
 
+import java.sql.Date;
+
 public class ConsultaVO {
 
 	private int idConsulta;
 	private MedicoVO medico;
 	private PacienteVO paciente;
-	private String data_consulta;
+	private Date data_consulta;
 	private FuncionarioVO funcionario;
 
 	public ConsultaVO() {
 		super();
 	}
 
-	public ConsultaVO(int idConsulta, MedicoVO medico, PacienteVO paciente, String data_consulta,
+	public ConsultaVO(int idConsulta, MedicoVO medico, PacienteVO paciente, Date data_consulta,
 			FuncionarioVO funcionario) {
 		super();
 		this.idConsulta = idConsulta;
@@ -46,11 +48,11 @@ public class ConsultaVO {
 		this.paciente = paciente;
 	}
 
-	public String getData_consulta() {
+	public Date getData_consulta() {
 		return this.data_consulta;
 	}
 
-	public void setData_consulta(String data_consulta) {
+	public void setData_consulta(Date data_consulta) {
 		this.data_consulta = data_consulta;
 	}
 

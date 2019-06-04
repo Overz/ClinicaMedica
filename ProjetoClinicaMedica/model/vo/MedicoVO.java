@@ -1,5 +1,7 @@
 package model.vo;
 
+import java.sql.Date;
+
 public class MedicoVO extends UsuarioVO {
 
 	private int idMedico;
@@ -11,7 +13,7 @@ public class MedicoVO extends UsuarioVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MedicoVO(int idUsuario, String usuario, String senha, String nivel, String nome, String dtNascimento,
+	public MedicoVO(int idUsuario, String usuario, String senha, String nivel, String nome, Date dtNascimento,
 			int idMedico, String crm, String especialidade, String cpf, String telefone, String email) {
 		super(idUsuario, usuario, senha, nivel, nome, dtNascimento, cpf, telefone, email);
 		this.idMedico = idMedico;
