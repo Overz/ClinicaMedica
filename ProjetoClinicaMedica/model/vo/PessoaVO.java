@@ -4,21 +4,25 @@ public abstract class PessoaVO {
 
 	private String nome;
 	private String dtNascimento;
-	private String sexo;
-	private String CpfCnpj;
-	private EnderecoVO enderecoVO;
-	
-	public PessoaVO(String nome, String dtNascimento, String sexo, String cpfCnpj, EnderecoVO enderecoVO) {
+	private String cpf;
+	private String telefone;
+	private String email;
+
+	public PessoaVO() {
+		super();
+	}
+
+	public PessoaVO(String nome, String dtNascimento, String cpf, String telefone, String email) {
 		super();
 		this.nome = nome;
 		this.dtNascimento = dtNascimento;
-		this.sexo = sexo;
-		CpfCnpj = cpfCnpj;
-		this.enderecoVO = enderecoVO;
+		this.cpf = cpf;
+		this.telefone = telefone;
+		this.email = email;
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
@@ -26,38 +30,37 @@ public abstract class PessoaVO {
 	}
 
 	public String getDtNascimento() {
-		return dtNascimento;
+		return this.dtNascimento;
 	}
 
 	public void setDtNascimento(String dtNascimento) {
 		this.dtNascimento = dtNascimento;
 	}
 
-	public String getSexo() {
-		return sexo;
+	public String getCpf() {
+		return this.cpf;
 	}
 
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
-	public String getCpfCnpj() {
-		return CpfCnpj;
+	public String getTelefone() {
+		return this.telefone;
 	}
 
-	public void setCpfCnpj(String cpfCnpj) {
-		CpfCnpj = cpfCnpj;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
-	public EnderecoVO getEnderecoVO() {
-		return enderecoVO;
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void setEnderecoVO(EnderecoVO enderecoVO) {
-		this.enderecoVO = enderecoVO;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
-	
-	
+
+	public abstract String toString();
 
 }
