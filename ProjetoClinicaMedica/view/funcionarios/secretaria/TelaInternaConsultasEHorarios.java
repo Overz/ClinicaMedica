@@ -51,11 +51,11 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	}
 
 	public TelaInternaConsultasEHorarios() {
-		setTitle("Tela Médico");
+		setTitle("Tela Consulta");
 		setResizable(true);
 		setBounds(100, 100, 821, 609);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[][grow][100px:100px:100px,grow][grow][pref!,grow][100px:100px:100px,grow][grow][]", "[38,grow][38,grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill]"));
+		getContentPane().setLayout(new MigLayout("", "[][grow][100px:100px:100px,grow][grow][grow][pref!,grow][100px:100px:100px,grow][grow][]", "[38,grow][38,grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill]"));
 		initialize();
 	}
 
@@ -65,7 +65,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	private void initialize() {
 
 		JLabel lblNome = new JLabel("Nome:");
-		getContentPane().add(lblNome, "cell 1 0,alignx trailing");
+		getContentPane().add(lblNome, "cell 1 0,alignx right,growy");
 
 		txtNome = new JTextField();
 		getContentPane().add(txtNome, "cell 2 0 2 1,grow");
@@ -77,13 +77,13 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
 		dateChooser = new JDateChooser();
 		dateChooser.setToolTipText("Selecione a Data para Consulta");
-		getContentPane().add(dateChooser, "cell 4 0,grow");
+		getContentPane().add(dateChooser, "cell 4 0 2 1,grow");
 
 		cbEspecialidade = new JComboBox();
-		getContentPane().add(cbEspecialidade, "cell 5 0 2 1,grow");
+		getContentPane().add(cbEspecialidade, "cell 6 0 2 1,grow");
 
 		btnPesquisarAgenda = new JButton("Pesquisar Medico/Consulta");
-		getContentPane().add(btnPesquisarAgenda, "cell 3 1 2 1,grow");
+		getContentPane().add(btnPesquisarAgenda, "cell 3 1 3 1,grow");
 		btnPesquisarAgenda.addActionListener(e -> {
 
 			controller = new ControllerMedico();
@@ -97,7 +97,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		});
 
 		table = new JTable();
-		getContentPane().add(table, "cell 1 3 6 8,grow");
+		getContentPane().add(table, "cell 1 3 7 8,grow");
 		table.setModel(new DefaultTableModel(data, columnNames));
 
 
