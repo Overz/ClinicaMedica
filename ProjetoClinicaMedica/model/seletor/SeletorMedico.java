@@ -1,5 +1,5 @@
 package model.seletor;
 
-public class Seletor {
+public class SeletorMedico {
 
 }

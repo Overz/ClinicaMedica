@@ -8,26 +8,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.banco.Banco;
-import model.vo.ConsultaVO;
-import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
 import model.vo.PacienteVO;
+import model.vo.ProntuarioVO;
 
-public class ConsultaDAO {
+public class ProntuarioDAO {
 
-	public int cadastrarConsulta(ConsultaVO consulta) {
+	public int cadastrarProntuario(ProntuarioVO prontuario) {
 		int novoId = -1;
-		String query = "INSERT INTO CONSULTA (DATA_CONSULTA, IDPACIENTE, IDMEDICO, IDFUNCIONARIO) "
+		String query = "INSERT INTO PRONTUARIO (IDPACIENTE, IDMEDICO, OBSERVACOES, DATA_PRONTUARIO) "
 				+ "VALUES (?, ?, ?, ?)";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query, Statement.RETURN_GENERATED_KEYS);
 
 		try {
-			prepStmt.setDate(1, consulta.getData_consulta());
-			prepStmt.setInt(2, consulta.getPaciente().getIdPaciente());
-			prepStmt.setInt(3, consulta.getMedico().getIdMedico());
-			prepStmt.setInt(4, consulta.getFuncionario().getIdFuncionario());
+			prepStmt.setInt(1, prontuario.getPaciente().getIdPaciente());
+			prepStmt.setInt(2, prontuario.getMedico().getIdMedico());
+			prepStmt.setString(3, prontuario.getObservacoes());
+			prepStmt.setDate(4, prontuario.getDtProntuario());
 
 			prepStmt.execute();
 
@@ -37,7 +36,7 @@ public class ConsultaDAO {
 			}
 			generatedKeys.close();
 		} catch (SQLException e) {
-			System.out.println("Erro ao cadastrar Consulta: \n " + e.getMessage());
+			System.out.println("Erro ao cadastrar Prontuário: \n " + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
@@ -45,26 +44,26 @@ public class ConsultaDAO {
 		return novoId;
 	}
 
-	public boolean atualizarConsulta(ConsultaVO consulta) {
+	public boolean atualizarProntuario(ProntuarioVO prontuario) {
 		boolean sucesso = false;
-		String query = "UPDATE CONSULTA SET DATA_CONSULTA=?, IDPACIENTE=?,IDMEDICO=?, IDFUNCIONARIO=? WHERE IDCONSULTA=?";
+		String query = "UPDATE PRONTUARIO SET IDPACIENTE=?, IDMEDICO=?, DATA_PRONTUARIO=?, OBSERVACOES=? WHERE IDPRONTUARIO=?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
 
 		try {
-			prepStmt.setDate(1, consulta.getData_consulta());
-			prepStmt.setInt(2, consulta.getPaciente().getIdPaciente());
-			prepStmt.setInt(3, consulta.getMedico().getIdMedico());
-			prepStmt.setInt(4, consulta.getFuncionario().getIdFuncionario());
-			prepStmt.setInt(5, consulta.getIdConsulta());
+			prepStmt.setInt(1, prontuario.getPaciente().getIdPaciente());
+			prepStmt.setInt(2, prontuario.getMedico().getIdMedico());
+			prepStmt.setString(3, prontuario.getObservacoes());
+			prepStmt.setDate(4, prontuario.getDtProntuario());
+			prepStmt.setInt(5, prontuario.getIdProntuario());
 
 			int resultado = prepStmt.executeUpdate();
 			if (resultado == 1) {
 				sucesso = true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao atualizar Consulta: \n " + e.getMessage());
+			System.out.println("Erro ao atualizar Prontuario: \n " + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
@@ -72,16 +71,16 @@ public class ConsultaDAO {
 		return sucesso;
 	}
 
-	public boolean excluirConsulta(int idConsulta) {
+	public boolean excluirProntuario(int idProntuario) {
 		boolean sucesso = false;
 
-		String query = " DELETE FROM CONSULTA " + " WHERE IDCONSULTA = ? ";
+		String query = " DELETE FROM PRONTUARIO " + " WHERE IDPRONTUARIO = ? ";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, query);
 
 		try {
-			prepStmt.setInt(1, idConsulta);
+			prepStmt.setInt(1, idProntuario);
 
 			int codigoRetorno = prepStmt.executeUpdate();
 
@@ -90,7 +89,7 @@ public class ConsultaDAO {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("Erro ao remover Consulta. Id = " + idConsulta + ". Causa: " + e.getMessage());
+			System.out.println("Erro ao remover Prontuário. Id = " + idProntuario + ". Causa: " + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conexao);
@@ -98,35 +97,33 @@ public class ConsultaDAO {
 		return sucesso;
 	}
 
-	public ArrayList<ConsultaVO> buscarConsulta(ConsultaVO consulta) {
+	public ArrayList<ProntuarioVO> buscarProntuario(ProntuarioVO Prontuario) {
 		// TODO Implementar método para consulta com seletor
 		return null;
 	}
 
-	public ConsultaVO montarConsulta(ResultSet resultado) {
+	public ProntuarioVO montarProntuario(ResultSet resultado) {
 
-		ConsultaVO consulta = new ConsultaVO();
+		ProntuarioVO prontuario = new ProntuarioVO();
 
 		try {
-			consulta.setIdConsulta(resultado.getInt("IDCONSULTA"));
-			consulta.setData_consulta(resultado.getDate("DATA_CONSULTA"));
+			prontuario.setIdProntuario(resultado.getInt("IDPRONTUARIO"));
+			prontuario.setDtProntuario(resultado.getDate("DATA_PRONTUARIO"));
+			prontuario.setObservacoes(resultado.getString("OBSERVACOES"));
 
 			PacienteVO paciente = new PacienteVO();
 			paciente.setIdPaciente(resultado.getInt("IDPACIENTE"));
-			consulta.setPaciente(paciente);
+			prontuario.setPaciente(paciente);
 
 			MedicoVO medico = new MedicoVO();
 			medico.setIdMedico(resultado.getInt("IDMEDICO"));
-			consulta.setMedico(medico);
+			prontuario.setMedico(medico);
 
-			FuncionarioVO funcionario = new FuncionarioVO();
-			funcionario.setIdFuncionario(resultado.getInt("IDFUNCIONARIO"));
-			consulta.setFuncionario(funcionario);
 		} catch (SQLException e) {
 			System.out.println("Erro ao construir Consulta: \n" + e.getMessage());
 		}
 
-		return consulta;
+		return prontuario;
 	}
 
 }

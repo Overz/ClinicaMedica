@@ -42,7 +42,7 @@ public class UsuarioDAO {
 
 	public boolean atualizarUsuario(UsuarioVO usuario) {
 		boolean sucesso = false;
-		String query = "UPDATE USUARIO SET USUARIO=?, SENHA=?,NIVEL=? WHERE IDMEDICO=?";
+		String query = "UPDATE USUARIO SET USUARIO=?, SENHA=?,NIVEL=? WHERE IDFUNCIONARIO=?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
@@ -69,7 +69,7 @@ public class UsuarioDAO {
 	public boolean excluirUsuario(int idUsuario) {
 		boolean sucesso = false;
 
-		String query = " DELETE FROM USUARIO " + " WHERE ID = ? ";
+		String query = " DELETE FROM USUARIO " + " WHERE IDUSUARIO = ? ";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, query);
@@ -95,7 +95,6 @@ public class UsuarioDAO {
 	public ArrayList<UsuarioVO> buscarUsuario(UsuarioVO usuario) {
 		// TODO Implementar método para consulta com seletor
 		return null;
-
 	}
 
 	public UsuarioVO montarUsuario(ResultSet resultado) {

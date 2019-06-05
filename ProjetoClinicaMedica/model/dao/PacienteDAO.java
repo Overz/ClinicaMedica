@@ -15,8 +15,8 @@ public class PacienteDAO {
 	public int cadastrarPaciente(PacienteVO paciente) {
 		int novoId = -1;
 		String query = "INSERT INTO PACIENTE (NOME, CPF, TELEFONE, EMAIL, SEXO, "
-				+ "TIPO_SANGUINEO, DATA_NASCIMENTO, RUA, NUMERO, BAIRRO, CIDADE, ESTADO, "
-				+ "CEP) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "TIPO_SANGUINEO, DATA_NASCIMENTO, CONVENIO, RUA, NUMERO, BAIRRO, CIDADE, ESTADO, "
+				+ "CEP) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query, Statement.RETURN_GENERATED_KEYS);
@@ -29,12 +29,13 @@ public class PacienteDAO {
 			prepStmt.setString(5, paciente.getSexo());
 			prepStmt.setString(6, paciente.getTipoSanguineo());
 			prepStmt.setDate(7, paciente.getDtNascimento());
-			prepStmt.setString(8, paciente.getRua());
-			prepStmt.setInt(9, paciente.getNumero());
-			prepStmt.setString(10, paciente.getBairro());
-			prepStmt.setString(11, paciente.getCidade());
-			prepStmt.setString(12, paciente.getEstado());
-			prepStmt.setString(13, paciente.getCep());
+			prepStmt.setString(8, paciente.getConvenio());
+			prepStmt.setString(9, paciente.getRua());
+			prepStmt.setInt(10, paciente.getNumero());
+			prepStmt.setString(11, paciente.getBairro());
+			prepStmt.setString(12, paciente.getCidade());
+			prepStmt.setString(13, paciente.getEstado());
+			prepStmt.setString(14, paciente.getCep());
 
 			prepStmt.execute();
 
@@ -55,7 +56,7 @@ public class PacienteDAO {
 	public boolean atualizarPaciente(PacienteVO paciente) {
 		boolean sucesso = false;
 		String query = "UPDATE PACIENTE SET NOME=?, CPF=?, TELEFONE=?, EMAIL=?, SEXO=?, "
-				+ "TIPO_SANGUINEO=?, DATA_NASCIMENTO=?, RUA=?, NUMERO=?, BAIRRO=?, CIDADE=?, "
+				+ "TIPO_SANGUINEO=?, DATA_NASCIMENTO=?, CONVENIO=? RUA=?, NUMERO=?, BAIRRO=?, CIDADE=?, "
 				+ "ESTADO=?, CEP=? WHERE IDPACIENTE = ?";
 
 		Connection conn = Banco.getConnection();
@@ -69,13 +70,14 @@ public class PacienteDAO {
 			prepStmt.setString(5, paciente.getSexo());
 			prepStmt.setString(6, paciente.getTipoSanguineo());
 			prepStmt.setDate(7, paciente.getDtNascimento());
-			prepStmt.setString(8, paciente.getRua());
-			prepStmt.setInt(9, paciente.getNumero());
-			prepStmt.setString(10, paciente.getBairro());
-			prepStmt.setString(11, paciente.getCidade());
-			prepStmt.setString(12, paciente.getEstado());
-			prepStmt.setString(13, paciente.getCep());
-			prepStmt.setInt(14, paciente.getIdPaciente());
+			prepStmt.setString(8, paciente.getConvenio());
+			prepStmt.setString(9, paciente.getRua());
+			prepStmt.setInt(10, paciente.getNumero());
+			prepStmt.setString(11, paciente.getBairro());
+			prepStmt.setString(12, paciente.getCidade());
+			prepStmt.setString(13, paciente.getEstado());
+			prepStmt.setString(14, paciente.getCep());
+			prepStmt.setInt(15, paciente.getIdPaciente());
 
 			int resultado = prepStmt.executeUpdate();
 			if (resultado == 1) {
@@ -139,6 +141,7 @@ public class PacienteDAO {
 			paciente.setSexo(resultado.getString("SEXO"));
 			paciente.setTipoSanguineo(resultado.getString("TIPO_SANGUINEO"));
 			paciente.setDtNascimento(resultado.getDate("DATA_NASCIMENTO"));
+			paciente.setConvenio(resultado.getString("CONVENIO"));
 			paciente.setRua(resultado.getString("RUA"));
 			paciente.setNumero(resultado.getInt("NUMERO"));
 			paciente.setBairro(resultado.getString("BAIRRO"));
