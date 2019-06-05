@@ -1,8 +1,9 @@
-package view.main;
+package view;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.awt.Window;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -11,6 +12,9 @@ import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import view.funcionarios.secretaria.TelaInternaCadastroPaciente;
+
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -18,15 +22,17 @@ import java.awt.event.ActionEvent;
 
 public class TelaGeral extends JFrame {
 
+	private static TelaGeral window;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+
 			public void run() {
 				try {
-					TelaGeral window = new TelaGeral();
+					window = new TelaGeral();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -85,8 +91,13 @@ public class TelaGeral extends JFrame {
 		mnPaciente.add(mntmCadastrarPaciente);
 		mntmCadastrarPaciente.addActionListener(e -> {
 			
+			TelaInternaCadastroPaciente janelinhaCadastroPaciente = new TelaInternaCadastroPaciente();
+			desktopPane.add(janelinhaCadastroPaciente);
+			janelinhaCadastroPaciente.setVisible(true);
+			janelinhaCadastroPaciente.show();
+			window.repaint();
 			
-
+			
 		});
 
 		mntmAtualizarDados = new JMenuItem("Atualizar Dados");

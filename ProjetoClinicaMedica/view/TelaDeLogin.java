@@ -1,4 +1,4 @@
-package view.main;
+package view;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import controller.ControllerMedico;
 import model.vo.MedicoVO;
 import net.miginfocom.swing.MigLayout;
-import view.TelaCadastroMedico;
+import view.adm.funcionario.medico.TelaCadastroMedico;
 
 public class TelaDeLogin extends JFrame {
 
