@@ -1,7 +1,9 @@
 package view.funcionarios.secretaria;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,27 +24,43 @@ import com.toedter.calendar.JDateChooser;
 import controller.ControllerMedico;
 import model.vo.MedicoVO;
 import net.miginfocom.swing.MigLayout;
+import view.TelaGeral;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
+
+	private static TelaInternaConsultasEHorarios window;
+	private static TelaGeral telaGeral = new  TelaGeral();
 
 	private JTable table;
 	private ControllerMedico controller;
 	private Date data;
-	private JTextField txtNome;
-	private JComboBox cbEspecialidade;
+	private JComboBox cbOpcaoPesquisa;
 	private JComponent dateChooser;
-	private JButton btnPesquisarAgenda;
+	private JButton btnPesquisarPorCampos;
+	private JFormattedTextField ftfCampoCpfCrm;
+	private JButton btnNewButton;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaConsultasEHorarios window = new TelaInternaConsultasEHorarios();
+					window = new TelaInternaConsultasEHorarios();
 					window.setVisible(true);
+					window.setBorder(null);
+					window.setMaximizable(true);
+					
+					window.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+					
+					Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+					window.setBounds(10, 10, screenSize.width - 40, screenSize.height - 150);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -51,11 +69,12 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	}
 
 	public TelaInternaConsultasEHorarios() {
+
 		setTitle("Tela Consulta");
-		setResizable(true);
-		setBounds(100, 100, 821, 609);
+		setResizable(false);
+		//setBounds(100, 100, 821, 609);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[][grow][100px:100px:100px,grow][grow][grow][pref!,grow][100px:100px:100px,grow][grow][]", "[38,grow][38,grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill]"));
+		getContentPane().setLayout(new MigLayout("", "[][grow][100px:100px:100px,grow][grow][grow][pref!,grow][100px:100px:100px,grow][grow][]", "[38,grow][38,grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][grow]"));
 		initialize();
 	}
 
@@ -64,27 +83,38 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	 */
 	private void initialize() {
 
-		JLabel lblNome = new JLabel("Nome:");
+		JLabel lblNome = new JLabel("Pesquisar por:");
 		getContentPane().add(lblNome, "cell 1 0,alignx right,growy");
-
-		txtNome = new JTextField();
-		getContentPane().add(txtNome, "cell 2 0 2 1,grow");
-		txtNome.setColumns(10);
-
-		Object[][] data = new Object[][] { {  "Nome", "Data-Hora", "Telefone", "Médico", "Especialidade" }, };
-		Object[] columnNames = new String[] { "Nome", "Data-Hora", "Telefone", "Médico", "Especialidade" };
-
 
 		dateChooser = new JDateChooser();
 		dateChooser.setToolTipText("Selecione a Data para Consulta");
 		getContentPane().add(dateChooser, "cell 4 0 2 1,grow");
 
-		cbEspecialidade = new JComboBox();
-		getContentPane().add(cbEspecialidade, "cell 6 0 2 1,grow");
+		Object[][] data = new Object[][] { {  "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" }, };
+		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" };
 
-		btnPesquisarAgenda = new JButton("Pesquisar Medico/Consulta");
-		getContentPane().add(btnPesquisarAgenda, "cell 3 1 3 1,grow");
-		btnPesquisarAgenda.addActionListener(e -> {
+		cbOpcaoPesquisa = new JComboBox();
+		cbOpcaoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome (Paciente/Médico)", "CPF ou CRM"}));
+		getContentPane().add(cbOpcaoPesquisa, "cell 2 0 2 1,grow");
+		if (cbOpcaoPesquisa.getSelectedIndex() == 1) {
+			ftfCampoCpfCrm.setEnabled(true);
+			ftfCampoCpfCrm.setEditable(true);
+			ftfCampoCpfCrm.setVisible(true);
+			
+		}
+		
+
+		ftfCampoCpfCrm = new JFormattedTextField();
+		ftfCampoCpfCrm.setVisible(false);
+		ftfCampoCpfCrm.setEditable(false);
+		ftfCampoCpfCrm.setEnabled(false);
+		ftfCampoCpfCrm.setToolTipText("Digite o CPF do Paciente ou Médico");
+		getContentPane().add(ftfCampoCpfCrm, "cell 2 1 4 1,grow");
+
+
+		btnPesquisarPorCampos = new JButton("Pesquisar Medico/Consulta");
+		getContentPane().add(btnPesquisarPorCampos, "cell 3 2 2 1,grow");
+		btnPesquisarPorCampos.addActionListener(e -> {
 
 			controller = new ControllerMedico();
 
@@ -100,7 +130,16 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		getContentPane().add(table, "cell 1 3 7 8,grow");
 		table.setModel(new DefaultTableModel(data, columnNames));
 
+		btnNewButton = new JButton("Pesquisa Especifica");
+		btnNewButton.setToolTipText("Selecione uma Linha, e Pesquise dados mais especifos.");
+		getContentPane().add(btnNewButton, "cell 3 11 2 1,grow");
 
+
+	}
+	
+	public void verificarCampos() {
+		
+		
 	}
 
 	protected void atualizarTabela(ArrayList<MedicoVO> medicos) {
