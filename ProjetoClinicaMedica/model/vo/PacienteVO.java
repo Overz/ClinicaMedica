@@ -5,6 +5,15 @@ import java.sql.Date;
 public class PacienteVO extends PessoaVO {
 	public static final String SEXO_MASCULINO = "M";
 	public static final String SEXO_FEMININO = "F";
+	public static final String CONVENIO_UNIMED = "Unimed";
+	public static final String CONVENIO_AGEMED = "Agemed";
+	public static final String CONVENIO_AMIL = "Amil";
+	public static final String CONVENIO_SULAMERICA_SAUDE = "SulAmerica Saúde";
+	public static final String CONVENIO_ONE_HEALTH = "One Health";
+	public static final String CONVENIO_BRADESCO_SAUDE = "Bradesco Saúde ";
+	public static final String CONVENIO_GOLDEN_CROSS = "Golden Cross";
+	public static final String CONVENIO_INTERMEDICA = "Intermédica";
+	public static final String CONVENIO_NOTRE_DAME_SEGURO_SAUDE = "Notre Dame Seguro Saúde";
 
 	private int idPaciente;
 	private String sexo;
@@ -15,6 +24,7 @@ public class PacienteVO extends PessoaVO {
 	private String cidade;
 	private String estado;
 	private String cep;
+	private String convenio;
 
 	public PacienteVO() {
 		super();
@@ -23,7 +33,7 @@ public class PacienteVO extends PessoaVO {
 
 	public PacienteVO(int idPaciente, String sexo, String tipoSanguineo, String rua, int numero, String bairro,
 			String cidade, String estado, String cep, String nome, Date dtNascimento, String cpf, String telefone,
-			String email) {
+			String email, String convenio) {
 		super(nome, dtNascimento, cpf, telefone, email);
 		this.idPaciente = idPaciente;
 		this.sexo = sexo;
@@ -34,6 +44,7 @@ public class PacienteVO extends PessoaVO {
 		this.cidade = cidade;
 		this.estado = estado;
 		this.cep = cep;
+		this.convenio = convenio;
 	}
 
 	public int getIdPaciente() {
@@ -111,6 +122,14 @@ public class PacienteVO extends PessoaVO {
 	@Override
 	public String toString() {
 		return "Paciente " + this.getNome() + " - " + this.getCpf() + " - " + this.getEmail();
+	}
+
+	public String getConvenio() {
+		return this.convenio;
+	}
+
+	public void setConvenio(String convenio) {
+		this.convenio = convenio;
 	}
 
 }

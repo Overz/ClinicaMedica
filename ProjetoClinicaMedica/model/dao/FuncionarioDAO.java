@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import model.banco.Banco;
 import model.vo.FuncionarioVO;
@@ -51,24 +52,66 @@ public class FuncionarioDAO {
 
 	public boolean atualizarFuncionario(FuncionarioVO funcionario) {
 		boolean sucesso = false;
-		String query = "UPDATE USUARIO SET USUARIO=?, SENHA=?,NIVEL=? WHERE IDMEDICO=?";
+		String query = "UPDATE FUNCIONARIO SET NOME=?, CPF=?, TELEFONE=?, EMAIL=?, DATA_NASCIMENTO=? WHERE IDFUNCIONARIO=?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
 
 		try {
+			prepStmt.setString(1, funcionario.getNome());
+			prepStmt.setString(2, funcionario.getCpf());
+			prepStmt.setString(3, funcionario.getTelefone());
+			prepStmt.setString(4, funcionario.getEmail());
+			prepStmt.setDate(5, funcionario.getDtNascimento());
+			prepStmt.setInt(6, funcionario.getIdFuncionario());
 
 			int resultado = prepStmt.executeUpdate();
 			if (resultado == 1) {
 				sucesso = true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao atualizar m�dico: \n " + e.getMessage());
+			System.out.println("Erro ao atualizar Funcionário: \n " + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
 		}
 		return sucesso;
+	}
+
+	public boolean excluirFuncionario(int idFuncionario) {
+		boolean sucesso = false;
+
+		String query = " DELETE FROM FUNCIONARIO " + " WHERE ID = ? ";
+
+		Connection conexao = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, query);
+
+		try {
+			prepStmt.setInt(1, idFuncionario);
+
+			int codigoRetorno = prepStmt.executeUpdate();
+
+			if (codigoRetorno == 1) {
+				sucesso = true;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Erro ao remover Funcionário. Id = " + idFuncionario + ". Causa: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conexao);
+		}
+		return sucesso;
+	}
+
+	public ArrayList<FuncionarioVO> buscarFuncionario(FuncionarioVO funcionario) {
+		// TODO Implementar método para consulta com seletor
+		return null;
+	}
+
+	public String construirFiltros() {
+		// TODO Implementar método de construção de filtros
+		return null;
 	}
 
 }

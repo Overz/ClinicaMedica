@@ -1,19 +1,20 @@
 package model.vo;
 
+import java.sql.Date;
+
 public class ProntuarioVO {
 
 	private int idProntuario;
 	private MedicoVO medico;
 	private PacienteVO paciente;
 	private String observacoes;
-	private String dtProntuario;
+	private Date dtProntuario;
 
 	public ProntuarioVO() {
 		super();
 	}
 
-	public ProntuarioVO(int idProntuario, MedicoVO medico, PacienteVO paciente, String observacoes,
-			String dtProntuario) {
+	public ProntuarioVO(int idProntuario, MedicoVO medico, PacienteVO paciente, String observacoes, Date dtProntuario) {
 		super();
 		this.idProntuario = idProntuario;
 		this.medico = medico;
@@ -54,11 +55,11 @@ public class ProntuarioVO {
 		this.observacoes = observacoes;
 	}
 
-	public String getDtProntuario() {
+	public Date getDtProntuario() {
 		return this.dtProntuario;
 	}
 
-	public void setDtProntuario(String dtProntuario) {
+	public void setDtProntuario(Date dtProntuario) {
 		this.dtProntuario = dtProntuario;
 	}
 

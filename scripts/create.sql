@@ -20,6 +20,7 @@ CREATE TABLE PACIENTE(
     SEXO ENUM("M", "F"),
     TIPO_SANGUINEO VARCHAR(3),
     DATA_NASCIMENTO DATE,
+    CONVENIO ENUM("Unimed", "Agemed", "Amil", "SulAmerica Saúde", "One Health", "Bradesco Saúde ", "Golden Cross", "Intermédica", "Notre Dame Seguro Saúde")
     RUA VARCHAR(100),
     NUMERO INT,
     BAIRRO VARCHAR(100),
