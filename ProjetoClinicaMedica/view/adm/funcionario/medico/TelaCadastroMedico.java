@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import controller.ControllerMedico;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class TelaCadastroMedico extends JFrame {
 
@@ -156,6 +157,7 @@ public class TelaCadastroMedico extends JFrame {
 		contentPane.add(lblNivel, "cell 1 7,alignx left,growy");
 		
 		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Normal", "Médico", "Administrador"}));
 		contentPane.add(comboBox, "cell 2 7,grow");
 
 		JLabel lblConfirmeSuaSenha = new JLabel("Confirme sua Senha:");

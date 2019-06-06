@@ -88,29 +88,30 @@ public class TelaDeLogin extends JFrame {
 		btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		getContentPane().add(btnLogin, "cell 3 6,growx,aligny top");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnLogin.addActionListener(e -> {
+			
 				
 				ControllerMedico controller = new ControllerMedico();
 				
 				String usuario = txtUsuario.getText();
 				String senha = new String(passwordField.getPassword());
 				
-				MedicoVO medico = controller.login(usuario, senha);
+			/*	MedicoVO medico = controller.login(usuario, senha);
 				
 				if (medico != null) {
-					JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
+					JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");*/
 
 					TelaPrincipal telaPrincipal = new TelaPrincipal();
-					// telaPrincipal.setMedico(medico);
-					// getContentPane().add(telaPrincipal);
-					// telaPrincipal.setVisible(true);
-					// telaPrincipal.show();
+					//telaPrincipal.setMedico(medico);
+					getContentPane().add(telaPrincipal);
+					telaPrincipal.setVisible(true);
+					telaPrincipal.show();
 
-				} else {
+				/*} else {
 					JOptionPane.showMessageDialog(null, "Usuario e/ou senha inválidos.");
 				}
 			}
-		});
+		});*/
+	});
 	}
 }

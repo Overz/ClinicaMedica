@@ -71,8 +71,8 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		getContentPane().add(txtNome, "cell 2 0 2 1,grow");
 		txtNome.setColumns(10);
 
-		Object[][] data = new Object[][] { {  "Nome", "Data-Hora", "Telefone", "Médico", "Especialidade" }, };
-		Object[] columnNames = new String[] { "Nome", "Data-Hora", "Telefone", "Médico", "Especialidade" };
+		Object[][] data = new Object[][] { {  "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" }, };
+		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" };
 
 
 		dateChooser = new JDateChooser();
