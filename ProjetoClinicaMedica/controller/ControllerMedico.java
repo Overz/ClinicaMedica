@@ -31,6 +31,7 @@ public class ControllerMedico {
 		return mensagem;
 	}
 
+<<<<<<< HEAD
 	public String validarMedico(String nome, String cpf, String telefone, String email, String crm,
 			String especialidade, String usuario, String senha, String confirmacaoSenha) {
 		String mensagem = "";
@@ -54,6 +55,13 @@ public class ControllerMedico {
 		}
 
 		return mensagem;
+=======
+	public String cadastrarMedico(String nome, String cpf, String telefone, String celular, String email, String crm,
+			String especialidade, String rua, int numero, String bairro, String cidade, String estado, String cep,
+			String usuario, String senha, String confirmacaoSenha) {
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> branch 'master' of https://github.com/Overz/ClinicaMedica.git
 	}
 
 }

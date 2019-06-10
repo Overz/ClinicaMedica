@@ -1,16 +1,25 @@
-package view.main;
+package view;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.awt.Window;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.text.MaskFormatter;
+
+import view.funcionarios.medico.TelaInternaAgendaMedico;
+import view.funcionarios.secretaria.TelaInternaCadastroPaciente;
+import view.funcionarios.secretaria.TelaInternaConsultasEHorarios;
+
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -18,6 +27,7 @@ import java.awt.event.ActionEvent;
 
 public class TelaGeral extends JFrame {
 
+	private static TelaGeral window;
 
 	/**
 	 * Launch the application.
@@ -26,8 +36,9 @@ public class TelaGeral extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaGeral window = new TelaGeral();
+					window = new TelaGeral();
 					window.setVisible(true);
+					window.setExtendedState(MAXIMIZED_BOTH);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,7 +49,6 @@ public class TelaGeral extends JFrame {
 	private JDesktopPane desktopPane;
 	private JMenuBar menuBar;
 	private JMenu mnPaciente;
-	private JMenuItem mntmAtualizarDados;
 	private JMenuItem mntmBuscarCliente;
 	private JMenu mnMedico;
 	private JMenuItem mntmCadastrarPaciente;
@@ -46,22 +56,35 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mntmCadastrarProntuario;
 	private JMenuItem mntmPesquisarProntuario;
 
-
 	/**
 	 * Create the application.
 	 */
 	public TelaGeral() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaGeral.class.getResource("/icones/icons8-caduceu-5.png")));
 		setTitle("Clinica Médica");
-		setBounds(100, 100, 797, 638);
+		setBounds(100, 100, 1100, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
 		desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.WHITE);
+		desktopPane.setVisible(true);
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		desktopPane.setBounds(0, 0, screenSize.width - 40, screenSize.height - 150);
+		desktopPane.setBounds(0, 0, screenSize.width, screenSize.height);
 		getContentPane().add(desktopPane);
+		
+		TelaInternaConsultasEHorarios janelinhaInternaPrincipalRecepcao = new TelaInternaConsultasEHorarios();
+
+		//TODO .. PROBLEMA AO INICIALIZAR A TELA PADRAO DA RECEPÇÂO
+		
+		desktopPane.add(janelinhaInternaPrincipalRecepcao);
+		janelinhaInternaPrincipalRecepcao.setVisible(true);
+		janelinhaInternaPrincipalRecepcao.show();
+		
+		/*window.add(desktopPane.add(janelinhaInternaPrincipalRecepcao));
+		janelinhaInternaPrincipalRecepcao.setVisible(true);
+		janelinhaInternaPrincipalRecepcao.show();*/
 
 		initialize();
 	}
@@ -80,20 +103,16 @@ public class TelaGeral extends JFrame {
 		mnPaciente.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-elenco-filled-38.png")));
 		menuBar.add(mnPaciente);
 
-		mntmCadastrarPaciente = new JMenuItem("Cadastrar Paciente");
+		mntmCadastrarPaciente = new JMenuItem("Cadastrar/Atualizar Paciente");
 		mntmCadastrarPaciente.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino-38.png")));
 		mnPaciente.add(mntmCadastrarPaciente);
 		mntmCadastrarPaciente.addActionListener(e -> {
 			
-			
-
-		});
-
-		mntmAtualizarDados = new JMenuItem("Atualizar Dados");
-		mntmAtualizarDados.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-etiqueta-de-actualização-filled-38.png")));
-		mnPaciente.add(mntmAtualizarDados);
-		mntmAtualizarDados.addActionListener(e -> {
-
+			TelaInternaCadastroPaciente janelinhaCadastroPaciente = new TelaInternaCadastroPaciente();
+			desktopPane.add(janelinhaCadastroPaciente);
+			janelinhaCadastroPaciente.setVisible(true);
+			janelinhaCadastroPaciente.show();
+			window.repaint();
 			
 			
 		});
@@ -118,7 +137,10 @@ public class TelaGeral extends JFrame {
 		mnMedico.add(mntmAgendaMedica);
 		mntmAgendaMedica.addActionListener(e -> {
 			
-			
+			TelaInternaAgendaMedico janelinhaAgendaMedica = new TelaInternaAgendaMedico();
+			getContentPane().add(janelinhaAgendaMedica);
+			janelinhaAgendaMedica.setVisible(true);
+			janelinhaAgendaMedica.show();
 			
 		});
 
