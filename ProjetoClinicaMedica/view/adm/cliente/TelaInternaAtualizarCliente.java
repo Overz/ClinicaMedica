@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JDesktopPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -16,13 +15,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaAtualizarCliente extends JInternalFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4822124346584250830L;
 	private JTextField textField;
 	private JTable tableClientes;
 	private JButton btnApagar;
@@ -108,7 +110,7 @@ public class TelaInternaAtualizarCliente extends JInternalFrame{
 		btnApagar = new JButton("APAGAR");
 		btnApagar.addActionListener(e -> {
 			//TODO Pegar a linha/coluna selecionada e alterar diretamente na tabela
-			int[] id = tableClientes.getSelectedRows();
+			//int[] id = tableClientes.getSelectedRows();
 		});
 		btnApagar.setEnabled(false);
 		getContentPane().add(btnApagar, "cell 2 4,grow");

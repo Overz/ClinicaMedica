@@ -1,29 +1,21 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.Window;
 
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.text.MaskFormatter;
 
 import view.funcionarios.medico.TelaInternaAgendaMedico;
 import view.funcionarios.secretaria.TelaInternaCadastroPaciente;
 import view.funcionarios.secretaria.TelaInternaConsultasEHorarios;
-
-import javax.swing.ImageIcon;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class TelaGeral extends JFrame {
 
@@ -38,7 +30,7 @@ public class TelaGeral extends JFrame {
 				try {
 					window = new TelaGeral();
 					window.setVisible(true);
-					window.setExtendedState(MAXIMIZED_BOTH);
+					//window.setExtendedState(MAXIMIZED_BOTH);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,9 +52,15 @@ public class TelaGeral extends JFrame {
 	 * Create the application.
 	 */
 	public TelaGeral() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double width = screenSize.getWidth();
+		double height = screenSize.getHeight();
+		int w2 = (int) (width * 0.2);
+		int h2 = (int) (height * 0.1);
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaGeral.class.getResource("/icones/icons8-caduceu-5.png")));
 		setTitle("Clinica Médica");
-		setBounds(100, 100, 1100, 700);
+		setBounds(w2, h2, 1200, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
@@ -70,9 +68,14 @@ public class TelaGeral extends JFrame {
 		desktopPane.setBackground(Color.WHITE);
 		desktopPane.setVisible(true);
 		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		/*double w2 = ((width/2) - this.getBounds().getWidth()/2 );
+		double h2 = ((height/2) - this.getBounds().getHeight()/2);*/
 		desktopPane.setBounds(0, 0, screenSize.width, screenSize.height);
 		getContentPane().add(desktopPane);
+
+		
+		//double h2 = ((this.getBounds().getHeight()/2) - height/2);
 		
 		TelaInternaConsultasEHorarios janelinhaInternaPrincipalRecepcao = new TelaInternaConsultasEHorarios();
 
