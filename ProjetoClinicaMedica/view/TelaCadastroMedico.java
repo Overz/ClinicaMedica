@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -244,9 +243,8 @@ public class TelaCadastroMedico extends JFrame {
 				boolean admin = chckbxAdministrador.isSelected();
 
 				ControllerMedico controller = new ControllerMedico();
-				String mensagem = controller.cadastrarMedico(nome, cpf, telefone, celular, email, crm, especialidade,
-						rua, numero, bairro, cidade, estado, cep, usuario, senha, confirmacaoSenha, admin);
-				JOptionPane.showMessageDialog(contentPane, mensagem);
+				String mensagem;
+				// JOptionPane.showMessageDialog(contentPane, mensagem);
 			}
 		});
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));

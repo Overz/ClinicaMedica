@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import controller.ControllerMedico;
-import model.vo.MedicoVO;
+import controller.ControllerUsuario;
+import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
 import view.TelaCadastroMedico;
 
@@ -90,22 +90,26 @@ public class TelaDeLogin extends JFrame {
 		getContentPane().add(btnLogin, "cell 3 6,growx,aligny top");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				ControllerMedico controller = new ControllerMedico();
-				
+
+				ControllerUsuario controllerUsuario = new ControllerUsuario();
+
 				String usuario = txtUsuario.getText();
 				String senha = new String(passwordField.getPassword());
-				
-				MedicoVO medico = controller.login(usuario, senha);
-				
-				if (medico != null) {
-					JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
+				UsuarioVO vo = controllerUsuario.login(usuario, senha);
+
+				if (vo != null) {
+					if (vo.getNivel() == vo.NIVEL_MEDICO) {
+						JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!\nMédico " + vo.getNome());
+						// TODO Chamar tela de médico
+					} else if (vo.getNivel() == vo.NIVEL_FUNCIONARIO) {
+						JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!\nFuncionário " + vo.getNome());
+						// TODO Chamar tela de funcionário
+					} else if (vo.getNivel() == vo.NIVEL_ADMIN) {
+						JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
+						// TODO Chamar tela de administrador
+					}
 
 					TelaPrincipal telaPrincipal = new TelaPrincipal();
-					// telaPrincipal.setMedico(medico);
-					// getContentPane().add(telaPrincipal);
-					// telaPrincipal.setVisible(true);
-					// telaPrincipal.show();
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuario e/ou senha inválidos.");
