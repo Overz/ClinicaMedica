@@ -13,9 +13,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controller.ControllerUsuario;
+import model.vo.FuncionarioVO;
+import model.vo.MedicoVO;
 import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
-import view.TelaCadastroMedico;
+import view.TelaCadastroUsuario;
 
 public class TelaDeLogin extends JFrame {
 
@@ -61,8 +63,8 @@ public class TelaDeLogin extends JFrame {
 		btnNovoUsuario = new JButton("Novo Usuário");
 		btnNovoUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroMedico telaCadastroMedico = new TelaCadastroMedico();
-				telaCadastroMedico.setVisible(true);
+				TelaCadastroUsuario telaCadastroUsuario = new TelaCadastroUsuario();
+				telaCadastroUsuario.setVisible(true);
 			}
 		});
 
@@ -100,16 +102,16 @@ public class TelaDeLogin extends JFrame {
 				if (vo != null) {
 					if (vo.getNivel() == vo.NIVEL_MEDICO) {
 						JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!\nMédico " + vo.getNome());
+						MedicoVO medico = (MedicoVO) vo;
 						// TODO Chamar tela de médico
 					} else if (vo.getNivel() == vo.NIVEL_FUNCIONARIO) {
 						JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!\nFuncionário " + vo.getNome());
+						FuncionarioVO funcionario = (FuncionarioVO) vo;
 						// TODO Chamar tela de funcionário
 					} else if (vo.getNivel() == vo.NIVEL_ADMIN) {
 						JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
 						// TODO Chamar tela de administrador
 					}
-
-					TelaPrincipal telaPrincipal = new TelaPrincipal();
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuario e/ou senha inválidos.");
