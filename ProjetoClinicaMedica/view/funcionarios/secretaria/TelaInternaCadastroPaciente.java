@@ -30,35 +30,33 @@ import javax.swing.border.EtchedBorder;
 
 public class TelaInternaCadastroPaciente extends JInternalFrame {
 
-	private static TelaInternaCadastroPaciente window;
 
-	private JTextField txtNome;
 	private JFormattedTextField ftfCPF;
 	private JFormattedTextField ftfRg;
+	private JFormattedTextField ftfTelefone;
+	private JFormattedTextField ftfCelular;
 	private MaskFormatter mascaraCpf;
 	private MaskFormatter mascaraRG;
 	private MaskFormatter mascaraData;
 	private MaskFormatter mascaraCelular;
 	private MaskFormatter mascaraTelefone;
+	private JTextField txtNome;
 	private JTextField txtBairroEndereco;
 	private JTextField txtRuaEndereco;
 	private JTextField txtNumeroEndereco;
 	private JTextField txtComplementoEndereco;
 	private JTextField txtEmail;
 	private JTextField txtCidade;
-	private JComboBox cbSexo;
-	private Component cbTipoSanguineo;
 	private JLabel lblVoltar;
-
-	private JFormattedTextField ftfCelular;
 
 	private JDateChooser dateChooser;
 
+	private JComboBox cbSexo;
+	private JComboBox cbTipoSanguineo;
 	private JComboBox cbConvenio;
+	private JComboBox cbEstadoCivil;
 
 	private JButton btnLimpar;
-	private JFormattedTextField ftfTelefone;
-
 	private JButton btnCadastrar;
 	private JButton btnPesquisar;
 
@@ -67,7 +65,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					window = new TelaInternaCadastroPaciente();
+					TelaInternaCadastroPaciente window = new TelaInternaCadastroPaciente();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,9 +75,9 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	}
 
 	public TelaInternaCadastroPaciente() {
-		setClosable(true);
+		this.setClosable(true);
 		setResizable(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1040, 741);
 		getContentPane().setLayout(new MigLayout("", "[][pref!,grow][grow][grow][][grow][grow][pref!,grow][grow][grow][grow]", "[38,grow][38,grow][31px,grow][38px,grow][38,grow][][38,grow][][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38px,grow][38,grow][38,grow][38,grow][38,grow][38,grow][36px][38,grow][38,grow][38,grow][38,grow][][38,grow][][38,grow]"));
 		initialize();
@@ -164,7 +162,11 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		JLabel lblConvenio = new JLabel("Convenio:");
 		lblConvenio.setFont(new Font("Verdana", Font.PLAIN, 14));
 		getContentPane().add(lblConvenio, "cell 1 12,alignx left,growy");
-
+		
+		JLabel lblEstadoCivil = new JLabel("Estado Civil:");
+		lblEstadoCivil.setFont(new Font("Verdana", Font.PLAIN, 14));
+		getContentPane().add(lblEstadoCivil, "cell 1 13,alignx left,growy");
+		
 		JLabel endereco = new JLabel("Endereço");
 		endereco.setFont(new Font("Verdana", Font.BOLD, 14));
 		getContentPane().add(endereco, "cell 1 14 9 1,alignx center,growy");
@@ -221,7 +223,6 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		getContentPane().add(txtRuaEndereco, "cell 7 16 3 1,grow");
 		txtRuaEndereco.setColumns(10);
 
-
 		txtBairroEndereco = new JTextField();
 		getContentPane().add(txtBairroEndereco, "cell 2 17,grow");
 		txtBairroEndereco.setColumns(10);
@@ -247,20 +248,21 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		ftfCelular = new JFormattedTextField(mascaraTelefone);
 		getContentPane().add(ftfCelular, "cell 2 23,grow");
 
-
 		cbSexo = new JComboBox();
 		cbSexo.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino", "Outros"}));
 		getContentPane().add(cbSexo, "cell 2 10,grow");
 
+		cbEstadoCivil = new JComboBox();
+		cbEstadoCivil.setModel(new DefaultComboBoxModel(new String[] {"[SELECIONE]", "Solteiro", "Casado", "Divorciado", "Separado", "Viúvo"}));
+		getContentPane().add(cbEstadoCivil, "cell 2 13,grow");
 
 		cbTipoSanguineo = new JComboBox();
+		cbTipoSanguineo.setModel(new DefaultComboBoxModel(new String[] {"[SELECIONE]", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"}));
 		getContentPane().add(cbTipoSanguineo, "cell 7 10,grow");
 
-
 		cbConvenio = new JComboBox();
-		cbConvenio.setModel(new DefaultComboBoxModel(new String[] {"Unimed", "Agemed", "Amil", "SulAmerica Saúde", "One Health", "Bradesco Saúde\t", "Golden Cross", "Intermédica", "Notre Dame Seguro Saúde"}));
+		cbConvenio.setModel(new DefaultComboBoxModel(new String[] {"[SELECIONE]", "Unimed", "Agemed", "Amil", "SulAmerica Saúde", "One Health", "Bradesco Saúde\t", "Golden Cross", "Intermédica", "Notre Dame Seguro Saúde"}));
 		getContentPane().add(cbConvenio, "cell 2 12,grow");
-
 
 		dateChooser = new JDateChooser();
 		getContentPane().add(dateChooser, "cell 2 9,grow");
@@ -276,14 +278,15 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 
 
-
-
-
 		});
 
 		btnCadastrar = new JButton("Salvar");
 		getContentPane().add(btnCadastrar, "cell 2 25 2 3,grow");
 		btnCadastrar.addActionListener(e -> {
+			
+			
+			
+			
 
 		});
 
@@ -295,6 +298,10 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			txtNome.setText("");
 			ftfCPF.setText("");
 			ftfCPF.setVisible(false);
+			ftfRg.setText("");
+			cbConvenio.setSelectedIndex(-1);
+			cbEstadoCivil.setSelectedIndex(-1);
+			cbSexo.setSelectedIndex(-1);
 
 			dateChooser.setDate(null);
 			// Endere�o

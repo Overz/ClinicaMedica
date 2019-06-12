@@ -13,19 +13,20 @@ import javax.swing.JButton;
 
 public class TelaInternaAgendaMedico extends JInternalFrame {
 
-	private DefaultStyledDocument doc;
-
-	private static TelaInternaAgendaMedico window;
 	private JTextField textMedico;
 	private JTextField textAgenda;
 	private JTextField textTelefone;
 	private JTextField textEmail;
+	private JButton btnCadastrar;
+	private JButton btnCancelar;
+	private JButton btnAlterarAgenda;
+	private JTextArea textArea;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					window = new TelaInternaAgendaMedico();
+					TelaInternaAgendaMedico window = new TelaInternaAgendaMedico();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +40,7 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		setResizable(true);
 		setBounds(100, 100, 763, 605);
 		setTitle("Cadastro de Agenda");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 
 		initialize();
@@ -97,19 +98,19 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		getContentPane().add(textEmail);
 
 
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setBounds(144, 210, 576, 262);
 		getContentPane().add(textArea);
 
-		JButton btnCadastrar = new JButton("Cadastrar Agenda");
+		btnCadastrar = new JButton("Cadastrar Agenda");
 		btnCadastrar.setBounds(170, 483, 172, 68);
 		getContentPane().add(btnCadastrar);
 
-		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(543, 483, 160, 68);
 		getContentPane().add(btnCancelar);
 
-		JButton btnAlterarAgenda = new JButton("Alterar Agenda");
+		btnAlterarAgenda = new JButton("Alterar Agenda");
 		btnAlterarAgenda.setBounds(352, 483, 172, 68);
 		getContentPane().add(btnAlterarAgenda);
 
