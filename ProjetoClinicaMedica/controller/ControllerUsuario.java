@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.bo.UsuarioBO;
 import model.vo.UsuarioVO;
 
@@ -14,6 +16,11 @@ public class ControllerUsuario {
 			}
 		}
 		return vo;
+	}
+
+	public ArrayList<UsuarioVO> listarUsuarios() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -17,7 +17,6 @@ import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
 import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
-import view.TelaCadastroUsuario;
 
 public class TelaDeLogin extends JFrame {
 
@@ -25,7 +24,6 @@ public class TelaDeLogin extends JFrame {
 	private JTextField txtUsuario;
 
 	private JButton btnLogin;
-	private JButton btnNovoUsuario;
 
 	/**
 	 * Launch the application.
@@ -57,16 +55,7 @@ public class TelaDeLogin extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		getContentPane()
-				.setLayout(new MigLayout("", "[64px][183px][][][][][][][][][]", "[28px][25px][29px][][][][][]"));
-
-		btnNovoUsuario = new JButton("Novo Usuário");
-		btnNovoUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaCadastroUsuario telaCadastroUsuario = new TelaCadastroUsuario();
-				telaCadastroUsuario.setVisible(true);
-			}
-		});
+		getContentPane().setLayout(new MigLayout("", "[64px][][183px][][][][]", "[28px][25px][29px][][][][][]"));
 
 		JLabel lblUsuario = new JLabel("Usuário:");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -74,7 +63,7 @@ public class TelaDeLogin extends JFrame {
 
 		txtUsuario = new JTextField();
 		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		getContentPane().add(txtUsuario, "cell 2 1 2 1,growx,aligny top");
+		getContentPane().add(txtUsuario, "cell 2 1,growx,aligny top");
 		txtUsuario.setColumns(10);
 
 		JLabel lblSenha = new JLabel("Senha:");
@@ -83,13 +72,11 @@ public class TelaDeLogin extends JFrame {
 
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		getContentPane().add(passwordField, "cell 2 3 2 1,growx,aligny top");
-		btnNovoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		getContentPane().add(btnNovoUsuario, "cell 1 6,aligny center");
+		getContentPane().add(passwordField, "cell 2 3,growx,aligny top");
 
 		btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		getContentPane().add(btnLogin, "cell 3 6,growx,aligny top");
+		getContentPane().add(btnLogin, "cell 3 7 3 1,growx,aligny top");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
