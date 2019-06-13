@@ -1,11 +1,11 @@
 package model.vo;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public abstract class PessoaVO {
 
 	private String nome;
-	private Date dtNascimento;
+	private LocalDate dtNascimento;
 	private String cpf;
 	private String telefone;
 	private String email;
@@ -14,7 +14,7 @@ public abstract class PessoaVO {
 		super();
 	}
 
-	public PessoaVO(String nome, Date dtNascimento, String cpf, String telefone, String email) {
+	public PessoaVO(String nome, LocalDate dtNascimento, String cpf, String telefone, String email) {
 		super();
 		this.nome = nome;
 		this.dtNascimento = dtNascimento;
@@ -31,11 +31,11 @@ public abstract class PessoaVO {
 		this.nome = nome;
 	}
 
-	public Date getDtNascimento() {
+	public LocalDate getDtNascimento() {
 		return this.dtNascimento;
 	}
 
-	public void setDtNascimento(Date dtNascimento) {
+	public void setDtNascimento(LocalDate dtNascimento) {
 		this.dtNascimento = dtNascimento;
 	}
 

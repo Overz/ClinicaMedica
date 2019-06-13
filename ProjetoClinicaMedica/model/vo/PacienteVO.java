@@ -1,6 +1,6 @@
 package model.vo;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class PacienteVO extends PessoaVO {
 	public static final String SEXO_MASCULINO = "M";
@@ -32,7 +32,7 @@ public class PacienteVO extends PessoaVO {
 	}
 
 	public PacienteVO(int idPaciente, String sexo, String tipoSanguineo, String rua, int numero, String bairro,
-			String cidade, String estado, String cep, String nome, Date dtNascimento, String cpf, String telefone,
+			String cidade, String estado, String cep, String nome, LocalDate dtNascimento, String cpf, String telefone,
 			String email, String convenio) {
 		super(nome, dtNascimento, cpf, telefone, email);
 		this.idPaciente = idPaciente;

@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +29,7 @@ public class PacienteDAO {
 			prepStmt.setString(4, paciente.getEmail());
 			prepStmt.setString(5, paciente.getSexo());
 			prepStmt.setString(6, paciente.getTipoSanguineo());
-			prepStmt.setDate(7, paciente.getDtNascimento());
+			prepStmt.setDate(7, Date.valueOf(paciente.getDtNascimento()));
 			prepStmt.setString(8, paciente.getConvenio());
 			prepStmt.setString(9, paciente.getRua());
 			prepStmt.setInt(10, paciente.getNumero());
@@ -69,7 +70,7 @@ public class PacienteDAO {
 			prepStmt.setString(4, paciente.getEmail());
 			prepStmt.setString(5, paciente.getSexo());
 			prepStmt.setString(6, paciente.getTipoSanguineo());
-			prepStmt.setDate(7, paciente.getDtNascimento());
+			prepStmt.setDate(7, Date.valueOf(paciente.getDtNascimento()));
 			prepStmt.setString(8, paciente.getConvenio());
 			prepStmt.setString(9, paciente.getRua());
 			prepStmt.setInt(10, paciente.getNumero());
@@ -140,7 +141,7 @@ public class PacienteDAO {
 			paciente.setEmail(resultado.getString("EMAIL"));
 			paciente.setSexo(resultado.getString("SEXO"));
 			paciente.setTipoSanguineo(resultado.getString("TIPO_SANGUINEO"));
-			paciente.setDtNascimento(resultado.getDate("DATA_NASCIMENTO"));
+			paciente.setDtNascimento(resultado.getDate("DATA_NASCIMENTO").toLocalDate());
 			paciente.setConvenio(resultado.getString("CONVENIO"));
 			paciente.setRua(resultado.getString("RUA"));
 			paciente.setNumero(resultado.getInt("NUMERO"));

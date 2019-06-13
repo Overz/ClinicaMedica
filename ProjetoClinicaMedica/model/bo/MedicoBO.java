@@ -4,9 +4,14 @@ import model.vo.MedicoVO;
 
 public class MedicoBO {
 
-	public int cadastrarMedico(MedicoVO medico) {
+	public String cadastrarMedico(MedicoVO medico) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
+	}
+
+	public String atualizarMedico(MedicoVO medico) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,6 +1,6 @@
 package model.vo;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class ProntuarioVO {
 
@@ -8,13 +8,14 @@ public class ProntuarioVO {
 	private MedicoVO medico;
 	private PacienteVO paciente;
 	private String observacoes;
-	private Date dtProntuario;
+	private LocalDateTime dtProntuario;
 
 	public ProntuarioVO() {
 		super();
 	}
 
-	public ProntuarioVO(int idProntuario, MedicoVO medico, PacienteVO paciente, String observacoes, Date dtProntuario) {
+	public ProntuarioVO(int idProntuario, MedicoVO medico, PacienteVO paciente, String observacoes,
+			LocalDateTime dtProntuario) {
 		super();
 		this.idProntuario = idProntuario;
 		this.medico = medico;
@@ -55,11 +56,11 @@ public class ProntuarioVO {
 		this.observacoes = observacoes;
 	}
 
-	public Date getDtProntuario() {
+	public LocalDateTime getDtProntuario() {
 		return this.dtProntuario;
 	}
 
-	public void setDtProntuario(Date dtProntuario) {
+	public void setDtProntuario(LocalDateTime dtProntuario) {
 		this.dtProntuario = dtProntuario;
 	}
 
