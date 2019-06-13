@@ -3,9 +3,10 @@ package view.funcionarios.medico;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 
-public class TelaInternaMedico extends JInternalFrame {
+public class TelaInternaCadastrarAtualizarProntuario {
+
+	private JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -14,8 +15,8 @@ public class TelaInternaMedico extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaMedico window = new TelaInternaMedico();
-					window.setVisible(true);
+					TelaInternaCadastrarAtualizarProntuario window = new TelaInternaCadastrarAtualizarProntuario();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -26,9 +27,7 @@ public class TelaInternaMedico extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public TelaInternaMedico() {
-		setBounds(100, 100, 450, 300);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	public TelaInternaCadastrarAtualizarProntuario() {
 		initialize();
 	}
 
@@ -36,8 +35,9 @@ public class TelaInternaMedico extends JInternalFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
-	
-	
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+
 }

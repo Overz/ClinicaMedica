@@ -5,7 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
-public class TelaInternaMedico extends JInternalFrame {
+public class TelaInternaBuscarProntuario extends JInternalFrame {
+
+	private JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -14,8 +16,9 @@ public class TelaInternaMedico extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaMedico window = new TelaInternaMedico();
+					TelaInternaBuscarProntuario window = new TelaInternaBuscarProntuario();
 					window.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -26,9 +29,11 @@ public class TelaInternaMedico extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public TelaInternaMedico() {
+	public TelaInternaBuscarProntuario() {
 		setBounds(100, 100, 450, 300);
+		setClosable(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
 		initialize();
 	}
 
@@ -36,8 +41,9 @@ public class TelaInternaMedico extends JInternalFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
+	
 	
 	
 	}
+	
 }
