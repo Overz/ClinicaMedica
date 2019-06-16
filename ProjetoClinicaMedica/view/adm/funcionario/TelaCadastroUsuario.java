@@ -1,4 +1,4 @@
-package view;
+package view.adm.funcionario;
 
 import java.awt.EventQueue;
 import java.awt.Font;

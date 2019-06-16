@@ -1,4 +1,4 @@
-package view.main;
+package view;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -17,7 +17,7 @@ import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
 import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
-import view.TelaCadastroUsuario;
+import view.adm.funcionario.TelaCadastroUsuario;
 
 public class TelaDeLogin extends JFrame {
 
