@@ -17,6 +17,7 @@ import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
 import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
+import view.adm.funcionario.TelaCadastroUsuario;
 
 public class TelaDeLogin extends JFrame {
 
