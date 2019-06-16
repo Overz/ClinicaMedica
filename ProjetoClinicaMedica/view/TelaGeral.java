@@ -39,7 +39,7 @@ public class TelaGeral extends JFrame {
 				try {
 					TelaGeral window = new TelaGeral();
 					window.setVisible(true);
-					//window.setExtendedState(MAXIMIZED_BOTH);
+					window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

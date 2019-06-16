@@ -22,18 +22,19 @@ import controller.ControllerMedico;
 import model.vo.MedicoVO;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
-
-	private JTable table;
 	private ControllerMedico controller;
 	private Date data;
 	private JComboBox cbOpcaoPesquisa;
 	private JComponent dateChooser;
 	private JButton btnPesquisarPorCampos;
 	private JFormattedTextField ftfCampoCpfCrm;
-	private JButton btnNewButton;
+	private JButton btnCadastrarConsulta;
+	private JList list;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -42,11 +43,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 				try {
 					TelaInternaConsultasEHorarios window = new TelaInternaConsultasEHorarios();
 					window.setVisible(true);
-					//window.setBorder(null);
-					window.setMaximizable(true);
-					
 					//window.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,13 +52,14 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	}
 
 	public TelaInternaConsultasEHorarios() {
-
-		setTitle("Tela Consulta");
-		setResizable(false);
-		setBounds(100, 100, 821, 609);
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[][grow][100px:100px:100px,grow][grow][grow][pref!,grow][100px:100px:100px,grow][grow][]", "[38,grow][38,grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill]"));
-		initialize();
+		this.setMaximizable(true);
+		this.setResizable(true);
+		this.setClosable(true);
+		this.setTitle("Tela Consulta");
+		this.setBounds(100, 100, 821, 609);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.getContentPane().setLayout(new MigLayout("", "[][grow][100px:100px:100px,grow][grow][grow][pref!,grow][100px:100px:100px,grow][grow][]", "[38,grow][38,grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill]"));
+		this.initialize();
 	}
 
 	/**
@@ -82,22 +80,17 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		cbOpcaoPesquisa = new JComboBox();
 		cbOpcaoPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//TODO adc método validarCampos()
-				
+				verificarCampos();
 			}
 		});
+				
 		cbOpcaoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome (Paciente/Médico)", "CPF ou CRM"}));
 		getContentPane().add(cbOpcaoPesquisa, "cell 2 0 2 1,grow");
 		
-		//verificarCampos();
-		
 		ftfCampoCpfCrm = new JFormattedTextField();
-		ftfCampoCpfCrm.setVisible(false);
+		ftfCampoCpfCrm.setVisible(true);
 		ftfCampoCpfCrm.setEditable(false);
 		ftfCampoCpfCrm.setEnabled(false);
-		
-		//verificarCampos();
 		
 		ftfCampoCpfCrm.setToolTipText("Digite o CPF do Paciente ou Médico");
 		getContentPane().add(ftfCampoCpfCrm, "cell 2 1 4 1,grow");
@@ -114,17 +107,18 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 			//ArrayList<MedicoVO> vo = controller.consultarData(data);
 			//atualizarTabelaCarros(vo);
 		});
+		
+		list = new JList();
+		getContentPane().add(list, "cell 1 3 7 8,grow");
 
-		table = new JTable();
-		getContentPane().add(table, "cell 1 3 7 8,grow");
-		table.setModel(new DefaultTableModel(data, columnNames));
-
-		btnNewButton = new JButton("Pesquisa Especifica");
-		btnNewButton.setToolTipText("Selecione uma Linha, e Pesquise dados mais especifos.");
-		getContentPane().add(btnNewButton, "cell 3 11 2 1,grow");
+		btnCadastrarConsulta = new JButton("Cadastrar Consulta");
+		btnCadastrarConsulta.setToolTipText("Selecione uma Linha, e Pesquise dados mais especifos.");
+		getContentPane().add(btnCadastrarConsulta, "cell 3 11 2 1,grow");
+		
+		this.repaint();
 	}
 	
-	public void verificarCampos_() {
+	public void verificarCampos() {
 		//TODO implementar
 		
 		if (cbOpcaoPesquisa.getSelectedIndex() == 1) {
@@ -134,12 +128,12 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		} else {
 			ftfCampoCpfCrm.setEnabled(false);
 			ftfCampoCpfCrm.setEditable(false);
-			ftfCampoCpfCrm.setVisible(false);
+			ftfCampoCpfCrm.setVisible(true);
 		}
 	}
 
 	protected void atualizarTabela(ArrayList<MedicoVO> medicos) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		//DefaultTableModel model = (DefaultTableModel) table.getModel();
 
 		Object novaLinha[] = new Object[5];
 		for(MedicoVO medicoVO: medicos){
@@ -154,10 +148,10 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		}
 	}
 
-	public void limparTabela() {
+	/*public void limparTabela() {
 		table.setModel(new DefaultTableModel(
 				new Object[][] {{"Placa", "Modelo", "Ano", "Valor"}},
 				new String[] {"Placa", "Modelo", "Ano", "Valor"}));
 	}
-
+*/
 }

@@ -56,4 +56,11 @@ public class ControllerMedico {
 		return mensagem;
 	}
 
+	public String cadastrarMedico(String nome, String cpf, String telefone, String celular, String email, String crm,
+			String especialidade, String rua, int numero, String bairro, String cidade, String estado, String cep,
+			String usuario, String senha, String confirmacaoSenha) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
