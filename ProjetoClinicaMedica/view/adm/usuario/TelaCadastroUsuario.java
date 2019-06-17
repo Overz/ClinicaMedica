@@ -1,43 +1,52 @@
 package view.adm.usuario;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
-import controller.ControllerFuncionario;
-import controller.ControllerMedico;
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+
+import controller.ControllerUsuario;
+import model.vo.MedicoVO;
 import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
-import java.awt.Color;
 
 public class TelaCadastroUsuario extends JFrame {
 
-	private JPanel getContentPane;
+	private JPanel contentPane;
 	private JTextField txtNome;
-	private JTextField txtCpf;
+	private JFormattedTextField txtCpf;
 	private JTextField txtEspecialidade;
 	private JTextField txtCrm;
-	private JTextField txtTelefone;
+	private JFormattedTextField txtTelefone;
 	private JTextField txtEmail;
 	private JTextField txtUsuario;
 	private JPasswordField passwordField;
 	private JPasswordField passwordFieldConfirm;
+	private JComboBox cbxUsuarios;
+	private ArrayList<UsuarioVO> usuarios = new ArrayList<UsuarioVO>();
+	private final DatePicker datePicker = new DatePicker();
 	private JComboBox cbxTipoUsuario;
-	private JButton btnCancelar;
-	private JButton btnCadastrar;
 
 	/**
 	 * Launch the application.
@@ -59,182 +68,179 @@ public class TelaCadastroUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastroUsuario() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		/*super("Cinica Médica - Cadastro de Usuarios",
-			true,
-			true,
-			true,
-			true);*/
-		//setTitle("Clinica Médica - Cadastro de Usuario");
-		setBounds(100, 100, 800, 636);
-		getContentPane = new JPanel();
-		getContentPane.setBackground(Color.WHITE);
-		getContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(getContentPane);
-		getContentPane.setLayout(new MigLayout("", "[10][][grow][20][20][grow][grow][10]", "[grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow]"));
-		
-		initialize();
-	}
-	
-	public void initialize() {
-		
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(lblNome, "cell 1 2,alignx left,growy");
-		
-		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuário:");
-		lblTipoDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(lblTipoDeUsuario, "cell 2 0,alignx trailing,growy");
-		
-		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(lblEmail, "cell 1 4,alignx left,growy");
-		
-		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(lblCpf, "cell 5 2,grow");
-		
-		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(lblTelefone, "cell 5 4,grow");
-		
-		JLabel lblCrm = new JLabel("CRM:");
-		lblCrm.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(lblCrm, "cell 1 6,alignx left,growy");
 
-		JLabel lblEspecialidade = new JLabel("Especialidade:");
-		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(lblEspecialidade, "cell 5 6,grow");
+		try {
+			MaskFormatter mascaraCpf = new MaskFormatter("###.###.###-##");
+			MaskFormatter mascaraTelefone = new MaskFormatter("(##)#####-####");
 
-		JLabel lblUsuario = new JLabel("Usuário:");
-		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(lblUsuario, "cell 1 9,alignx left,growy");
-		
-		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(lblSenha, "cell 1 11,alignx left,growy");
-		
-		JLabel lblConfirmeSuaSenha = new JLabel("Confirme sua Senha:");
-		lblConfirmeSuaSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(lblConfirmeSuaSenha, "cell 5 11,grow");
-		
-		cbxTipoUsuario = new JComboBox();
-		cbxTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cbxTipoUsuario.setModel(new DefaultComboBoxModel(new String[] { UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO }));
-		getContentPane.add(cbxTipoUsuario, "cell 5 0,grow");
-		
-		cbxTipoUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (cbxTipoUsuario.getSelectedIndex() > -1) {
-					String tipoUsuario = (String) cbxTipoUsuario.getModel().getSelectedItem();
-					if (tipoUsuario.equals(UsuarioVO.NIVEL_FUNCIONARIO)) {
-						txtNome.setEnabled(true);
-						txtCpf.setEnabled(true);
-						txtEmail.setEnabled(true);
-						txtTelefone.setEnabled(true);
-						txtUsuario.setEnabled(true);
-						passwordField.setEnabled(true);
-						passwordFieldConfirm.setEnabled(true);
-						txtCrm.setEnabled(false);
-						txtEspecialidade.setEnabled(false);
-					} else if (tipoUsuario.equals(UsuarioVO.NIVEL_MEDICO)) {
-						txtNome.setEnabled(true);
-						txtCpf.setEnabled(true);
-						txtEmail.setEnabled(true);
-						txtTelefone.setEnabled(true);
-						txtUsuario.setEnabled(true);
-						passwordField.setEnabled(true);
-						passwordFieldConfirm.setEnabled(true);
-						txtCrm.setEnabled(true);
-						txtEspecialidade.setEnabled(true);
-					}
+			setTitle("Clínica Médica - Cadastro de Usuários");
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			setBounds(100, 100, 777, 620);
+			contentPane = new JPanel();
+			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			setContentPane(contentPane);
+			contentPane.setLayout(
+					new MigLayout("", "[][center][center][grow]", "[][][][][][][][][][][][][][][][][][][][][][]"));
+
+			JLabel lblSelecionarUsurio = new JLabel("Selecionar Usuário para Editar:");
+			lblSelecionarUsurio.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblSelecionarUsurio, "cell 1 1,alignx left");
+
+			cbxUsuarios = new JComboBox(usuarios.toArray());
+			contentPane.add(cbxUsuarios, "cell 2 1 2 1,growx");
+			cbxUsuarios.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(),
+							(UsuarioVO) cbxUsuarios.getModel().getSelectedItem());
 				}
+			});
 
-			}
-		});
-		cbxTipoUsuario.setSelectedIndex(-1);
+			JSeparator separator = new JSeparator();
+			separator.setForeground(Color.BLACK);
+			separator.setBackground(Color.BLACK);
+			contentPane.add(separator, "cell 0 3 4 1,grow");
 
-		
-		txtNome = new JTextField();
-		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(txtNome, "cell 2 2,grow");
-		txtNome.setColumns(10);
-		txtNome.setEnabled(false);
+			JLabel lblUsuario = new JLabel("Usuário:");
+			lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblUsuario, "flowx,cell 0 5,alignx left");
 
-		txtCpf = new JTextField();
-		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtCpf.setColumns(10);
-		getContentPane.add(txtCpf, "cell 6 2,grow");
-		txtCpf.setEnabled(false);
+			txtUsuario = new JTextField();
+			txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(txtUsuario, "cell 1 5,alignx left");
+			txtUsuario.setColumns(10);
+			txtUsuario.setEnabled(false);
 
-		txtEmail = new JTextField();
-		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtEmail.setColumns(10);
-		getContentPane.add(txtEmail, "cell 2 4,grow");
-		txtEmail.setEnabled(false);
-		
-		txtTelefone = new JTextField();
-		txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(txtTelefone, "cell 6 4,grow");
-		txtTelefone.setColumns(10);
-		txtTelefone.setEnabled(false);
+			JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuário:");
+			lblTipoDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblTipoDeUsuario, "flowx,cell 2 5,alignx left");
 
-		txtCrm = new JTextField();
-		txtCrm.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(txtCrm, "cell 2 6,grow");
-		txtCrm.setColumns(10);
-		txtCrm.setEnabled(false);
+			JLabel lblSenha = new JLabel("Senha:");
+			lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblSenha, "flowx,cell 0 7,alignx left");
 
-		txtEspecialidade = new JTextField();
-		txtEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(txtEspecialidade, "cell 6 6,grow");
-		txtEspecialidade.setColumns(10);
-		txtEspecialidade.setEnabled(false);
+			passwordField = new JPasswordField();
+			passwordField.setColumns(10);
+			passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(passwordField, "cell 1 7,alignx left");
+			passwordField.setEnabled(false);
 
-		txtUsuario = new JTextField();
-		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(txtUsuario, "cell 2 9,grow");
-		txtUsuario.setColumns(10);
-		txtUsuario.setEnabled(false);
+			JLabel lblConfirmeSuaSenha = new JLabel("Confirme sua Senha:");
+			lblConfirmeSuaSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblConfirmeSuaSenha, "flowx,cell 2 7,alignx left");
 
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(passwordField, "cell 2 11,grow");
-		passwordField.setEnabled(false);
+			JSeparator separator_1 = new JSeparator();
+			separator_1.setForeground(Color.BLACK);
+			separator_1.setBackground(Color.BLACK);
+			contentPane.add(separator_1, "cell 0 9 4 1,grow");
 
-		passwordFieldConfirm = new JPasswordField();
-		passwordFieldConfirm.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(passwordFieldConfirm, "cell 6 11,grow");
-		passwordFieldConfirm.setEnabled(false);
+			JLabel lblNome = new JLabel("Nome:");
+			lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblNome, "flowx,cell 0 11");
 
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(btnCancelar, "cell 2 14,grow");
-		btnCancelar.addActionListener(e -> {
-			this.dispose();
-		});
+			txtNome = new JTextField();
+			txtNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(txtNome, "cell 1 11,alignx left");
+			txtNome.setColumns(10);
+			txtNome.setEnabled(false);
 
-		btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane.add(btnCadastrar, "cell 5 14,grow");
-		btnCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String mensagem = "";
-				if (cbxTipoUsuario.getModel().getSelectedItem().equals(UsuarioVO.NIVEL_FUNCIONARIO)) {
-					String nome = txtNome.getText();
-					String cpf = txtCpf.getText();
-					String telefone = txtTelefone.getText();
-					String email = txtEmail.getText();
-					String usuario = txtUsuario.getText();
-					String senha = new String(passwordField.getPassword());
-					String confirmacaoSenha = new String(passwordFieldConfirm.getPassword());
-					String nivel = (String) cbxTipoUsuario.getModel().getSelectedItem();
-					// TODO passar data_nascimento;
+			JLabel lblCpf = new JLabel("CPF:");
+			lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblCpf, "cell 2 11,alignx left");
 
-					ControllerFuncionario controller = new ControllerFuncionario();
-					mensagem = controller.cadastrarFuncionario(nome, cpf, telefone, email, usuario, senha,
-							confirmacaoSenha, nivel);
-				} else if (cbxTipoUsuario.getModel().getSelectedItem().equals(UsuarioVO.NIVEL_MEDICO)) {
+			JLabel lblEmail = new JLabel("Email:");
+			lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblEmail, "flowx,cell 0 13");
+
+			txtEmail = new JTextField();
+			txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			txtEmail.setColumns(10);
+			contentPane.add(txtEmail, "cell 1 13,alignx left");
+			txtEmail.setEnabled(false);
+
+			JLabel lblTelefone = new JLabel("Telefone:");
+			lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblTelefone, "cell 2 13,alignx left");
+
+			JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
+			lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblDataDeNascimento, "cell 0 15");
+
+			JSeparator separator_2 = new JSeparator();
+			separator_2.setForeground(Color.BLACK);
+			separator_2.setBackground(Color.BLACK);
+			contentPane.add(separator_2, "cell 0 17 4 1,grow");
+
+			JLabel lblCrm = new JLabel("CRM:");
+			lblCrm.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblCrm, "flowx,cell 0 19,alignx left");
+
+			txtCrm = new JTextField();
+			txtCrm.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(txtCrm, "cell 1 19,alignx left");
+			txtCrm.setColumns(10);
+			txtCrm.setEnabled(false);
+
+			JLabel lblEspecialidade = new JLabel("Especialidade:");
+			lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(lblEspecialidade, "flowx,cell 3 19,alignx left");
+
+			JButton btnCancelar = new JButton("Cancelar");
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
+			btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(btnCancelar, "cell 1 21,alignx center,growy");
+
+			DatePickerSettings dateSettings = new DatePickerSettings();
+			dateSettings.setAllowKeyboardEditing(false);
+
+			datePicker.setSettings(dateSettings);
+			contentPane.add(datePicker, "cell 1 15");
+			datePicker.setEnabled(false);
+
+			txtCpf = new JFormattedTextField(mascaraCpf);
+			txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			txtCpf.setColumns(10);
+			contentPane.add(txtCpf, "cell 3 11,alignx left");
+			txtCpf.setEnabled(false);
+
+			txtTelefone = new JFormattedTextField(mascaraTelefone);
+			txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(txtTelefone, "cell 3 13,aligny top");
+			txtTelefone.setColumns(10);
+			txtTelefone.setEnabled(false);
+
+			txtEspecialidade = new JTextField();
+			txtEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(txtEspecialidade, "cell 3 19,alignx center,aligny top");
+			txtEspecialidade.setColumns(10);
+			txtEspecialidade.setEnabled(false);
+
+			cbxTipoUsuario = new JComboBox();
+			cbxTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			cbxTipoUsuario.setModel(new DefaultComboBoxModel(
+					new String[] { UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO, UsuarioVO.NIVEL_ADMIN }));
+			contentPane.add(cbxTipoUsuario, "cell 3 5,growx");
+			cbxTipoUsuario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(), null);
+				}
+			});
+			cbxTipoUsuario.setSelectedIndex(-1);
+
+			passwordFieldConfirm = new JPasswordField();
+			passwordFieldConfirm.setColumns(10);
+			passwordFieldConfirm.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(passwordFieldConfirm, "cell 3 7,alignx left");
+			passwordFieldConfirm.setEnabled(false);
+
+			JButton btnSalvar = new JButton("Salvar");
+			btnSalvar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String mensagem = "";
+
 					String nome = txtNome.getText();
 					String cpf = txtCpf.getText();
 					String telefone = txtTelefone.getText();
@@ -245,16 +251,76 @@ public class TelaCadastroUsuario extends JFrame {
 					String senha = new String(passwordField.getPassword());
 					String confirmacaoSenha = new String(passwordFieldConfirm.getPassword());
 					String nivel = (String) cbxTipoUsuario.getModel().getSelectedItem();
-					// TODO passar data_nascimento;
+					LocalDate dataNascimento = datePicker.getDate();
+					int idUsuario = 0;
+					if (cbxUsuarios.getSelectedIndex() > -1) {
+						idUsuario = cbxUsuarios.getSelectedIndex() + 1;
+					}
 
-					ControllerMedico controller = new ControllerMedico();
-					mensagem = controller.cadastrarMedico(nome, cpf, telefone, email, crm, especialidade, usuario,
-							senha, confirmacaoSenha, nivel);
+					ControllerUsuario controller = new ControllerUsuario();
+					mensagem = controller.salvarUsuario(nome, cpf, telefone, email, crm, especialidade, usuario, senha,
+							confirmacaoSenha, nivel, dataNascimento, idUsuario);
+
+					JOptionPane.showMessageDialog(contentPane, mensagem);
 				}
-				JOptionPane.showMessageDialog(getContentPane, mensagem);
-			}
-		});
+			});
+			btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			contentPane.add(btnSalvar, "cell 2 21,alignx center,growy");
 
+		} catch (ParseException e1) {
+			System.out.println("Erro ao formar máscaras: " + e1.getMessage());
+		}
+
+	}
+
+	public void atualizarCampos(String tipoUsuario, UsuarioVO usuario) {
+		if (tipoUsuario.equals(UsuarioVO.NIVEL_FUNCIONARIO) || tipoUsuario.equals(UsuarioVO.NIVEL_ADMIN)) {
+			txtNome.setEnabled(true);
+			txtCpf.setEnabled(true);
+			txtEmail.setEnabled(true);
+			txtTelefone.setEnabled(true);
+			txtUsuario.setEnabled(true);
+			passwordField.setEnabled(true);
+			passwordFieldConfirm.setEnabled(true);
+			txtCrm.setEnabled(false);
+			txtEspecialidade.setEnabled(false);
+			datePicker.setEnabled(true);
+		} else if (tipoUsuario.equals(UsuarioVO.NIVEL_MEDICO)) {
+			txtNome.setEnabled(true);
+			txtCpf.setEnabled(true);
+			txtEmail.setEnabled(true);
+			txtTelefone.setEnabled(true);
+			txtUsuario.setEnabled(true);
+			passwordField.setEnabled(true);
+			passwordFieldConfirm.setEnabled(true);
+			txtCrm.setEnabled(true);
+			txtEspecialidade.setEnabled(true);
+			datePicker.setEnabled(true);
+		}
+		if (usuario != null) {
+			txtNome.setText(usuario.getNome());
+			txtCpf.setText(usuario.getCpf());
+			txtEmail.setText(usuario.getEmail());
+			txtTelefone.setText(usuario.getTelefone());
+			txtUsuario.setEnabled(false);
+			txtUsuario.setText(usuario.getNomeUsuario());
+			passwordField.setEnabled(false);
+			passwordFieldConfirm.setEnabled(false);
+			datePicker.setDate(usuario.getDtNascimento());
+			cbxTipoUsuario.setSelectedItem(usuario.getNivel());
+			if (tipoUsuario.equals(UsuarioVO.NIVEL_MEDICO)) {
+				MedicoVO medico = (MedicoVO) usuario;
+				txtCrm.setText(medico.getCrm());
+				txtEspecialidade.setText(medico.getEspecialidade());
+			}
+		}
+	}
+
+	public void listarUsuarios() {
+		ControllerUsuario controller = new ControllerUsuario();
+		usuarios = controller.listarUsuarios();
+		cbxUsuarios.setModel(new DefaultComboBoxModel(usuarios.toArray()));
+		cbxUsuarios.setSelectedIndex(-1);
 	}
 
 }
