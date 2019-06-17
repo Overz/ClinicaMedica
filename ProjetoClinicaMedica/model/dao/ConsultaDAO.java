@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +25,7 @@ public class ConsultaDAO {
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query, Statement.RETURN_GENERATED_KEYS);
 
 		try {
-			prepStmt.setDate(1, consulta.getData_consulta());
+			prepStmt.setDate(1, Date.valueOf(consulta.getData_consulta().toLocalDate()));
 			prepStmt.setInt(2, consulta.getPaciente().getIdPaciente());
 			prepStmt.setInt(3, consulta.getMedico().getIdMedico());
 			prepStmt.setInt(4, consulta.getFuncionario().getIdFuncionario());
@@ -53,7 +54,7 @@ public class ConsultaDAO {
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
 
 		try {
-			prepStmt.setDate(1, consulta.getData_consulta());
+			prepStmt.setDate(1, Date.valueOf(consulta.getData_consulta().toLocalDate()));
 			prepStmt.setInt(2, consulta.getPaciente().getIdPaciente());
 			prepStmt.setInt(3, consulta.getMedico().getIdMedico());
 			prepStmt.setInt(4, consulta.getFuncionario().getIdFuncionario());
@@ -109,7 +110,7 @@ public class ConsultaDAO {
 
 		try {
 			consulta.setIdConsulta(resultado.getInt("IDCONSULTA"));
-			consulta.setData_consulta(resultado.getDate("DATA_CONSULTA"));
+			consulta.setData_consulta(resultado.getTimestamp("DATA_CONSULTA").toLocalDateTime());
 
 			PacienteVO paciente = new PacienteVO();
 			paciente.setIdPaciente(resultado.getInt("IDPACIENTE"));

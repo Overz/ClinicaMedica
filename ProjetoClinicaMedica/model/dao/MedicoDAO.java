@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +34,11 @@ public class MedicoDAO {
 			prepStmt.setString(4, medico.getEmail());
 			prepStmt.setString(5, medico.getCrm());
 			prepStmt.setString(6, medico.getEspecialidade());
-			prepStmt.setDate(7, medico.getDtNascimento());
+			prepStmt.setDate(7, Date.valueOf(medico.getDtNascimento()));
+
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			medico.setIdUsuario(usuarioDAO.cadastrarUsuario(medico));
+
 			prepStmt.setInt(8, medico.getIdUsuario());
 
 			prepStmt.execute();
@@ -66,7 +71,7 @@ public class MedicoDAO {
 			prepStmt.setString(4, medico.getEmail());
 			prepStmt.setString(5, medico.getCrm());
 			prepStmt.setString(6, medico.getEspecialidade());
-			prepStmt.setDate(7, medico.getDtNascimento());
+			prepStmt.setDate(7, Date.valueOf(medico.getDtNascimento()));
 			prepStmt.setInt(8, medico.getIdMedico());
 
 			int resultado = prepStmt.executeUpdate();

@@ -40,9 +40,11 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		setResizable(true);
 		setBounds(100, 100, 763, 605);
 		setTitle("Cadastro de Agenda");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 
+		this.repaint();
+		
 		initialize();
 	}
 
@@ -113,6 +115,8 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		btnAlterarAgenda = new JButton("Alterar Agenda");
 		btnAlterarAgenda.setBounds(352, 483, 172, 68);
 		getContentPane().add(btnAlterarAgenda);
+		
+		this.repaint();
 
 	}
 }

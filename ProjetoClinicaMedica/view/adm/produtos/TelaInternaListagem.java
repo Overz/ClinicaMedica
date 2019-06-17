@@ -82,22 +82,22 @@ public class TelaInternaListagem extends JInternalFrame {
 		textField_1.setColumns(10);
 
 		dataChooserInicial = new JDateChooser();
-		getContentPane().add(dataChooserInicial, "cell 2 1,grow");
-
-
-		dataChooserFinal = new JDateChooser();
-		getContentPane().add(dataChooserFinal, "cell 6 1,alignx left,growy");
+		getContentPane().add(dataChooserInicial, "cell 3 1,grow");
+		
+		
+				dataChooserFinal = new JDateChooser();
+				getContentPane().add(dataChooserFinal, "cell 7 1 2 1,grow");
 
 		btnPesquisar = new JButton("Pesquisar");
-		getContentPane().add(btnPesquisar, "cell 4 2,grow");
+		getContentPane().add(btnPesquisar, "cell 4 2 3 1,grow");
 
 		JSeparator separator = new JSeparator();
 		separator.setBackground(Color.BLACK);
 		separator.setForeground(Color.BLACK);
-		getContentPane().add(separator, "cell 0 3 7 1,grow");
+		getContentPane().add(separator, "cell 1 3 11 1,grow");
 
 		table = new JTable();
-		getContentPane().add(table, "cell 0 4 7 2,grow");
+		getContentPane().add(table, "cell 1 4 11 2,grow");
 
 	}
 }

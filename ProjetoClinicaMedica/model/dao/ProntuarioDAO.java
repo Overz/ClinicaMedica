@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ public class ProntuarioDAO {
 			prepStmt.setInt(1, prontuario.getPaciente().getIdPaciente());
 			prepStmt.setInt(2, prontuario.getMedico().getIdMedico());
 			prepStmt.setString(3, prontuario.getObservacoes());
-			prepStmt.setDate(4, prontuario.getDtProntuario());
+			prepStmt.setDate(4, Date.valueOf(prontuario.getDtProntuario().toLocalDate()));
 
 			prepStmt.execute();
 
@@ -55,7 +56,7 @@ public class ProntuarioDAO {
 			prepStmt.setInt(1, prontuario.getPaciente().getIdPaciente());
 			prepStmt.setInt(2, prontuario.getMedico().getIdMedico());
 			prepStmt.setString(3, prontuario.getObservacoes());
-			prepStmt.setDate(4, prontuario.getDtProntuario());
+			prepStmt.setDate(4, Date.valueOf(prontuario.getDtProntuario().toLocalDate()));
 			prepStmt.setInt(5, prontuario.getIdProntuario());
 
 			int resultado = prepStmt.executeUpdate();
@@ -108,7 +109,7 @@ public class ProntuarioDAO {
 
 		try {
 			prontuario.setIdProntuario(resultado.getInt("IDPRONTUARIO"));
-			prontuario.setDtProntuario(resultado.getDate("DATA_PRONTUARIO"));
+			prontuario.setDtProntuario(resultado.getTimestamp(("DATA_PRONTUARIO")).toLocalDateTime());
 			prontuario.setObservacoes(resultado.getString("OBSERVACOES"));
 
 			PacienteVO paciente = new PacienteVO();

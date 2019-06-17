@@ -258,8 +258,8 @@ public class TelaCadastroMedico extends JFrame {
 		String confirmacaoSenha = new String(passwordField_confirm.getPassword());
 
 		ControllerMedico controller = new ControllerMedico();
-		String mensagem = controller.cadastrarMedico(nome, cpf, telefone, celular, email, crm, especialidade,
+		/*String mensagem = controller.cadastrarMedico(nome, cpf, telefone, celular, email, crm, especialidade,
 				rua, numero, bairro, cidade, estado, cep, usuario, senha, confirmacaoSenha);
-		JOptionPane.showMessageDialog(contentPane, mensagem);
+		JOptionPane.showMessageDialog(contentPane, mensagem);-*/
 	}
 }
