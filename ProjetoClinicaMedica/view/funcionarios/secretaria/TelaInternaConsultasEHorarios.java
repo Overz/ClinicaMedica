@@ -1,6 +1,8 @@
 package view.funcionarios.secretaria;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
@@ -21,12 +24,9 @@ import com.toedter.calendar.JDateChooser;
 import controller.ControllerMedico;
 import model.vo.MedicoVO;
 import net.miginfocom.swing.MigLayout;
-import java.awt.event.ActionListener;
-import java.beans.PropertyVetoException;
-import java.awt.event.ActionEvent;
-import javax.swing.JList;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
+	
 	private ControllerMedico controller;
 	private Date data;
 	private JComboBox cbOpcaoPesquisa;
@@ -34,7 +34,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	private JButton btnPesquisarPorCampos;
 	private JFormattedTextField ftfCampoCpfCrm;
 	private JButton btnCadastrarConsulta;
-	private JList list;
+	private JTable table;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -43,23 +43,27 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 				try {
 					TelaInternaConsultasEHorarios window = new TelaInternaConsultasEHorarios();
 					window.setVisible(true);
-					//window.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+					window.setMaximum(true);
+					window.setSelected(true);
+					window.setIcon(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
 	public TelaInternaConsultasEHorarios() {
-		this.setMaximizable(true);
-		this.setResizable(true);
-		this.setClosable(true);
-		this.setTitle("Tela Consulta");
-		this.setBounds(100, 100, 821, 609);
+		super(null, // Title
+			false, // Resizeble
+			false, // Closable
+			false, // Maximizable
+			false);
+		//this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		//this.setBounds(0, 0, 821, 609);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(new MigLayout("", "[][grow][100px:100px:100px,grow][grow][grow][pref!,grow][100px:100px:100px,grow][grow][]", "[38,grow][38,grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill]"));
-		this.initialize();
+		
+		initialize();
 	}
 
 	/**
@@ -74,24 +78,20 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		dateChooser.setToolTipText("Selecione a Data para Consulta");
 		getContentPane().add(dateChooser, "cell 4 0 2 1,grow");
 
-		Object[][] data = new Object[][] { {  "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" }, };
-		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" };
 
 		cbOpcaoPesquisa = new JComboBox();
+		cbOpcaoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome (Paciente/Médico)", "CPF ou CRM"}));
+		getContentPane().add(cbOpcaoPesquisa, "cell 2 0 2 1,grow");
 		cbOpcaoPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				verificarCampos();
 			}
 		});
-				
-		cbOpcaoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome (Paciente/Médico)", "CPF ou CRM"}));
-		getContentPane().add(cbOpcaoPesquisa, "cell 2 0 2 1,grow");
 		
 		ftfCampoCpfCrm = new JFormattedTextField();
 		ftfCampoCpfCrm.setVisible(true);
 		ftfCampoCpfCrm.setEditable(false);
 		ftfCampoCpfCrm.setEnabled(false);
-		
 		ftfCampoCpfCrm.setToolTipText("Digite o CPF do Paciente ou Médico");
 		getContentPane().add(ftfCampoCpfCrm, "cell 2 1 4 1,grow");
 
@@ -108,13 +108,24 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 			//atualizarTabelaCarros(vo);
 		});
 		
-		list = new JList();
-		getContentPane().add(list, "cell 1 3 7 8,grow");
-
 		btnCadastrarConsulta = new JButton("Cadastrar Consulta");
 		btnCadastrarConsulta.setToolTipText("Selecione uma Linha, e Pesquise dados mais especifos.");
 		getContentPane().add(btnCadastrarConsulta, "cell 3 11 2 1,grow");
 		
+		// TENTAR ADC SCROLLBAR
+		JScrollPane scroll = new JScrollPane(table);
+		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		
+		
+		Object[][] data = new Object[][] { {  "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" }, };
+		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" };
+		table = new JTable();
+		table.setModel(new DefaultTableModel(data, columnNames));
+		getContentPane().add(table, "cell 1 3 7 8,grow");
+		//-------------------------- ADD SCROLL BAR -----------------------
+		table.add(scroll);
+		//-------------------------- ADD SCROLL BAR -----------------------
 		this.repaint();
 	}
 	

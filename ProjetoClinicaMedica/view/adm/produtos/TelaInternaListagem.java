@@ -50,7 +50,7 @@ public class TelaInternaListagem extends JInternalFrame {
 		setBounds(100, 100, 796, 607);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		super.setClosable(true);
-		getContentPane().setLayout(new MigLayout("", "[154px][10px][119px][10px][129px][10px][328px]", "[26px,grow][27px,grow][47px][grow][grow][420px,grow]"));
+		getContentPane().setLayout(new MigLayout("", "[10][grow][10px][119px,grow][10px][grow,fill][10px][grow][grow][grow][grow][grow][10]", "[26px,grow][27px,grow][47px][grow][grow][420px,grow]"));
 		
 		initialize();
 	}
@@ -61,43 +61,43 @@ public class TelaInternaListagem extends JInternalFrame {
 	private void initialize() {
 
 		JLabel lblNomeDoProduto = new JLabel("Nome do Produto:");
-		getContentPane().add(lblNomeDoProduto, "cell 4 0,grow");
+		getContentPane().add(lblNomeDoProduto, "cell 5 0,grow");
 
 		JLabel lblId = new JLabel("ID:");
-		getContentPane().add(lblId, "cell 0 0,grow");
+		getContentPane().add(lblId, "cell 1 0,grow");
+		
+		
+				textField = new JTextField();
+				getContentPane().add(textField, "cell 7 0 4 1,growx,aligny center");
+				textField.setColumns(10);
 
 		JLabel lblData = new JLabel("Data de Inicio:");
-		getContentPane().add(lblData, "cell 0 1,grow");
+		getContentPane().add(lblData, "cell 1 1,grow");
 
 		JLabel lblDataFinal = new JLabel("Data Final:");
-		getContentPane().add(lblDataFinal, "cell 4 1,grow");
-
-
-		textField = new JTextField();
-		getContentPane().add(textField, "cell 6 0,growx,aligny center");
-		textField.setColumns(10);
+		getContentPane().add(lblDataFinal, "cell 5 1,grow");
 
 		textField_1 = new JTextField();
-		getContentPane().add(textField_1, "cell 2 0,growx,aligny center");
+		getContentPane().add(textField_1, "cell 3 0,growx,aligny center");
 		textField_1.setColumns(10);
 
 		dataChooserInicial = new JDateChooser();
-		getContentPane().add(dataChooserInicial, "cell 2 1,grow");
-
-
-		dataChooserFinal = new JDateChooser();
-		getContentPane().add(dataChooserFinal, "cell 6 1,alignx left,growy");
+		getContentPane().add(dataChooserInicial, "cell 3 1,grow");
+		
+		
+				dataChooserFinal = new JDateChooser();
+				getContentPane().add(dataChooserFinal, "cell 7 1 2 1,grow");
 
 		btnPesquisar = new JButton("Pesquisar");
-		getContentPane().add(btnPesquisar, "cell 4 2,grow");
+		getContentPane().add(btnPesquisar, "cell 4 2 3 1,grow");
 
 		JSeparator separator = new JSeparator();
 		separator.setBackground(Color.BLACK);
 		separator.setForeground(Color.BLACK);
-		getContentPane().add(separator, "cell 0 3 7 1,grow");
+		getContentPane().add(separator, "cell 1 3 11 1,grow");
 
 		table = new JTable();
-		getContentPane().add(table, "cell 0 4 7 2,grow");
+		getContentPane().add(table, "cell 1 4 11 2,grow");
 
 	}
 }

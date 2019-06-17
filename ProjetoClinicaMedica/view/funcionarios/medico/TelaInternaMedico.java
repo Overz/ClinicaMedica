@@ -25,6 +25,8 @@ import controller.ControllerMedico;
 import model.vo.MedicoVO;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTree;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
 
 public class TelaInternaMedico extends JInternalFrame {
 
@@ -49,7 +51,7 @@ public class TelaInternaMedico extends JInternalFrame {
 	private JLabel lblData;
 	private JButton btnPesquisarConsulta;
 	private DefaultListModel<Object> lista = new DefaultListModel<Object>();
-	private JList list;
+	private JTable table;
 
 	/**
 	 * Create the application.
@@ -59,7 +61,7 @@ public class TelaInternaMedico extends JInternalFrame {
 		setClosable(true);
 		setBounds(100, 100, 812, 621);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][]", "[grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow]"));
+		getContentPane().setLayout(new MigLayout("", "[][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][]", "[grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][10]"));
 		initialize();
 	}
 
@@ -68,8 +70,8 @@ public class TelaInternaMedico extends JInternalFrame {
 	 */
 	private void initialize() {
 
-		Object[][] data = new Object[][] { {  "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" }, };
-		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" };
+		Object[][] data = new Object[][] { {  "Nome", "Data", "Hora", "Causa" }, };
+		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Causa" };
 				
 				lblData = new JLabel("Data:");
 				getContentPane().add(lblData, "cell 1 0,alignx center,growy");
@@ -82,10 +84,9 @@ public class TelaInternaMedico extends JInternalFrame {
 		btnPesquisarConsulta.setToolTipText("Selecione uma Linha, e Pesquise dados mais especifos.");
 		getContentPane().add(btnPesquisarConsulta, "cell 5 0,grow");
 		
-		list = new JList();
-		//list.setModel(new DefaultListModel<Object>());
-		list.setModel(lista);
-		getContentPane().add(list, "cell 0 1 9 10,grow");
+		table = new JTable();
+		table.setModel(new DefaultTableModel(data, columnNames));
+		getContentPane().add(table, "cell 1 1 7 10,grow");
 	}
 
 /*	protected void atualizarTabela(ArrayList<MedicoVO> medicos) {

@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.bo.UsuarioBO;
 import model.vo.UsuarioVO;
 
@@ -14,6 +16,16 @@ public class ControllerUsuario {
 			}
 		}
 		return vo;
+	}
+
+	public ArrayList<UsuarioVO> consultarUsuariosPorNome(String nome) {
+		// TODO TelaInternaExcluirUsuarios, fazer buscar por nome do banco para atualizra JTable
+		return null;
+	}
+
+	public ArrayList<UsuarioVO> consultarTodos() {
+		// TODO TelaInternaExcluirUsuarios
+		return null;
 	}
 
 }
