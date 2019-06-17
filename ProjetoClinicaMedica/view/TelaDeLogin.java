@@ -23,15 +23,16 @@ import view.adm.usuario.TelaCadastroUsuario;
 
 public class TelaDeLogin extends JFrame {
 
+	private static final long serialVersionUID = -3175900965023551054L;
+
 	private JPasswordField passwordField;
 	private JTextField txtUsuario;
 
 	private JButton btnLogin;
 	private JButton btnNovoUsuario;
 	private static TelaCadastroUsuario telaCadastroUsuario;
-
-	
 	private static TelaGeral telaGeral = new TelaGeral();
+
 	/**
 	 * Launch the application.
 	 */
@@ -54,13 +55,13 @@ public class TelaDeLogin extends JFrame {
 	 * Create the application.
 	 */
 	public TelaDeLogin() {
-			
+
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
 		int y = (int) (height * 0.35);
 		int x = (int) (width * 0.35);
-		
+
 		setTitle("Clinica Médica");
 		setBounds(0, 0, 496, 359);
 		//setBounds(x, y, 496, 359);
@@ -74,11 +75,11 @@ public class TelaDeLogin extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
+
 		JLabel lblUsuario = new JLabel("Usuário:");
 		lblUsuario.setFont(new Font("Arial", Font.BOLD, 16));
 		getContentPane().add(lblUsuario, "cell 1 3,alignx center,growy");
-		
+
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Arial", Font.BOLD, 16));
 		getContentPane().add(lblSenha, "flowx,cell 1 5,alignx center,growy");
@@ -91,28 +92,19 @@ public class TelaDeLogin extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Verdana", Font.PLAIN, 16));
 		getContentPane().add(passwordField, "cell 3 5,grow");
-		
+
 		btnNovoUsuario = new JButton("Novo Usuário");
 		btnNovoUsuario.setFont(new Font("Arial", Font.BOLD, 16));
 		getContentPane().add(btnNovoUsuario, "cell 1 8,grow");
 		btnNovoUsuario.addActionListener(e -> {
+			telaCadastroUsuario = new TelaCadastroUsuario();
+			this.setVisible(false);
+			this.dispose();
+			this.repaint();
 
-			try {
-				telaCadastroUsuario = new TelaCadastroUsuario();
-				this.setVisible(false);
-				this.dispose();
-				this.repaint();
-				
-				telaCadastroUsuario.setVisible(true);
-				telaCadastroUsuario.show();
-				telaCadastroUsuario.repaint();
-				
-				
-				
-			} catch (Exception e2) {
-				System.out.println("Erro ao abrir Janela Interna de Cadastrar Usuario.");
-				System.out.println(e2.getMessage());
-			}
+			telaCadastroUsuario.setVisible(true);
+			telaCadastroUsuario.show();
+			telaCadastroUsuario.repaint();
 		});
 
 		btnLogin = new JButton("Login");
@@ -146,5 +138,5 @@ public class TelaDeLogin extends JFrame {
 				}
 			}
 		});
-	}
+}
 }
