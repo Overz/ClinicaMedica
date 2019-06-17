@@ -36,7 +36,7 @@ public class FuncionarioBO {
 			if (idGerado > 0) {
 				mensagem += "Funcionário cadastrado com sucesso!\n";
 			} else {
-				mensagem += "Erro ao cadastrar usuário!\n";
+				mensagem += "Erro ao cadastrar funcionário!\n";
 			}
 		}
 		return mensagem;
