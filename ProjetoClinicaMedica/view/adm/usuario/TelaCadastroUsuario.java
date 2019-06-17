@@ -33,6 +33,13 @@ import net.miginfocom.swing.MigLayout;
 
 public class TelaCadastroUsuario extends JFrame {
 
+<<<<<<< HEAD
+=======
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3403537686533368539L;
+>>>>>>> branch 'master' of https://github.com/Overz/ClinicaMedica.git
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JFormattedTextField txtCpf;
@@ -223,12 +230,21 @@ public class TelaCadastroUsuario extends JFrame {
 			cbxTipoUsuario.setModel(new DefaultComboBoxModel(
 					new String[] { UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO, UsuarioVO.NIVEL_ADMIN }));
 			contentPane.add(cbxTipoUsuario, "cell 3 5,growx");
+<<<<<<< HEAD
 			cbxTipoUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(), null);
 				}
 			});
 			cbxTipoUsuario.setSelectedIndex(-1);
+=======
+			cbxTipoUsuario.setSelectedIndex(-1);
+			cbxTipoUsuario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(), null);
+				}
+			});
+>>>>>>> branch 'master' of https://github.com/Overz/ClinicaMedica.git
 
 			passwordFieldConfirm = new JPasswordField();
 			passwordFieldConfirm.setColumns(10);

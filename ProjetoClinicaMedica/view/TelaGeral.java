@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.beans.PropertyVetoException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -20,11 +19,13 @@ import view.funcionarios.medico.TelaInternaProntuarioMedico;
 import view.funcionarios.secretaria.TelaInternaBuscarPaciente;
 import view.funcionarios.secretaria.TelaInternaCadastroPaciente;
 import view.funcionarios.secretaria.TelaInternaConsultasEHorarios;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class TelaGeral extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1850173995181721117L;
 	private JDesktopPane desktopPane;
 	private JMenuBar menuBar;
 	private JMenu mnPaciente;
@@ -200,17 +201,7 @@ public class TelaGeral extends JFrame {
 		mnAdm.setFont(new Font("Arial", Font.BOLD, 16));
 		mnAdm.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-escudo-de-usuário-filled-38.png")));
 		menuBar.add(mnAdm);
-		
-		mnUsuarios = new JMenu("Usuarios");
-		mnUsuarios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
-		mnAdm.add(mnUsuarios);
-		
-		mntmExcluirUsuarios = new JMenuItem("Excluir Usuarios");
-		mnUsuarios.add(mntmExcluirUsuarios);
-		
-		mntmCadastrarUsuarios = new JMenuItem("Cadastrar Usuarios");
-		mnUsuarios.add(mntmCadastrarUsuarios);
-		
+
 		JMenu mnPacientes = new JMenu("Pacientes");
 		mnPacientes.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-fila.png")));
 		mnAdm.add(mnPacientes);
@@ -218,10 +209,26 @@ public class TelaGeral extends JFrame {
 		JMenu mnFuncionarios = new JMenu("Funcionarios");
 		mnFuncionarios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-suporte-on-line-filled.png")));
 		mnAdm.add(mnFuncionarios);
-
+		
 		JMenu mnRelatorios = new JMenu("Relatorios");
 		mnRelatorios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-gráfico-combinado.png")));
 		mnAdm.add(mnRelatorios);
+
+		mnUsuarios = new JMenu("Usuarios");
+		mnUsuarios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
+		mnAdm.add(mnUsuarios);
+		
+		mntmExcluirUsuarios = new JMenuItem("Excluir Usuarios");
+		mnUsuarios.add(mntmExcluirUsuarios);
+		mntmExcluirUsuarios.addActionListener(e -> {
+			
+		});
+		
+		mntmCadastrarUsuarios = new JMenuItem("Cadastrar Usuarios");
+		mnUsuarios.add(mntmCadastrarUsuarios);
+		mntmCadastrarUsuarios.addActionListener(e -> {
+			
+		});
 
 		mnCadastrarAtualizarPacienteADM = new JMenuItem("Cadastrar/Atualizar Paciente");
 		mnPacientes.add(mnCadastrarAtualizarPacienteADM);
