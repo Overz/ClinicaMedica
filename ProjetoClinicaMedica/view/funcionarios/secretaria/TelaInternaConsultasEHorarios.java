@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,6 +19,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
+
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 
 //import com.toedter.calendar.JDateChooser;
 
@@ -35,6 +39,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	private JFormattedTextField ftfCampoCpfCrm;
 	private JButton btnCadastrarConsulta;
 	private JTable table;
+	private final DatePicker datePicker = new DatePicker();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -77,9 +82,12 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		JLabel lblNome = new JLabel("Pesquisar por:");
 		getContentPane().add(lblNome, "cell 1 0,alignx right,growy");
 
-		dateChooser = new JDateChooser();
-		dateChooser.setToolTipText("Selecione a Data para Consulta");
-		getContentPane().add(dateChooser, "cell 4 0 2 1,grow");
+		DatePickerSettings dateSettings = new DatePickerSettings();
+		dateSettings.setAllowKeyboardEditing(false);
+
+		datePicker.setSettings(dateSettings);
+		datePicker.setToolTipText("Selecione a Data para Consulta");
+		getContentPane().add(datePicker, "cell 4 0 2 1,grow");
 
 		cbOpcaoPesquisa = new JComboBox();
 		cbOpcaoPesquisa.setModel(new DefaultComboBoxModel(new String[] { "Nome (Paciente/Médico)", "CPF ou CRM" }));
@@ -103,11 +111,11 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
 			controller = new ControllerMedico();
 
-			Date date = ((JDateChooser) dateChooser).getDate();
+			LocalDate date = ((DatePicker) datePicker).getDate();
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
-			ArrayList<MedicoVO> vo = controller.consultarData(data);
-			atualizarTabelaCarros(vo);
+			// ArrayList<MedicoVO> vo = controller.consultarData(data);
+			// atualizarTabelaCarros(vo);
 		});
 
 		btnCadastrarConsulta = new JButton("Cadastrar Consulta");

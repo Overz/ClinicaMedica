@@ -1,6 +1,5 @@
 package view.funcionarios.secretaria;
 
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
@@ -16,20 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
-import net.miginfocom.swing.MigLayout;
-import com.toedter.calendar.JDateChooser;
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import controller.ControllerValidacao;
-
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EtchedBorder;
+import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaCadastroPaciente extends JInternalFrame {
-
 
 	private JFormattedTextField ftfCPF;
 	private JFormattedTextField ftfRg;
@@ -49,8 +41,6 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	private JTextField txtCidade;
 	private JLabel lblVoltar;
 
-	private JDateChooser dateChooser;
-
 	private JComboBox cbSexo;
 	private JComboBox cbTipoSanguineo;
 	private JComboBox cbConvenio;
@@ -59,7 +49,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	private JButton btnLimpar;
 	private JButton btnCadastrar;
 	private JButton btnPesquisar;
-
+	private final DatePicker datePicker = new DatePicker();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -79,7 +69,9 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		setResizable(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1040, 741);
-		getContentPane().setLayout(new MigLayout("", "[][pref!,grow][grow][grow][][grow][grow][pref!,grow][grow][grow][grow]", "[38,grow][38,grow][31px,grow][38px,grow][38,grow][][38,grow][][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38px,grow][38,grow][38,grow][38,grow][38,grow][38,grow][36px][38,grow][38,grow][38,grow][38,grow][][38,grow][][38,grow]"));
+		getContentPane().setLayout(new MigLayout("",
+				"[][pref!,grow][grow][grow][][grow][grow][pref!,grow][grow][grow][grow]",
+				"[38,grow][38,grow][31px,grow][38px,grow][38,grow][][38,grow][][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38px,grow][38,grow][38,grow][38,grow][38,grow][38,grow][36px][38,grow][38,grow][38,grow][38,grow][][38,grow][][38,grow]"));
 		initialize();
 	}
 
@@ -126,7 +118,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//TelaInternaCadastroPaciente = null;
+				// TelaInternaCadastroPaciente = null;
 
 			}
 		});
@@ -162,11 +154,11 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		JLabel lblConvenio = new JLabel("Convenio:");
 		lblConvenio.setFont(new Font("Verdana", Font.PLAIN, 14));
 		getContentPane().add(lblConvenio, "cell 1 12,alignx left,growy");
-		
+
 		JLabel lblEstadoCivil = new JLabel("Estado Civil:");
 		lblEstadoCivil.setFont(new Font("Verdana", Font.PLAIN, 14));
 		getContentPane().add(lblEstadoCivil, "cell 1 13,alignx left,growy");
-		
+
 		JLabel endereco = new JLabel("Endereço");
 		endereco.setFont(new Font("Verdana", Font.BOLD, 14));
 		getContentPane().add(endereco, "cell 1 14 9 1,alignx center,growy");
@@ -249,44 +241,43 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		getContentPane().add(ftfCelular, "cell 2 23,grow");
 
 		cbSexo = new JComboBox();
-		cbSexo.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino", "Outros"}));
+		cbSexo.setModel(new DefaultComboBoxModel(new String[] { "Masculino", "Feminino", "Outros" }));
 		getContentPane().add(cbSexo, "cell 2 10,grow");
 
 		cbEstadoCivil = new JComboBox();
-		cbEstadoCivil.setModel(new DefaultComboBoxModel(new String[] {"[SELECIONE]", "Solteiro", "Casado", "Divorciado", "Separado", "Viúvo"}));
+		cbEstadoCivil.setModel(new DefaultComboBoxModel(
+				new String[] { "[SELECIONE]", "Solteiro", "Casado", "Divorciado", "Separado", "Viúvo" }));
 		getContentPane().add(cbEstadoCivil, "cell 2 13,grow");
 
 		cbTipoSanguineo = new JComboBox();
-		cbTipoSanguineo.setModel(new DefaultComboBoxModel(new String[] {"[SELECIONE]", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"}));
+		cbTipoSanguineo.setModel(new DefaultComboBoxModel(
+				new String[] { "[SELECIONE]", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" }));
 		getContentPane().add(cbTipoSanguineo, "cell 7 10,grow");
 
 		cbConvenio = new JComboBox();
-		cbConvenio.setModel(new DefaultComboBoxModel(new String[] {"[SELECIONE]", "Unimed", "Agemed", "Amil", "SulAmerica Saúde", "One Health", "Bradesco Saúde\t", "Golden Cross", "Intermédica", "Notre Dame Seguro Saúde"}));
+		cbConvenio.setModel(
+				new DefaultComboBoxModel(new String[] { "[SELECIONE]", "Unimed", "Agemed", "Amil", "SulAmerica Saúde",
+						"One Health", "Bradesco Saúde\t", "Golden Cross", "Intermédica", "Notre Dame Seguro Saúde" }));
 		getContentPane().add(cbConvenio, "cell 2 12,grow");
 
-		dateChooser = new JDateChooser();
-		getContentPane().add(dateChooser, "cell 2 9,grow");
+		DatePickerSettings dateSettings = new DatePickerSettings();
+		dateSettings.setAllowKeyboardEditing(false);
+
+		datePicker.setSettings(dateSettings);
+		getContentPane().add(datePicker, "cell 2 9,grow");
 
 		btnPesquisar = new JButton("Pesquisar");
 		getContentPane().add(btnPesquisar, "cell 3 5 3 3,grow");
 		btnPesquisar.addActionListener(e -> {
 
-
-
 			ControllerValidacao validarCampos = new ControllerValidacao();
 			String mensagem = validarCampos.validarCamposController();
-
-
 
 		});
 
 		btnCadastrar = new JButton("Salvar");
 		getContentPane().add(btnCadastrar, "cell 2 25 2 3,grow");
 		btnCadastrar.addActionListener(e -> {
-			
-			
-			
-			
 
 		});
 
@@ -303,7 +294,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			cbEstadoCivil.setSelectedIndex(-1);
 			cbSexo.setSelectedIndex(-1);
 
-			dateChooser.setDate(null);
+			datePicker.setDate(null);
 			// Endere�o
 			txtCidade.setText("");
 			txtBairroEndereco.setText("");
@@ -316,14 +307,11 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 		});
 
-
-		/*try {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			Date data = sdf.parse(ftfData.getText());
-		} catch (ParseException e) {
-			e.getMessage();
-			System.out.println(e);
-			System.out.println("2� Try/Catch. Causa: " + e.getMessage() );
-		}*/
+		/*
+		 * try { SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); Date data =
+		 * sdf.parse(ftfData.getText()); } catch (ParseException e) { e.getMessage();
+		 * System.out.println(e); System.out.println("2� Try/Catch. Causa: " +
+		 * e.getMessage() ); }
+		 */
 	}
 }

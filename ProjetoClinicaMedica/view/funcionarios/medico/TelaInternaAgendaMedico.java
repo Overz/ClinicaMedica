@@ -3,13 +3,14 @@ package view.funcionarios.medico;
 import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.JButton;
+
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 
 public class TelaInternaAgendaMedico extends JInternalFrame {
 
@@ -21,6 +22,7 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 	private JButton btnCancelar;
 	private JButton btnAlterarAgenda;
 	private JTextArea textArea;
+	private final DatePicker datePicker = new DatePicker();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -44,14 +46,15 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		getContentPane().setLayout(null);
 
 		this.repaint();
-		
+
 		initialize();
 	}
 
 	private void initialize() {
 
-		//TODO tentar:
-		// - Cadastrar primeira vez, na segunda vez, ao abrir, os dados ja vem descritos nos campos, para atualizar.
+		// TODO tentar:
+		// - Cadastrar primeira vez, na segunda vez, ao abrir, os dados ja vem descritos
+		// nos campos, para atualizar.
 
 		JLabel lblDados = new JLabel("Dados Da Agenda");
 		lblDados.setFont(new Font("Verdana", Font.BOLD, 14));
@@ -99,7 +102,6 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		textEmail.setBounds(504, 122, 216, 31);
 		getContentPane().add(textEmail);
 
-
 		textArea = new JTextArea();
 		textArea.setBounds(144, 210, 576, 262);
 		getContentPane().add(textArea);
@@ -115,7 +117,13 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		btnAlterarAgenda = new JButton("Alterar Agenda");
 		btnAlterarAgenda.setBounds(352, 483, 172, 68);
 		getContentPane().add(btnAlterarAgenda);
-		
+
+		DatePickerSettings dateSettings = new DatePickerSettings();
+		dateSettings.setAllowKeyboardEditing(false);
+
+		datePicker.setSettings(dateSettings);
+		getContentPane().add(datePicker);
+
 		this.repaint();
 
 	}
