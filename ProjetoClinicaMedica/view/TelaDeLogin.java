@@ -29,8 +29,11 @@ public class TelaDeLogin extends JFrame {
 	private JTextField txtUsuario;
 
 	private JButton btnLogin;
-	private JButton btnNovoUsuario;
 	private static TelaCadastroUsuario telaCadastroUsuario;
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'master' of https://github.com/Overz/ClinicaMedica.git
 	private static TelaGeral telaGeral = new TelaGeral();
 
 	/**
@@ -64,9 +67,10 @@ public class TelaDeLogin extends JFrame {
 
 		setTitle("Clinica Médica");
 		setBounds(0, 0, 496, 359);
-		//setBounds(x, y, 496, 359);
+		// setBounds(x, y, 496, 359);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][183px,grow][grow][grow][10]", "[grow][grow][grow][25px,grow][29px,grow][grow][grow][grow][grow][grow][grow][grow][10]"));
+		getContentPane().setLayout(new MigLayout("", "[10][183px,grow][grow][grow][10]",
+				"[grow][grow][grow][25px,grow][29px,grow][grow][grow][grow][grow][grow][grow][grow][10]"));
 
 		initialize();
 	}
@@ -92,6 +96,8 @@ public class TelaDeLogin extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Verdana", Font.PLAIN, 16));
 		getContentPane().add(passwordField, "cell 3 5,grow");
+<<<<<<< HEAD
+=======
 
 		btnNovoUsuario = new JButton("Novo Usuário");
 		btnNovoUsuario.setFont(new Font("Arial", Font.BOLD, 16));
@@ -106,6 +112,7 @@ public class TelaDeLogin extends JFrame {
 			telaCadastroUsuario.show();
 			telaCadastroUsuario.repaint();
 		});
+>>>>>>> branch 'master' of https://github.com/Overz/ClinicaMedica.git
 
 		btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Arial", Font.BOLD, 16));

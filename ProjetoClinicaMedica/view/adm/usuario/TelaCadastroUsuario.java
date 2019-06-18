@@ -33,10 +33,6 @@ import net.miginfocom.swing.MigLayout;
 
 public class TelaCadastroUsuario extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3403537686533368539L;
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JFormattedTextField txtCpf;
