@@ -47,9 +47,6 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mntmCadastrarUsuarios;
 	private UsuarioVO usuario;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -64,9 +61,6 @@ public class TelaGeral extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public TelaGeral() {
 
 		setTitle("Clinica Médica");
@@ -107,9 +101,6 @@ public class TelaGeral extends JFrame {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 
 		menuBar = new JMenuBar();
@@ -126,17 +117,12 @@ public class TelaGeral extends JFrame {
 				new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino-38.png")));
 		mnPaciente.add(mntmCadastrarPaciente);
 		mntmCadastrarPaciente.addActionListener(e -> {
-			TelaInternaCadastroPaciente janelinhaCadastroPaciente = new TelaInternaCadastroPaciente();
-			try {
-				desktopPane.add(janelinhaCadastroPaciente);
-				janelinhaCadastroPaciente.setVisible(true);
-				janelinhaCadastroPaciente.show();
-				this.repaint();
-			} catch (Exception e2) {
-				System.out.println("Erro ao abrir Janela  Interna de Cadastro de Paciente");
-				System.out.println(e2.getMessage());
-			}
 
+			TelaInternaCadastroPaciente janelinhaCadastroPaciente = new TelaInternaCadastroPaciente();
+			desktopPane.add(janelinhaCadastroPaciente);
+			janelinhaCadastroPaciente.setVisible(true);
+			janelinhaCadastroPaciente.show();
+			this.repaint();
 		});
 
 		mntmBuscarPaciente = new JMenuItem("Buscar Paciente");
@@ -146,15 +132,10 @@ public class TelaGeral extends JFrame {
 		mntmBuscarPaciente.addActionListener(e -> {
 
 			TelaInternaBuscarPaciente janelinhaBuscarPaciente = new TelaInternaBuscarPaciente();
-			try {
-				desktopPane.add(janelinhaBuscarPaciente);
-				janelinhaBuscarPaciente.setVisible(true);
-				janelinhaBuscarPaciente.show();
-				this.repaint();
-			} catch (Exception e3) {
-				System.out.println("Erro ao abrir Janela Interna de Buscar Paciente");
-				System.out.println(e3.getMessage());
-			}
+			desktopPane.add(janelinhaBuscarPaciente);
+			janelinhaBuscarPaciente.setVisible(true);
+			janelinhaBuscarPaciente.show();
+			this.repaint();
 
 		});
 
@@ -170,34 +151,24 @@ public class TelaGeral extends JFrame {
 		mntmAgendaMedica.addActionListener(e -> {
 
 			TelaInternaAgendaMedico janelinhaAgendaMedica = new TelaInternaAgendaMedico();
-			try {
-				desktopPane.add(janelinhaAgendaMedica);
-				janelinhaAgendaMedica.setVisible(true);
-				janelinhaAgendaMedica.show();
-				this.repaint();
-			} catch (Exception e4) {
-				System.out.println("Erro ao abrir Janela Interna de Agenda Médica");
-				System.out.println(e4.getMessage());
-			}
+			desktopPane.add(janelinhaAgendaMedica);
+			janelinhaAgendaMedica.setVisible(true);
+			janelinhaAgendaMedica.show();
+			this.repaint();
 
 		});
 
 		mntmProntuario = new JMenuItem("Prontuario");
 		mntmProntuario
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
+		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
 		mnMedico.add(mntmProntuario);
 		mntmProntuario.addActionListener(e -> {
 
 			TelaInternaProntuarioMedico janelinhaProntuario = new TelaInternaProntuarioMedico();
-			try {
-				desktopPane.add(janelinhaProntuario);
-				janelinhaProntuario.setVisible(true);
-				janelinhaProntuario.show();
-				this.repaint();
-			} catch (Exception e5) {
-				System.out.println("Erro ao abrir Janela Interna de Cadastrar Prontuario");
-				System.out.println(e5.getMessage());
-			}
+			desktopPane.add(janelinhaProntuario);
+			janelinhaProntuario.setVisible(true);
+			janelinhaProntuario.show();
+			this.repaint();
 
 		});
 
@@ -221,7 +192,7 @@ public class TelaGeral extends JFrame {
 
 		mnUsuarios = new JMenu("Usuarios");
 		mnUsuarios
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
+		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
 		mnAdm.add(mnUsuarios);
 
 		mntmExcluirUsuarios = new JMenuItem("Excluir Usuarios");
