@@ -1,6 +1,8 @@
 package view.funcionarios.secretaria;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -31,6 +33,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
+	private static final long serialVersionUID = 9221455748477846858L;
 	private ControllerMedico controller;
 	private Date data;
 	private JComboBox cbOpcaoPesquisa;
@@ -48,7 +51,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 				try {
 					TelaInternaConsultasEHorarios window = new TelaInternaConsultasEHorarios();
 					window.setVisible(true);
-					window.setMaximum(true);
+					//window.setMaximum(true);
 					window.setSelected(true);
 					window.setIcon(false);
 				} catch (Exception e) {
@@ -59,14 +62,16 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	}
 
 	public TelaInternaConsultasEHorarios() {
-		super(null, // Title
+		super("Clínica Médica - Horarios Marcados", // Title
 				false, // Resizeble
 				false, // Closable
 				false, // Maximizable
-				false);
-		// this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		// this.setBounds(0, 0, 821, 609);
-		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				false); // Minimizar
+		//Opções que possibilitam remoção de bordas, para tela ficar sempre "estatica"
+		((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
+		this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		//this.setBounds(0, 0, 821, 609);
+		this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
 		this.getContentPane().setLayout(new MigLayout("",
 				"[][grow][100px:100px:100px,grow][grow][grow][pref!,grow][100px:100px:100px,grow][grow][]",
 				"[38,grow][38,grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill]"));
@@ -74,9 +79,6 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		initialize();
 	}
 
-	/**
-	 * Tela Principal da Receção.
-	 */
 	private void initialize() {
 
 		JLabel lblNome = new JLabel("Pesquisar por:");

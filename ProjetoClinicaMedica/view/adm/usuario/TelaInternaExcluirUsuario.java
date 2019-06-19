@@ -44,7 +44,7 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 	 * Create the application.
 	 */
 	public TelaInternaExcluirUsuario() {
-		super(null,
+		super("Clinica Médica - Exclusão de Usuario",
 			false,
 			false,
 			false,
@@ -84,7 +84,7 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 		getContentPane().add(btnLimpar, "cell 4 1,grow");
 		
 		JButton btnPesquisarTodos = new JButton("Pesquisar Todos");
-		getContentPane().add(btnPesquisarTodos, "cell 3 2,grow");
+		getContentPane().add(btnPesquisarTodos, "cell 2 2 3 1,grow");
 		
 		tableClientes = new JTable();
 		getContentPane().add(tableClientes, "cell 1 4 5 1,grow");
@@ -120,5 +120,4 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 		this.repaint();
 		
 	}
-
 }

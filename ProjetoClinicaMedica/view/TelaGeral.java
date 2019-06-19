@@ -1,21 +1,26 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.WindowConstants;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 import model.vo.UsuarioVO;
 import view.adm.usuario.TelaInternaCadastroUsuario;
+import view.adm.usuario.TelaInternaExcluirUsuario;
 import view.funcionarios.medico.TelaInternaAgendaMedico;
 import view.funcionarios.medico.TelaInternaProntuarioMedico;
 import view.funcionarios.secretaria.TelaInternaBuscarPaciente;
@@ -40,10 +45,21 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mnBuscarExcluirPacienteADM;
 	private JMenuItem mnCadastrarAtualizarPacienteADM;
 	private JMenuItem mntmGerarRelatorioDePaciente;
-	private JMenu mnUsuarios;
 	private JMenuItem mntmExcluirUsuarios;
 	private JMenuItem mntmCadastrarUsuarios;
 	private UsuarioVO usuario;
+
+
+	private ArrayList<Component> componentesDaTela = new ArrayList<Component>();
+	private TelaInternaCadastroPaciente janelinhaCadastroPaciente = new TelaInternaCadastroPaciente();
+	private TelaInternaBuscarPaciente janelinhaBuscarPaciente = new TelaInternaBuscarPaciente();
+	private TelaInternaAgendaMedico janelinhaAgendaMedica = new TelaInternaAgendaMedico();
+	private TelaInternaProntuarioMedico janelinhaProntuario = new TelaInternaProntuarioMedico();
+	private TelaInternaExcluirUsuario janelinhaExcluirUsuario = new TelaInternaExcluirUsuario();
+	private TelaInternaCadastroUsuario janelinhaUsuario = new TelaInternaCadastroUsuario();
+
+	int width_int;
+	int height_int;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -66,8 +82,8 @@ public class TelaGeral extends JFrame {
 		double height = screenSize.getHeight();
 		int y = (int) (height * 0.1);
 		int x = (int) (width * 0.2);
-		int width_int = (int) width;
-		int height_int = (int) height;
+		width_int = (int) width;
+		height_int = (int) height;
 
 		setTitle("Clinica Médica");
 		setBounds(5, 5, 1073, 700);
@@ -107,13 +123,12 @@ public class TelaGeral extends JFrame {
 		menuBar.add(mnPaciente);
 
 		mntmCadastrarPaciente = new JMenuItem("Cadastrar/Atualizar Paciente");
-		mntmCadastrarPaciente.setIcon(
-				new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino-38.png")));
+		mntmCadastrarPaciente.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino-38.png")));
 		mnPaciente.add(mntmCadastrarPaciente);
 		mntmCadastrarPaciente.addActionListener(e -> {
 
-			TelaInternaCadastroPaciente janelinhaCadastroPaciente = new TelaInternaCadastroPaciente();
-			desktopPane.add(janelinhaCadastroPaciente);
+			adicionarInternalFrame(janelinhaCadastroPaciente);
+			janelinhaCadastroPaciente.setBounds(0, 0, width_int, height_int);
 			janelinhaCadastroPaciente.setVisible(true);
 			janelinhaCadastroPaciente.show();
 			this.repaint();
@@ -124,8 +139,8 @@ public class TelaGeral extends JFrame {
 		mnPaciente.add(mntmBuscarPaciente);
 		mntmBuscarPaciente.addActionListener(e -> {
 
-			TelaInternaBuscarPaciente janelinhaBuscarPaciente = new TelaInternaBuscarPaciente();
-			desktopPane.add(janelinhaBuscarPaciente);
+			adicionarInternalFrame(janelinhaBuscarPaciente);
+			janelinhaCadastroPaciente.setBounds(0, 0, width_int, height_int);
 			janelinhaBuscarPaciente.setVisible(true);
 			janelinhaBuscarPaciente.show();
 			this.repaint();
@@ -143,8 +158,8 @@ public class TelaGeral extends JFrame {
 		mnMedico.add(mntmAgendaMedica);
 		mntmAgendaMedica.addActionListener(e -> {
 
-			TelaInternaAgendaMedico janelinhaAgendaMedica = new TelaInternaAgendaMedico();
-			desktopPane.add(janelinhaAgendaMedica);
+			adicionarInternalFrame(janelinhaAgendaMedica);
+			janelinhaAgendaMedica.setBounds(0, 0, width_int, height_int);
 			janelinhaAgendaMedica.setVisible(true);
 			janelinhaAgendaMedica.show();
 			this.repaint();
@@ -157,8 +172,8 @@ public class TelaGeral extends JFrame {
 		mnMedico.add(mntmProntuario);
 		mntmProntuario.addActionListener(e -> {
 
-			TelaInternaProntuarioMedico janelinhaProntuario = new TelaInternaProntuarioMedico();
-			desktopPane.add(janelinhaProntuario);
+			adicionarInternalFrame(janelinhaProntuario);
+			janelinhaProntuario.setBounds(0, 0, width_int, height_int);
 			janelinhaProntuario.setVisible(true);
 			janelinhaProntuario.show();
 			this.repaint();
@@ -183,23 +198,27 @@ public class TelaGeral extends JFrame {
 		mnRelatorios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-gráfico-combinado.png")));
 		mnAdm.add(mnRelatorios);
 
-		mnUsuarios = new JMenu("Usuarios");
-		mnUsuarios
-		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
+		JMenu mnUsuarios = new JMenu("Usuarios");
+		mnUsuarios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
 		mnAdm.add(mnUsuarios);
 
 		mntmExcluirUsuarios = new JMenuItem("Excluir Usuarios");
 		mnUsuarios.add(mntmExcluirUsuarios);
 		mntmExcluirUsuarios.addActionListener(e -> {
+			
+			adicionarInternalFrame(janelinhaExcluirUsuario);
+			janelinhaExcluirUsuario.setBounds(0, 0, width_int, height_int);
+			janelinhaExcluirUsuario.setVisible(true);
+			janelinhaExcluirUsuario.show();
 
 		});
 
 		mntmCadastrarUsuarios = new JMenuItem("Cadastrar Usuarios");
 		mnUsuarios.add(mntmCadastrarUsuarios);
 		mntmCadastrarUsuarios.addActionListener(e -> {
-			
-			TelaInternaCadastroUsuario janelinhaUsuario = new TelaInternaCadastroUsuario();
-			desktopPane.add(janelinhaUsuario);
+
+			adicionarInternalFrame(janelinhaUsuario);
+			janelinhaUsuario.setBounds(0, 0, width_int, height_int);
 			janelinhaUsuario.setVisible(true);
 			janelinhaUsuario.show();
 
@@ -247,6 +266,24 @@ public class TelaGeral extends JFrame {
 
 		});
 
+	}
+
+	public void fecharJanelinha(JInternalFrame janelinha) {
+		componentesDaTela.remove(janelinha);
+	}
+
+	private void adicionarInternalFrame(JInternalFrame janelinha) {
+		if (!componentesDaTela.contains(janelinha)) {
+			desktopPane.add(janelinha);
+			componentesDaTela.add(janelinha);
+			janelinha.show();
+		}
+		janelinha.addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameClosed(InternalFrameEvent evt) {
+				fecharJanelinha(evt.getInternalFrame());
+			}
+		});
 	}
 
 	public void setUsuario(UsuarioVO usuario) {

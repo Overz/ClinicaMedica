@@ -71,8 +71,8 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		super("Clínica Médica - Cadastro de Usuarios", true, true, true, true);
 		setBounds(100, 100, 777, 620);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[][center][center][grow]", "[][][][][][][][][][][][][][][][][][][][][][]"));
-		
+		getContentPane().setLayout(new MigLayout("", "[10][][center][center][grow][10]", "[][][][][][][][][][][][][][][][][][][][][][]"));
+
 		initialize();
 
 	}			
@@ -88,54 +88,50 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 		JLabel lblSelecionarUsurio = new JLabel("Selecionar Usuário para Editar:");
 		lblSelecionarUsurio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblSelecionarUsurio, "cell 1 1,alignx left");
+		getContentPane().add(lblSelecionarUsurio, "cell 2 1,alignx left");
 
 		JLabel lblUsuario = new JLabel("Usuário:");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblUsuario, "flowx,cell 0 5,alignx left");
+		getContentPane().add(lblUsuario, "flowx,cell 1 5,alignx left");
 
 		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuário:");
 		lblTipoDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblTipoDeUsuario, "flowx,cell 2 5,alignx left");
+		getContentPane().add(lblTipoDeUsuario, "flowx,cell 3 5,alignx left");
 
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblSenha, "flowx,cell 0 7,alignx left");
+		getContentPane().add(lblSenha, "flowx,cell 1 7,alignx left");
 
 		JLabel lblConfirmeSuaSenha = new JLabel("Confirme sua Senha:");
 		lblConfirmeSuaSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblConfirmeSuaSenha, "flowx,cell 2 7,alignx left");
+		getContentPane().add(lblConfirmeSuaSenha, "flowx,cell 3 7,alignx left");
 
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblNome, "flowx,cell 0 11");
+		getContentPane().add(lblNome, "flowx,cell 1 11");
 
 		JLabel lblCpf = new JLabel("CPF:");
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblCpf, "cell 2 11,alignx left");
+		getContentPane().add(lblCpf, "cell 3 11,alignx left");
 
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblEmail, "flowx,cell 0 13");
+		getContentPane().add(lblEmail, "flowx,cell 1 13");
 
 		JLabel lblTelefone = new JLabel("Telefone:");
 		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblTelefone, "cell 2 13,alignx left");
+		getContentPane().add(lblTelefone, "cell 3 13,alignx left");
 
 		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
 		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblDataDeNascimento, "cell 0 15");
+		getContentPane().add(lblDataDeNascimento, "cell 1 15");
 
 		JLabel lblCrm = new JLabel("CRM:");
 		lblCrm.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblCrm, "flowx,cell 0 19,alignx left");
-
-		JLabel lblEspecialidade = new JLabel("Especialidade:");
-		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblEspecialidade, "flowx,cell 3 19,alignx left");
+		getContentPane().add(lblCrm, "flowx,cell 1 19,alignx left");
 
 		cbxUsuarios = new JComboBox(usuarios.toArray());
-		getContentPane().add(cbxUsuarios, "cell 2 1 2 1,growx");
+		getContentPane().add(cbxUsuarios, "cell 3 1 2 1,growx");
 		cbxUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(),
@@ -146,83 +142,87 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		separator.setBackground(Color.BLACK);
-		getContentPane().add(separator, "cell 0 3 4 1,grow");
+		getContentPane().add(separator, "cell 1 3 4 1,grow");
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setForeground(Color.BLACK);
 		separator_1.setBackground(Color.BLACK);
-		getContentPane().add(separator_1, "cell 0 9 4 1,grow");
+		getContentPane().add(separator_1, "cell 1 9 4 1,grow");
 
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setForeground(Color.BLACK);
 		separator_2.setBackground(Color.BLACK);
-		getContentPane().add(separator_2, "cell 0 17 4 1,grow");
+		getContentPane().add(separator_2, "cell 1 17 4 1,grow");
 
 		txtUsuario = new JTextField();
 		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(txtUsuario, "cell 1 5,alignx left");
+		getContentPane().add(txtUsuario, "cell 2 5,grow");
 		txtUsuario.setColumns(10);
 		txtUsuario.setEnabled(false);
 
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(txtNome, "cell 1 11,alignx left");
+		getContentPane().add(txtNome, "cell 2 11,grow");
 		txtNome.setColumns(10);
 		txtNome.setEnabled(false);
 
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtEmail.setColumns(10);
-		getContentPane().add(txtEmail, "cell 1 13,alignx left");
+		getContentPane().add(txtEmail, "cell 2 13,grow");
 		txtEmail.setEnabled(false);
 
 		txtCrm = new JTextField();
 		txtCrm.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(txtCrm, "cell 1 19,alignx left");
+		getContentPane().add(txtCrm, "cell 2 19,grow");
 		txtCrm.setColumns(10);
 		txtCrm.setEnabled(false);
 
 		txtCpf = new JFormattedTextField(mascaraCpf);
 		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtCpf.setColumns(10);
-		getContentPane().add(txtCpf, "cell 3 11,alignx left");
+		getContentPane().add(txtCpf, "cell 4 11,grow");
 		txtCpf.setEnabled(false);
 
 		txtTelefone = new JFormattedTextField(mascaraTelefone);
 		txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(txtTelefone, "cell 3 13,aligny top");
+		getContentPane().add(txtTelefone, "cell 4 13,grow");
 		txtTelefone.setColumns(10);
 		txtTelefone.setEnabled(false);
 
+		JLabel lblEspecialidade = new JLabel("Especialidade:");
+		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		getContentPane().add(lblEspecialidade, "cell 3 19,alignx left");
+
 		txtEspecialidade = new JTextField();
 		txtEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(txtEspecialidade, "cell 3 19,alignx center,aligny top");
+		getContentPane().add(txtEspecialidade, "cell 4 19,grow");
 		txtEspecialidade.setColumns(10);
 		txtEspecialidade.setEnabled(false);
 
 		passwordField = new JPasswordField();
 		passwordField.setColumns(10);
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(passwordField, "cell 1 7,alignx left");
+		getContentPane().add(passwordField, "cell 2 7,grow");
 		passwordField.setEnabled(false);
 
 		passwordFieldConfirm = new JPasswordField();
 		passwordFieldConfirm.setColumns(10);
 		passwordFieldConfirm.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(passwordFieldConfirm, "cell 3 7,alignx left");
+		getContentPane().add(passwordFieldConfirm, "cell 4 7,grow");
 		passwordFieldConfirm.setEnabled(false);
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
 
 		datePicker.setSettings(dateSettings);
-		getContentPane().add(datePicker, "cell 1 15");
+		getContentPane().add(datePicker, "cell 2 15,grow");
 		datePicker.setEnabled(false);
 
 		cbxTipoUsuario = new JComboBox();
 		cbxTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbxTipoUsuario.setModel(new DefaultComboBoxModel(new String[] { UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO, UsuarioVO.NIVEL_ADMIN }));
-		getContentPane().add(cbxTipoUsuario, "cell 3 5,growx");
+		getContentPane().add(cbxTipoUsuario, "cell 4 5,growx");
 		cbxTipoUsuario.setSelectedIndex(-1);
 		cbxTipoUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -232,7 +232,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(btnCancelar, "cell 1 21,alignx center,growy");
+		getContentPane().add(btnCancelar, "cell 2 21,grow");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -241,7 +241,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(btnSalvar, "cell 2 21,alignx center,growy");
+		getContentPane().add(btnSalvar, "cell 3 21,grow");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String mensagem = "";

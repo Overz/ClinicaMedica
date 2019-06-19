@@ -38,10 +38,8 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 	}
 
 	public TelaInternaAgendaMedico() {
-		setClosable(true);
-		setResizable(true);
+		super("Clínica Médica - Cadastro de Agenda Médica", true, true, true, true);
 		setBounds(100, 100, 763, 605);
-		setTitle("Cadastro de Agenda");
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 

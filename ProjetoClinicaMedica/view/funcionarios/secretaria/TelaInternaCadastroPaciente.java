@@ -69,9 +69,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		setResizable(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1040, 741);
-		getContentPane().setLayout(new MigLayout("",
-				"[][pref!,grow][grow][grow][][grow][grow][pref!,grow][grow][grow][grow]",
-				"[38,grow][38,grow][31px,grow][38px,grow][38,grow][][38,grow][][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38px,grow][38,grow][38,grow][38,grow][38,grow][38,grow][36px][38,grow][38,grow][38,grow][38,grow][][38,grow][][38,grow]"));
+		getContentPane().setLayout(new MigLayout("", "[][pref!,grow][grow][grow][][grow][grow][pref!,grow][grow][grow][grow]", "[38,grow][38,grow][31px,grow][38px,grow][38,grow][][38,grow][][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38px,grow][38,grow][38,grow][38,grow][38,grow][38,grow][36px][38,grow][38,grow][38,grow][38,grow][][38,grow][][38,grow]"));
 		initialize();
 	}
 
@@ -232,7 +230,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		ftfCPF.setVisible(false);
 
 		ftfRg = new JFormattedTextField(mascaraRG);
-		getContentPane().add(ftfRg, "cell 7 3 2 1,grow");
+		getContentPane().add(ftfRg, "cell 7 3 3 1,grow");
 
 		ftfTelefone = new JFormattedTextField(mascaraTelefone);
 		getContentPane().add(ftfTelefone, "cell 2 22,grow");

@@ -20,15 +20,14 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaBuscarPaciente extends JInternalFrame {
+
+	private static final long serialVersionUID = -3439228926572831568L;
 	private JTextField txtNome;
 	private JTable table;
 	private JButton btnPesquisar;
 	private JFormattedTextField ftfCpf;
 	private final DatePicker datePicker = new DatePicker();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,22 +41,15 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public TelaInternaBuscarPaciente() {
-		super("Buscar Paciente", true, true, true, false);
+		super("Clínica Médica - Buscar Paciente", true, true, true, false);
 		setBounds(100, 100, 945, 748);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[][138px][24px][200px][10px][109px][10px][418px][]",
-				"[25px,grow][26px,grow][8px,grow][605px,grow]"));
+		getContentPane().setLayout(new MigLayout("", "[][138px,grow][24px][200px,grow][10px][109px,grow][10px][418px,grow][]", "[25px,grow][26px,grow][8px,grow][605px,grow]"));
 
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		// TODO adcionar filtros de pesquisar: nome,cpf,dtNascimento + jtable para
 		// buscar os dados, deixar parecido com a tela de cadastro.
@@ -72,8 +64,8 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		JLabel lblNome = new JLabel("Digite o Nome:");
 		getContentPane().add(lblNome, "cell 1 0,grow");
 
-		JLabel lblCpf = new JLabel("CPF");
-		getContentPane().add(lblCpf, "cell 5 0,grow");
+		JLabel lblCpf = new JLabel("CPF:");
+		getContentPane().add(lblCpf, "cell 5 0,alignx center,growy");
 
 		JLabel lblDtNascimento = new JLabel("Data de Nascimento:");
 		getContentPane().add(lblDtNascimento, "cell 1 1,grow");
