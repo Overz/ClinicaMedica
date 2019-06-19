@@ -23,9 +23,6 @@ import view.funcionarios.secretaria.TelaInternaConsultasEHorarios;
 
 public class TelaGeral extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1850173995181721117L;
 	private JDesktopPane desktopPane;
 	private JMenuBar menuBar;
