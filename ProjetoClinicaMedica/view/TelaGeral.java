@@ -62,22 +62,8 @@ public class TelaGeral extends JFrame {
 	}
 
 	public TelaGeral() {
-
-		setTitle("Clinica Médica");
-		setBounds(5, 5, 1073, 700);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaGeral.class.getResource("/icones/icons8-caduceu-5.png")));
-		getContentPane().setLayout(null);
-
-		desktopPane = new JDesktopPane();
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		desktopPane.setBounds(0, 0, screenSize.width, screenSize.height);
-		desktopPane.setBackground(Color.WHITE);
-		desktopPane.setVisible(true);
-		desktopPane.repaint();
-		getContentPane().add(desktopPane);
-
 		// Abrir a janelinha em posição X,Y preferencial
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
 		int y = (int) (height * 0.1);
@@ -85,16 +71,26 @@ public class TelaGeral extends JFrame {
 		int width_int = (int) width;
 		int height_int = (int) height;
 
+		setTitle("Clinica Médica");
+		setBounds(5, 5, 1073, 700);
+		//setBounds(x, y, width_int, height_int);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaGeral.class.getResource("/icones/icons8-caduceu-5.png")));
+		getContentPane().setLayout(null);
+
+		desktopPane = new JDesktopPane();
+		desktopPane.setBounds(0, 0, screenSize.width, screenSize.height);
+		desktopPane.setBackground(Color.WHITE);
+		desktopPane.setVisible(true);
+		desktopPane.repaint();
+		getContentPane().add(desktopPane);
+
+
 		TelaInternaConsultasEHorarios janelinhaInternaPrincipalRecepcao = new TelaInternaConsultasEHorarios();
-		try {
-			desktopPane.add(janelinhaInternaPrincipalRecepcao);
-			janelinhaInternaPrincipalRecepcao.setBounds(0, 0, width_int, height_int);
-			janelinhaInternaPrincipalRecepcao.setVisible(true);
-			janelinhaInternaPrincipalRecepcao.show();
-		} catch (Exception e) {
-			System.out.println("Erro a abrir Janela Interna da Recepção");
-			System.out.println(e.getMessage());
-		}
+		desktopPane.add(janelinhaInternaPrincipalRecepcao);
+		janelinhaInternaPrincipalRecepcao.setBounds(0, 0, width_int, height_int);
+		janelinhaInternaPrincipalRecepcao.setVisible(true);
+		janelinhaInternaPrincipalRecepcao.show();
 
 		this.repaint();
 
