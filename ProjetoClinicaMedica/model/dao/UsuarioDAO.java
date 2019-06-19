@@ -133,7 +133,7 @@ public class UsuarioDAO {
 
 			if (resultado.next()) {
 				usuarioVO.setIdUsuario(resultado.getInt("IDUSUARIO"));
-				usuarioVO.setNomeUsuario(resultado.getString("NOME"));
+				usuarioVO.setNomeUsuario(resultado.getString("USUARIO"));
 				usuarioVO.setSenha(resultado.getString("SENHA"));
 				usuarioVO.setNivel(resultado.getString("NIVEL"));
 
