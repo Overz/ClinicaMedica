@@ -32,7 +32,7 @@ import model.vo.MedicoVO;
 import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
 
-public class TelaCadastroUsuario extends JInternalFrame {
+public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 	private static final long serialVersionUID = 3403537686533368539L;
 	private JTextField txtNome;
@@ -57,7 +57,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaCadastroUsuario frame = new TelaCadastroUsuario();
+					TelaInternaCadastroUsuario frame = new TelaInternaCadastroUsuario();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,7 +66,7 @@ public class TelaCadastroUsuario extends JInternalFrame {
 		});
 	}
 
-	public TelaCadastroUsuario() {
+	public TelaInternaCadastroUsuario() {
 
 		super("Clínica Médica - Cadastro de Usuarios", true, true, true, true);
 		setBounds(100, 100, 777, 620);
