@@ -119,8 +119,7 @@ public class TelaGeral extends JFrame {
 		});
 
 		mntmBuscarPaciente = new JMenuItem("Buscar Paciente");
-		mntmBuscarPaciente.setIcon(
-				new ImageIcon(TelaGeral.class.getResource("/icones/icons8-procurar-usuário-masculino-38.png")));
+		mntmBuscarPaciente.setIcon(	new ImageIcon(TelaGeral.class.getResource("/icones/icons8-procurar-usuário-masculino-38.png")));
 		mnPaciente.add(mntmBuscarPaciente);
 		mntmBuscarPaciente.addActionListener(e -> {
 

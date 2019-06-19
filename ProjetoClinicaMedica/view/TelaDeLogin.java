@@ -27,12 +27,8 @@ public class TelaDeLogin extends JFrame {
 	private JTextField txtUsuario;
 
 	private JButton btnLogin;
-	private static TelaCadastroUsuario telaCadastroUsuario;
 	private static TelaGeral telaGeral = new TelaGeral();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -48,9 +44,6 @@ public class TelaDeLogin extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public TelaDeLogin() {
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -63,15 +56,11 @@ public class TelaDeLogin extends JFrame {
 		setBounds(0, 0, 496, 359);
 		// setBounds(x, y, 496, 359);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][183px,grow][grow][grow][10]",
-				"[grow][grow][grow][25px,grow][29px,grow][grow][grow][grow][grow][grow][grow][grow][10]"));
+		getContentPane().setLayout(new MigLayout("", "[10][183px,grow][grow][10]", "[grow][grow][grow][25px,grow][29px,grow][grow][grow][grow][grow][grow][grow][grow]"));
 
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 
 		JLabel lblUsuario = new JLabel("Usuário:");
@@ -84,16 +73,16 @@ public class TelaDeLogin extends JFrame {
 
 		txtUsuario = new JTextField();
 		txtUsuario.setFont(new Font("Verdana", Font.PLAIN, 16));
-		getContentPane().add(txtUsuario, "cell 3 3,grow");
+		getContentPane().add(txtUsuario, "cell 2 3,grow");
 		txtUsuario.setColumns(10);
 
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Verdana", Font.PLAIN, 16));
-		getContentPane().add(passwordField, "cell 3 5,grow");
+		getContentPane().add(passwordField, "cell 2 5,grow");
 
 		btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Arial", Font.BOLD, 16));
-		getContentPane().add(btnLogin, "cell 3 8,grow");
+		getContentPane().add(btnLogin, "cell 1 8 2 1,grow");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
