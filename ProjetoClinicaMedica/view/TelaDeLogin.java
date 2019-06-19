@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import controller.ControllerUsuario;
 import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
-import view.adm.usuario.TelaInternaCadastroUsuario;
+import view.adm.usuario.TelaCadastroUsuario;
 
 public class TelaDeLogin extends JFrame {
 
