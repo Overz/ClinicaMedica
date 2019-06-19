@@ -15,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.WindowConstants;
 
 import model.vo.UsuarioVO;
+import view.adm.usuario.TelaInternaCadastroUsuario;
 import view.funcionarios.medico.TelaInternaAgendaMedico;
 import view.funcionarios.medico.TelaInternaProntuarioMedico;
 import view.funcionarios.secretaria.TelaInternaBuscarPaciente;
@@ -71,7 +72,7 @@ public class TelaGeral extends JFrame {
 		setTitle("Clinica Médica");
 		setBounds(5, 5, 1073, 700);
 		//setBounds(x, y, width_int, height_int);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaGeral.class.getResource("/icones/icons8-caduceu-5.png")));
 		getContentPane().setLayout(null);
 
@@ -196,6 +197,11 @@ public class TelaGeral extends JFrame {
 		mntmCadastrarUsuarios = new JMenuItem("Cadastrar Usuarios");
 		mnUsuarios.add(mntmCadastrarUsuarios);
 		mntmCadastrarUsuarios.addActionListener(e -> {
+			
+			TelaInternaCadastroUsuario janelinhaUsuario = new TelaInternaCadastroUsuario();
+			desktopPane.add(janelinhaUsuario);
+			janelinhaUsuario.setVisible(true);
+			janelinhaUsuario.show();
 
 		});
 
