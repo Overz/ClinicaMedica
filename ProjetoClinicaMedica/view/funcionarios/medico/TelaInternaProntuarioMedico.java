@@ -6,13 +6,12 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
+import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.DropMode;
 import javax.swing.JTextArea;
 
 public class TelaInternaProntuarioMedico extends JInternalFrame {

@@ -161,15 +161,15 @@ public class ControllerFuncionario {
 		}
 		if (telefone == null || telefone.trim().isEmpty()) {
 			if (celular == null || celular.trim().isEmpty()) {
-				mensagem = "Por favor, Digite TELEFONE ou CELULAR Acima";
+				mensagem += "Por favor, Digite TELEFONE ou CELULAR Acima";
 			}
 		}
 		if (!validarEMail(email)) {
-			mensagem = "Por favor, Digite um EMAIL Valido!";
+			mensagem += "Por favor, Digite um EMAIL Valido!";
 		}
 		
 		if (mensagem == null || mensagem.trim().isEmpty()) {
-			mensagem = bo.ValidarSalvarCadastroPaciente(nome, cpf, rg, date, sexo, estadoCivil, tipoSangue, cidade, bairro, rua, numero, telefone, celular, email);
+			mensagem += bo.ValidarSalvarCadastroPaciente(nome, cpf, rg, date, sexo, estadoCivil, tipoSangue, cidade, bairro, rua, numero, telefone, celular, email);
 		}
 
 		return mensagem;

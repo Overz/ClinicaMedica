@@ -3,6 +3,7 @@ package view.funcionarios.secretaria;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -32,18 +34,19 @@ import javax.swing.JTextField;
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
 	private static final long serialVersionUID = 9221455748477846858L;
-	private Date data;
-	private JComboBox cbOpcaoPesquisa;
-	private JComponent dateChooser;
-	private JButton btnPesquisarPorCampos;
-	private JFormattedTextField ftfCampoCpfCrm;
-	private JButton btnCadastrarConsulta;
-	private JTable table;
-	private final DatePicker datePicker = new DatePicker();
-	private JTextField txtNome;
 	private JLabel lblPacientemdico;
 	private JLabel lblCpfcrm;
+	private JComboBox cbOpcaoPesquisa;
+	private JButton btnPesquisarPorCampos;
+	private JButton btnCadastrarConsulta;
 	private JButton btnLimparCampos;
+	private JFormattedTextField ftfCampoCpfCrm;
+	private JFormattedTextField ftfNome;
+	private MaskFormatter mascaraNome;
+	private MaskFormatter mascaraCpfCrm;
+	private Date data;
+	private JTable table;
+	private final DatePicker datePicker = new DatePicker();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -77,6 +80,13 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	}
 
 	private void initialize() {
+		
+		try {
+			mascaraNome = new MaskFormatter("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+			mascaraCpfCrm = new MaskFormatter("####################");
+		} catch (ParseException e1) {
+			System.out.println("Erro ao criar Mascara" + e1.getMessage());
+		}
 
 		JLabel lblNome = new JLabel("Pesquisar por:");
 		getContentPane().add(lblNome, "cell 1 0,alignx right,growy");
@@ -84,7 +94,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		lblPacientemdico = new JLabel("Paciente/Médico:");
 		getContentPane().add(lblPacientemdico, "cell 1 1,alignx trailing,growy");
 		lblPacientemdico.setVisible(true);
-
+		
 		lblCpfcrm = new JLabel("CPF/CRM:");
 		getContentPane().add(lblCpfcrm, "cell 1 2,alignx trailing,growy");
 		lblCpfcrm.setVisible(false);
@@ -101,20 +111,22 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		getContentPane().add(cbOpcaoPesquisa, "cell 2 0 2 1,grow");
 		cbOpcaoPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				verificarCampos();
+				verificarCamposCbBox();
 			}
 		});
 
-		txtNome = new JTextField();
-		getContentPane().add(txtNome, "cell 2 1 3 1,grow");
-		txtNome.setColumns(10);
-
-		ftfCampoCpfCrm = new JFormattedTextField();
-		ftfCampoCpfCrm.setVisible(true);
-
+		ftfNome = new JFormattedTextField(mascaraNome);
+		ftfNome.setVisible(true);
+		ftfNome.setEnabled(true);
+		ftfNome.setEditable(true);
+		ftfNome.setToolTipText("Digite o Nome do Paciente ou Médico, para realizar a Consulta Especifica.");
+		getContentPane().add(ftfNome, "cell 2 1 3 1,grow");
+		
+		ftfCampoCpfCrm = new JFormattedTextField(mascaraCpfCrm);
+		ftfCampoCpfCrm.setVisible(false);
 		ftfCampoCpfCrm.setEditable(false);
 		ftfCampoCpfCrm.setEnabled(false);
-		ftfCampoCpfCrm.setToolTipText("Digite o CPF do Paciente ou Médico");
+		ftfCampoCpfCrm.setToolTipText("Digite o CPF do Paciente ou Médico.");
 		getContentPane().add(ftfCampoCpfCrm, "cell 2 2 3 1,grow");
 
 		btnPesquisarPorCampos = new JButton("Pesquisar Medico/Consulta");
@@ -122,19 +134,20 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		btnPesquisarPorCampos.addActionListener(e -> {
 
 			ControllerFuncionario controller = new ControllerFuncionario();
-			String nome = txtNome.getText();
-			String cpfCrm = ftfCampoCpfCrm.getText();
-			LocalDate date = datePicker.getDate();
-			String mensagem = controller.ValidarCamposConsultasEHorarios(nome, cpfCrm, date);
+			try {
+				String nome = ftfNome.getText();
+				String cpfCrm = ftfCampoCpfCrm.getText();
+				LocalDate date = datePicker.getDate();
+				String mensagem = controller.ValidarCamposConsultasEHorarios(nome, cpfCrm, date);
 				if (mensagem != null) {
 					JOptionPane.showMessageDialog(null, mensagem);
 				}
+			} catch (NullPointerException e2) {
+				System.out.println("Tela: Consultas e Horarios. Erro ao Validar os Campos para consulta.\n" + e2.getMessage());
+			}
 			
-			/*LocalDate date = ((DatePicker) datePicker).getDate();
-			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");*/
-
-			// ArrayList<MedicoVO> vo = controller.consultarData(data);
-			// atualizarTabelaCarros(vo);
+			// ArrayList<PacienteVO> vo = controller.consultarData(data);
+			// atualizarTabela(vo);
 		});
 
 		btnLimparCampos = new JButton("Limpar Campos");
@@ -143,7 +156,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 			
 			cbOpcaoPesquisa.setSelectedIndex(0);
 			datePicker.setDate(null);
-			txtNome.setText("");
+			ftfNome.setText("");
 			ftfCampoCpfCrm.setText("");
 			
 		});
@@ -172,30 +185,33 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		this.repaint();
 	}
 
-	public void verificarCampos() {
+	public void verificarCamposCbBox() {
 
 		if (cbOpcaoPesquisa.getSelectedIndex() == 0) {
-			txtNome.setVisible(true);
-			txtNome.setEnabled(true);
-			txtNome.setEditable(true);
+			ftfNome.setText("");
+			ftfNome.setVisible(true);
+			ftfNome.setEnabled(true);
+			ftfNome.setEditable(true);
 			lblPacientemdico.setVisible(true);
 
-
+			ftfCampoCpfCrm.setText("");
 			ftfCampoCpfCrm.setEnabled(false);
 			ftfCampoCpfCrm.setEditable(false);
 			ftfCampoCpfCrm.setVisible(false);
 			lblCpfcrm.setVisible(false);
 
 		} else  {
-
+			
+			ftfCampoCpfCrm.setText("");
 			ftfCampoCpfCrm.setEnabled(true);
 			ftfCampoCpfCrm.setEditable(true);
 			ftfCampoCpfCrm.setVisible(true);
 			lblCpfcrm.setVisible(true);
 
-			txtNome.setVisible(false);
-			txtNome.setEnabled(false);
-			txtNome.setEditable(false);
+			ftfNome.setText("");
+			ftfNome.setVisible(false);
+			ftfNome.setEnabled(false);
+			ftfNome.setEditable(false);
 			lblPacientemdico.setVisible(false);
 		}
 

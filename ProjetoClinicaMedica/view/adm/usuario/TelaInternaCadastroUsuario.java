@@ -70,7 +70,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		setBounds(100, 100, 777, 620);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(
-				new MigLayout("", "[10][][center][center][grow][10]", "[][][][][][][][][][][][][][][][][][][][][][]"));
+				new MigLayout("", "[10][grow,fill][grow,fill][grow,center][grow][10]", "[grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]"));
 
 		initialize();
 
@@ -86,7 +86,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 		JLabel lblSelecionarUsurio = new JLabel("Selecionar Usuário para Editar:");
 		lblSelecionarUsurio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblSelecionarUsurio, "cell 2 1,alignx left");
+		getContentPane().add(lblSelecionarUsurio, "cell 2 1,alignx left,growy");
 
 		JLabel lblUsuario = new JLabel("Usuário:");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -231,7 +231,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(btnCancelar, "cell 2 21,grow");
+		getContentPane().add(btnCancelar, "cell 1 21 2 1,grow");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -240,7 +240,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(btnSalvar, "cell 3 21,grow");
+		getContentPane().add(btnSalvar, "cell 3 21 2 1,grow");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String mensagem = "";

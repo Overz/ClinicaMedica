@@ -46,7 +46,7 @@ public class TelaInternaMedico extends JInternalFrame {
 		setBounds(100, 100, 812, 621);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("", "[10][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][10]", "[grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][10]"));
-	
+
 		initialize();
 	}
 
@@ -65,16 +65,22 @@ public class TelaInternaMedico extends JInternalFrame {
 		btnPesquisarConsulta.setToolTipText("Selecione uma Linha, e Pesquise dados mais especifos.");
 		getContentPane().add(btnPesquisarConsulta, "cell 4 0 3 1,grow");
 		btnPesquisarConsulta.addActionListener(e -> {
+
+			try {
+				ControllerMedico controller = new ControllerMedico();
+				LocalDate date = datePicker.getDate();
+				String mensagem = controller.validarTelaInternaMedico(date);
 			
-			ControllerMedico controller = new ControllerMedico();
-			LocalDate date = datePicker.getDate();
-			String mensagem = controller.validarTelaInternaMedico(date);
-			if (mensagem != null) {
-				JOptionPane.showMessageDialog(null, mensagem);
-			} else {
-				//TODO Trazer as Consultas do médico logado.
+				if (mensagem != null) {
+					JOptionPane.showMessageDialog(null, mensagem);
+				} else {
+					//TODO Trazer as Consultas do médico logado.
+				}
+
+			} catch (NullPointerException e2) {
+				System.out.println("Tela: Tela Interna Médico. Erro ao validar o campo Data.\n" + e2.getMessage());
 			}
-			
+
 		});
 
 		Object[][] data = new Object[][] { { "Nome", "Data", "Hora", "Causa/Motivo" }, };
