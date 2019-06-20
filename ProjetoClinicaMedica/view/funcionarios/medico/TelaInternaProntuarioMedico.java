@@ -6,7 +6,6 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -101,6 +100,7 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		getContentPane().add(btnSalvar, "cell 3 12 4 1,grow");
 		btnSalvar.addActionListener(e -> {
 			
+			//TODO Fazer Validação??
 			//TODO Salvar no Banco, salvar como arquivo, e deixar disponivel para impressão.
 		});
 

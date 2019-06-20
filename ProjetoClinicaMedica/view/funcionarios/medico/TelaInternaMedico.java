@@ -3,7 +3,6 @@ package view.funcionarios.medico;
 import java.awt.EventQueue;
 import java.time.LocalDate;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -21,10 +20,8 @@ import net.miginfocom.swing.MigLayout;
 public class TelaInternaMedico extends JInternalFrame {
 
 	private static final long serialVersionUID = -5426592037700061418L;
-	private ControllerMedico controller;
 	private JLabel lblData;
 	private JButton btnPesquisarConsulta;
-	private DefaultListModel<Object> lista = new DefaultListModel<Object>();
 	private JTable table;
 	private final DatePicker datePicker = new DatePicker();
 

@@ -4,15 +4,12 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -26,10 +23,8 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import controller.ControllerFuncionario;
-import controller.ControllerMedico;
 import model.vo.MedicoVO;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JTextField;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
@@ -44,7 +39,6 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	private JFormattedTextField ftfNome;
 	private MaskFormatter mascaraNome;
 	private MaskFormatter mascaraCpfCrm;
-	private Date data;
 	private JTable table;
 	private final DatePicker datePicker = new DatePicker();
 
