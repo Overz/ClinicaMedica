@@ -19,6 +19,7 @@ import javax.swing.text.MaskFormatter;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
+import controller.ControllerFuncionario;
 import controller.ControllerValidacao;
 import net.miginfocom.swing.MigLayout;
 
@@ -280,14 +281,20 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		getContentPane().add(btnPesquisar, "cell 3 5 3 3,grow");
 		btnPesquisar.addActionListener(e -> {
 
-			ControllerValidacao validarCampos = new ControllerValidacao();
-			String mensagem = validarCampos.validarCamposController();
+			String nome = txtNome.getText();
+			String cpf = ftfCPF.getText();
+			String rg = ftfCPF.getText();
+			
+			ControllerFuncionario controller = new ControllerFuncionario();
+			String mensagem = controller.validarCamposPesquisarCadastroPaciente(nome, cpf, rg);
 
 		});
 
 		btnCadastrar = new JButton("Salvar");
 		getContentPane().add(btnCadastrar, "cell 2 25 2 3,grow");
 		btnCadastrar.addActionListener(e -> {
+			
+			
 
 		});
 

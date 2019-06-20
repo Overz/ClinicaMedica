@@ -63,7 +63,7 @@ public class ControllerPaciente {
 
 		return mensagem;
 	}
-
+	
 	public ArrayList<PacienteVO> pesquisarPaciente(SeletorPaciente seletor) {
 		return pacienteBO.pesquisarPaciente(seletor);
 	}

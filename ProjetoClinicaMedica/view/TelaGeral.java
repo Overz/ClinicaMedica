@@ -18,6 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
+import controller.ControllerUsuario;
 import model.vo.UsuarioVO;
 import view.adm.cliente.TelaInternaCadastrarAtualizarPaciente;
 import view.adm.usuario.TelaInternaCadastroUsuario;
@@ -52,8 +53,9 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mntmGerarRelatorioDePaciente;
 	private JMenuItem mntmExcluirUsuarios;
 	private JMenuItem mntmCadastrarUsuarios;
+	private JMenu mnAdm;
+	
 	private UsuarioVO usuario;
-
 
 	private ArrayList<Component> componentesDaTela = new ArrayList<Component>();
 	private TelaInternaCadastroPaciente janelinhaCadastroPaciente = new TelaInternaCadastroPaciente();
@@ -104,7 +106,6 @@ public class TelaGeral extends JFrame {
 		desktopPane.setVisible(true);
 		desktopPane.repaint();
 		getContentPane().add(desktopPane);
-
 
 		TelaInternaConsultasEHorarios janelinhaInternaPrincipalRecepcao = new TelaInternaConsultasEHorarios();
 		desktopPane.add(janelinhaInternaPrincipalRecepcao);
@@ -187,7 +188,7 @@ public class TelaGeral extends JFrame {
 		});
 
 		// MENU ADM
-		JMenu mnAdm = new JMenu("Adm");
+		mnAdm = new JMenu("Adm");
 		mnAdm.setFont(new Font("Arial", Font.BOLD, 16));
 		mnAdm.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-escudo-de-usuário-filled-38.png")));
 		menuBar.add(mnAdm);
@@ -219,7 +220,7 @@ public class TelaGeral extends JFrame {
 		mntmExcluirUsuarios = new JMenuItem("Excluir Usuarios");
 		mnUsuarios.add(mntmExcluirUsuarios);
 		mntmExcluirUsuarios.addActionListener(e -> {
-			
+
 			adicionarInternalFrame(janelinhaExcluirUsuario);
 			janelinhaExcluirUsuario.setBounds(0, 0, width_int, height_int);
 			janelinhaExcluirUsuario.setVisible(true);
@@ -302,5 +303,20 @@ public class TelaGeral extends JFrame {
 
 	public void setUsuario(UsuarioVO usuario) {
 		this.usuario = usuario;
+	}
+
+	public void verificarPermissaoParaTela(UsuarioVO vo) {
+
+		if (vo.getNivel() == vo.NIVEL_FUNCIONARIO) {
+			mnMedico.setEnabled(false);
+			mnAdm.setEnabled(false);
+		} else if (vo.getNivel() == vo.NIVEL_MEDICO) {
+			mnPaciente.setEnabled(false);
+			mnAdm.setEnabled(false);
+		} else {
+				mnPaciente.setEnabled(true);
+				mnMedico.setEnabled(true);
+				mnAdm.setEnabled(true);
+		}
 	}
 }

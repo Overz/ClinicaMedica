@@ -91,6 +91,8 @@ public class TelaDeLogin extends JFrame {
 				String usuario = txtUsuario.getText();
 				String senha = new String(passwordField.getPassword());
 				UsuarioVO vo = controllerUsuario.login(usuario, senha);
+				
+				telaGeral.verificarPermissaoParaTela(vo);
 
 				if (vo != null) {
 

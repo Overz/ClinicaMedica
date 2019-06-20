@@ -47,5 +47,37 @@ public class ControllerFuncionario {
 
 		return mensagem;
 	}
+	
+	public String validarTelaBuscarPaciente(String cpf, String nome, String data) {
+		String mensagem = "";
+		
+		if (cpf == null || cpf.trim().isEmpty()) {
+			mensagem = "Por favor, Digite algum Campo Acima!";
+		}
+		if (nome == null || nome.trim().isEmpty()) {
+			mensagem = "Por favor, Digite algum Campo Acima!";
+		}
+		if (data == null || data.trim().isEmpty()) {
+			mensagem = "Por favor, Digite algum Campo Acima!";
+		}
+
+		return mensagem;
+	}
+	
+	public String validarCamposPesquisarCadastroPaciente(String nome, String cpf, String rg) {
+		String mensagem = "";
+		
+		if (nome == null || nome.trim().isEmpty()) {
+			mensagem = "Por favor, Digite algum Campo Acima!";
+		}
+		if (cpf == null || cpf.trim().isEmpty()) {
+			mensagem = "Por favor, Digite algum Campo Acima!";
+		}
+		if (rg == null || rg.trim().isEmpty()) {
+			mensagem = "Por favor, Digite algum Campo Acima!";
+		}
+
+		return mensagem;
+	}
 
 }

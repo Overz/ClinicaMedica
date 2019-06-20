@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -17,6 +18,7 @@ import javax.swing.text.MaskFormatter;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
+import controller.ControllerFuncionario;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaBuscarPaciente extends JInternalFrame {
@@ -87,9 +89,22 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 3 1,grow");
+		
+		String cpf = ftfCpf.getText();
+		String nome = txtNome.getText();
+		String dataString = datePicker.getDateStringOrEmptyString();
 
 		btnPesquisar = new JButton("Pesquisar");
 		getContentPane().add(btnPesquisar, "cell 5 1 3 1,grow");
+		btnPesquisar.addActionListener(e -> {
+			
+			ControllerFuncionario controller = new ControllerFuncionario();
+			String mensagem = controller.validarTelaBuscarPaciente(cpf, nome, dataString);
+			if (!(mensagem == null)) {
+				JOptionPane.showMessageDialog(null, mensagem);
+			}
+			
+		});
 
 		Object[][] data = new Object[][] {
 				{ "Nome", "Data de Nascimento", "CPF", "Telefone", "Bairro", "Endereço", "Nº", "Consultas" }, };
