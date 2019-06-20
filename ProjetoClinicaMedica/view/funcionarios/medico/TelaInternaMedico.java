@@ -18,9 +18,14 @@ import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaMedico extends JInternalFrame {
 
-	/**
-	 * Launch the application.
-	 */
+	private static final long serialVersionUID = -5426592037700061418L;
+	private ControllerMedico controller;
+	private JLabel lblData;
+	private JButton btnPesquisarConsulta;
+	private DefaultListModel<Object> lista = new DefaultListModel<Object>();
+	private JTable table;
+	private final DatePicker datePicker = new DatePicker();
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -34,34 +39,16 @@ public class TelaInternaMedico extends JInternalFrame {
 		});
 	}
 
-	private ControllerMedico controller;
-	private JLabel lblData;
-	private JButton btnPesquisarConsulta;
-	private DefaultListModel<Object> lista = new DefaultListModel<Object>();
-	private JTable table;
-	private final DatePicker datePicker = new DatePicker();
-
-	/**
-	 * Create the application.
-	 */
 	public TelaInternaMedico() {
-		setResizable(true);
-		setClosable(true);
+		super("Clínica Médica - Horario das Consultas", false, true, false, false);
 		setBounds(100, 100, 812, 621);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("",
-				"[][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][]",
-				"[grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][10]"));
+		getContentPane().setLayout(new MigLayout("", "[10][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][10]", "[grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][10]"));
+	
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
-
-		Object[][] data = new Object[][] { { "Nome", "Data", "Hora", "Causa" }, };
-		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Causa" };
 
 		lblData = new JLabel("Data:");
 		getContentPane().add(lblData, "cell 1 0,alignx center,growy");
@@ -74,7 +61,14 @@ public class TelaInternaMedico extends JInternalFrame {
 
 		btnPesquisarConsulta = new JButton("Pesquisar Consultas");
 		btnPesquisarConsulta.setToolTipText("Selecione uma Linha, e Pesquise dados mais especifos.");
-		getContentPane().add(btnPesquisarConsulta, "cell 5 0,grow");
+		getContentPane().add(btnPesquisarConsulta, "cell 4 0 3 1,grow");
+		btnPesquisarConsulta.addActionListener(e -> {
+			
+			
+		});
+
+		Object[][] data = new Object[][] { { "Nome", "Data", "Hora", "Causa/Motivo" }, };
+		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Causa/Motivo" };
 
 		table = new JTable();
 		table.setModel(new DefaultTableModel(data, columnNames));
@@ -98,5 +92,4 @@ public class TelaInternaMedico extends JInternalFrame {
 	 * Object[][] {{"Placa", "Modelo", "Ano", "Valor"}}, new String[] {"Placa",
 	 * "Modelo", "Ano", "Valor"})); }
 	 */
-
 }

@@ -15,11 +15,9 @@ import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaProntuarioMedico extends JInternalFrame {
 
+	private static final long serialVersionUID = 6287035520900270789L;
 	private final DatePicker datePicker = new DatePicker();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -33,20 +31,18 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public TelaInternaProntuarioMedico() {
-		setTitle("Cadastrar / Atualizar Prontuario");
-		setClosable(true);
-		setMaximizable(true);
-		setResizable(true);
+		super("Clínica Médica - Cadastrar/Atualizar Prontuario", false, true, false, false);
 		setBounds(100, 100, 965, 788);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		getContentPane()
-				.setLayout(new MigLayout("", "[10][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]",
+		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]",
 						"[13][grow][13][grow][13][grow][13][13][grow][154.00,grow][grow][154px,grow][33px,grow][13]"));
 
+		initialize();
+	}
+
+	private void initialize() {
+		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Verdana", Font.PLAIN, 14));
 		getContentPane().add(lblNome, "cell 1 1 4 1,grow");
@@ -95,13 +91,6 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		JButton btnSalvar = new JButton("Salvar / Imprimir");
 		btnSalvar.setFont(new Font("Verdana", Font.PLAIN, 14));
 		getContentPane().add(btnSalvar, "cell 3 12 4 1,grow");
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
 
 	}
 }

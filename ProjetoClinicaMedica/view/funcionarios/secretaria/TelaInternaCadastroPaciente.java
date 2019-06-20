@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.beans.PropertyVetoException;
 import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
@@ -23,6 +24,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaCadastroPaciente extends JInternalFrame {
 
+	private static final long serialVersionUID = -7169289567115539328L;
 	private JFormattedTextField ftfCPF;
 	private JFormattedTextField ftfRg;
 	private JFormattedTextField ftfTelefone;
@@ -49,13 +51,16 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	private JButton btnLimpar;
 	private JButton btnCadastrar;
 	private JButton btnPesquisar;
+	
 	private final DatePicker datePicker = new DatePicker();
 
+	private static TelaInternaCadastroPaciente window;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaCadastroPaciente window = new TelaInternaCadastroPaciente();
+					window = new TelaInternaCadastroPaciente();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,8 +70,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	}
 
 	public TelaInternaCadastroPaciente() {
-		this.setClosable(true);
-		setResizable(true);
+		super("Clínica Médica - Cadastrar Paciente", false, true, false, false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1040, 741);
 		getContentPane().setLayout(new MigLayout("", "[][pref!,grow][grow][grow][][grow][grow][pref!,grow][grow][grow][grow]", "[38,grow][38,grow][31px,grow][38px,grow][38,grow][][38,grow][][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38px,grow][38,grow][38,grow][38,grow][38,grow][38,grow][36px][38,grow][38,grow][38,grow][38,grow][][38,grow][][38,grow]"));
@@ -85,7 +89,10 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			System.out.println("Erro ao criar m�scaras. Causa: " + e.getMessage());
 		}
 
-		lblVoltar = new JLabel("<< Voltar");
+	/*	lblVoltar = new JLabel();
+		lblVoltar.setVisible(false);
+		lblVoltar.setText("<< Voltar");
+		lblVoltar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblVoltar.setToolTipText("Cique Aqui para Voltar");
 		getContentPane().add(lblVoltar, "cell 1 0,alignx left,growy");
 		lblVoltar.addMouseListener(new MouseListener() {
@@ -105,21 +112,25 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-
+				lblVoltar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-
+				lblVoltar.setFont(new Font ("Arial", Font.BOLD, 18));
 			}
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TelaInternaCadastroPaciente = null;
+				try {
+					window.setClosed(true);
+				} catch (PropertyVetoException e1) {
+					System.out.println("Erro ao fechar Janela\n" + e1.getMessage());
+				}
 
 			}
-		});
+		});*/
 
 		JLabel lblInformacao = new JLabel("Informações Pessoais");
 		lblInformacao.setFont(new Font("Verdana", Font.BOLD, 14));
@@ -226,6 +237,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		txtComplementoEndereco.setColumns(10);
 
 		ftfCPF = new JFormattedTextField(mascaraCpf);
+		ftfCPF.setFont(new Font("Arial", Font.PLAIN, 14));
 		getContentPane().add(ftfCPF, "cell 2 2,grow");
 		ftfCPF.setVisible(false);
 
@@ -250,7 +262,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		cbTipoSanguineo = new JComboBox();
 		cbTipoSanguineo.setModel(new DefaultComboBoxModel(
 				new String[] { "[SELECIONE]", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" }));
-		getContentPane().add(cbTipoSanguineo, "cell 7 10,grow");
+		getContentPane().add(cbTipoSanguineo, "cell 7 10 2 1,grow");
 
 		cbConvenio = new JComboBox();
 		cbConvenio.setModel(
@@ -305,11 +317,11 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 		});
 
-		/*
-		 * try { SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); Date data =
-		 * sdf.parse(ftfData.getText()); } catch (ParseException e) { e.getMessage();
-		 * System.out.println(e); System.out.println("2� Try/Catch. Causa: " +
-		 * e.getMessage() ); }
-		 */
+		/*try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date data = sdf.parse(ftfData.getText()); 
+		} catch (ParseException e) {
+			System.out.println(e); System.out.println("2� Try/Catch. Causa: " + e.getMessage() );
+		}*/
 	}
 }

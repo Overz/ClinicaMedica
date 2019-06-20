@@ -92,46 +92,50 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 		JLabel lblUsuario = new JLabel("Usuário:");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblUsuario, "flowx,cell 1 5,alignx left");
+		getContentPane().add(lblUsuario, "flowx,cell 1 5,grow");
 
 		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuário:");
 		lblTipoDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblTipoDeUsuario, "flowx,cell 3 5,alignx left");
+		getContentPane().add(lblTipoDeUsuario, "flowx,cell 3 5,alignx center,growy");
 
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblSenha, "flowx,cell 1 7,alignx left");
+		getContentPane().add(lblSenha, "flowx,cell 1 7,grow");
 
 		JLabel lblConfirmeSuaSenha = new JLabel("Confirme sua Senha:");
 		lblConfirmeSuaSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblConfirmeSuaSenha, "flowx,cell 3 7,alignx left");
+		getContentPane().add(lblConfirmeSuaSenha, "flowx,cell 3 7,alignx center,growy");
 
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblNome, "flowx,cell 1 11");
+		getContentPane().add(lblNome, "flowx,cell 1 11,grow");
 
 		JLabel lblCpf = new JLabel("CPF:");
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblCpf, "cell 3 11,alignx left");
+		getContentPane().add(lblCpf, "cell 3 11,alignx center,growy");
 
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblEmail, "flowx,cell 1 13");
+		getContentPane().add(lblEmail, "flowx,cell 1 13,grow");
 
 		JLabel lblTelefone = new JLabel("Telefone:");
 		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblTelefone, "cell 3 13,alignx left");
+		getContentPane().add(lblTelefone, "cell 3 13,alignx center,growy");
 
 		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
 		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblDataDeNascimento, "cell 1 15");
+		getContentPane().add(lblDataDeNascimento, "cell 1 15,grow");
 
 		JLabel lblCrm = new JLabel("CRM:");
 		lblCrm.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblCrm, "flowx,cell 1 19,alignx left");
+		getContentPane().add(lblCrm, "flowx,cell 1 19,grow");
+		
+		JLabel lblEspecialidade = new JLabel("Especialidade:");
+		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		getContentPane().add(lblEspecialidade, "cell 3 19,alignx center,growy");
 
 		cbxUsuarios = new JComboBox(usuarios.toArray());
-		getContentPane().add(cbxUsuarios, "cell 3 1 2 1,growx");
+		getContentPane().add(cbxUsuarios, "cell 3 1 2 1,grow");
 		cbxUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(),
@@ -190,9 +194,6 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		txtTelefone.setColumns(10);
 		txtTelefone.setEnabled(false);
 
-		JLabel lblEspecialidade = new JLabel("Especialidade:");
-		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		getContentPane().add(lblEspecialidade, "cell 3 19,alignx left");
 
 		txtEspecialidade = new JTextField();
 		txtEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -222,7 +223,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		cbxTipoUsuario = new JComboBox();
 		cbxTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbxTipoUsuario.setModel(new DefaultComboBoxModel(new String[] { UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO, UsuarioVO.NIVEL_ADMIN }));
-		getContentPane().add(cbxTipoUsuario, "cell 4 5,growx");
+		getContentPane().add(cbxTipoUsuario, "cell 4 5,grow");
 		cbxTipoUsuario.setSelectedIndex(-1);
 		cbxTipoUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -14,6 +14,7 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 
 public class TelaInternaAgendaMedico extends JInternalFrame {
 
+	private static final long serialVersionUID = -1343244694236177024L;
 	private JTextField textMedico;
 	private JTextField textAgenda;
 	private JTextField textTelefone;
@@ -42,7 +43,6 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		setBounds(100, 100, 763, 605);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
-
 		this.repaint();
 
 		initialize();

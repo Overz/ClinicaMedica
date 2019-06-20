@@ -51,7 +51,6 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 				try {
 					TelaInternaConsultasEHorarios window = new TelaInternaConsultasEHorarios();
 					window.setVisible(true);
-					//window.setMaximum(true);
 					window.setSelected(true);
 					window.setIcon(false);
 				} catch (Exception e) {
