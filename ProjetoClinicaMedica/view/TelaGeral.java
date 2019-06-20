@@ -20,7 +20,7 @@ import javax.swing.event.InternalFrameEvent;
 
 import controller.ControllerUsuario;
 import model.vo.UsuarioVO;
-import view.adm.cliente.TelaInternaCadastrarAtualizarPaciente;
+import view.adm.paciente.TelaInternaCadastrarAtualizarPaciente;
 import view.adm.usuario.TelaInternaCadastroUsuario;
 import view.adm.usuario.TelaInternaExcluirUsuario;
 import view.funcionarios.medico.TelaInternaAgendaMedico;

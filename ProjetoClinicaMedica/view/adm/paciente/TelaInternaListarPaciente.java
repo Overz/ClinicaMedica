@@ -1,4 +1,4 @@
-package view.adm.cliente;
+package view.adm.paciente;
 
 import java.awt.EventQueue;
 
@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.WindowConstants;
 
-public class TelaInternaListarCliente extends JInternalFrame {
+public class TelaInternaListarPaciente extends JInternalFrame {
 
 	private JFrame frame;
 
@@ -17,7 +17,7 @@ public class TelaInternaListarCliente extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaListarCliente window = new TelaInternaListarCliente();
+					TelaInternaListarPaciente window = new TelaInternaListarPaciente();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,7 +29,7 @@ public class TelaInternaListarCliente extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public TelaInternaListarCliente() {
+	public TelaInternaListarPaciente() {
 		initialize();
 	}
 
