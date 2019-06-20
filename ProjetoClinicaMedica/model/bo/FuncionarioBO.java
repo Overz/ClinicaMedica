@@ -1,5 +1,7 @@
 package model.bo;
 
+import java.time.LocalDate;
+
 import model.dao.FuncionarioDAO;
 import model.vo.FuncionarioVO;
 
@@ -67,6 +69,17 @@ public class FuncionarioBO {
 				mensagem += "Erro ao atualizar usuário!\n";
 			}
 		}
+		return mensagem;
+	}
+
+	public String  ValidarSalvarCadastroPaciente(String nome, String cpf, String rg, LocalDate data, int sexo,
+			int estadoCivil, int tipoSangue, String cidade, String bairro, String rua, String numero, String telefone,
+			String celular, String email) {
+		
+		String mensagem = "";
+		
+		// TODO Continuar
+		
 		return mensagem;
 	}
 

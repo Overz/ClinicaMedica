@@ -3,6 +3,7 @@ package view.funcionarios.secretaria;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.text.ParseException;
+import java.time.LocalDate;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -53,8 +54,6 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	}
 
 	private void initialize() {
-		// TODO adcionar filtros de pesquisar: nome,cpf,dtNascimento + jtable para
-		// buscar os dados, deixar parecido com a tela de cadastro.
 
 		try {
 			MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
@@ -92,16 +91,18 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		
 		String cpf = ftfCpf.getText();
 		String nome = txtNome.getText();
-		String dataString = datePicker.getDateStringOrEmptyString();
+		LocalDate date = datePicker.getDate();
 
 		btnPesquisar = new JButton("Pesquisar");
 		getContentPane().add(btnPesquisar, "cell 5 1 3 1,grow");
 		btnPesquisar.addActionListener(e -> {
 			
 			ControllerFuncionario controller = new ControllerFuncionario();
-			String mensagem = controller.validarTelaBuscarPaciente(cpf, nome, dataString);
+			String mensagem = controller.validarTelaBuscarPaciente(nome, cpf, date);
 			if (!(mensagem == null)) {
 				JOptionPane.showMessageDialog(null, mensagem);
+			} else {
+				//TODO trazer busca dos campos selecionados
 			}
 			
 		});

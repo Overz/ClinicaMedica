@@ -35,6 +35,7 @@ public class TelaGeral extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu mnPaciente;
 	private JMenu mnMedico;
+	private JMenu mnAdm;
 	private JMenuItem mntmBuscarPaciente;
 	private JMenuItem mntmCadastrarPaciente;
 	private JMenuItem mntmAgendaMedica;
@@ -48,7 +49,6 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mntmGerarRelatorioDePaciente;
 	private JMenuItem mntmExcluirUsuarios;
 	private JMenuItem mntmCadastrarUsuarios;
-	private JMenu mnAdm;
 	
 	private UsuarioVO usuario;
 
@@ -175,7 +175,7 @@ public class TelaGeral extends JFrame {
 		mntmProntuario.addActionListener(e -> {
 
 			adicionarInternalFrame(janelinhaProntuario);
-			janelinhaProntuario.setBounds(0, 0, width_int, height_int);
+			janelinhaProntuario.setBounds(0, 0, width_int, height_int - 70);
 			janelinhaProntuario.setVisible(true);
 			janelinhaProntuario.show();
 			this.repaint();

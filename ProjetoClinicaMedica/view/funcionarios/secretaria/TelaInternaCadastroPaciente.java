@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyVetoException;
 import java.text.ParseException;
+import java.time.LocalDate;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -254,7 +255,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 
 		cbSexo = new JComboBox();
-		cbSexo.setModel(new DefaultComboBoxModel(new String[] { "Masculino", "Feminino", "Outros" }));
+		cbSexo.setModel(new DefaultComboBoxModel(new String[] {"[SELEICONE]", "Masculino", "Feminino", "Outros"}));
 		getContentPane().add(cbSexo, "cell 2 10,grow");
 
 		cbEstadoCivil = new JComboBox();
@@ -299,7 +300,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			String nome = txtNome.getText();
 			String cpf = ftfCPF.getText();
 			String rg = ftfCPF.getText();
-			String dataString = datePicker.getDateStringOrEmptyString();
+			LocalDate date = datePicker.getDate();
 			int sexo = cbSexo.getSelectedIndex();
 			int estadoCivil = cbEstadoCivil.getSelectedIndex();
 			int tipoSangue = cbTipoSanguineo.getSelectedIndex();
@@ -312,7 +313,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			String email = txtEmail.getText();
 			
 			ControllerFuncionario controller = new ControllerFuncionario();
-			String mensagem = controller.validarSalvarCadastroPaciente(nome, cpf, rg, dataString, sexo, estadoCivil, tipoSangue, cidade, bairro, rua, numero, telefone, celular, email);
+			String mensagem = controller.validarSalvarCadastroPaciente(nome, cpf, rg, date, sexo, estadoCivil, tipoSangue, cidade, bairro, rua, numero, telefone, celular, email);
 			
 		});
 

@@ -6,24 +6,27 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
+import controller.ControllerMedico;
+import net.miginfocom.swing.MigLayout;
+
 public class TelaInternaAgendaMedico extends JInternalFrame {
 
 	private static final long serialVersionUID = -1343244694236177024L;
-	private JTextField textMedico;
-	private JTextField textAgenda;
-	private JTextField textTelefone;
-	private JTextField textEmail;
+	private JTextField txtMedico;
+	private JTextField txtAgenda;
+	private JTextField txtTelefone;
+	private JTextField txtEmail;
 	private JButton btnCadastrar;
 	private JButton btnCancelar;
 	private JButton btnAlterarAgenda;
 	private JTextArea textArea;
-	private final DatePicker datePicker = new DatePicker();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -39,16 +42,16 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 	}
 
 	public TelaInternaAgendaMedico() {
-		super("Clínica Médica - Cadastro de Agenda Médica", true, true, true, true);
+		super("Clínica Médica - Cadastro de Agenda Médica", false, true, false, false);
 		setBounds(100, 100, 763, 605);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(null);
 		this.repaint();
 
 		initialize();
 	}
 
 	private void initialize() {
+		getContentPane().setLayout(new MigLayout("", "[124px,grow][10][172px,grow][10][124px,grow][10][177px,grow][10]", "[31px,grow][31px,grow][34px,grow][][265px,grow][68px,grow][15]"));
 
 		// TODO tentar:
 		// - Cadastrar primeira vez, na segunda vez, ao abrir, os dados ja vem descritos
@@ -56,71 +59,97 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 
 		JLabel lblDados = new JLabel("Dados Da Agenda");
 		lblDados.setFont(new Font("Verdana", Font.BOLD, 14));
-		lblDados.setBounds(10, 11, 141, 31);
-		getContentPane().add(lblDados);
+		getContentPane().add(lblDados, "cell 0 0,grow");
 
 		JLabel lblMedico = new JLabel("Médico:");
-		lblMedico.setBounds(10, 74, 124, 31);
-		getContentPane().add(lblMedico);
+		getContentPane().add(lblMedico, "cell 0 1,grow");
 
 		JLabel lblNomeDaAgenda = new JLabel("Nome da Agenda:");
-		lblNomeDaAgenda.setBounds(10, 122, 124, 31);
-		getContentPane().add(lblNomeDaAgenda);
+		getContentPane().add(lblNomeDaAgenda, "cell 0 2,grow");
 
 		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(370, 74, 124, 31);
-		getContentPane().add(lblTelefone);
+		getContentPane().add(lblTelefone, "cell 4 1,alignx center,growy");
 
 		JLabel labelEmail = new JLabel("Email:");
-		labelEmail.setBounds(370, 122, 124, 31);
-		getContentPane().add(labelEmail);
+		getContentPane().add(labelEmail, "cell 4 2,alignx center,growy");
 
 		JLabel lblDescricao = new JLabel("Descrição:");
-		lblDescricao.setBounds(10, 207, 124, 31);
-		getContentPane().add(lblDescricao);
+		lblDescricao.setFont(new Font("Arial", Font.PLAIN, 16));
+		getContentPane().add(lblDescricao, "cell 0 4,growx,aligny top");
 
-		textMedico = new JTextField();
+		txtMedico = new JTextField();
+		getContentPane().add(txtMedico, "cell 2 1,grow");
+		txtMedico.setColumns(10);
 
-		textMedico.setBounds(144, 74, 216, 31);
-		getContentPane().add(textMedico);
-		textMedico.setColumns(10);
+		txtAgenda = new JTextField();
+		txtAgenda.setColumns(10);
+		getContentPane().add(txtAgenda, "cell 2 2,grow");
 
-		textAgenda = new JTextField();
-		textAgenda.setColumns(10);
-		textAgenda.setBounds(144, 119, 216, 34);
-		getContentPane().add(textAgenda);
+		txtTelefone = new JTextField();
+		txtTelefone.setColumns(10);
+		getContentPane().add(txtTelefone, "cell 6 1,grow");
 
-		textTelefone = new JTextField();
-		textTelefone.setColumns(10);
-		textTelefone.setBounds(504, 74, 216, 31);
-		getContentPane().add(textTelefone);
-
-		textEmail = new JTextField();
-		textEmail.setColumns(10);
-		textEmail.setBounds(504, 122, 216, 31);
-		getContentPane().add(textEmail);
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		getContentPane().add(txtEmail, "cell 6 2,grow");
 
 		textArea = new JTextArea();
-		textArea.setBounds(144, 210, 576, 262);
-		getContentPane().add(textArea);
+		getContentPane().add(textArea, "cell 2 4 5 1,grow");
 
 		btnCadastrar = new JButton("Cadastrar Agenda");
-		btnCadastrar.setBounds(170, 483, 172, 68);
-		getContentPane().add(btnCadastrar);
+		getContentPane().add(btnCadastrar, "cell 2 5,grow");
+		btnCadastrar.addActionListener(e -> {
+			
+			ControllerMedico controller = new ControllerMedico();
+			
+			String nomeMedico = txtMedico.getText();
+			String nomeAgenda = txtAgenda.getText();
+			String telefone = txtTelefone.getText();
+			String email = txtEmail.getText();
+			
+			String mensagem = controller.validarAgendaMedica(nomeMedico, nomeAgenda, telefone, email, null);
+			
+			if (mensagem != null) {
+				JOptionPane.showMessageDialog(null, mensagem);
+			} else {
+				//TODO Cadastrar Agenda no Banco.
+			}
+		});
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(543, 483, 160, 68);
-		getContentPane().add(btnCancelar);
+		getContentPane().add(btnCancelar, "cell 6 5,grow");
+		btnCadastrar.addActionListener(e -> {
+			
+			txtAgenda.setText("");
+			txtEmail.setText("");
+			txtMedico.setText("");
+			txtTelefone.setText("");
+			textArea.setText("");
+
+			this.dispose();
+			
+		});
 
 		btnAlterarAgenda = new JButton("Alterar Agenda");
-		btnAlterarAgenda.setBounds(352, 483, 172, 68);
-		getContentPane().add(btnAlterarAgenda);
-
-		DatePickerSettings dateSettings = new DatePickerSettings();
-		dateSettings.setAllowKeyboardEditing(false);
-
-		datePicker.setSettings(dateSettings);
-		getContentPane().add(datePicker);
+		getContentPane().add(btnAlterarAgenda, "cell 4 5,grow");
+		btnAlterarAgenda.addActionListener(e -> {
+			
+			ControllerMedico controller = new ControllerMedico();
+			
+			String nomeMedico = txtMedico.getText();
+			String nomeAgenda = txtAgenda.getText();
+			String telefone = txtTelefone.getText();
+			String email = txtEmail.getText();
+			String texto = textArea.getText();
+			
+			String mensagem = controller.validarAgendaMedica(nomeMedico, nomeAgenda, telefone, email, texto);
+			if (mensagem != null) {
+				JOptionPane.showMessageDialog(null, mensagem);
+			} else {
+				//TODO ATUALIZAR Agenda no Banco
+			}
+			
+		});
 
 		this.repaint();
 
