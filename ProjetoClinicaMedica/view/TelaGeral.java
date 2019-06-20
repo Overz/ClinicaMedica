@@ -19,6 +19,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 import model.vo.UsuarioVO;
+import view.adm.cliente.TelaInternaCadastrarAtualizarPaciente;
 import view.adm.usuario.TelaInternaCadastroUsuario;
 import view.adm.usuario.TelaInternaExcluirUsuario;
 import view.funcionarios.medico.TelaInternaAgendaMedico;
@@ -26,6 +27,10 @@ import view.funcionarios.medico.TelaInternaProntuarioMedico;
 import view.funcionarios.secretaria.TelaInternaBuscarPaciente;
 import view.funcionarios.secretaria.TelaInternaCadastroPaciente;
 import view.funcionarios.secretaria.TelaInternaConsultasEHorarios;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaGeral extends JFrame {
 
@@ -57,6 +62,7 @@ public class TelaGeral extends JFrame {
 	private TelaInternaProntuarioMedico janelinhaProntuario = new TelaInternaProntuarioMedico();
 	private TelaInternaExcluirUsuario janelinhaExcluirUsuario = new TelaInternaExcluirUsuario();
 	private TelaInternaCadastroUsuario janelinhaUsuario = new TelaInternaCadastroUsuario();
+	private TelaInternaCadastrarAtualizarPaciente janelinhaCadastrarAtualizarPaciente = new TelaInternaCadastrarAtualizarPaciente();
 
 	int width_int;
 	int height_int;
@@ -128,7 +134,7 @@ public class TelaGeral extends JFrame {
 		mntmCadastrarPaciente.addActionListener(e -> {
 
 			adicionarInternalFrame(janelinhaCadastroPaciente);
-			janelinhaCadastroPaciente.setBounds(0, 0, width_int, height_int);
+			janelinhaCadastroPaciente.setBounds(0, 0, width_int, height_int - 70);
 			janelinhaCadastroPaciente.setVisible(true);
 			janelinhaCadastroPaciente.show();
 			this.repaint();
@@ -187,6 +193,14 @@ public class TelaGeral extends JFrame {
 		menuBar.add(mnAdm);
 
 		JMenu mnPacientes = new JMenu("Pacientes");
+		mnPacientes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				adicionarInternalFrame(janelinhaCadastrarAtualizarPaciente);
+				janelinhaCadastrarAtualizarPaciente.setVisible(true);
+				janelinhaCadastrarAtualizarPaciente.show();
+			}
+		});
 		mnPacientes.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-fila.png")));
 		mnAdm.add(mnPacientes);
 
