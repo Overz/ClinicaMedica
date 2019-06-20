@@ -102,7 +102,7 @@ public class TelaGeral extends JFrame {
 
 		TelaInternaConsultasEHorarios janelinhaInternaPrincipalRecepcao = new TelaInternaConsultasEHorarios();
 		desktopPane.add(janelinhaInternaPrincipalRecepcao);
-		janelinhaInternaPrincipalRecepcao.setBounds(0, 0, width_int, height_int);
+		janelinhaInternaPrincipalRecepcao.setBounds(0, 0, width_int, height_int - 70);
 		janelinhaInternaPrincipalRecepcao.setVisible(true);
 		janelinhaInternaPrincipalRecepcao.show();
 

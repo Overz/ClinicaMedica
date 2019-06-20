@@ -3,21 +3,17 @@ package view.adm.funcionario;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.WindowConstants;
 
-public class TelaInternaAtualizarFuncionario {
+public class TelaInternaAtualizarFuncionario extends JInternalFrame {
 
-	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					TelaInternaAtualizarFuncionario window = new TelaInternaAtualizarFuncionario();
-					window.frame.setVisible(true);
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -25,20 +21,19 @@ public class TelaInternaAtualizarFuncionario {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public TelaInternaAtualizarFuncionario() {
+		super("Clínica Médica - Atualizar Dados de Funcionarios", false, true, false, false);
+		setBounds(100, 100, 845, 585);
+		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	
+		
+	
+	
 	}
 
 }
