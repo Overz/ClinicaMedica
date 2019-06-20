@@ -1,4 +1,4 @@
-package view.adm.cliente;
+package view.adm.paciente;
 
 import java.awt.EventQueue;
 

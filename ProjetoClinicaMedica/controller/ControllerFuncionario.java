@@ -122,24 +122,41 @@ public class ControllerFuncionario {
 		String mensagem = "";
 
 		if (nome == null || nome.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo NOME Acima!";
+			mensagem += "Por favor, Digite o Campo NOME Acima!\n";
 		}
 		if (cpf == null || cpf.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo CPF Acima!";
+			mensagem += "Por favor, Digite o Campo CPF Acima!\n";
 		}
 		if (rg == null || rg.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo RG Acima!";
+			mensagem += "Por favor, Digite o Campo RG Acima!\n";
 		}
 		if (dataString == null || dataString.trim().isEmpty()) {
-			mensagem += "Por favor, Selecione o Campo DATA Acima!";
+			mensagem += "Por favor, Selecione o Campo DATA Acima!\n";
 		}
 		if (sexo == -1) {
-			mensagem = "Por favor, Escolha o Campo SEXO Acima!";
+			mensagem += "Por favor, Escolha o Campo SEXO Acima!\n";
 		}
 		if (estadoCivil == -1) {
-			mensagem = "Por favor, Escolha o campo ESTADO CIVIL Acima!";
-		}		
-
+			mensagem += "Por favor, Escolha o campo ESTADO CIVIL Acima!\n";
+		}
+		if (cidade == null || cidade.trim().isEmpty()) {
+			mensagem += "Por favor, Digite o Campo CIDADE Acima!\n";
+		}
+		if (bairro == null || bairro.trim().isEmpty()) {
+			mensagem += "Por favor, Digite o Campo BAIRRO Acima!";
+		}
+		if (rua == null || rua.trim().isEmpty()) {
+			mensagem += "Por favor, Digite o campo RUA Acima!";
+		}
+		if (numero == null || numero.trim().isEmpty()) {
+			mensagem += "Por favor, Digite o Campo NUMERO Acima";
+		}
+		if (telefone == null || telefone.trim().isEmpty()) {
+			if (celular == null || celular.trim().isEmpty()) {
+				mensagem = "Por favor, Digite TELEFONE ou CELULAR Acima";
+			}
+		}
+		
 
 		return mensagem;
 	}
