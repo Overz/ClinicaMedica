@@ -20,17 +20,18 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import controller.ControllerFuncionario;
 import net.miginfocom.swing.MigLayout;
+import java.awt.Font;
 
 public class TelaInternaBuscarPaciente extends JInternalFrame {
 
 	private static final long serialVersionUID = -3439228926572831568L;
-	private JTable table;
-	private JButton btnPesquisar;
-	private JFormattedTextField ftfCpf;
 	private final DatePicker datePicker = new DatePicker();
+	private JFormattedTextField ftfCpf;
 	private JFormattedTextField ftfNome;
 	private MaskFormatter mascaraCPF;
 	private MaskFormatter mascaraNome;
+	private JButton btnPesquisar;
+	private JTable table;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -46,10 +47,10 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	}
 
 	public TelaInternaBuscarPaciente() {
-		super("Clínica Médica - Buscar Paciente", true, true, true, false);
+		super("Clínica Médica - Buscar Paciente", false, true, false, false);
 		setBounds(100, 100, 945, 748);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][138px,grow][158.00px,grow][76.00px,grow][grow][10]", "[25px,grow][26px,grow][8px,grow][605px,grow]"));
+		getContentPane().setLayout(new MigLayout("", "[10][138px,grow][158.00px,grow][76.00px,grow][grow][10]", "[20][25px,grow][26px,grow][10][15][605px,grow][20]"));
 
 		initialize();
 	}
@@ -65,33 +66,40 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		}
 
 		JLabel lblNome = new JLabel("Digite o Nome:");
-		getContentPane().add(lblNome, "cell 1 0,grow");
+		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblNome, "cell 1 1,grow");
 
 		JLabel lblCpf = new JLabel("CPF:");
-		getContentPane().add(lblCpf, "cell 3 0,alignx center,growy");
+		lblCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblCpf, "cell 3 1,alignx center,growy");
 
 		JLabel lblDtNascimento = new JLabel("Data de Nascimento:");
-		getContentPane().add(lblDtNascimento, "cell 1 1,grow");
+		lblDtNascimento.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblDtNascimento, "cell 1 2,grow");
 
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		separator.setBackground(Color.BLACK);
-		getContentPane().add(separator, "cell 1 2 4 1,grow");
+		getContentPane().add(separator, "cell 1 4 4 1,grow");
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
-
+		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
+		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 		datePicker.setSettings(dateSettings);
-		getContentPane().add(datePicker, "cell 2 1,grow");
+		getContentPane().add(datePicker, "cell 2 2,grow");
 
 		ftfCpf = new JFormattedTextField(mascaraCPF);
-		getContentPane().add(ftfCpf, "cell 4 0,grow");
+		ftfCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(ftfCpf, "cell 4 1,grow");
 
 		ftfNome = new JFormattedTextField(mascaraNome);
-		getContentPane().add(ftfNome, "cell 2 0,grow");
+		ftfNome.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(ftfNome, "cell 2 1,grow");
 
 		btnPesquisar = new JButton("Pesquisar");
-		getContentPane().add(btnPesquisar, "cell 3 1 2 1,grow");
+		btnPesquisar.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnPesquisar, "cell 3 2 2 1,grow");
 		btnPesquisar.addActionListener(e -> {
 
 			try {
@@ -117,7 +125,8 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		Object[][] data = new Object[][] {{ "Nome", "Data de Nascimento", "CPF", "Telefone", "Bairro", "Endereço", "Nº", "Consultas" }, };
 		Object[] columnNames = new String[] { "Nome", "Data de Nascimento", "CPF", "Telefone", "Bairro", "Endereço", "Nº", "Consultas" };
 		table = new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		table.setModel(new DefaultTableModel(data, columnNames));
-		getContentPane().add(table, "cell 1 3 4 1,grow");
+		getContentPane().add(table, "cell 1 5 4 1,grow");
 	}
 }

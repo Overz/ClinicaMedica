@@ -45,9 +45,9 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 
 	public TelaInternaAgendaMedico() {
 		super("Clínica Médica - Cadastro de Agenda Médica", false, true, false, false);
-		setBounds(100, 100, 763, 605);
+		setBounds(100, 100, 1077, 783);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[124px,grow][10][172px,grow][10][124px,grow][10][177px,grow][10]", "[31px,grow][31px,grow][34px,grow][][265px,grow][68px,grow][15]"));
+		getContentPane().setLayout(new MigLayout("", "[10][124px,grow][10][172px,grow][10][124px,grow][10][177px,grow][10]", "[31px,grow][31px,grow][34px,grow][][265px,grow][68px,grow][15]"));
 		this.repaint();
 
 		initialize();
@@ -68,42 +68,52 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		}
 		
 		JLabel lblDados = new JLabel("Dados Da Agenda");
-		lblDados.setFont(new Font("Verdana", Font.BOLD, 14));
-		getContentPane().add(lblDados, "cell 0 0,grow");
+		lblDados.setFont(new Font("Verdana", Font.BOLD, 25));
+		getContentPane().add(lblDados, "cell 1 0,grow");
 
 		JLabel lblMedico = new JLabel("Médico:");
-		getContentPane().add(lblMedico, "cell 0 1,grow");
+		lblMedico.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblMedico, "cell 1 1,grow");
 
 		JLabel lblNomeDaAgenda = new JLabel("Nome da Agenda:");
-		getContentPane().add(lblNomeDaAgenda, "cell 0 2,grow");
+		lblNomeDaAgenda.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblNomeDaAgenda, "cell 1 2,grow");
 
 		JLabel lblTelefone = new JLabel("Telefone:");
-		getContentPane().add(lblTelefone, "cell 4 1,alignx center,growy");
+		lblTelefone.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblTelefone, "cell 5 1,alignx center,growy");
 
 		JLabel labelEmail = new JLabel("Email:");
-		getContentPane().add(labelEmail, "cell 4 2,alignx center,growy");
+		labelEmail.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(labelEmail, "cell 5 2,alignx center,growy");
 
 		JLabel lblDescricao = new JLabel("Descrição:");
-		lblDescricao.setFont(new Font("Arial", Font.PLAIN, 16));
-		getContentPane().add(lblDescricao, "cell 0 4,growx,aligny top");
+		lblDescricao.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblDescricao, "cell 1 4,alignx left,aligny top");
 
 		ftfNomeMedico = new JFormattedTextField(mascaraNome);
-		getContentPane().add(ftfNomeMedico, "cell 2 1,grow");
+		ftfNomeMedico.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(ftfNomeMedico, "cell 3 1,grow");
 
 		ftfNomeAgenda = new JFormattedTextField(mascaraNome);
-		getContentPane().add(ftfNomeAgenda, "cell 2 2,grow");
+		ftfNomeAgenda.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(ftfNomeAgenda, "cell 3 2,grow");
 
 		ftfEmail = new JFormattedTextField(mascaraEmail);
-		getContentPane().add(ftfEmail, "cell 6 2,grow");
+		ftfEmail.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(ftfEmail, "cell 7 2,grow");
 
 		ftfTelefone = new JFormattedTextField(mascaraTelefone);
-		getContentPane().add(ftfTelefone, "cell 6 1,grow");
+		ftfTelefone.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(ftfTelefone, "cell 7 1,grow");
 
 		textArea = new JTextArea();
-		getContentPane().add(textArea, "cell 2 4 5 1,grow");
+		textArea.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(textArea, "cell 3 4 5 1,grow");
 
 		btnCadastrar = new JButton("Cadastrar Agenda");
-		getContentPane().add(btnCadastrar, "cell 2 5,grow");
+		btnCadastrar.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnCadastrar, "cell 3 5,grow");
 		btnCadastrar.addActionListener(e -> {
 
 			try {
@@ -126,7 +136,8 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		});
 
 		btnAlterarAgenda = new JButton("Alterar Agenda");
-		getContentPane().add(btnAlterarAgenda, "cell 4 5,grow");
+		btnAlterarAgenda.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnAlterarAgenda, "cell 5 5,grow");
 		btnAlterarAgenda.addActionListener(e -> {
 
 			try {
@@ -149,7 +160,8 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		});
 		
 		btnCancelar = new JButton("Cancelar");
-		getContentPane().add(btnCancelar, "cell 6 5,grow");
+		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnCancelar, "cell 7 5,grow");
 		btnCadastrar.addActionListener(e -> {
 
 			ftfNomeMedico.setText("");

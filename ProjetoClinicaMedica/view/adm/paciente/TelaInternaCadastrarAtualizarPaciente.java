@@ -90,9 +90,6 @@ public class TelaInternaCadastrarAtualizarPaciente extends JInternalFrame {
 
 		});
 
-		tableClientes = new JTable();
-		getContentPane().add(tableClientes, "cell 0 3 5 1,grow");
-		tableClientes.setModel(new DefaultTableModel(data, columnNames));
 
 		btnSalvar = new JButton("Salvar Dados");
 		getContentPane().add(btnSalvar, "cell 2 4,grow");
@@ -108,13 +105,16 @@ public class TelaInternaCadastrarAtualizarPaciente extends JInternalFrame {
 			// int[] id = tableClientes.getSelectedRows();
 		});
 
+		tableClientes = new JTable();
+		getContentPane().add(tableClientes, "cell 0 3 5 1,grow");
+		tableClientes.setModel(new DefaultTableModel(data, columnNames));
+		
 		JCheckBox chkbApagarCliente = new JCheckBox("Apagar Clientes");
 		getContentPane().add(chkbApagarCliente, "cell 4 4,alignx leading,growy");
 		chkbApagarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (chkbApagarCliente.isSelected()) {
-					JOptionPane.showMessageDialog(null,
-							"Aten��o, Cuidado ao apagar um Cliente!\nIsso pode gerar Problemas!");
+					JOptionPane.showMessageDialog(null,	"Aten��o, Cuidado ao apagar um Cliente!\nIsso pode gerar Problemas!");
 					btnApagar.setEnabled(true);
 				}
 

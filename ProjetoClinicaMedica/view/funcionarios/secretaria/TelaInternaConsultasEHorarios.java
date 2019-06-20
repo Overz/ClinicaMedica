@@ -25,6 +25,7 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 import controller.ControllerFuncionario;
 import model.vo.MedicoVO;
 import net.miginfocom.swing.MigLayout;
+import java.awt.Font;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
@@ -68,7 +69,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		//this.setBounds(0, 0, 821, 609);
 		this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
-		this.getContentPane().setLayout(new MigLayout("", "[][grow][100px:100px:100px,grow][grow][grow][100px:100px:100px,grow][grow][]", "[38,grow][grow][grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill]"));
+		this.getContentPane().setLayout(new MigLayout("", "[10][grow][100px:100px:100px,grow][grow][grow][100px:100px:100px,grow][grow][10]", "[10][38,grow][grow][grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][10]"));
 
 		initialize();
 	}
@@ -83,26 +84,32 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		}
 
 		JLabel lblNome = new JLabel("Pesquisar por:");
-		getContentPane().add(lblNome, "cell 1 0,alignx right,growy");
+		lblNome.setFont(new Font("Verdana", Font.PLAIN, 22));
+		getContentPane().add(lblNome, "cell 1 1,alignx right,growy");
 
 		lblPacientemdico = new JLabel("Paciente/Médico:");
-		getContentPane().add(lblPacientemdico, "cell 1 1,alignx trailing,growy");
+		lblPacientemdico.setFont(new Font("Verdana", Font.PLAIN, 22));
+		getContentPane().add(lblPacientemdico, "cell 1 2,alignx trailing,growy");
 		lblPacientemdico.setVisible(true);
 		
 		lblCpfcrm = new JLabel("CPF/CRM:");
-		getContentPane().add(lblCpfcrm, "cell 1 2,alignx trailing,growy");
+		lblCpfcrm.setFont(new Font("Verdana", Font.PLAIN, 22));
+		getContentPane().add(lblCpfcrm, "cell 1 3,alignx trailing,growy");
 		lblCpfcrm.setVisible(false);
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
+		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 22));
+		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 22));
 
 		datePicker.setSettings(dateSettings);
 		datePicker.setToolTipText("Selecione a Data para Consulta");
-		getContentPane().add(datePicker, "cell 4 0,grow");
+		getContentPane().add(datePicker, "cell 4 1,grow");
 
 		cbOpcaoPesquisa = new JComboBox();
+		cbOpcaoPesquisa.setFont(new Font("Verdana", Font.PLAIN, 22));
 		cbOpcaoPesquisa.setModel(new DefaultComboBoxModel(new String[] { "Nome (Paciente/Médico)", "CPF ou CRM" }));
-		getContentPane().add(cbOpcaoPesquisa, "cell 2 0 2 1,grow");
+		getContentPane().add(cbOpcaoPesquisa, "cell 2 1 2 1,grow");
 		cbOpcaoPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				verificarCamposCbBox();
@@ -110,21 +117,24 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		});
 
 		ftfNome = new JFormattedTextField(mascaraNome);
+		ftfNome.setFont(new Font("Verdana", Font.PLAIN, 22));
 		ftfNome.setVisible(true);
 		ftfNome.setEnabled(true);
 		ftfNome.setEditable(true);
 		ftfNome.setToolTipText("Digite o Nome do Paciente ou Médico, para realizar a Consulta Especifica.");
-		getContentPane().add(ftfNome, "cell 2 1 3 1,grow");
+		getContentPane().add(ftfNome, "cell 2 2 3 1,grow");
 		
 		ftfCampoCpfCrm = new JFormattedTextField(mascaraCpfCrm);
+		ftfCampoCpfCrm.setFont(new Font("Verdana", Font.PLAIN, 22));
 		ftfCampoCpfCrm.setVisible(false);
 		ftfCampoCpfCrm.setEditable(false);
 		ftfCampoCpfCrm.setEnabled(false);
 		ftfCampoCpfCrm.setToolTipText("Digite o CPF do Paciente ou Médico.");
-		getContentPane().add(ftfCampoCpfCrm, "cell 2 2 3 1,grow");
+		getContentPane().add(ftfCampoCpfCrm, "cell 2 3 3 1,grow");
 
 		btnPesquisarPorCampos = new JButton("Pesquisar Medico/Consulta");
-		getContentPane().add(btnPesquisarPorCampos, "cell 2 3 3 1,grow");
+		btnPesquisarPorCampos.setFont(new Font("Verdana", Font.PLAIN, 22));
+		getContentPane().add(btnPesquisarPorCampos, "cell 2 4 3 1,grow");
 		btnPesquisarPorCampos.addActionListener(e -> {
 
 			ControllerFuncionario controller = new ControllerFuncionario();
@@ -145,7 +155,8 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		});
 
 		btnLimparCampos = new JButton("Limpar Campos");
-		getContentPane().add(btnLimparCampos, "cell 2 12 2 1,grow");
+		btnLimparCampos.setFont(new Font("Verdana", Font.PLAIN, 22));
+		getContentPane().add(btnLimparCampos, "cell 2 13 2 1,grow");
 		btnLimparCampos.addActionListener(e -> {
 			
 			cbOpcaoPesquisa.setSelectedIndex(0);
@@ -156,8 +167,9 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		});
 
 		btnCadastrarConsulta = new JButton("Cadastrar Consulta");
+		btnCadastrarConsulta.setFont(new Font("Verdana", Font.PLAIN, 22));
 		btnCadastrarConsulta.setToolTipText("Selecione uma Linha, e Registre os Dados em Ordem na Tabela, para Realizar o Cadastro das Consultas.");
-		getContentPane().add(btnCadastrarConsulta, "cell 4 12,grow");
+		getContentPane().add(btnCadastrarConsulta, "cell 4 13,grow");
 		btnCadastrarConsulta.addActionListener(e -> {
 			
 			//TODO Cadastrar consulta no banco.
@@ -169,8 +181,9 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" };
 		JScrollPane scroll = new JScrollPane(table);
 		table = new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		table.setModel(new DefaultTableModel(data, columnNames));
-		getContentPane().add(table, "cell 1 4 6 8,grow");
+		getContentPane().add(table, "cell 1 5 6 8,grow");
 		// -------------------------- ADD SCROLL BAR -----------------------
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);

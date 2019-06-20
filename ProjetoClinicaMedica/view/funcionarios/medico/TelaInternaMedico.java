@@ -16,6 +16,7 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import controller.ControllerMedico;
 import net.miginfocom.swing.MigLayout;
+import java.awt.Font;
 
 public class TelaInternaMedico extends JInternalFrame {
 
@@ -50,15 +51,19 @@ public class TelaInternaMedico extends JInternalFrame {
 	private void initialize() {
 
 		lblData = new JLabel("Data:");
+		lblData.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblData, "cell 1 0,alignx center,growy");
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
+		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
+		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 2 0 2 1,grow");
 
 		btnPesquisarConsulta = new JButton("Pesquisar Consultas");
+		btnPesquisarConsulta.setFont(new Font("Verdana", Font.PLAIN, 20));
 		btnPesquisarConsulta.setToolTipText("Selecione uma Linha, e Pesquise dados mais especifos.");
 		getContentPane().add(btnPesquisarConsulta, "cell 4 0 3 1,grow");
 		btnPesquisarConsulta.addActionListener(e -> {
@@ -84,6 +89,7 @@ public class TelaInternaMedico extends JInternalFrame {
 		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Causa/Motivo" };
 
 		table = new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		table.setModel(new DefaultTableModel(data, columnNames));
 		getContentPane().add(table, "cell 1 1 7 10,grow");
 	}

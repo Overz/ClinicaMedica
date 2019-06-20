@@ -138,148 +138,166 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			}
 		});*/
 
-		JLabel lblInformacao = new JLabel("Informações Pessoais");
-		lblInformacao.setFont(new Font("Verdana", Font.BOLD, 14));
-		getContentPane().add(lblInformacao, "cell 2 1 6 1,alignx center,growy");
+		JLabel informacao = new JLabel("Informações Pessoais");
+		informacao.setFont(new Font("Arial", Font.BOLD, 25));
+		getContentPane().add(informacao, "cell 1 1 7 1,alignx center,growy");
 
 		JLabel lblCPF_CNPJ = new JLabel("CPF:");
-		lblCPF_CNPJ.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblCPF_CNPJ.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblCPF_CNPJ, "cell 1 3,alignx left,growy");
 
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblNome.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblNome, "cell 1 4,alignx left,growy");
 
 		JLabel lblRg = new JLabel("RG:");
-		lblRg.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblRg.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblRg, "cell 6 4,alignx center,growy");
 
 		JLabel lblDataDeNacimento = new JLabel("Data de Nacimento:");
-		lblDataDeNacimento.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblDataDeNacimento.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblDataDeNacimento, "cell 1 10,alignx left,growy");
 
 		JLabel lblSexo = new JLabel("Sexo:");
-		lblSexo.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblSexo.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblSexo, "cell 1 11,alignx left,growy");
 
 		JLabel lblTipoSanguineo = new JLabel("Tipo Sanguineo:");
-		lblTipoSanguineo.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblTipoSanguineo.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblTipoSanguineo, "cell 6 11,alignx center,growy");
 
 		JLabel lblConvenio = new JLabel("Convenio:");
-		lblConvenio.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblConvenio.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblConvenio, "cell 1 13,alignx left,growy");
 
 		JLabel lblEstadoCivil = new JLabel("Estado Civil:");
-		lblEstadoCivil.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblEstadoCivil.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblEstadoCivil, "cell 1 14,alignx left,growy");
 
 		JLabel endereco = new JLabel("Endereço");
-		endereco.setFont(new Font("Verdana", Font.BOLD, 14));
+		endereco.setFont(new Font("Arial", Font.BOLD, 25));
 		getContentPane().add(endereco, "cell 1 16 8 1,alignx center,growy");
 
 		JLabel lblCidade = new JLabel("Cidade:");
-		lblCidade.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblCidade.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblCidade, "cell 1 18,alignx left,growy");
 
 		JLabel lblComplemento = new JLabel("Complemento:");
-		lblComplemento.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblComplemento.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblComplemento, "cell 6 18,alignx center,growy");
 
 		JLabel lblBairro = new JLabel("Bairro:");
-		lblBairro.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblBairro.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblBairro, "cell 1 19,alignx left,growy");
 
 		JLabel lblCep = new JLabel("CEP:");
-		lblCep.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblCep.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblCep, "cell 6 19,alignx center,growy");
 
 		JLabel lblRua = new JLabel("Rua:");
-		lblRua.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblRua.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblRua, "cell 1 20,grow");
 
 		JLabel lblNumero = new JLabel("Numero:");
-		lblNumero.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblNumero.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblNumero, "cell 1 21,grow");
 
-		JLabel lblContato = new JLabel("Contato");
-		lblContato.setFont(new Font("Verdana", Font.BOLD, 14));
-		getContentPane().add(lblContato, "cell 1 23 8 1,alignx center,growy");
+		JLabel contato = new JLabel("Contato");
+		contato.setFont(new Font("Arial", Font.BOLD, 25));
+		getContentPane().add(contato, "cell 1 23 8 1,alignx center,growy");
 
 		JLabel lblNumeroTelefone = new JLabel("Telefone:");
-		lblNumeroTelefone.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblNumeroTelefone.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblNumeroTelefone, "cell 1 25,alignx left,growy");
 
 		JLabel lblEmail = new JLabel("E-Mail:");
-		lblEmail.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblEmail.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblEmail, "cell 6 25,alignx center,growy");
 
 		JLabel lblCelular = new JLabel("Celular:");
-		lblCelular.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblCelular.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblCelular, "cell 1 26,alignx left,growy");
 
 		ftfNome = new JFormattedTextField(mascaraNome);
+		ftfNome.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfNome, "cell 2 4 2 1,grow");
 
 		ftfCPF = new JFormattedTextField(mascaraCpf);
-		ftfCPF.setFont(new Font("Arial", Font.PLAIN, 14));
+		ftfCPF.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfCPF, "cell 2 3,grow");
 		ftfCPF.setVisible(true);
 
 		ftfRg = new JFormattedTextField(mascaraRG);
+		ftfRg.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfRg, "cell 7 4,grow");
 
 		ftfCidadeEndereco = new JFormattedTextField(mascaraNome);
+		ftfCidadeEndereco.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfCidadeEndereco, "cell 2 18,growx,aligny top");
 
 		ftfBairroEndereco = new JFormattedTextField(mascaraNome);
+		ftfBairroEndereco.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfBairroEndereco, "cell 2 19,growx");
 
 		ftfRuaEndereco = new JFormattedTextField(mascaraNome);
+		ftfRuaEndereco.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfRuaEndereco, "cell 2 20,grow");
 
 		ftfNumeroEndereco = new JFormattedTextField(mascaraNumeroEndereco);
+		ftfNumeroEndereco.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfNumeroEndereco, "cell 2 21,grow");
 
 		ftfComplementoEndereco = new JFormattedTextField(mascaraNome);
+		ftfComplementoEndereco.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfComplementoEndereco, "cell 7 18,growx");
 		
 		ftfCep = new JFormattedTextField(mascaraCep);
+		ftfCep.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfCep, "cell 7 19,growx");
 
 		ftfTelefone = new JFormattedTextField(mascaraTelefone);
+		ftfTelefone.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfTelefone, "cell 2 25,grow");
 
 		ftfCelular = new JFormattedTextField(mascaraTelefone);
+		ftfCelular.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfCelular, "cell 2 26,grow");
 
 		ftfEmail = new JFormattedTextField(mascarEmail);
+		ftfEmail.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfEmail, "cell 7 25,grow");
 
 		cbSexo = new JComboBox();
+		cbSexo.setFont(new Font("Verdana", Font.PLAIN, 18));
 		cbSexo.setModel(new DefaultComboBoxModel(new String[] {"[SELEICONE]", "Masculino", "Feminino"}));
 		getContentPane().add(cbSexo, "cell 2 11,grow");
 
 		cbEstadoCivil = new JComboBox();
+		cbEstadoCivil.setFont(new Font("Verdana", Font.PLAIN, 18));
 		cbEstadoCivil.setModel(new DefaultComboBoxModel(new String[] { "[SELECIONE]", "Solteiro", "Casado", "Divorciado", "Separado", "Viúvo" }));
 		getContentPane().add(cbEstadoCivil, "cell 2 14,grow");
 
 		cbTipoSanguineo = new JComboBox();
+		cbTipoSanguineo.setFont(new Font("Verdana", Font.PLAIN, 18));
 		cbTipoSanguineo.setModel(new DefaultComboBoxModel(new String[] { "[SELECIONE]", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" }));
 		getContentPane().add(cbTipoSanguineo, "cell 7 11,grow");
 
 		cbConvenio = new JComboBox();
+		cbConvenio.setFont(new Font("Verdana", Font.PLAIN, 18));
 		cbConvenio.setModel(new DefaultComboBoxModel(new String[] { "[SELECIONE]", "Unimed", "Agemed", "Amil", "SulAmerica Saúde",
 				"One Health", "Bradesco Saúde\t", "Golden Cross", "Intermédica", "Notre Dame Seguro Saúde" }));
 		getContentPane().add(cbConvenio, "cell 2 13,grow");
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
+		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 18));
+		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 18));
 
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 2 10,grow");
 
 		btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(btnPesquisar, "cell 3 6 3 3,grow");
 		btnPesquisar.addActionListener(e -> {
 
@@ -300,6 +318,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		});
 
 		btnCadastrar = new JButton("Salvar");
+		btnCadastrar.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(btnCadastrar, "cell 2 28 3 3,grow");
 		btnCadastrar.addActionListener(e -> {
 
@@ -333,6 +352,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		});
 
 		btnLimpar = new JButton("Limpar Campos");
+		btnLimpar.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(btnLimpar, "cell 6 28 2 3,grow");
 		btnLimpar.addActionListener(e -> {
 
