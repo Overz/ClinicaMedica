@@ -3,6 +3,7 @@ package controller;
 import java.time.LocalDate;
 
 import model.bo.MedicoBO;
+import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
 
 public class ControllerMedico {
@@ -50,6 +51,42 @@ public class ControllerMedico {
 		MedicoBO bo = new MedicoBO();
 		mensagem = bo.cadastrarMedico(medico);
 
+		return mensagem;
+	}
+
+	public String validarTelaInternaMedico(LocalDate date) {
+		String mensagem = "";
+		
+		//TODO DATA
+		if (date == null ) {
+			
+		}
+		
+		return mensagem;
+	}
+	
+	public boolean validarEMail(String email) {
+		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+	      return email.matches(regex);
+	 
+	}
+
+	public String validarAgendaMedica(String nomeMedico, String nomeAgenda, String telefone, String email, String texto) {
+		String mensagem = "";
+
+		if (nomeAgenda == null || nomeMedico.trim().isEmpty()) {
+			mensagem += "Por favor, Digite o Campo Nome!";
+		}
+		if (nomeAgenda == null || nomeAgenda.trim().isEmpty()) {
+			mensagem += "Por favor, Digite o Campo AGENDA, se Referindo ao Nome da Agenda.";
+		}
+		if (telefone == null || telefone.trim().isEmpty()) {
+			mensagem += "Por favor, Digite o Campo TELEFONE!";
+		}
+		if (!validarEMail(email)) {
+			mensagem += "Por Favor, Digite um EMAIL Valido!";
+		}
+		
 		return mensagem;
 	}
 

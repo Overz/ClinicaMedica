@@ -1,12 +1,14 @@
 package view.funcionarios.medico;
 
 import java.awt.EventQueue;
+import java.time.LocalDate;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -64,6 +66,14 @@ public class TelaInternaMedico extends JInternalFrame {
 		getContentPane().add(btnPesquisarConsulta, "cell 4 0 3 1,grow");
 		btnPesquisarConsulta.addActionListener(e -> {
 			
+			ControllerMedico controller = new ControllerMedico();
+			LocalDate date = datePicker.getDate();
+			String mensagem = controller.validarTelaInternaMedico(date);
+			if (mensagem != null) {
+				JOptionPane.showMessageDialog(null, mensagem);
+			} else {
+				//TODO Trazer as Consultas do médico logado.
+			}
 			
 		});
 

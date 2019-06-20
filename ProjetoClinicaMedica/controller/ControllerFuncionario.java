@@ -58,7 +58,7 @@ public class ControllerFuncionario {
 	 * @param data
 	 * @return resultado da pesquisa se encontrado.
 	 */
-	public String validarTelaBuscarPaciente(String cpf, String nome, String data) {
+	public String validarTelaBuscarPaciente(String nome, String cpf, LocalDate data) {
 		String mensagem = "";
 
 		if (cpf == null || cpf.trim().isEmpty()) {
@@ -67,7 +67,8 @@ public class ControllerFuncionario {
 		if (nome == null || nome.trim().isEmpty()) {
 			mensagem = "Por favor, Digite algum Campo Acima!";
 		}
-		if (data == null || data.trim().isEmpty()) {
+		//TODO DATA
+		if (data == null ) {
 			mensagem = "Por favor, Digite algum Campo Acima!";
 		}
 
@@ -96,7 +97,13 @@ public class ControllerFuncionario {
 
 		return mensagem;
 	}
-
+	
+	public boolean validarEMail(String email) {
+		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+	      return email.matches(regex);
+	 
+	}
+	
 	/**
 	 * Método para validar os campos antes de cadastrar os dados do usuario no banco.
 	 * @param nome
@@ -115,7 +122,7 @@ public class ControllerFuncionario {
 	 * @param email
 	 * @return mensagem de sucesso caso os dados sejam cadastrados de maneira correta.
 	 */
-	public String validarSalvarCadastroPaciente(String nome, String cpf, String rg, String dataString, int sexo,
+	public String validarSalvarCadastroPaciente(String nome, String cpf, String rg, LocalDate date, int sexo,
 			int estadoCivil, int tipoSangue, String cidade, String bairro, String rua, String numero, String telefone,
 			String celular, String email) {
 
@@ -130,7 +137,8 @@ public class ControllerFuncionario {
 		if (rg == null || rg.trim().isEmpty()) {
 			mensagem += "Por favor, Digite o Campo RG Acima!\n";
 		}
-		if (dataString == null || dataString.trim().isEmpty()) {
+		//TODO DATA
+		if (date == null ) {
 			mensagem += "Por favor, Selecione o Campo DATA Acima!\n";
 		}
 		if (sexo == -1) {
@@ -156,9 +164,26 @@ public class ControllerFuncionario {
 				mensagem = "Por favor, Digite TELEFONE ou CELULAR Acima";
 			}
 		}
+		if (!validarEMail(email)) {
+			mensagem = "Por favor, Digite um EMAIL Valido!";
+		}
 		
+		if (mensagem == null || mensagem.trim().isEmpty()) {
+			mensagem = bo.ValidarSalvarCadastroPaciente(nome, cpf, rg, date, sexo, estadoCivil, tipoSangue, cidade, bairro, rua, numero, telefone, celular, email);
+		}
 
 		return mensagem;
+	}
+
+	/**
+	 * Reaproveitação de Método, com mesmos campos.
+	 * @param nome
+	 * @param cpfCrm
+	 * @param data
+	 * @return
+	 */
+	public String ValidarCamposConsultasEHorarios(String nome, String cpfCrm, LocalDate data) {
+		return validarTelaBuscarPaciente(nome, cpfCrm, data);
 	}
 
 }
