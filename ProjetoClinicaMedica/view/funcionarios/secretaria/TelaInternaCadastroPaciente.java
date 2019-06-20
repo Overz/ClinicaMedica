@@ -38,10 +38,9 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	private JTextField txtNome;
 	private JTextField txtBairroEndereco;
 	private JTextField txtRuaEndereco;
-	private JTextField txtNumeroEndereco;
 	private JTextField txtComplementoEndereco;
 	private JTextField txtEmail;
-	private JTextField txtCidade;
+	private JTextField txtCidadeEndereco;
 	private JLabel lblVoltar;
 
 	private JComboBox cbSexo;
@@ -54,6 +53,8 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	private JButton btnPesquisar;
 	
 	private final DatePicker datePicker = new DatePicker();
+	private JFormattedTextField ftfNumeroEndereco;
+	private MaskFormatter mascaraNumeroEndereco;
 
 	private static TelaInternaCadastroPaciente window;
 	
@@ -86,6 +87,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			mascaraData = new MaskFormatter("##/##/####");
 			mascaraTelefone = new MaskFormatter("(##)####-####");
 			mascaraCelular = new MaskFormatter("(##)#-####-####");
+			mascaraNumeroEndereco = new MaskFormatter("####");
 		} catch (ParseException e) {
 			System.out.println("Erro ao criar m�scaras. Causa: " + e.getMessage());
 		}
@@ -184,7 +186,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		JLabel lblNumero = new JLabel("Numero:");
 		lblNumero.setFont(new Font("Verdana", Font.PLAIN, 14));
 		getContentPane().add(lblNumero, "cell 6 17,alignx center,growy");
-
+		
 		JLabel lblComplemento = new JLabel("Complemento:");
 		lblComplemento.setFont(new Font("Verdana", Font.PLAIN, 14));
 		getContentPane().add(lblComplemento, "cell 1 18,growx,aligny center");
@@ -213,13 +215,9 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		getContentPane().add(txtNome, "cell 2 3 2 1,grow");
 		txtNome.setColumns(10);
 
-		txtCidade = new JTextField();
-		txtCidade.setColumns(10);
-		getContentPane().add(txtCidade, "cell 2 16,grow");
-
-		txtEmail = new JTextField();
-		getContentPane().add(txtEmail, "cell 7 22 3 1,grow");
-		txtEmail.setColumns(10);
+		txtCidadeEndereco = new JTextField();
+		txtCidadeEndereco.setColumns(10);
+		getContentPane().add(txtCidadeEndereco, "cell 2 16,grow");
 
 		txtRuaEndereco = new JTextField();
 		getContentPane().add(txtRuaEndereco, "cell 7 16 3 1,grow");
@@ -229,18 +227,17 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		getContentPane().add(txtBairroEndereco, "cell 2 17,grow");
 		txtBairroEndereco.setColumns(10);
 
-		txtNumeroEndereco = new JTextField();
-		getContentPane().add(txtNumeroEndereco, "cell 7 17,grow");
-		txtNumeroEndereco.setColumns(10);
-
 		txtComplementoEndereco = new JTextField();
 		getContentPane().add(txtComplementoEndereco, "cell 2 18,grow");
 		txtComplementoEndereco.setColumns(10);
+		
+		ftfNumeroEndereco = new JFormattedTextField();
+		getContentPane().add(ftfNumeroEndereco, "cell 7 17 2 1,grow");
 
 		ftfCPF = new JFormattedTextField(mascaraCpf);
 		ftfCPF.setFont(new Font("Arial", Font.PLAIN, 14));
 		getContentPane().add(ftfCPF, "cell 2 2,grow");
-		ftfCPF.setVisible(false);
+		ftfCPF.setVisible(true);
 
 		ftfRg = new JFormattedTextField(mascaraRG);
 		getContentPane().add(ftfRg, "cell 7 3 3 1,grow");
@@ -250,6 +247,11 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 		ftfCelular = new JFormattedTextField(mascaraTelefone);
 		getContentPane().add(ftfCelular, "cell 2 23,grow");
+		
+		txtEmail = new JTextField();
+		getContentPane().add(txtEmail, "cell 7 22 3 1,grow");
+		txtEmail.setColumns(10);
+
 
 		cbSexo = new JComboBox();
 		cbSexo.setModel(new DefaultComboBoxModel(new String[] { "Masculino", "Feminino", "Outros" }));
@@ -294,8 +296,24 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		getContentPane().add(btnCadastrar, "cell 2 25 2 3,grow");
 		btnCadastrar.addActionListener(e -> {
 			
+			String nome = txtNome.getText();
+			String cpf = ftfCPF.getText();
+			String rg = ftfCPF.getText();
+			String dataString = datePicker.getDateStringOrEmptyString();
+			int sexo = cbSexo.getSelectedIndex();
+			int estadoCivil = cbEstadoCivil.getSelectedIndex();
+			int tipoSangue = cbTipoSanguineo.getSelectedIndex();
+			String cidade = txtCidadeEndereco.getText();
+			String bairro = txtBairroEndereco.getText();
+			String rua = txtRuaEndereco.getText();
+			String numero = ftfNumeroEndereco.getText();
+			String telefone = ftfTelefone.getText();
+			String celular = ftfCelular.getText();
+			String email = txtEmail.getText();
 			
-
+			ControllerFuncionario controller = new ControllerFuncionario();
+			String mensagem = controller.validarSalvarCadastroPaciente(nome, cpf, rg, dataString, sexo, estadoCivil, tipoSangue, cidade, bairro, rua, numero, telefone, celular, email);
+			
 		});
 
 		btnLimpar = new JButton("Limpar Campos");
@@ -313,10 +331,10 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 			datePicker.setDate(null);
 			// Endere�o
-			txtCidade.setText("");
+			txtCidadeEndereco.setText("");
 			txtBairroEndereco.setText("");
 			txtRuaEndereco.setText("");
-			txtNumeroEndereco.setText("");
+			ftfNumeroEndereco.setText("");
 			txtComplementoEndereco.setText("");
 			// Contato
 			ftfTelefone.setText("");
