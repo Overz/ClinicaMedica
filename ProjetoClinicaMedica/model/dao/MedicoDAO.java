@@ -14,12 +14,55 @@ import model.vo.UsuarioVO;
 
 public class MedicoDAO {
 
-	public MedicoVO consultarMedicoPorUsuario(UsuarioVO usuarioVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public MedicoVO buscarMedicoPorUsuario(UsuarioVO usuarioVO) {
+		String query = "SELECT * FROM MEDICO INNER JOIN USUARIO WHERE IDUSUARIO = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		MedicoVO medico = null;
+
+		try {
+			prepStmt.setInt(1, usuarioVO.getIdUsuario());
+			ResultSet resultado = prepStmt.executeQuery();
+			if (resultado.next()) {
+				medico = montarMedico(resultado);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar Médico por Usuário: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return medico;
 	}
 
-	public int cadastrarMedico(MedicoVO medico) {
+	public boolean existeMedicoPorCrm(MedicoVO medicoVO) {
+		boolean sucesso = false;
+		String query = "SELECT * FROM MEDICO WHERE CRM = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		try {
+			prepStmt.setString(1, medicoVO.getCrm());
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				sucesso = true;
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar se existe Médico por CRM: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return sucesso;
+	}
+
+	public int cadastrarMedico(MedicoVO medicoVO) {
 		int novoId = -1;
 		String query = "INSERT INTO MEDICO (NOME, CPF, TELEFONE, EMAIL, CRM, ESPECIALIDADE, DATA_NASCIMENTO, IDUSUARIO) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -28,18 +71,18 @@ public class MedicoDAO {
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query, Statement.RETURN_GENERATED_KEYS);
 
 		try {
-			prepStmt.setString(1, medico.getNome());
-			prepStmt.setString(2, medico.getCpf());
-			prepStmt.setString(3, medico.getTelefone());
-			prepStmt.setString(4, medico.getEmail());
-			prepStmt.setString(5, medico.getCrm());
-			prepStmt.setString(6, medico.getEspecialidade());
-			prepStmt.setDate(7, Date.valueOf(medico.getDtNascimento()));
+			prepStmt.setString(1, medicoVO.getNome());
+			prepStmt.setString(2, medicoVO.getCpf());
+			prepStmt.setString(3, medicoVO.getTelefone());
+			prepStmt.setString(4, medicoVO.getEmail());
+			prepStmt.setString(5, medicoVO.getCrm());
+			prepStmt.setString(6, medicoVO.getEspecialidade());
+			prepStmt.setDate(7, Date.valueOf(medicoVO.getDtNascimento()));
 
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			medico.setIdUsuario(usuarioDAO.cadastrarUsuario(medico));
+			medicoVO.setIdUsuario(usuarioDAO.cadastrarUsuario(medicoVO));
 
-			prepStmt.setInt(8, medico.getIdUsuario());
+			prepStmt.setInt(8, medicoVO.getIdUsuario());
 
 			prepStmt.execute();
 
@@ -57,7 +100,7 @@ public class MedicoDAO {
 		return novoId;
 	}
 
-	public boolean atualizarMedico(MedicoVO medico) {
+	public boolean atualizarMedico(MedicoVO medicoVO) {
 		boolean sucesso = false;
 		String query = "UPDATE MEDICO SET NOME=?, CPF=?,TELEFONE=?, EMAIL=?, CRM=?, ESPECIALIDADE=?, DATA_NASCIMENTO=? WHERE IDMEDICO=?";
 
@@ -65,14 +108,14 @@ public class MedicoDAO {
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
 
 		try {
-			prepStmt.setString(1, medico.getNome());
-			prepStmt.setString(2, medico.getCpf());
-			prepStmt.setString(3, medico.getTelefone());
-			prepStmt.setString(4, medico.getEmail());
-			prepStmt.setString(5, medico.getCrm());
-			prepStmt.setString(6, medico.getEspecialidade());
-			prepStmt.setDate(7, Date.valueOf(medico.getDtNascimento()));
-			prepStmt.setInt(8, medico.getIdMedico());
+			prepStmt.setString(1, medicoVO.getNome());
+			prepStmt.setString(2, medicoVO.getCpf());
+			prepStmt.setString(3, medicoVO.getTelefone());
+			prepStmt.setString(4, medicoVO.getEmail());
+			prepStmt.setString(5, medicoVO.getCrm());
+			prepStmt.setString(6, medicoVO.getEspecialidade());
+			prepStmt.setDate(7, Date.valueOf(medicoVO.getDtNascimento()));
+			prepStmt.setInt(8, medicoVO.getIdMedico());
 
 			int resultado = prepStmt.executeUpdate();
 			if (resultado == 1) {
@@ -121,6 +164,49 @@ public class MedicoDAO {
 	public String construirFiltros() {
 		// TODO Implementar método de construção de filtros
 		return null;
+	}
+
+	public MedicoVO montarMedico(ResultSet resultado) throws SQLException {
+		MedicoVO medico = new MedicoVO();
+
+		medico.setIdUsuario(resultado.getInt("IDUSUARIO"));
+		medico.setNomeUsuario(resultado.getString("USUARIO"));
+		medico.setSenha(resultado.getString("SENHA"));
+		medico.setNivel(resultado.getString("NIVEL"));
+		medico.setIdMedico(resultado.getInt("IDMEDICO"));
+		medico.setNome(resultado.getString("NOME"));
+		medico.setCpf(resultado.getString("CPF"));
+		medico.setTelefone(resultado.getString("TELEFONE"));
+		medico.setEmail(resultado.getString("EMAIL"));
+		medico.setCrm(resultado.getString("CRM"));
+		medico.setEspecialidade(resultado.getString("ESPECIALIDADE"));
+		medico.setDtNascimento(resultado.getDate("DATA_NASCIMENTO").toLocalDate());
+
+		return medico;
+	}
+
+	public boolean existeMedicoPorCpf(MedicoVO medicoVO) {
+		boolean sucesso = false;
+		String query = "SELECT * FROM MEDICO WHERE CPF = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		try {
+			prepStmt.setString(1, medicoVO.getCpf());
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				sucesso = true;
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar se existe Médico por CPF: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return sucesso;
 	}
 
 }

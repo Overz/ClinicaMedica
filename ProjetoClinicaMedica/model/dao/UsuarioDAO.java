@@ -14,7 +14,7 @@ public class UsuarioDAO {
 
 	public int cadastrarUsuario(UsuarioVO usuario) {
 		int novoId = -1;
-		String query = "INSERT INTO USUARIO (USUARIO, SENHA, NIVEL)" + "VALUES (?, ?, ?";
+		String query = "INSERT INTO USUARIO (USUARIO, SENHA, NIVEL) " + " VALUES (?, ?, ?)";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query, Statement.RETURN_GENERATED_KEYS);
@@ -139,13 +139,13 @@ public class UsuarioDAO {
 
 				if (resultado.getString("NIVEL").equals("Médico")) {
 					MedicoDAO medico = new MedicoDAO();
-					usuarioVO = medico.consultarMedicoPorUsuario(usuarioVO);
+					usuarioVO = medico.buscarMedicoPorUsuario(usuarioVO);
 				} else if (resultado.getString("NIVEL").equals("Funcionário")) {
 					FuncionarioDAO funcionario = new FuncionarioDAO();
-					usuarioVO = funcionario.consultarPorUsuario(usuarioVO);
+					usuarioVO = funcionario.buscarMedicoPorUsuario(usuarioVO);
 				}
 			}
-			prepStmt.close();
+			resultado.close();
 		} catch (SQLException e) {
 			System.out.println("Erro ao efetuar login: " + e.getMessage());
 		} finally {
@@ -154,6 +154,30 @@ public class UsuarioDAO {
 		}
 
 		return usuarioVO;
+	}
+
+	public boolean existeNomeDeUsuario(UsuarioVO usuarioVO) {
+		boolean sucesso = false;
+		String query = "SELECT * FROM USUARIO WHERE USUARIO = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		try {
+			prepStmt.setString(1, usuarioVO.getNomeUsuario());
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				sucesso = true;
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar se nome de usuário já existe: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return sucesso;
 	}
 
 }

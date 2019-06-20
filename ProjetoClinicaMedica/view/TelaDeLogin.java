@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 import controller.ControllerUsuario;
 import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
-import view.adm.usuario.TelaInternaCadastroUsuario;
 
 public class TelaDeLogin extends JFrame {
 
@@ -27,7 +26,7 @@ public class TelaDeLogin extends JFrame {
 	private JTextField txtUsuario;
 
 	private JButton btnLogin;
-	private static TelaGeral telaGeral = new TelaGeral();
+	private static TelaGeral telaGeral;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -35,8 +34,6 @@ public class TelaDeLogin extends JFrame {
 				try {
 					TelaDeLogin window = new TelaDeLogin();
 					window.setVisible(true);
-					telaGeral.setVisible(false);
-					telaGeral.dispose();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,7 +53,8 @@ public class TelaDeLogin extends JFrame {
 		setBounds(0, 0, 496, 359);
 		// setBounds(x, y, 496, 359);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][183px,grow][grow][10]", "[grow][grow][grow][25px,grow][29px,grow][grow][grow][grow][grow][grow][grow][grow]"));
+		getContentPane().setLayout(new MigLayout("", "[10][183px,grow][grow][10]",
+				"[grow][grow][grow][25px,grow][29px,grow][grow][grow][grow][grow][grow][grow][grow]"));
 
 		initialize();
 	}
@@ -91,27 +89,16 @@ public class TelaDeLogin extends JFrame {
 				String usuario = txtUsuario.getText();
 				String senha = new String(passwordField.getPassword());
 				UsuarioVO vo = controllerUsuario.login(usuario, senha);
-				
-				telaGeral.verificarPermissaoParaTela(vo);
 
 				if (vo != null) {
 
 					JOptionPane.showMessageDialog(getParent(), "Login efetuado com sucesso!");
-					telaGeral.setUsuario(vo);
+					telaGeral = new TelaGeral(vo);
+					// telaGeral.setUsuario(vo);
+					telaGeral.setExtendedState(MAXIMIZED_BOTH);
 					telaGeral.setVisible(true);
-
-					/*
-					 * if (vo.getNivel().equals(vo.NIVEL_MEDICO)) {
-					 * JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!\nMédico " +
-					 * vo.getNome()); MedicoVO medico = (MedicoVO) vo; // TODO Chamar tela de médico
-					 * } else if (vo.getNivel().equals(vo.NIVEL_FUNCIONARIO)) {
-					 * JOptionPane.showMessageDialog(null,
-					 * "Login efetuado com sucesso!\nFuncionário " + vo.getNome()); FuncionarioVO
-					 * funcionario = (FuncionarioVO) vo; // TODO Chamar tela de funcionário } else
-					 * if (vo.getNivel().equals(vo.NIVEL_ADMIN)) {
-					 * JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!"); // TODO
-					 * Chamar tela de administrador }
-					 */
+					dispose();
+					// telaGeral.setVisible(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuario e/ou senha inválidos.");

@@ -17,11 +17,9 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
@@ -71,11 +69,12 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		super("Clínica Médica - Cadastro de Usuarios", true, true, true, true);
 		setBounds(100, 100, 777, 620);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][][center][center][grow][10]", "[][][][][][][][][][][][][][][][][][][][][][]"));
+		getContentPane().setLayout(
+				new MigLayout("", "[10][][center][center][grow][10]", "[][][][][][][][][][][][][][][][][][][][][][]"));
 
 		initialize();
 
-	}			
+	}
 
 	public void initialize() {
 		try {
@@ -84,7 +83,6 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		} catch (ParseException e1) {
 			System.out.println("Erro ao formar máscaras: " + e1.getMessage());
 		}
-
 
 		JLabel lblSelecionarUsurio = new JLabel("Selecionar Usuário para Editar:");
 		lblSelecionarUsurio.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -129,7 +127,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		JLabel lblCrm = new JLabel("CRM:");
 		lblCrm.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		getContentPane().add(lblCrm, "flowx,cell 1 19,grow");
-		
+
 		JLabel lblEspecialidade = new JLabel("Especialidade:");
 		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		getContentPane().add(lblEspecialidade, "cell 3 19,alignx center,growy");
@@ -194,7 +192,6 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		txtTelefone.setColumns(10);
 		txtTelefone.setEnabled(false);
 
-
 		txtEspecialidade = new JTextField();
 		txtEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		getContentPane().add(txtEspecialidade, "cell 4 19,grow");
@@ -222,7 +219,8 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 		cbxTipoUsuario = new JComboBox();
 		cbxTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cbxTipoUsuario.setModel(new DefaultComboBoxModel(new String[] { UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO, UsuarioVO.NIVEL_ADMIN }));
+		cbxTipoUsuario.setModel(new DefaultComboBoxModel(
+				new String[] { UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO, UsuarioVO.NIVEL_ADMIN }));
 		getContentPane().add(cbxTipoUsuario, "cell 4 5,grow");
 		cbxTipoUsuario.setSelectedIndex(-1);
 		cbxTipoUsuario.addActionListener(new ActionListener() {

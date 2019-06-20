@@ -14,9 +14,69 @@ import model.vo.UsuarioVO;
 
 public class FuncionarioDAO {
 
-	public FuncionarioVO consultarPorUsuario(UsuarioVO usuarioVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public FuncionarioVO buscarMedicoPorUsuario(UsuarioVO usuarioVO) {
+		String query = "SELECT * FROM FUNCIONARIO INNER JOIN USUARIO WHERE IDUSUARIO = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		FuncionarioVO funcionario = null;
+
+		try {
+			prepStmt.setInt(1, usuarioVO.getIdUsuario());
+			ResultSet resultado = prepStmt.executeQuery();
+			if (resultado.next()) {
+				funcionario = montarFuncionario(resultado);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar Funcionário por Usuário: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return funcionario;
+	}
+
+	public boolean existeFuncionarioPorCpf(FuncionarioVO funcionarioVO) {
+		boolean sucesso = false;
+		String query = "SELECT * FROM FUNCIONARIO WHERE CPF = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		try {
+			prepStmt.setString(1, funcionarioVO.getCpf());
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				sucesso = true;
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar se existe Funcionário por CPF: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return sucesso;
+	}
+
+	private FuncionarioVO montarFuncionario(ResultSet resultado) throws SQLException {
+		FuncionarioVO funcionario = new FuncionarioVO();
+
+		funcionario.setIdUsuario(resultado.getInt("IDUSUARIO"));
+		funcionario.setNomeUsuario(resultado.getString("USUARIO"));
+		funcionario.setSenha(resultado.getString("SENHA"));
+		funcionario.setNivel(resultado.getString("NIVEL"));
+		funcionario.setIdFuncionario(resultado.getInt("IDFUNCIONARIO"));
+		funcionario.setNome(resultado.getString("NOME"));
+		funcionario.setCpf(resultado.getString("CPF"));
+		funcionario.setTelefone(resultado.getString("TELEFONE"));
+		funcionario.setEmail(resultado.getString("EMAIL"));
+		funcionario.setDtNascimento(resultado.getDate("DATA_NASCIMENTO").toLocalDate());
+
+		return funcionario;
 	}
 
 	public int cadastrarFuncionario(FuncionarioVO funcionario) {

@@ -1,12 +1,14 @@
 package model.bo;
 
 import model.dao.FuncionarioDAO;
+import model.dao.UsuarioDAO;
 import model.vo.FuncionarioVO;
 
 public class FuncionarioBO {
 
 	public String cadastrarFuncionario(FuncionarioVO funcionario) {
 		String mensagem = "";
+		FuncionarioDAO dao = new FuncionarioDAO();
 		if (funcionario.getNome().length() > 150) {
 			mensagem += "Nome pode conter no máximo 150 caracteres!\n";
 		}
@@ -18,10 +20,10 @@ public class FuncionarioBO {
 		if (funcionario.getSenha().length() < 5 || funcionario.getSenha().length() > 45) {
 			mensagem += "Senha precisa ter no mínimo 5 e no máximo 45 caracteres!\n";
 		}
-		if (funcionario.getCpf().length() < 11 || funcionario.getCpf().length() > 11) {
+		if (funcionario.getCpf().length() < 14 || funcionario.getCpf().length() > 11) {
 			mensagem += "CPF inválido!\n";
 		}
-		if (funcionario.getTelefone().length() < 11 || funcionario.getTelefone().length() > 11) {
+		if (funcionario.getTelefone().length() < 14 || funcionario.getTelefone().length() > 11) {
 			mensagem += "Telefone inválido!\n";
 		}
 		if (funcionario.getEmail().split("@").length != 2) {
@@ -30,8 +32,14 @@ public class FuncionarioBO {
 		if (funcionario.getEmail().length() > 100) {
 			mensagem += "Email pode conter no máximo 100 caracteres!\n";
 		}
+		if (dao.existeFuncionarioPorCpf(funcionario)) {
+			mensagem += "Já existe um funcionário cadastrado com esse CPF!\n";
+		}
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		if (usuarioDAO.existeNomeDeUsuario(funcionario)) {
+			mensagem += "Nome de Usuário já está sendo usado!\n";
+		}
 		if (mensagem.equals("")) {
-			FuncionarioDAO dao = new FuncionarioDAO();
 			int idGerado = dao.cadastrarFuncionario(funcionario);
 			if (idGerado > 0) {
 				mensagem += "Funcionário cadastrado com sucesso!\n";
