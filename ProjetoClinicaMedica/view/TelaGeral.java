@@ -18,7 +18,6 @@ import javax.swing.JMenuItem;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
-import controller.ControllerUsuario;
 import model.vo.UsuarioVO;
 import view.adm.paciente.TelaInternaCadastrarAtualizarPaciente;
 import view.adm.usuario.TelaInternaCadastroUsuario;
@@ -28,10 +27,6 @@ import view.funcionarios.medico.TelaInternaProntuarioMedico;
 import view.funcionarios.secretaria.TelaInternaBuscarPaciente;
 import view.funcionarios.secretaria.TelaInternaCadastroPaciente;
 import view.funcionarios.secretaria.TelaInternaConsultasEHorarios;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class TelaGeral extends JFrame {
 
@@ -194,14 +189,6 @@ public class TelaGeral extends JFrame {
 		menuBar.add(mnAdm);
 
 		JMenu mnPacientes = new JMenu("Pacientes");
-		mnPacientes.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				adicionarInternalFrame(janelinhaCadastrarAtualizarPaciente);
-				janelinhaCadastrarAtualizarPaciente.setVisible(true);
-				janelinhaCadastrarAtualizarPaciente.show();
-			}
-		});
 		mnPacientes.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-fila.png")));
 		mnAdm.add(mnPacientes);
 
