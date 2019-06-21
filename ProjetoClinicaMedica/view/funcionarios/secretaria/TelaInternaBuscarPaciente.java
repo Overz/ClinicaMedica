@@ -48,9 +48,9 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 
 	public TelaInternaBuscarPaciente() {
 		super("Clínica Médica - Buscar Paciente", false, true, false, false);
-		setBounds(100, 100, 945, 748);
+		setBounds(100, 100, 1190, 842);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][138px,grow][158.00px,grow][76.00px,grow][grow][10]", "[20][25px,grow][26px,grow][10][15][605px,grow][20]"));
+		getContentPane().setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]", "[10][25px,grow][20][26px,grow][20][605px,grow][20]"));
 
 		initialize();
 	}
@@ -71,35 +71,30 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 
 		JLabel lblCpf = new JLabel("CPF:");
 		lblCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblCpf, "cell 3 1,alignx center,growy");
+		getContentPane().add(lblCpf, "cell 5 1,alignx center,growy");
 
 		JLabel lblDtNascimento = new JLabel("Data de Nascimento:");
 		lblDtNascimento.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblDtNascimento, "cell 1 2,grow");
-
-		JSeparator separator = new JSeparator();
-		separator.setForeground(Color.BLACK);
-		separator.setBackground(Color.BLACK);
-		getContentPane().add(separator, "cell 1 4 4 1,grow");
+		getContentPane().add(lblDtNascimento, "cell 1 3,grow");
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
 		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
 		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 		datePicker.setSettings(dateSettings);
-		getContentPane().add(datePicker, "cell 2 2,grow");
+		getContentPane().add(datePicker, "cell 3 3,grow");
 
 		ftfCpf = new JFormattedTextField(mascaraCPF);
 		ftfCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(ftfCpf, "cell 4 1,grow");
+		getContentPane().add(ftfCpf, "cell 7 1,grow");
 
 		ftfNome = new JFormattedTextField(mascaraNome);
 		ftfNome.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(ftfNome, "cell 2 1,grow");
+		getContentPane().add(ftfNome, "cell 3 1,grow");
 
 		btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(btnPesquisar, "cell 3 2 2 1,grow");
+		getContentPane().add(btnPesquisar, "cell 5 3 3 1,grow");
 		btnPesquisar.addActionListener(e -> {
 
 			try {
@@ -127,6 +122,6 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		table.setModel(new DefaultTableModel(data, columnNames));
-		getContentPane().add(table, "cell 1 5 4 1,grow");
+		getContentPane().add(table, "cell 1 5 7 1,grow");
 	}
 }

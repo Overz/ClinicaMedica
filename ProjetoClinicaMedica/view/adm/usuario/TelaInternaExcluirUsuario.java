@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -16,16 +17,20 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
+import java.awt.Font;
 
 public class TelaInternaExcluirUsuario extends JInternalFrame {
+
+	private static final long serialVersionUID = -4416105711278801014L;
 	private JTable tableClientes;
+	private JFormattedTextField ftfNome;
+	private JFormattedTextField ftfCpf;
 	private JButton btnApagar;
-	private JTextField textField;
+	private JButton btnLimpar;
+	private JButton btnSalvar;
+	private JButton btnPesquisar;
+	private JButton btnPesquisarTodos;
 	
-	
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -39,10 +44,6 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 		});
 	}
 
-
-	/**
-	 * Create the application.
-	 */
 	public TelaInternaExcluirUsuario() {
 		super("Clinica Médica - Exclusão de Usuario",
 			false,
@@ -51,73 +52,74 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 			false);
 		setBounds(100, 100, 840, 638);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][1px,grow][grow][grow][grow][grow][10]", "[][][][][grow][]"));
+		getContentPane().setLayout(new MigLayout("", "[10][1px,grow][10][grow][10][grow][10][grow][grow][10]", "[40][10][40][40][10][grow][40][10]"));
 		
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 
 		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(lblNome, "cell 1 0,grow");
 		
-		Object[][] data = new Object[][] {{"#", "Nome", "CPF", "Email", "Telefone"},};
-		Object[] columnNames = new String[] {"#", "Nome", "CPF", "Email", "Telefone"};
-		
-		textField = new JTextField();
-		getContentPane().add(textField, "cell 2 0 2 1,growx");
-		textField.setColumns(10);
-		
-		JButton btnPesquisar01 = new JButton("Pesquisar");
-		getContentPane().add(btnPesquisar01, "cell 4 0,grow");
-		
 		JLabel lblCpf = new JLabel("CPF:");
-		getContentPane().add(lblCpf, "cell 1 1,grow");
+		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(lblCpf, "cell 1 2,grow");
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		getContentPane().add(formattedTextField, "cell 2 1 2 1,grow");
+		ftfNome = new JFormattedTextField();
+		ftfNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(ftfNome, "cell 3 0 3 1,grow");
 		
-		JButton btnLimpar = new JButton("Limpar Campos");
-		getContentPane().add(btnLimpar, "cell 4 1,grow");
+		ftfCpf = new JFormattedTextField();
+		ftfCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(ftfCpf, "cell 3 2 3 1,grow");
 		
-		JButton btnPesquisarTodos = new JButton("Pesquisar Todos");
-		getContentPane().add(btnPesquisarTodos, "cell 2 2 3 1,grow");
+		btnLimpar = new JButton("Limpar Campos");
+		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(btnLimpar, "cell 7 2,grow");
 		
-		tableClientes = new JTable();
-		getContentPane().add(tableClientes, "cell 1 4 5 1,grow");
-		tableClientes.setModel(new DefaultTableModel(data, columnNames));
+		btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(btnPesquisar, "cell 7 0,grow");
 		
-		JButton btnSalvar = new JButton("Salvar Dados");
-		getContentPane().add(btnSalvar, "cell 2 5,grow");
+		btnPesquisarTodos = new JButton("Pesquisar Todos");
+		btnPesquisarTodos.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(btnPesquisarTodos, "cell 3 3 5 1,grow");
 		
-		
+		btnSalvar = new JButton("Salvar Dados");
+		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(btnSalvar, "cell 3 6,grow");
 		
 		btnApagar = new JButton("APAGAR");
+		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnApagar.setEnabled(false);
+		getContentPane().add(btnApagar, "cell 5 6,grow");
 		btnApagar.addActionListener(e -> {
 			//TODO Pegar a linha/coluna selecionada e alterar diretamente na tabela
 			int[] id = tableClientes.getSelectedRows();
 		});
-		btnApagar.setEnabled(false);
-		getContentPane().add(btnApagar, "cell 3 5,grow");
 		
-		JCheckBox chkbApagarCliente = new JCheckBox("Apagar Clientes");
+		JCheckBox chkbApagarCliente = new JCheckBox("Apagar Cliente");
+		chkbApagarCliente.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(chkbApagarCliente, "cell 7 6,grow");
 		chkbApagarCliente.addActionListener(new ActionListener() {
-			private AbstractButton btnApagar;
-
 			public void actionPerformed(ActionEvent e) {
 				if (chkbApagarCliente.isSelected()) {
 					JOptionPane.showMessageDialog(null, "Aten��o, Cuidado ao apagar um Cliente!\nIsso pode gerar Problemas!");
 					btnApagar.setEnabled(true);
 				}
-				
 			}
 		});
-		getContentPane().add(chkbApagarCliente, "cell 4 5,grow");
+		
+		Object[][] data = new Object[][] {{"#", "Nome", "CPF", "Usuário(Login)", "Senha", "Tipo de Usuário" },};
+		Object[] columnNames = new String[] {"#", "Nome", "CPF", "Usuário(Login)", "Senha", "Tipo de Usuário" };
+		
+		tableClientes = new JTable();
+		tableClientes.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		getContentPane().add(tableClientes, "cell 1 5 8 1,grow");
+		tableClientes.setModel(new DefaultTableModel(data, columnNames));
 		
 		this.repaint();
-		
 	}
 }
