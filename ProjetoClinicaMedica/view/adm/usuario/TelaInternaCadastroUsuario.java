@@ -132,15 +132,6 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		getContentPane().add(lblEspecialidade, "cell 3 19,alignx center,growy");
 
-		cbxUsuarios = new JComboBox(usuarios.toArray());
-		getContentPane().add(cbxUsuarios, "cell 3 1 2 1,grow");
-		cbxUsuarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(),
-						(UsuarioVO) cbxUsuarios.getModel().getSelectedItem());
-			}
-		});
-
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		separator.setBackground(Color.BLACK);
@@ -155,6 +146,14 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		separator_2.setForeground(Color.BLACK);
 		separator_2.setBackground(Color.BLACK);
 		getContentPane().add(separator_2, "cell 1 17 4 1,grow");
+		
+		cbxUsuarios = new JComboBox(usuarios.toArray());
+		getContentPane().add(cbxUsuarios, "cell 3 1 2 1,grow");
+		cbxUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(), (UsuarioVO) cbxUsuarios.getModel().getSelectedItem());
+			}
+		});
 
 		txtUsuario = new JTextField();
 		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));

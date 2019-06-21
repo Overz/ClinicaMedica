@@ -43,7 +43,7 @@ public class TelaInternaMedico extends JInternalFrame {
 		super("Clínica Médica - Horario das Consultas", false, true, false, false);
 		setBounds(100, 100, 812, 621);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][10]", "[grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][10]"));
+		getContentPane().setLayout(new MigLayout("", "[10][38,grow][38,grow][38,grow][10][38,grow][38,grow][38,grow][38,grow][10]", "[10][grow][10][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][10]"));
 
 		initialize();
 	}
@@ -52,7 +52,7 @@ public class TelaInternaMedico extends JInternalFrame {
 
 		lblData = new JLabel("Data:");
 		lblData.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblData, "cell 1 0,alignx center,growy");
+		getContentPane().add(lblData, "cell 1 1,alignx center,growy");
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
@@ -60,12 +60,12 @@ public class TelaInternaMedico extends JInternalFrame {
 		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 
 		datePicker.setSettings(dateSettings);
-		getContentPane().add(datePicker, "cell 2 0 2 1,grow");
+		getContentPane().add(datePicker, "cell 2 1 2 1,grow");
 
 		btnPesquisarConsulta = new JButton("Pesquisar Consultas");
 		btnPesquisarConsulta.setFont(new Font("Verdana", Font.PLAIN, 20));
 		btnPesquisarConsulta.setToolTipText("Selecione uma Linha, e Pesquise dados mais especifos.");
-		getContentPane().add(btnPesquisarConsulta, "cell 4 0 3 1,grow");
+		getContentPane().add(btnPesquisarConsulta, "cell 5 1 3 1,grow");
 		btnPesquisarConsulta.addActionListener(e -> {
 
 			try {
@@ -91,7 +91,7 @@ public class TelaInternaMedico extends JInternalFrame {
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		table.setModel(new DefaultTableModel(data, columnNames));
-		getContentPane().add(table, "cell 1 1 7 10,grow");
+		getContentPane().add(table, "cell 1 3 8 10,grow");
 	}
 
 	/*
