@@ -27,8 +27,6 @@ import view.funcionarios.medico.TelaInternaProntuarioMedico;
 import view.funcionarios.secretaria.TelaInternaBuscarPaciente;
 import view.funcionarios.secretaria.TelaInternaCadastroPaciente;
 import view.funcionarios.secretaria.TelaInternaConsultasEHorarios;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class TelaGeral extends JFrame {
 
@@ -106,14 +104,25 @@ public class TelaGeral extends JFrame {
 		desktopPane.repaint();
 		getContentPane().add(desktopPane);
 
-		desktopPane.add(janelinhaPrincipalRecepcao);
-		janelinhaPrincipalRecepcao.setBounds(0, 0, width_int, height_int - 70);
-		janelinhaPrincipalRecepcao.setVisible(true);
-		janelinhaPrincipalRecepcao.show();
+		this.chamarTelaPorUsuario();
 
 		this.repaint();
 
 		initialize();
+	}
+
+	private void chamarTelaPorUsuario() {
+		if (this.getUsuario().getNivel().equals(UsuarioVO.NIVEL_MEDICO)) {
+			janelinhaAgendaMedica.setMedico(usuario);
+			desktopPane.add(janelinhaAgendaMedica);
+			janelinhaAgendaMedica.setBounds(0, 0, width_int, height_int - 70);
+			janelinhaAgendaMedica.setVisible(true);
+			janelinhaAgendaMedica.show();
+		} else if (this.getUsuario().getNivel().equals(UsuarioVO.NIVEL_FUNCIONARIO)) {
+
+		} else if (this.getUsuario().getNivel().equals(UsuarioVO.NIVEL_ADMIN)) {
+
+		}
 	}
 
 	private void initialize() {
@@ -128,19 +137,21 @@ public class TelaGeral extends JFrame {
 		menuBar.add(mnPaciente);
 
 		mntmCadastrarPaciente = new JMenuItem("Cadastrar/Atualizar Paciente");
-		mntmCadastrarPaciente.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino-38.png")));
+		mntmCadastrarPaciente.setIcon(
+				new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino-38.png")));
 		mnPaciente.add(mntmCadastrarPaciente);
 		mntmCadastrarPaciente.addActionListener(e -> {
-				
+
 			adicionarInternalFrame(janelinhaCadastroPaciente);
-				janelinhaCadastroPaciente.setBounds(0, 0, width_int, height_int - 70);
-				janelinhaCadastroPaciente.setVisible(true);
-				janelinhaCadastroPaciente.show();
-				this.repaint();
+			janelinhaCadastroPaciente.setBounds(0, 0, width_int, height_int - 70);
+			janelinhaCadastroPaciente.setVisible(true);
+			janelinhaCadastroPaciente.show();
+			this.repaint();
 		});
 
 		mntmBuscarPaciente = new JMenuItem("Buscar Paciente");
-		mntmBuscarPaciente.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-procurar-usuário-masculino-38.png")));
+		mntmBuscarPaciente.setIcon(
+				new ImageIcon(TelaGeral.class.getResource("/icones/icons8-procurar-usuário-masculino-38.png")));
 		mnPaciente.add(mntmBuscarPaciente);
 		mntmBuscarPaciente.addActionListener(e -> {
 
@@ -204,7 +215,8 @@ public class TelaGeral extends JFrame {
 		mnAdm.add(mnRelatorios);
 
 		JMenu mnUsuarios = new JMenu("Usuarios");
-		mnUsuarios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
+		mnUsuarios
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
 		mnAdm.add(mnUsuarios);
 
 		mntmExcluirUsuarios = new JMenuItem("Excluir Usuarios");
@@ -232,7 +244,7 @@ public class TelaGeral extends JFrame {
 		mnCadastrarAtualizarPacienteADM = new JMenuItem("Cadastrar/Atualizar Paciente");
 		mnPacientes.add(mnCadastrarAtualizarPacienteADM);
 		mnCadastrarAtualizarPacienteADM.addActionListener(e -> {
-			
+
 			adicionarInternalFrame(janelinhaCadastrarAtualizarPaciente);
 			janelinhaCadastrarAtualizarPaciente.setBounds(0, 0, width_int, height_int - 70);
 			janelinhaCadastrarAtualizarPaciente.setVisible(true);

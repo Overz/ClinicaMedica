@@ -209,4 +209,28 @@ public class MedicoDAO {
 		return sucesso;
 	}
 
+	public MedicoVO buscarMedicoPorId(int idMedico) {
+		String query = "SELECT * FROM MEDICO WHERE IDMEDICO = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		MedicoVO medico = null;
+
+		try {
+			prepStmt.setInt(1, idMedico);
+			ResultSet resultado = prepStmt.executeQuery();
+			if (resultado.next()) {
+				medico = montarMedico(resultado);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar Médico por ID: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return medico;
+	}
+
 }

@@ -14,7 +14,7 @@ import model.vo.UsuarioVO;
 
 public class FuncionarioDAO {
 
-	public FuncionarioVO buscarMedicoPorUsuario(UsuarioVO usuarioVO) {
+	public FuncionarioVO buscarFuncionarioPorUsuario(UsuarioVO usuarioVO) {
 		String query = "SELECT * FROM FUNCIONARIO INNER JOIN USUARIO WHERE IDUSUARIO = ?";
 
 		Connection conn = Banco.getConnection();
@@ -177,6 +177,30 @@ public class FuncionarioDAO {
 	public String construirFiltros() {
 		// TODO Implementar método de construção de filtros
 		return null;
+	}
+
+	public FuncionarioVO buscarFuncionarioPorId(int idFuncionario) {
+		String query = "SELECT * FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		FuncionarioVO funcionario = null;
+
+		try {
+			prepStmt.setInt(1, idFuncionario);
+			ResultSet resultado = prepStmt.executeQuery();
+			if (resultado.next()) {
+				funcionario = montarFuncionario(resultado);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar Funcionário por ID: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return funcionario;
 	}
 
 }

@@ -1,6 +1,7 @@
 package view.funcionarios.secretaria;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -25,7 +26,6 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 import controller.ControllerFuncionario;
 import model.vo.MedicoVO;
 import net.miginfocom.swing.MigLayout;
-import java.awt.Font;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
@@ -64,20 +64,23 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 				false, // Closable
 				false, // Maximizable
 				false); // Minimizar
-		//Opções que possibilitam remoção de bordas, para tela ficar sempre "estatica"
-		((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
+		// Opções que possibilitam remoção de bordas, para tela ficar sempre "estatica"
+		((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		//this.setBounds(0, 0, 821, 609);
+		// this.setBounds(0, 0, 821, 609);
 		this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
-		this.getContentPane().setLayout(new MigLayout("", "[10][grow][100px:100px:100px,grow][grow][grow][100px:100px:100px,grow][grow][10]", "[10][38,grow][grow][grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][10]"));
+		this.getContentPane().setLayout(new MigLayout("",
+				"[10][grow][100px:100px:100px,grow][grow][grow][100px:100px:100px,grow][grow][10]",
+				"[10][38,grow][grow][grow,fill][38,grow][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][10]"));
 
 		initialize();
 	}
 
 	private void initialize() {
-		
+
 		try {
-			mascaraNome = new MaskFormatter("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+			mascaraNome = new MaskFormatter(
+					"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
 			mascaraCpfCrm = new MaskFormatter("####################");
 		} catch (ParseException e1) {
 			System.out.println("Erro ao criar Mascara" + e1.getMessage());
@@ -91,7 +94,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		lblPacientemdico.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(lblPacientemdico, "cell 1 2,alignx trailing,growy");
 		lblPacientemdico.setVisible(true);
-		
+
 		lblCpfcrm = new JLabel("CPF/CRM:");
 		lblCpfcrm.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(lblCpfcrm, "cell 1 3,alignx trailing,growy");
@@ -123,7 +126,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		ftfNome.setEditable(true);
 		ftfNome.setToolTipText("Digite o Nome do Paciente ou Médico, para realizar a Consulta Especifica.");
 		getContentPane().add(ftfNome, "cell 2 2 3 1,grow");
-		
+
 		ftfCampoCpfCrm = new JFormattedTextField(mascaraCpfCrm);
 		ftfCampoCpfCrm.setFont(new Font("Verdana", Font.PLAIN, 22));
 		ftfCampoCpfCrm.setVisible(false);
@@ -147,35 +150,35 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 					JOptionPane.showMessageDialog(null, mensagem);
 				}
 			} catch (NullPointerException e2) {
-				System.out.println("Tela: Consultas e Horarios. Erro ao Validar os Campos para consulta.\n" + e2.getMessage());
+				System.out.println(
+						"Tela: Consultas e Horarios. Erro ao Validar os Campos para consulta.\n" + e2.getMessage());
 			}
-			
-			// ArrayList<PacienteVO> vo = controller.consultarData(data);
-			// atualizarTabela(vo);
+
 		});
 
 		btnLimparCampos = new JButton("Limpar Campos");
 		btnLimparCampos.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(btnLimparCampos, "cell 2 13 2 1,grow");
 		btnLimparCampos.addActionListener(e -> {
-			
+
 			cbOpcaoPesquisa.setSelectedIndex(0);
 			datePicker.setDate(null);
 			ftfNome.setText("");
 			ftfCampoCpfCrm.setText("");
-			
+
 		});
 
 		btnCadastrarConsulta = new JButton("Cadastrar Consulta");
 		btnCadastrarConsulta.setFont(new Font("Verdana", Font.PLAIN, 22));
-		btnCadastrarConsulta.setToolTipText("Selecione uma Linha, e Registre os Dados em Ordem na Tabela, para Realizar o Cadastro das Consultas.");
+		btnCadastrarConsulta.setToolTipText(
+				"Selecione uma Linha, e Registre os Dados em Ordem na Tabela, para Realizar o Cadastro das Consultas.");
 		getContentPane().add(btnCadastrarConsulta, "cell 4 13,grow");
 		btnCadastrarConsulta.addActionListener(e -> {
-			
-			//TODO Cadastrar consulta no banco.
-			
+
+			// TODO Cadastrar consulta no banco.
+
 		});
-		
+
 		// TENTAR ADC SCROLLBAR
 		Object[][] data = new Object[][] { { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" }, };
 		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" };
@@ -207,8 +210,8 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 			ftfCampoCpfCrm.setVisible(false);
 			lblCpfcrm.setVisible(false);
 
-		} else  {
-			
+		} else {
+
 			ftfCampoCpfCrm.setText("");
 			ftfCampoCpfCrm.setEnabled(true);
 			ftfCampoCpfCrm.setEditable(true);

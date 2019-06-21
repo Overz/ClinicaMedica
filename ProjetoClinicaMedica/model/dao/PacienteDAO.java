@@ -156,4 +156,28 @@ public class PacienteDAO {
 		return paciente;
 	}
 
+	public PacienteVO buscarPacientePorId(int idPaciente) {
+		String query = "SELECT * FROM PACIENTE WHERE IDPACIENTE = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		PacienteVO paciente = null;
+
+		try {
+			prepStmt.setInt(1, idPaciente);
+			ResultSet resultado = prepStmt.executeQuery();
+			if (resultado.next()) {
+				paciente = montarPaciente(resultado);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar Paciente por ID: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return paciente;
+	}
+
 }

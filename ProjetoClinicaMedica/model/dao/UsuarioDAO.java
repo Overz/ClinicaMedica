@@ -142,7 +142,7 @@ public class UsuarioDAO {
 					usuarioVO = medico.buscarMedicoPorUsuario(usuarioVO);
 				} else if (resultado.getString("NIVEL").equals("Funcionário")) {
 					FuncionarioDAO funcionario = new FuncionarioDAO();
-					usuarioVO = funcionario.buscarMedicoPorUsuario(usuarioVO);
+					usuarioVO = funcionario.buscarFuncionarioPorUsuario(usuarioVO);
 				}
 			}
 			resultado.close();

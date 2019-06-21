@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import model.banco.Banco;
@@ -112,22 +113,52 @@ public class ConsultaDAO {
 			consulta.setIdConsulta(resultado.getInt("IDCONSULTA"));
 			consulta.setData_consulta(resultado.getTimestamp("DATA_CONSULTA").toLocalDateTime());
 
-			PacienteVO paciente = new PacienteVO();
-			paciente.setIdPaciente(resultado.getInt("IDPACIENTE"));
+			PacienteDAO pacienteDAO = new PacienteDAO();
+			PacienteVO paciente = pacienteDAO.buscarPacientePorId(resultado.getInt("IDPACIENTE"));
 			consulta.setPaciente(paciente);
 
-			MedicoVO medico = new MedicoVO();
-			medico.setIdMedico(resultado.getInt("IDMEDICO"));
+			MedicoDAO medicoDAO = new MedicoDAO();
+			MedicoVO medico = medicoDAO.buscarMedicoPorId(resultado.getInt("IDMEDICO"));
 			consulta.setMedico(medico);
 
-			FuncionarioVO funcionario = new FuncionarioVO();
-			funcionario.setIdFuncionario(resultado.getInt("IDFUNCIONARIO"));
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			FuncionarioVO funcionario = funcionarioDAO.buscarFuncionarioPorId(resultado.getInt("IDFUNCIONARIO"));
 			consulta.setFuncionario(funcionario);
 		} catch (SQLException e) {
 			System.out.println("Erro ao construir Consulta: \n" + e.getMessage());
 		}
 
 		return consulta;
+	}
+
+	public ArrayList<ConsultaVO> pesquisarConsultasPorDataEMedico(LocalDate data, MedicoVO medico) {
+		String query = "SEELCT * FROM CONSULTA INNER JOIN MEDICO ON CONSULTA.IDMEDICO = MEDICO.IDMEDICO "
+				+ "INNER JOIN PACIENTE ON CONSULTA.IDPACIENTE = PACIENTE.IDPACIENTE WHERE IDMEDICO = ? "
+				+ "AND DATE(DATA_CONSULTA) = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		ArrayList<ConsultaVO> consultas = new ArrayList<ConsultaVO>();
+
+		try {
+			prepStmt.setInt(1, medico.getIdMedico());
+			prepStmt.setDate(2, Date.valueOf(data));
+
+			ResultSet resultado = prepStmt.executeQuery();
+			while (resultado.next()) {
+				ConsultaVO consulta = this.montarConsulta(resultado);
+				consultas.add(consulta);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println(
+					"Erro ao pesquisar consultas do médico " + medico.toString() + ". Erro: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+
+		return consultas;
 	}
 
 }
