@@ -1,4 +1,4 @@
-package view.funcionarios.medico;
+package view.usuarios.medico;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -6,16 +6,12 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JTextArea;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
-import java.awt.Color;
-import javax.swing.UIManager;
 
 public class TelaInternaProntuarioMedico extends JInternalFrame {
 

@@ -94,11 +94,9 @@ public class TelaDeLogin extends JFrame {
 
 					JOptionPane.showMessageDialog(getParent(), "Login efetuado com sucesso!");
 					telaGeral = new TelaGeral(vo);
-					// telaGeral.setUsuario(vo);
 					telaGeral.setExtendedState(MAXIMIZED_BOTH);
-					telaGeral.setVisible(true);
 					dispose();
-					// telaGeral.setVisible(true);
+					telaGeral.setVisible(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuario e/ou senha inválidos.");

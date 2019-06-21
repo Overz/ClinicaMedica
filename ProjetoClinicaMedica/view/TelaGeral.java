@@ -18,15 +18,16 @@ import javax.swing.JMenuItem;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
+import model.vo.MedicoVO;
 import model.vo.UsuarioVO;
 import view.adm.paciente.TelaInternaCadastrarAtualizarPaciente;
 import view.adm.usuario.TelaInternaCadastroUsuario;
 import view.adm.usuario.TelaInternaExcluirUsuario;
-import view.funcionarios.medico.TelaInternaAgendaMedico;
-import view.funcionarios.medico.TelaInternaProntuarioMedico;
-import view.funcionarios.secretaria.TelaInternaBuscarPaciente;
-import view.funcionarios.secretaria.TelaInternaCadastroPaciente;
-import view.funcionarios.secretaria.TelaInternaConsultasEHorarios;
+import view.usuarios.funcionarios.TelaInternaBuscarPaciente;
+import view.usuarios.funcionarios.TelaInternaCadastroPaciente;
+import view.usuarios.funcionarios.TelaInternaConsultasEHorarios;
+import view.usuarios.medico.TelaInternaAgendaMedico;
+import view.usuarios.medico.TelaInternaProntuarioMedico;
 
 public class TelaGeral extends JFrame {
 
@@ -55,7 +56,7 @@ public class TelaGeral extends JFrame {
 	private TelaInternaConsultasEHorarios janelinhaPrincipalRecepcao = new TelaInternaConsultasEHorarios();
 	private TelaInternaCadastroPaciente janelinhaCadastroPaciente = new TelaInternaCadastroPaciente();
 	private TelaInternaBuscarPaciente janelinhaBuscarPaciente = new TelaInternaBuscarPaciente();
-	private TelaInternaAgendaMedico janelinhaAgendaMedica = new TelaInternaAgendaMedico();
+	private TelaInternaAgendaMedico janelinhaAgendaMedica;
 	private TelaInternaProntuarioMedico janelinhaProntuario = new TelaInternaProntuarioMedico();
 	private TelaInternaExcluirUsuario janelinhaExcluirUsuario = new TelaInternaExcluirUsuario();
 	private TelaInternaCadastroUsuario janelinhaUsuario = new TelaInternaCadastroUsuario();
@@ -79,6 +80,7 @@ public class TelaGeral extends JFrame {
 	}
 
 	public TelaGeral(UsuarioVO usuario) {
+		this.setUsuario(usuario);
 		// Abrir a janelinha em posição X,Y preferencial
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
@@ -87,8 +89,6 @@ public class TelaGeral extends JFrame {
 		int x = (int) (width * 0.2);
 		width_int = (int) width;
 		height_int = (int) height;
-
-		this.setUsuario(usuario);
 
 		setTitle("Clinica Médica");
 		setBounds(5, 5, 1073, 700);
@@ -104,25 +104,9 @@ public class TelaGeral extends JFrame {
 		desktopPane.repaint();
 		getContentPane().add(desktopPane);
 
-		this.chamarTelaPorUsuario();
-
 		this.repaint();
 
 		initialize();
-	}
-
-	private void chamarTelaPorUsuario() {
-		if (this.getUsuario().getNivel().equals(UsuarioVO.NIVEL_MEDICO)) {
-			janelinhaAgendaMedica.setMedico(usuario);
-			desktopPane.add(janelinhaAgendaMedica);
-			janelinhaAgendaMedica.setBounds(0, 0, width_int, height_int - 70);
-			janelinhaAgendaMedica.setVisible(true);
-			janelinhaAgendaMedica.show();
-		} else if (this.getUsuario().getNivel().equals(UsuarioVO.NIVEL_FUNCIONARIO)) {
-
-		} else if (this.getUsuario().getNivel().equals(UsuarioVO.NIVEL_ADMIN)) {
-
-		}
 	}
 
 	private void initialize() {
@@ -141,11 +125,7 @@ public class TelaGeral extends JFrame {
 				new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino-38.png")));
 		mnPaciente.add(mntmCadastrarPaciente);
 		mntmCadastrarPaciente.addActionListener(e -> {
-
 			adicionarInternalFrame(janelinhaCadastroPaciente);
-			janelinhaCadastroPaciente.setBounds(0, 0, width_int, height_int - 70);
-			janelinhaCadastroPaciente.setVisible(true);
-			janelinhaCadastroPaciente.show();
 			this.repaint();
 		});
 
@@ -154,13 +134,8 @@ public class TelaGeral extends JFrame {
 				new ImageIcon(TelaGeral.class.getResource("/icones/icons8-procurar-usuário-masculino-38.png")));
 		mnPaciente.add(mntmBuscarPaciente);
 		mntmBuscarPaciente.addActionListener(e -> {
-
 			adicionarInternalFrame(janelinhaBuscarPaciente);
-			janelinhaBuscarPaciente.setBounds(0, 0, width_int, height_int - 70);
-			janelinhaBuscarPaciente.setVisible(true);
-			janelinhaBuscarPaciente.show();
 			this.repaint();
-
 		});
 
 		// MENU MEDICO
@@ -173,13 +148,9 @@ public class TelaGeral extends JFrame {
 		mntmAgendaMedica.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-pasta-dos-médicos-38.png")));
 		mnMedico.add(mntmAgendaMedica);
 		mntmAgendaMedica.addActionListener(e -> {
-
+			janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
 			adicionarInternalFrame(janelinhaAgendaMedica);
-			janelinhaAgendaMedica.setBounds(0, 0, width_int, height_int - 70);
-			janelinhaAgendaMedica.setVisible(true);
-			janelinhaAgendaMedica.show();
 			this.repaint();
-
 		});
 
 		mntmProntuario = new JMenuItem("Prontuario");
@@ -187,13 +158,8 @@ public class TelaGeral extends JFrame {
 				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
 		mnMedico.add(mntmProntuario);
 		mntmProntuario.addActionListener(e -> {
-
 			adicionarInternalFrame(janelinhaProntuario);
-			janelinhaProntuario.setBounds(0, 0, width_int, height_int - 70);
-			janelinhaProntuario.setVisible(true);
-			janelinhaProntuario.show();
 			this.repaint();
-
 		});
 
 		// MENU ADM
@@ -222,34 +188,19 @@ public class TelaGeral extends JFrame {
 		mntmExcluirUsuarios = new JMenuItem("Excluir Usuarios");
 		mnUsuarios.add(mntmExcluirUsuarios);
 		mntmExcluirUsuarios.addActionListener(e -> {
-
 			adicionarInternalFrame(janelinhaExcluirUsuario);
-			janelinhaExcluirUsuario.setBounds(0, 0, width_int, height_int - 70);
-			janelinhaExcluirUsuario.setVisible(true);
-			janelinhaExcluirUsuario.show();
-
 		});
 
 		mntmCadastrarUsuarios = new JMenuItem("Cadastrar Usuarios");
 		mnUsuarios.add(mntmCadastrarUsuarios);
 		mntmCadastrarUsuarios.addActionListener(e -> {
-
 			adicionarInternalFrame(janelinhaUsuario);
-			janelinhaUsuario.setBounds(0, 0, width_int, height_int - 70);
-			janelinhaUsuario.setVisible(true);
-			janelinhaUsuario.show();
-
 		});
 
 		mnCadastrarAtualizarPacienteADM = new JMenuItem("Cadastrar/Atualizar Paciente");
 		mnPacientes.add(mnCadastrarAtualizarPacienteADM);
 		mnCadastrarAtualizarPacienteADM.addActionListener(e -> {
-
 			adicionarInternalFrame(janelinhaCadastrarAtualizarPaciente);
-			janelinhaCadastrarAtualizarPaciente.setBounds(0, 0, width_int, height_int - 70);
-			janelinhaCadastrarAtualizarPaciente.setVisible(true);
-			janelinhaCadastrarAtualizarPaciente.show();
-
 		});
 
 		mnBuscarExcluirPacienteADM = new JMenuItem("Buscar/Excluir Cadastro de Paciente");
@@ -284,8 +235,26 @@ public class TelaGeral extends JFrame {
 
 		mntmGerarRelatorioDoEstoque = new JMenuItem("Gerar Relatorio do Estoque");
 		mnRelatorios.add(mntmGerarRelatorioDoEstoque);
+
+		JMenu mnSistema = new JMenu("Sistema");
+		mnSistema.setFont(new Font("Arial", Font.BOLD, 16));
+		menuBar.add(mnSistema);
 		mntmGerarRelatorioDoEstoque.addActionListener(e -> {
 
+		});
+
+		JMenuItem mntmLogout = new JMenuItem("Logout");
+		mnSistema.add(mntmLogout);
+		mntmLogout.addActionListener(e -> {
+			TelaDeLogin telaLogin = new TelaDeLogin();
+			this.dispose();
+			telaLogin.setVisible(true);
+		});
+
+		JMenuItem mntmFechar = new JMenuItem("Fechar");
+		mnSistema.add(mntmFechar);
+		mntmFechar.addActionListener(e -> {
+			System.exit(0);
 		});
 
 		this.verificarPermissaoParaTela();
@@ -300,6 +269,8 @@ public class TelaGeral extends JFrame {
 		if (!componentesDaTela.contains(janelinha)) {
 			desktopPane.add(janelinha);
 			componentesDaTela.add(janelinha);
+			janelinha.setBounds(0, 0, width_int, height_int - 70);
+			janelinha.setVisible(true);
 			janelinha.show();
 		}
 		janelinha.addInternalFrameListener(new InternalFrameAdapter() {
@@ -327,11 +298,13 @@ public class TelaGeral extends JFrame {
 		} else if (UsuarioVO.NIVEL_MEDICO.equals(this.usuario.getNivel())) {
 			mnPaciente.setEnabled(false);
 			mnAdm.setEnabled(false);
-			// chamar tela agenda
+			janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
+			adicionarInternalFrame(janelinhaAgendaMedica);
 		} else if (UsuarioVO.NIVEL_ADMIN.equals(this.usuario.getNivel())) {
-			mnPaciente.setEnabled(true);
-			mnMedico.setEnabled(true);
+			mnPaciente.setEnabled(false);
+			mnMedico.setEnabled(false);
 			mnAdm.setEnabled(true);
 		}
 	}
+
 }

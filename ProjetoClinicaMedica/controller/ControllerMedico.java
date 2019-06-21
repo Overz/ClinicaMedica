@@ -3,7 +3,6 @@ package controller;
 import java.time.LocalDate;
 
 import model.bo.MedicoBO;
-import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
 
 public class ControllerMedico {

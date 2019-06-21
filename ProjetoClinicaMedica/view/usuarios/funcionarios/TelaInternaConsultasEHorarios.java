@@ -1,6 +1,7 @@
-package view.funcionarios.secretaria;
+package view.usuarios.funcionarios;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -25,7 +26,6 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 import controller.ControllerFuncionario;
 import model.vo.MedicoVO;
 import net.miginfocom.swing.MigLayout;
-import java.awt.Font;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
 

@@ -1,6 +1,7 @@
-package view.funcionarios.medico;
+package view.usuarios.medico;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.time.LocalDate;
 
 import javax.swing.JButton;
@@ -16,7 +17,6 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import controller.ControllerMedico;
 import net.miginfocom.swing.MigLayout;
-import java.awt.Font;
 
 public class TelaInternaMedico extends JInternalFrame {
 

@@ -1,7 +1,7 @@
-package view.funcionarios.secretaria;
+package view.usuarios.funcionarios;
 
-import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.text.ParseException;
 import java.time.LocalDate;
 
@@ -10,7 +10,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -20,7 +19,6 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import controller.ControllerFuncionario;
 import net.miginfocom.swing.MigLayout;
-import java.awt.Font;
 
 public class TelaInternaBuscarPaciente extends JInternalFrame {
 

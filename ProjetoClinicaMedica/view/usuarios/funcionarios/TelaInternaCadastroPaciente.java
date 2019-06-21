@@ -1,4 +1,4 @@
-package view.funcionarios.secretaria;
+package view.usuarios.funcionarios;
 
 import java.awt.EventQueue;
 import java.awt.Font;

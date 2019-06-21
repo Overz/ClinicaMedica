@@ -15,7 +15,7 @@ import model.vo.UsuarioVO;
 public class FuncionarioDAO {
 
 	public FuncionarioVO buscarFuncionarioPorUsuario(UsuarioVO usuarioVO) {
-		String query = "SELECT * FROM FUNCIONARIO INNER JOIN USUARIO WHERE IDUSUARIO = ?";
+		String query = "SELECT * FROM FUNCIONARIO INNER JOIN USUARIO ON FUNCIONARIO.IDUSUARIO = USUARIO.IDUSUARIO WHERE FUNCIONARIO.IDUSUARIO = ?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
