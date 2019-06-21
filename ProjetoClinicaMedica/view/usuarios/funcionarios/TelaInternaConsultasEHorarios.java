@@ -1,9 +1,12 @@
 package view.usuarios.funcionarios;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +18,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -24,7 +26,9 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import controller.ControllerFuncionario;
+import controller.ControllerValidacao;
 import model.vo.MedicoVO;
+import model.vo.PacienteVO;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
@@ -75,7 +79,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	}
 
 	private void initialize() {
-		
+
 		try {
 			mascaraNome = new MaskFormatter("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
 			mascaraCpfCrm = new MaskFormatter("####################");
@@ -91,7 +95,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		lblPacientemdico.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(lblPacientemdico, "cell 1 3,alignx trailing,growy");
 		lblPacientemdico.setVisible(true);
-		
+
 		lblCpfcrm = new JLabel("CPF/CRM:");
 		lblCpfcrm.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(lblCpfcrm, "cell 1 5,alignx trailing,growy");
@@ -123,7 +127,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		ftfNome.setEditable(true);
 		ftfNome.setToolTipText("Digite o Nome do Paciente ou Médico, para realizar a Consulta Especifica.");
 		getContentPane().add(ftfNome, "cell 3 3 4 1,grow");
-		
+
 		ftfCampoCpfCrm = new JFormattedTextField(mascaraCpfCrm);
 		ftfCampoCpfCrm.setFont(new Font("Verdana", Font.PLAIN, 22));
 		ftfCampoCpfCrm.setVisible(false);
@@ -149,7 +153,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 			} catch (NullPointerException e2) {
 				System.out.println("Tela: Consultas e Horarios. Erro ao Validar os Campos para consulta.\n" + e2.getMessage());
 			}
-			
+
 			// ArrayList<PacienteVO> vo = controller.consultarData(data);
 			// atualizarTabela(vo);
 		});
@@ -158,12 +162,35 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		btnLimparCampos.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(btnLimparCampos, "cell 3 18 2 1,grow");
 		btnLimparCampos.addActionListener(e -> {
-			
+
 			cbOpcaoPesquisa.setSelectedIndex(0);
 			datePicker.setDate(null);
 			ftfNome.setText("");
 			ftfCampoCpfCrm.setText("");
-			
+
+		});
+
+
+		Object[][] data = new Object[][] { { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" }, };
+		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" };
+
+		table = new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		table.setModel(new DefaultTableModel(data, columnNames));
+		getContentPane().add(table, "cell 1 9 8 8,grow");
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				int row = table.getSelectedRow();
+				int column = table.getSelectedColumn();
+				table.setSelectionBackground(Color.YELLOW);
+
+
+				PacienteVO object = (PacienteVO) table.getModel().getValueAt(row, column);
+				String value = (String) table.getValueAt(row, column);
+				valoresDaTabela(value, object);
+			}
 		});
 
 		btnCadastrarConsulta = new JButton("Cadastrar Consulta");
@@ -171,25 +198,21 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		btnCadastrarConsulta.setToolTipText("Selecione uma Linha, e Registre os Dados em Ordem na Tabela, para Realizar o Cadastro das Consultas.");
 		getContentPane().add(btnCadastrarConsulta, "cell 6 18,grow");
 		btnCadastrarConsulta.addActionListener(e -> {
-			
+
 			//TODO Cadastrar consulta no banco.
-			
+
+
+
 		});
-		
-		// TENTAR ADC SCROLLBAR
-		Object[][] data = new Object[][] { { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" }, };
-		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" };
-		JScrollPane scroll = new JScrollPane(table);
-		table = new JTable();
-		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		table.setModel(new DefaultTableModel(data, columnNames));
-		getContentPane().add(table, "cell 1 9 8 8,grow");
-		// -------------------------- ADD SCROLL BAR -----------------------
-		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-		table.add(scroll);
-		// -------------------------- ADD SCROLL BAR -----------------------
 		this.repaint();
+	}
+
+	private String valoresDaTabela(String value, PacienteVO object) {
+
+		ControllerValidacao controller = new ControllerValidacao();
+		String mensagem = controller.valoresDaTabela(value, object);
+
+		return mensagem;
 	}
 
 	public void verificarCamposCbBox() {
@@ -208,7 +231,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 			lblCpfcrm.setVisible(false);
 
 		} else  {
-			
+
 			ftfCampoCpfCrm.setText("");
 			ftfCampoCpfCrm.setEnabled(true);
 			ftfCampoCpfCrm.setEditable(true);
@@ -225,26 +248,24 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		this.repaint();
 	}
 
-	protected void atualizarTabela(ArrayList<MedicoVO> medicos) {
-		// DefaultTableModel model = (DefaultTableModel) table.getModel();
+	private void atualizarTabela(ArrayList<PacienteVO> paciente) {
 
-		Object novaLinha[] = new Object[5];
-		for (MedicoVO medicoVO : medicos) {
-			/*
-			 * novaLinha[0] = medicoVO.getCliente().getNome(); novaLinha[1] =
-			 * medicoVO.getCliente().getHoraConsulta(); novaLinha[2] =
-			 * medicoVO.getCliente().getCpf(); novaLinha[3] =
-			 * medicoVO.getCliente().getTelefone(); novaLinha[4] = medicoVO.getNome();
-			 * novaLinha[5] = medicoVO.getEspecialidade();
-			 * 
-			 * model.addRow(novaLinha);
-			 */
-		}
+		/*Object novaLinha[] = new Object[5];
+		for (PacienteVO pacienteVO : paciente) {
+			novaLinha[0] = pacienteVO.getNome();
+			novaLinha[1] = pacienteVO.getCliente().getHoraConsulta();
+			novaLinha[2] = pacienteVO.getCliente().getCpf();
+			novaLinha[3] = pacienteVO.getCliente().getTelefone();
+			novaLinha[4] = pacienteVO.getNome();
+			novaLinha[5] = pacienteVO.getEspecialidade();
+
+			model.addRow(novaLinha);*/
+
 	}
 
-	/*
-	 * public void limparTabela() { table.setModel(new DefaultTableModel( new
-	 * Object[][] {{"Placa", "Modelo", "Ano", "Valor"}}, new String[] {"Placa",
-	 * "Modelo", "Ano", "Valor"})); }
-	 */
+	/*private void limparTabela() { 
+		table.setModel(new DefaultTableModel(
+				new Object[][] {{"Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade"}},
+				new String[] {"Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade"}));
+	}*/
 }
