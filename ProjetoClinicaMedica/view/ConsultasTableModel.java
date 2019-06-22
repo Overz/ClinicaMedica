@@ -1,6 +1,11 @@
 package view;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -42,7 +47,7 @@ public class ConsultasTableModel extends AbstractTableModel {
 	public Class<?> getColumnClass(int columnIndex) {
 		switch (columnIndex) {
 		case HORARIO:
-			return int.class;
+			return LocalTime.class;
 		case PACIENTE:
 			return PacienteVO.class;
 		default:
@@ -60,11 +65,50 @@ public class ConsultasTableModel extends AbstractTableModel {
 		ConsultaVO consulta = linhas.get(rowIndex);
 		switch (columnIndex) {
 		case HORARIO:
-			return null;
+			return consulta.getData_consulta().toLocalTime().toString();
 		case PACIENTE:
-			return consulta.getPaciente();
+			return consulta.getPaciente().toString();
 		default:
 			throw new IndexOutOfBoundsException();
+		}
+	}
+
+	public PacienteVO getPaciente(int rowIndex) {
+		return linhas.get(rowIndex).getPaciente();
+	}
+
+	public LocalTime getHorario(int rowIndex) {
+		return linhas.get(rowIndex).getData_consulta().toLocalTime();
+	}
+
+	public void setHorarios(LocalDate data) {
+		for (int horario = 8; horario < 17; horario++) {
+			if (horario != 12) {
+				LocalTime localTime = LocalTime.of(horario, 0);
+				ConsultaVO consulta = new ConsultaVO();
+				consulta.setPaciente(new PacienteVO());
+				consulta.getPaciente().setNome("------------------------------");
+				consulta.getPaciente().setCpf("--------------");
+				consulta.getPaciente().setConvenio("");
+				consulta.setData_consulta(LocalDateTime.of(data, localTime));
+				linhas.add(consulta);
+			}
+		}
+	}
+
+	public void setConsultas(List<ConsultaVO> consultas) {
+		Collections.sort(consultas, new Comparator<ConsultaVO>() {
+			@Override
+			public int compare(ConsultaVO consulta1, ConsultaVO consulta2) {
+				return consulta1.getData_consulta().compareTo(consulta2.getData_consulta());
+			}
+		});
+		for (ConsultaVO consulta : consultas) {
+			if (consulta.getData_consulta().getHour() < 12) {
+				linhas.set(consulta.getData_consulta().getHour() - 8, consulta);
+			} else if (consulta.getData_consulta().getHour() > 12) {
+				linhas.set(consulta.getData_consulta().getHour() - 9, consulta);
+			}
 		}
 	}
 

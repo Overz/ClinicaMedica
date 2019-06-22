@@ -30,6 +30,8 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	private MaskFormatter mascaraNome;
 	private JButton btnPesquisar;
 	private JTable table;
+	private JButton btnSelecionarPaciente;
+	private JButton btnCancelar;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -48,7 +50,9 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		super("Clínica Médica - Buscar Paciente", false, true, false, false);
 		setBounds(100, 100, 1190, 842);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]", "[10][25px,grow][20][26px,grow][20][605px,grow][20]"));
+		getContentPane()
+				.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]",
+						"[10][25px,grow][20][26px,grow][20][605px,grow][][][20]"));
 
 		initialize();
 	}
@@ -57,7 +61,8 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 
 		try {
 			mascaraCPF = new MaskFormatter("###.###.###-##");
-			mascaraNome = new MaskFormatter("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+			mascaraNome = new MaskFormatter(
+					"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
 		} catch (ParseException e) {
 			System.out.println("Erro ao gerar a Mascar de CPF");
 			System.out.println(e.getMessage());
@@ -107,19 +112,30 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 				if (!(mensagem == null)) {
 					JOptionPane.showMessageDialog(null, mensagem);
 				} else {
-					//TODO trazer busca dos campos selecionados
+					// TODO trazer busca dos campos selecionados
 				}
 			} catch (Exception e2) {
-				System.out.println("Tela: Buscar Paciente. Erro ao Validar os Campos para Consulta.\n" + e2.getMessage());
+				System.out
+						.println("Tela: Buscar Paciente. Erro ao Validar os Campos para Consulta.\n" + e2.getMessage());
 			}
 
 		});
 
-		Object[][] data = new Object[][] {{ "Nome", "Data de Nascimento", "CPF", "Telefone", "Bairro", "Endereço", "Nº", "Consultas" }, };
-		Object[] columnNames = new String[] { "Nome", "Data de Nascimento", "CPF", "Telefone", "Bairro", "Endereço", "Nº", "Consultas" };
+		Object[][] data = new Object[][] {
+				{ "Nome", "Data de Nascimento", "CPF", "Telefone", "Bairro", "Endereço", "Nº", "Consultas" }, };
+		Object[] columnNames = new String[] { "Nome", "Data de Nascimento", "CPF", "Telefone", "Bairro", "Endereço",
+				"Nº", "Consultas" };
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		table.setModel(new DefaultTableModel(data, columnNames));
 		getContentPane().add(table, "cell 1 5 7 1,grow");
+
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnCancelar, "cell 5 7,alignx right");
+
+		btnSelecionarPaciente = new JButton("Selecionar Paciente");
+		btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnSelecionarPaciente, "cell 7 7");
 	}
 }

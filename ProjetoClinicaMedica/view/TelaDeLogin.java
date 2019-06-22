@@ -26,13 +26,14 @@ public class TelaDeLogin extends JFrame {
 	private JTextField txtUsuario;
 
 	private JButton btnLogin;
+	private static TelaDeLogin window;
 	private static TelaGeral telaGeral;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaDeLogin window = new TelaDeLogin();
+					window = new TelaDeLogin();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -92,14 +93,14 @@ public class TelaDeLogin extends JFrame {
 
 				if (vo != null) {
 
-					JOptionPane.showMessageDialog(getParent(), "Login efetuado com sucesso!");
+					JOptionPane.showMessageDialog(window, "Login efetuado com sucesso!");
 					telaGeral = new TelaGeral(vo);
 					telaGeral.setExtendedState(MAXIMIZED_BOTH);
 					dispose();
 					telaGeral.setVisible(true);
 
 				} else {
-					JOptionPane.showMessageDialog(null, "Usuario e/ou senha inválidos.");
+					JOptionPane.showMessageDialog(window, "Usuario e/ou senha inválidos.");
 				}
 			}
 		});

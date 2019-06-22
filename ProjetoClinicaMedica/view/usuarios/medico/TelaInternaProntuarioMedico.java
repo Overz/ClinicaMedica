@@ -2,15 +2,24 @@ package view.usuarios.medico;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableModel;
 
 import com.github.lgooddatepicker.components.DatePicker;
-import com.github.lgooddatepicker.components.DatePickerSettings;
 
+import controller.ControllerProntuario;
+import model.vo.MedicoVO;
+import model.vo.PacienteVO;
+import model.vo.ProntuarioVO;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaProntuarioMedico extends JInternalFrame {
@@ -18,14 +27,25 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 	private static final long serialVersionUID = 6287035520900270789L;
 	private final DatePicker datePicker = new DatePicker();
 	private JButton btnSalvar;
-	private JTextArea txtAreaPatologia;
-	private JTextArea txtAreaTratamento;
+	private JTextArea txtObservacoes;
+	private MedicoVO medico;
+	private PacienteVO paciente;
+	private JLabel lblNome;
+	private JLabel lblSexo;
+	private JLabel lblTipoSanguineo;
+	private JLabel lblDataDeNascimento;
+	private JLabel lblConvenio;
+	private JLabel lblCpf;
+	private JLabel lblTelefone;
+	private JLabel lblEmail;
+	private JTable tblProntuarios;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaProntuarioMedico window = new TelaInternaProntuarioMedico();
+					TelaInternaProntuarioMedico window = new TelaInternaProntuarioMedico(new MedicoVO(),
+							new PacienteVO());
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,76 +58,142 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		super("Clínica Médica - Cadastrar/Atualizar Prontuario", false, true, false, false);
 		setBounds(100, 100, 965, 788);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]", "[10][grow][13][grow][13][grow][13][13][grow][154.00,grow][grow][154px,grow][33px,grow][10]"));
+		getContentPane().setLayout(new MigLayout("",
+				"[10][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]",
+				"[grow][grow][grow][13,grow][][grow][][13][grow][13][][13][grow][][][][][][][grow][154px,grow][33px,grow][10]"));
+
+		initialize();
+	}
+
+	public TelaInternaProntuarioMedico(MedicoVO medico, PacienteVO paciente) {
+		super("Clínica Médica - Cadastrar/Atualizar Prontuario", false, true, false, false);
+		this.medico = medico;
+		this.paciente = paciente;
+		setBounds(100, 100, 965, 788);
+		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+		getContentPane().setLayout(new MigLayout("",
+				"[10][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]",
+				"[grow][grow][grow][13,grow][][grow][][13][grow][13][][13][grow][][][][][][][grow][154px,grow][33px,grow][10]"));
 
 		initialize();
 	}
 
 	private void initialize() {
-		
-		JLabel lblNome = new JLabel("Nome:");
+
+		lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblNome, "cell 1 1 4 1,alignx left,growy");
+		getContentPane().add(lblNome, "cell 1 0 4 1,alignx left,growy");
 
-		JLabel lblNomeDaMae = new JLabel("Nome da Mãe:");
-		lblNomeDaMae.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblNomeDaMae, "cell 5 1 2 1,grow");
+		JLabel lblHistorico = new JLabel("Histórico:");
+		lblHistorico.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblHistorico, "cell 5 0");
 
-		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
+		lblSexo = new JLabel("Sexo:");
+		lblSexo.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblSexo, "cell 1 2");
+
+		JScrollPane scrollPane = new JScrollPane();
+		getContentPane().add(scrollPane, "cell 5 2 6 17,grow");
+
+		tblProntuarios = new JTable();
+		scrollPane.setViewportView(tblProntuarios);
+		tblProntuarios
+				.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Data", "Médico", "Observações" }));
+
+		lblTipoSanguineo = new JLabel("Tipo Sanguíneo:");
+		lblTipoSanguineo.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblTipoSanguineo, "cell 1 4");
+
+		lblDataDeNascimento = new JLabel("Data de Nascimento:");
 		lblDataDeNascimento.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblDataDeNascimento, "cell 1 3 4 1,alignx left,growy");
+		getContentPane().add(lblDataDeNascimento, "cell 1 6,alignx left,growy");
 
-		JLabel lblNomeDoPai = new JLabel("Nome do Pai:");
-		lblNomeDoPai.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblNomeDoPai, "cell 5 3 2 1,grow");
+		lblConvenio = new JLabel("Convênio");
+		lblConvenio.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblConvenio, "cell 1 8");
 
-		JLabel lblAtendimento = new JLabel("Atendimento:");
-		lblAtendimento.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblAtendimento, "cell 1 5 4 1,alignx left,growy");
+		lblCpf = new JLabel("CPF:");
+		lblCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblCpf, "cell 1 10 4 1");
 
-		JLabel lblRetorno = new JLabel("Retorno:");
-		lblRetorno.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblRetorno, "cell 5 5,grow");
-		
-		
-		JLabel lblTratamentoIndicado = new JLabel("Tratamento Indicado:");
-		lblTratamentoIndicado.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblTratamentoIndicado, "cell 1 10 2 1,alignx center,growy");
+		lblTelefone = new JLabel("Telefone:");
+		lblTelefone.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblTelefone, "cell 1 12 4 1");
 
-		JLabel lblPatologiaApresentada = new JLabel("Patologia Apresentada:");
-		lblPatologiaApresentada.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblPatologiaApresentada, "cell 1 8 2 1,alignx center,growy");
+		lblEmail = new JLabel("Email:");
+		lblEmail.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblEmail, "cell 1 14");
 
-		DatePickerSettings dateSettings = new DatePickerSettings();
-		dateSettings.setAllowKeyboardEditing(false);
-		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
-		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
-		datePicker.setBorder(null);
+		JLabel lblObservacoes = new JLabel("Observações:");
+		lblObservacoes.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblObservacoes, "cell 1 19 2 1,alignx center,growy");
 
-		datePicker.setSettings(dateSettings);
-		getContentPane().add(datePicker, "cell 6 5,grow");
-		
-		txtAreaPatologia = new JTextArea();
-		txtAreaPatologia.setFont(new Font("Verdana", Font.PLAIN, 20));
-		txtAreaPatologia.setLineWrap(true);
-		txtAreaPatologia.setWrapStyleWord(true);
-		getContentPane().add(txtAreaPatologia, "cell 1 9 10 1,grow");
+		txtObservacoes = new JTextArea();
+		txtObservacoes.setFont(new Font("Verdana", Font.PLAIN, 20));
+		txtObservacoes.setLineWrap(true);
+		txtObservacoes.setWrapStyleWord(true);
+		txtObservacoes.setEnabled(false);
 
-		txtAreaTratamento = new JTextArea();
-		txtAreaTratamento.setFont(new Font("Verdana", Font.PLAIN, 20));
-		txtAreaTratamento.setLineWrap(true);
-		txtAreaTratamento.setWrapStyleWord(true);
+		getContentPane().add(txtObservacoes, "cell 1 20 10 1,grow");
 
-		getContentPane().add(txtAreaTratamento, "cell 1 11 10 1,grow");
+		JButton btnSelecionarPaciente = new JButton("Selecionar Paciente");
+		btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnSelecionarPaciente, "cell 2 21");
+		btnSelecionarPaciente.addActionListener(e -> {
+			// CHAMAR TELA DE BUSCA DE PACIENTE
 
-		btnSalvar = new JButton("Salvar / Imprimir");
-		btnSalvar.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(btnSalvar, "cell 3 12 4 1,grow");
-		btnSalvar.addActionListener(e -> {
-			
-			//TODO Fazer Validação??
-			//TODO Salvar no Banco, salvar como arquivo, e deixar disponivel para impressão.
+			if (this.paciente != null) {
+				preencherCampos();
+			}
 		});
 
+		btnSalvar = new JButton("Salvar");
+		btnSalvar.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnSalvar, "cell 5 21,grow");
+		btnSalvar.setEnabled(false);
+		btnSalvar.addActionListener(e -> {
+			String observacoes = txtObservacoes.getText();
+			if (observacoes == null || observacoes.trim().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Prontuário está vazio!");
+			} else {
+
+			}
+		});
+
+	}
+
+	public void preencherCampos() {
+		this.lblNome.setText(this.paciente.getNome());
+		this.lblSexo.setText(this.paciente.getSexo());
+		this.lblTipoSanguineo.setText(this.paciente.getTipoSanguineo());
+		this.lblDataDeNascimento.setText(this.paciente.getDtNascimento().toString());
+		this.lblConvenio.setText(this.paciente.getConvenio());
+		this.lblCpf.setText(this.paciente.getCpf());
+		this.lblTelefone.setText(this.paciente.getTelefone());
+		this.lblEmail.setText(this.paciente.getEmail());
+
+		ControllerProntuario controller = new ControllerProntuario();
+		ArrayList<ProntuarioVO> prontuarios = controller.listarProntuariosPorPacienteEMedico(this.paciente,
+				this.medico);
+
+		DefaultTableModel modelo = (DefaultTableModel) tblProntuarios.getModel();
+
+		for (ProntuarioVO prontuario : prontuarios) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			String dataFormatada = prontuario.getDtProntuario().format(formatter);
+			String[] novaLinha = { dataFormatada, prontuario.getMedico().toString(), prontuario.getObservacoes() };
+			modelo.addRow(novaLinha);
+		}
+
+		this.txtObservacoes.setEnabled(true);
+		this.btnSalvar.setEnabled(true);
+	}
+
+	public void setMedico(MedicoVO medico) {
+		this.medico = medico;
+	}
+
+	public void setPaciente(PacienteVO paciente) {
+		this.paciente = paciente;
 	}
 }

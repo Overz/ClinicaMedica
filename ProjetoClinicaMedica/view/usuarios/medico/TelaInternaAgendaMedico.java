@@ -3,14 +3,14 @@ package view.usuarios.medico;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -18,8 +18,10 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 import controller.ControllerConsulta;
 import model.vo.ConsultaVO;
 import model.vo.MedicoVO;
+import model.vo.PacienteVO;
 import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
+import view.ConsultasTableModel;
 
 public class TelaInternaAgendaMedico extends JInternalFrame {
 
@@ -47,7 +49,7 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 
 	public TelaInternaAgendaMedico(MedicoVO medico) {
 		super("Clínica Médica - Agenda Médica", false, true, false, false);
-		this.setMedico(medico);
+		this.medico = medico;
 		setBounds(100, 100, 1077, 783);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane()
@@ -74,24 +76,16 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		getContentPane().add(datePicker, "cell 7 1,grow");
 		datePicker.setDate(LocalDate.now());
 
+		JScrollPane scrollPane = new JScrollPane();
+		getContentPane().add(scrollPane, "cell 1 2 7 3,grow");
+
 		tblConsultas = new JTable();
 		tblConsultas.setFont(new Font("Verdana", Font.PLAIN, 18));
 		tblConsultas.setRowHeight(50);
-		tblConsultas.setModel(new DefaultTableModel(new String[][] { { "Horário", "Médico", "Paciente" }, },
-				new String[] { "Horário", "Médico", "Paciente" }));
-		getContentPane().add(tblConsultas, "cell 1 2 7 3,grow");
-		DefaultTableModel modelo = (DefaultTableModel) tblConsultas.getModel();
-		int linhas = 9;
-		int horario = 8;
-		for (int i = 0; i <= linhas; i++) {
-			if (horario != 12) {
-				String[] novaLinha = new String[] { LocalTime.of(horario, 0).toString(), "", "" };
-				modelo.addRow(novaLinha);
-				horario++;
-			} else {
-				horario++;
-			}
-		}
+		ConsultasTableModel consultasTableModel = new ConsultasTableModel();
+		consultasTableModel.setHorarios(datePicker.getDate());
+		tblConsultas.setModel(consultasTableModel);
+		scrollPane.setViewportView(tblConsultas);
 
 		preencherListaAgendamentos(datePicker.getDate());
 
@@ -99,15 +93,24 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnCancelar, "cell 5 5,grow");
 		btnCancelar.addActionListener(e -> {
-			preencherListaAgendamentos(datePicker.getDate());
+			this.dispose();
 		});
 
 		btnAtender = new JButton("Atender Paciente");
 		btnAtender.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnAtender, "cell 7 5,grow");
 		btnAtender.addActionListener(e -> {
-			// PacienteVO paciente = tblConsultas.getModel().get
-			// CHAMAR TELA DE CONSULTÓRIO / CADASTRO DE PRONTUÁRIOS
+			ConsultasTableModel modelo = (ConsultasTableModel) tblConsultas.getModel();
+			PacienteVO paciente = modelo.getPaciente(tblConsultas.getSelectedRow());
+			if (paciente.getNome().trim().isEmpty()) {
+				TelaInternaProntuarioMedico telaAtendimento = new TelaInternaProntuarioMedico(medico, paciente);
+				getDesktopPane().add(telaAtendimento);
+				telaAtendimento.setVisible(true);
+				this.dispose();
+			} else {
+				JOptionPane.showMessageDialog(this, "Horário selecionado não tem cosulta agendada!");
+			}
+
 		});
 
 		this.repaint();
@@ -115,60 +118,13 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 	}
 
 	private void preencherListaAgendamentos(LocalDate data) {
-		tblConsultas.setModel(new DefaultTableModel(new String[][] { { "Horário", "Médico", "Paciente" }, },
-				new String[] { "Horário", "Médico", "Paciente" }));
-		DefaultTableModel modelo = (DefaultTableModel) tblConsultas.getModel();
-		int linhas = 9;
-		int horario = 8;
-		for (int i = 0; i <= linhas; i++) {
-			if (horario != 12) {
-				String[] novaLinha = new String[] { LocalTime.of(horario, 0).toString(), "", "" };
-				modelo.addRow(novaLinha);
-				horario++;
-			} else {
-				horario++;
-			}
-		}
+		ConsultasTableModel modelo = (ConsultasTableModel) tblConsultas.getModel();
 
 		ControllerConsulta controller = new ControllerConsulta();
 		listaConsultas = controller.pesquisarConsultasPorDataEMedico(data, medico);
 
-		if (listaConsultas.isEmpty()) {
-			for (int i = 1; i <= 9; i++) {
-				tblConsultas.setValueAt("", i, 1);
-				tblConsultas.setValueAt("", i, 2);
-			}
-		} else {
-			for (ConsultaVO consulta : listaConsultas) {
-				if (consulta.getData_consulta().getHour() == 8) {
-					tblConsultas.setValueAt(consulta.getMedico().toString(), 1, 1);
-					tblConsultas.setValueAt(consulta.getPaciente().toString(), 1, 2);
-				} else if (consulta.getData_consulta().getHour() == 9) {
-					tblConsultas.setValueAt(consulta.getMedico().toString(), 2, 1);
-					tblConsultas.setValueAt(consulta.getPaciente().toString(), 2, 2);
-				} else if (consulta.getData_consulta().getHour() == 10) {
-					tblConsultas.setValueAt(consulta.getMedico().toString(), 3, 1);
-					tblConsultas.setValueAt(consulta.getPaciente().toString(), 3, 2);
-				} else if (consulta.getData_consulta().getHour() == 11) {
-					tblConsultas.setValueAt(consulta.getMedico().toString(), 4, 1);
-					tblConsultas.setValueAt(consulta.getPaciente().toString(), 4, 2);
-				} else if (consulta.getData_consulta().getHour() == 13) {
-					tblConsultas.setValueAt(consulta.getMedico().toString(), 5, 1);
-					tblConsultas.setValueAt(consulta.getPaciente().toString(), 5, 2);
-				} else if (consulta.getData_consulta().getHour() == 14) {
-					tblConsultas.setValueAt(consulta.getMedico().toString(), 6, 1);
-					tblConsultas.setValueAt(consulta.getPaciente().toString(), 6, 2);
-				} else if (consulta.getData_consulta().getHour() == 15) {
-					tblConsultas.setValueAt(consulta.getMedico().toString(), 7, 1);
-					tblConsultas.setValueAt(consulta.getPaciente().toString(), 7, 2);
-				} else if (consulta.getData_consulta().getHour() == 16) {
-					tblConsultas.setValueAt(consulta.getMedico().toString(), 8, 1);
-					tblConsultas.setValueAt(consulta.getPaciente().toString(), 8, 2);
-				} else if (consulta.getData_consulta().getHour() == 17) {
-					tblConsultas.setValueAt(consulta.getMedico().toString(), 9, 1);
-					tblConsultas.setValueAt(consulta.getPaciente().toString(), 9, 2);
-				}
-			}
+		if (!listaConsultas.isEmpty()) {
+			modelo.setConsultas(listaConsultas);
 		}
 	}
 

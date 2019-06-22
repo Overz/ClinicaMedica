@@ -119,7 +119,7 @@ public class UsuarioDAO {
 	}
 
 	public UsuarioVO login(String usuario, String senha) {
-		UsuarioVO usuarioVO = new UsuarioVO();
+		UsuarioVO usuarioVO = null;
 
 		String query = "SELECT * FROM USUARIO WHERE USUARIO = ? AND SENHA = ?";
 
@@ -132,6 +132,7 @@ public class UsuarioDAO {
 			ResultSet resultado = prepStmt.executeQuery();
 
 			if (resultado.next()) {
+				usuarioVO = new UsuarioVO();
 				usuarioVO.setIdUsuario(resultado.getInt("IDUSUARIO"));
 				usuarioVO.setNomeUsuario(resultado.getString("USUARIO"));
 				usuarioVO.setSenha(resultado.getString("SENHA"));

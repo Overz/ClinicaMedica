@@ -19,6 +19,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 import model.vo.MedicoVO;
+import model.vo.PacienteVO;
 import model.vo.UsuarioVO;
 import view.adm.paciente.TelaInternaCadastrarAtualizarPaciente;
 import view.adm.usuario.TelaInternaCadastroUsuario;
@@ -41,16 +42,16 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mntmCadastrarPaciente;
 	private JMenuItem mntmAgendaMedica;
 	private JMenuItem mntmProntuario;
-	private JMenuItem mntmGerarRelatoriosDeFuncionarios;
-	private JMenuItem mntmGerarRelatorioDoEstoque;
+	private JMenuItem mntmGerarRelatorioDeConsultas;
 	private JMenuItem mntmCadastrarAtualizarFuncionarios;
 	private JMenuItem mntmBuscarExcluirFuncionario;
 	private JMenuItem mnBuscarExcluirPacienteADM;
 	private JMenuItem mnCadastrarAtualizarPacienteADM;
-	private JMenuItem mntmGerarRelatorioDePaciente;
 	private JMenuItem mntmExcluirUsuarios;
 	private JMenuItem mntmCadastrarUsuarios;
+
 	private UsuarioVO usuario;
+	private PacienteVO paciente;
 
 	private ArrayList<Component> componentesDaTela = new ArrayList<Component>();
 	private TelaInternaConsultasEHorarios janelinhaPrincipalRecepcao = new TelaInternaConsultasEHorarios();
@@ -64,6 +65,7 @@ public class TelaGeral extends JFrame {
 
 	int width_int;
 	int height_int;
+	private JMenuItem mntmRelatorioDeProntuarios;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -162,8 +164,22 @@ public class TelaGeral extends JFrame {
 			this.repaint();
 		});
 
+		JMenu mnRelatorios = new JMenu("Relatorios");
+		mnRelatorios.setFont(new Font("Arial", Font.BOLD, 16));
+		menuBar.add(mnRelatorios);
+		mnRelatorios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-gráfico-combinado.png")));
+
+		mntmGerarRelatorioDeConsultas = new JMenuItem("Relatorio de Consultas");
+		mnRelatorios.add(mntmGerarRelatorioDeConsultas);
+
+		mntmRelatorioDeProntuarios = new JMenuItem("Relatorio de Prontuários");
+		mnRelatorios.add(mntmRelatorioDeProntuarios);
+		mntmGerarRelatorioDeConsultas.addActionListener(e -> {
+
+		});
+
 		// MENU ADM
-		mnAdm = new JMenu("Adm");
+		mnAdm = new JMenu("Administração");
 		mnAdm.setFont(new Font("Arial", Font.BOLD, 16));
 		mnAdm.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-escudo-de-usuário-filled-38.png")));
 		menuBar.add(mnAdm);
@@ -175,10 +191,6 @@ public class TelaGeral extends JFrame {
 		JMenu mnFuncionarios = new JMenu("Funcionarios");
 		mnFuncionarios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-suporte-on-line-filled.png")));
 		mnAdm.add(mnFuncionarios);
-
-		JMenu mnRelatorios = new JMenu("Relatorios");
-		mnRelatorios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-gráfico-combinado.png")));
-		mnAdm.add(mnRelatorios);
 
 		JMenu mnUsuarios = new JMenu("Usuarios");
 		mnUsuarios
@@ -221,30 +233,13 @@ public class TelaGeral extends JFrame {
 
 		});
 
-		mntmGerarRelatorioDePaciente = new JMenuItem("Gerar Relatorio de Paientes");
-		mnRelatorios.add(mntmGerarRelatorioDePaciente);
-		mntmGerarRelatorioDePaciente.addActionListener(e -> {
-
-		});
-
-		mntmGerarRelatoriosDeFuncionarios = new JMenuItem("Gerar Relatorios de Funcionarios");
-		mnRelatorios.add(mntmGerarRelatoriosDeFuncionarios);
-		mntmGerarRelatoriosDeFuncionarios.addActionListener(e -> {
-
-		});
-
-		mntmGerarRelatorioDoEstoque = new JMenuItem("Gerar Relatorio do Estoque");
-		mnRelatorios.add(mntmGerarRelatorioDoEstoque);
-
-		JMenu mnSistema = new JMenu("Sistema");
-		mnSistema.setFont(new Font("Arial", Font.BOLD, 16));
-		menuBar.add(mnSistema);
-		mntmGerarRelatorioDoEstoque.addActionListener(e -> {
-
-		});
+		JMenu mnSair = new JMenu("Sair");
+		mnSair.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-sair-50.png")));
+		mnSair.setFont(new Font("Arial", Font.BOLD, 16));
+		menuBar.add(mnSair);
 
 		JMenuItem mntmLogout = new JMenuItem("Logout");
-		mnSistema.add(mntmLogout);
+		mnSair.add(mntmLogout);
 		mntmLogout.addActionListener(e -> {
 			TelaDeLogin telaLogin = new TelaDeLogin();
 			this.dispose();
@@ -252,7 +247,7 @@ public class TelaGeral extends JFrame {
 		});
 
 		JMenuItem mntmFechar = new JMenuItem("Fechar");
-		mnSistema.add(mntmFechar);
+		mnSair.add(mntmFechar);
 		mntmFechar.addActionListener(e -> {
 			System.exit(0);
 		});
@@ -287,6 +282,14 @@ public class TelaGeral extends JFrame {
 
 	public void setUsuario(UsuarioVO usuario) {
 		this.usuario = usuario;
+	}
+
+	public PacienteVO getPaciente() {
+		return this.paciente;
+	}
+
+	public void setPaciente(PacienteVO paciente) {
+		this.paciente = paciente;
 	}
 
 	public void verificarPermissaoParaTela() {

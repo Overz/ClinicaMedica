@@ -121,7 +121,7 @@ public class PacienteVO extends PessoaVO {
 
 	@Override
 	public String toString() {
-		return "Paciente " + this.getNome() + " - " + this.getCpf() + " - " + this.getEmail();
+		return "Nome: " + this.getNome() + " CPF: " + this.getCpf() + " Convênio: " + this.getConvenio();
 	}
 
 	public String getConvenio() {
