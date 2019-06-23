@@ -42,7 +42,7 @@ public class UsuarioDAO {
 
 	public boolean atualizarUsuario(UsuarioVO usuario) {
 		boolean sucesso = false;
-		String query = "UPDATE USUARIO SET USUARIO=?, SENHA=?,NIVEL=? WHERE IDFUNCIONARIO=?";
+		String query = "UPDATE USUARIO SET USUARIO=?, SENHA=?,NIVEL=? WHERE IDUSUARIO=?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
@@ -54,11 +54,11 @@ public class UsuarioDAO {
 			prepStmt.setInt(4, usuario.getIdUsuario());
 
 			int resultado = prepStmt.executeUpdate();
-			if (resultado == 1) {
+			if (resultado > 0) {
 				sucesso = true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao atualizar m�dico: \n " + e.getMessage());
+			System.out.println("Erro ao atualizar usuário: \n " + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
@@ -93,7 +93,6 @@ public class UsuarioDAO {
 	}
 
 	public ArrayList<UsuarioVO> buscarUsuario(UsuarioVO usuario) {
-		// TODO Implementar método para consulta com seletor
 		return null;
 	}
 
@@ -106,6 +105,14 @@ public class UsuarioDAO {
 			usuario.setNomeUsuario(resultado.getString("USUARIO"));
 			usuario.setSenha(resultado.getString("SENHA"));
 			usuario.setNivel(resultado.getString("NIVEL"));
+
+			if (resultado.getString("NIVEL").equals("Médico")) {
+				MedicoDAO medico = new MedicoDAO();
+				usuario = medico.buscarMedicoPorUsuario(usuario);
+			} else if (resultado.getString("NIVEL").equals("Funcionário")) {
+				FuncionarioDAO funcionario = new FuncionarioDAO();
+				usuario = funcionario.buscarFuncionarioPorUsuario(usuario);
+			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao construir Usuario: \n" + e.getMessage());
 		}
@@ -132,19 +139,7 @@ public class UsuarioDAO {
 			ResultSet resultado = prepStmt.executeQuery();
 
 			if (resultado.next()) {
-				usuarioVO = new UsuarioVO();
-				usuarioVO.setIdUsuario(resultado.getInt("IDUSUARIO"));
-				usuarioVO.setNomeUsuario(resultado.getString("USUARIO"));
-				usuarioVO.setSenha(resultado.getString("SENHA"));
-				usuarioVO.setNivel(resultado.getString("NIVEL"));
-
-				if (resultado.getString("NIVEL").equals("Médico")) {
-					MedicoDAO medico = new MedicoDAO();
-					usuarioVO = medico.buscarMedicoPorUsuario(usuarioVO);
-				} else if (resultado.getString("NIVEL").equals("Funcionário")) {
-					FuncionarioDAO funcionario = new FuncionarioDAO();
-					usuarioVO = funcionario.buscarFuncionarioPorUsuario(usuarioVO);
-				}
+				usuarioVO = montarUsuario(resultado);
 			}
 			resultado.close();
 		} catch (SQLException e) {
@@ -159,13 +154,14 @@ public class UsuarioDAO {
 
 	public boolean existeNomeDeUsuario(UsuarioVO usuarioVO) {
 		boolean sucesso = false;
-		String query = "SELECT * FROM USUARIO WHERE USUARIO = ?";
+		String query = "SELECT * FROM USUARIO WHERE USUARIO = ? AND IDUSUARIO != ?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
 
 		try {
 			prepStmt.setString(1, usuarioVO.getNomeUsuario());
+			prepStmt.setInt(2, usuarioVO.getIdUsuario());
 			ResultSet resultado = prepStmt.executeQuery();
 
 			if (resultado.next()) {
@@ -179,6 +175,35 @@ public class UsuarioDAO {
 			Banco.closeConnection(conn);
 		}
 		return sucesso;
+	}
+
+	public ArrayList<UsuarioVO> listarUsuarios() {
+		String query = "SELECT USUARIO.IDUSUARIO, USUARIO.USUARIO, USUARIO.SENHA, USUARIO.NIVEL, USUARIOS.IDFUNCIONARIO, USUARIOS.IDMEDICO, "
+				+ "USUARIOS.NOME, USUARIOS.CPF, USUARIOS.TELEFONE, USUARIOS.EMAIL, USUARIOS.DATA_NASCIMENTO, USUARIOS.CRM, USUARIOS.ESPECIALIDADE "
+				+ "FROM USUARIO LEFT JOIN ((SELECT MEDICO.IDMEDICO, 0 AS IDFUNCIONARIO, MEDICO.NOME, MEDICO.CPF, MEDICO.TELEFONE, MEDICO.EMAIL, "
+				+ "MEDICO.DATA_NASCIMENTO, MEDICO.CRM, MEDICO.ESPECIALIDADE, MEDICO.IDUSUARIO FROM MEDICO) UNION (SELECT 0 AS IDMEDICO, FUNCIONARIO.IDFUNCIONARIO, "
+				+ "FUNCIONARIO.NOME, FUNCIONARIO.CPF, FUNCIONARIO.TELEFONE, FUNCIONARIO.EMAIL, FUNCIONARIO.DATA_NASCIMENTO, \"\" AS CRM, \"\" AS ESPECIALIDADE, FUNCIONARIO.IDUSUARIO "
+				+ "FROM FUNCIONARIO)) AS USUARIOS ON USUARIO.IDUSUARIO = USUARIOS.IDUSUARIO ORDER BY IDUSUARIO";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		ArrayList<UsuarioVO> usuarios = new ArrayList<UsuarioVO>();
+		try {
+			ResultSet resultado = prepStmt.executeQuery();
+
+			while (resultado.next()) {
+				UsuarioVO usuario = montarUsuario(resultado);
+				usuarios.add(usuario);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao listar todos os Usuários: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return usuarios;
 	}
 
 }

@@ -27,7 +27,7 @@ public class FuncionarioVO extends UsuarioVO {
 
 	@Override
 	public String toString() {
-		return "Funcionário(a) " + this.getNome() + " - " + this.getCpf();
+		return "Funcionário(a) " + this.getNome() + " - CPF: " + this.getCpf();
 	}
 
 }

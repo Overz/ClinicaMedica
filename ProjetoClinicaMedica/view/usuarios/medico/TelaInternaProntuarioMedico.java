@@ -106,11 +106,11 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 
 		lblDataDeNascimento = new JLabel("Data de Nascimento:");
 		lblDataDeNascimento.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblDataDeNascimento, "cell 1 6,alignx left,growy");
+		getContentPane().add(lblDataDeNascimento, "cell 1 6 2 1,alignx left,growy");
 
 		lblConvenio = new JLabel("Convênio");
 		lblConvenio.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblConvenio, "cell 1 8");
+		getContentPane().add(lblConvenio, "cell 1 8 2 1");
 
 		lblCpf = new JLabel("CPF:");
 		lblCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -122,11 +122,11 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 
 		lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblEmail, "cell 1 14");
+		getContentPane().add(lblEmail, "cell 1 14 2 1");
 
 		JLabel lblObservacoes = new JLabel("Observações:");
 		lblObservacoes.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblObservacoes, "cell 1 19 2 1,alignx center,growy");
+		getContentPane().add(lblObservacoes, "cell 1 19 2 1,alignx left,growy");
 
 		txtObservacoes = new JTextArea();
 		txtObservacoes.setFont(new Font("Verdana", Font.PLAIN, 20));

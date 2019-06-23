@@ -46,9 +46,10 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mntmCadastrarAtualizarFuncionarios;
 	private JMenuItem mntmBuscarExcluirFuncionario;
 	private JMenuItem mnBuscarExcluirPacienteADM;
-	private JMenuItem mnCadastrarAtualizarPacienteADM;
+	private JMenuItem mnCadastroDePaciente;
 	private JMenuItem mntmExcluirUsuarios;
-	private JMenuItem mntmCadastrarUsuarios;
+	private JMenuItem mntmCadastroDeUsuarios;
+	private JMenuItem mntmAgenda;
 
 	private UsuarioVO usuario;
 	private PacienteVO paciente;
@@ -116,6 +117,20 @@ public class TelaGeral extends JFrame {
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
+		mntmAgenda = new JMenuItem("Agenda");
+		mntmAgenda.setFont(new Font("Arial", Font.BOLD, 16));
+		mntmAgenda.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-calendário-12-50.png")));
+		menuBar.add(mntmAgenda);
+		mntmAgenda.addActionListener(e -> {
+			if (usuario.getNivel().equals(UsuarioVO.NIVEL_ADMIN)
+					|| usuario.getNivel().equals(UsuarioVO.NIVEL_FUNCIONARIO)) {
+				adicionarInternalFrame(janelinhaPrincipalRecepcao);
+			} else if (usuario.getNivel().equals(UsuarioVO.NIVEL_MEDICO)) {
+				janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
+				adicionarInternalFrame(janelinhaAgendaMedica);
+			}
+		});
+
 		// MENU PACIENTE
 		mnPaciente = new JMenu("Paciente");
 		mnPaciente.setFont(new Font("Arial", Font.BOLD, 16));
@@ -170,9 +185,13 @@ public class TelaGeral extends JFrame {
 		mnRelatorios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-gráfico-combinado.png")));
 
 		mntmGerarRelatorioDeConsultas = new JMenuItem("Relatorio de Consultas");
+		mntmGerarRelatorioDeConsultas
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
 		mnRelatorios.add(mntmGerarRelatorioDeConsultas);
 
 		mntmRelatorioDeProntuarios = new JMenuItem("Relatorio de Prontuários");
+		mntmRelatorioDeProntuarios
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
 		mnRelatorios.add(mntmRelatorioDeProntuarios);
 		mntmGerarRelatorioDeConsultas.addActionListener(e -> {
 
@@ -203,15 +222,15 @@ public class TelaGeral extends JFrame {
 			adicionarInternalFrame(janelinhaExcluirUsuario);
 		});
 
-		mntmCadastrarUsuarios = new JMenuItem("Cadastrar Usuarios");
-		mnUsuarios.add(mntmCadastrarUsuarios);
-		mntmCadastrarUsuarios.addActionListener(e -> {
+		mntmCadastroDeUsuarios = new JMenuItem("Cadastro de Usuarios");
+		mnUsuarios.add(mntmCadastroDeUsuarios);
+		mntmCadastroDeUsuarios.addActionListener(e -> {
 			adicionarInternalFrame(janelinhaUsuario);
 		});
 
-		mnCadastrarAtualizarPacienteADM = new JMenuItem("Cadastrar/Atualizar Paciente");
-		mnPacientes.add(mnCadastrarAtualizarPacienteADM);
-		mnCadastrarAtualizarPacienteADM.addActionListener(e -> {
+		mnCadastroDePaciente = new JMenuItem("Cadastro de Pacientes");
+		mnPacientes.add(mnCadastroDePaciente);
+		mnCadastroDePaciente.addActionListener(e -> {
 			adicionarInternalFrame(janelinhaCadastrarAtualizarPaciente);
 		});
 
@@ -295,19 +314,21 @@ public class TelaGeral extends JFrame {
 	public void verificarPermissaoParaTela() {
 
 		if (UsuarioVO.NIVEL_FUNCIONARIO.equals(this.usuario.getNivel())) {
+//			mntmAgenda.add(janelinhaPrincipalRecepcao);
 			mnMedico.setEnabled(false);
 			mnAdm.setEnabled(false);
 			// chamar telas agenda e/ou cadastro paciente
 		} else if (UsuarioVO.NIVEL_MEDICO.equals(this.usuario.getNivel())) {
+//			mntmAgenda.add(janelinhaAgendaMedica);
 			mnPaciente.setEnabled(false);
 			mnAdm.setEnabled(false);
 			janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
 			adicionarInternalFrame(janelinhaAgendaMedica);
 		} else if (UsuarioVO.NIVEL_ADMIN.equals(this.usuario.getNivel())) {
-			mnPaciente.setEnabled(false);
+//			mntmAgenda.add(janelinhaPrincipalRecepcao);
+			mnPaciente.setEnabled(true);
 			mnMedico.setEnabled(false);
 			mnAdm.setEnabled(true);
 		}
 	}
-
 }

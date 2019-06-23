@@ -46,7 +46,7 @@ public class ControllerFuncionario {
 		funcionario.setDtNascimento(dataNascimento);
 
 		bo = new FuncionarioBO();
-		mensagem = bo.cadastrarFuncionario(funcionario);
+		mensagem = bo.atualizarFuncionario(funcionario);
 
 		return mensagem;
 	}

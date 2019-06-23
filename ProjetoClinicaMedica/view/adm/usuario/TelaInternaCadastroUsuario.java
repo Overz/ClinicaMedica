@@ -69,8 +69,8 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		super("Clínica Médica - Cadastro de Usuarios", true, true, true, true);
 		setBounds(100, 100, 777, 620);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(
-				new MigLayout("", "[10][grow,fill][grow,fill][grow,center][grow][10]", "[grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]"));
+		getContentPane().setLayout(new MigLayout("", "[10][grow,fill][grow,fill][grow,center][grow][10]",
+				"[grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]"));
 
 		initialize();
 
@@ -84,7 +84,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 			System.out.println("Erro ao formar máscaras: " + e1.getMessage());
 		}
 
-		JLabel lblSelecionarUsurio = new JLabel("Selecionar Usuário para Editar:");
+		JLabel lblSelecionarUsurio = new JLabel("Usuário");
 		lblSelecionarUsurio.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		getContentPane().add(lblSelecionarUsurio, "cell 2 1,alignx left,growy");
 
@@ -146,12 +146,13 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		separator_2.setForeground(Color.BLACK);
 		separator_2.setBackground(Color.BLACK);
 		getContentPane().add(separator_2, "cell 1 17 4 1,grow");
-		
+
 		cbxUsuarios = new JComboBox(usuarios.toArray());
 		getContentPane().add(cbxUsuarios, "cell 3 1 2 1,grow");
 		cbxUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(), (UsuarioVO) cbxUsuarios.getModel().getSelectedItem());
+				atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(),
+						(UsuarioVO) cbxUsuarios.getModel().getSelectedItem());
 			}
 		});
 
@@ -256,8 +257,9 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 				String nivel = (String) cbxTipoUsuario.getModel().getSelectedItem();
 				LocalDate dataNascimento = datePicker.getDate();
 				int idUsuario = 0;
-				if (cbxUsuarios.getSelectedIndex() > -1) {
-					idUsuario = cbxUsuarios.getSelectedIndex() + 1;
+				if (cbxUsuarios.getSelectedIndex() >= 0) {
+					UsuarioVO usuarioVO = (UsuarioVO) cbxUsuarios.getModel().getSelectedItem();
+					idUsuario = usuarioVO.getIdUsuario();
 				}
 
 				ControllerUsuario controller = new ControllerUsuario();
@@ -265,49 +267,85 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 						confirmacaoSenha, nivel, dataNascimento, idUsuario);
 
 				JOptionPane.showMessageDialog(null, mensagem);
+				limparCampos();
 			}
 		});
+
+		listarUsuarios();
+	}
+
+	public void limparCampos() {
+		cbxUsuarios.setSelectedIndex(-1);
+		cbxTipoUsuario.setSelectedIndex(-1);
+		txtNome.setText("");
+		txtNome.setEnabled(false);
+		txtCpf.setText("");
+		txtCpf.setEnabled(false);
+		txtEmail.setText("");
+		txtEmail.setEnabled(false);
+		txtTelefone.setText("");
+		txtTelefone.setEnabled(false);
+		txtUsuario.setText("");
+		txtUsuario.setEnabled(false);
+		passwordField.setText("");
+		passwordField.setEnabled(false);
+		passwordFieldConfirm.setText("");
+		passwordFieldConfirm.setEnabled(false);
+		datePicker.setDate(LocalDate.now());
+		datePicker.setEnabled(false);
+		txtCrm.setText("");
+		txtCrm.setEnabled(false);
+		txtEspecialidade.setText("");
+		txtEspecialidade.setEnabled(false);
 	}
 
 	public void atualizarCampos(String tipoUsuario, UsuarioVO usuario) {
-		if (tipoUsuario.equals(UsuarioVO.NIVEL_FUNCIONARIO) || tipoUsuario.equals(UsuarioVO.NIVEL_ADMIN)) {
-			txtNome.setEnabled(true);
-			txtCpf.setEnabled(true);
-			txtEmail.setEnabled(true);
-			txtTelefone.setEnabled(true);
-			txtUsuario.setEnabled(true);
-			passwordField.setEnabled(true);
-			passwordFieldConfirm.setEnabled(true);
-			txtCrm.setEnabled(false);
-			txtEspecialidade.setEnabled(false);
-			datePicker.setEnabled(true);
-		} else if (tipoUsuario.equals(UsuarioVO.NIVEL_MEDICO)) {
-			txtNome.setEnabled(true);
-			txtCpf.setEnabled(true);
-			txtEmail.setEnabled(true);
-			txtTelefone.setEnabled(true);
-			txtUsuario.setEnabled(true);
-			passwordField.setEnabled(true);
-			passwordFieldConfirm.setEnabled(true);
-			txtCrm.setEnabled(true);
-			txtEspecialidade.setEnabled(true);
-			datePicker.setEnabled(true);
-		}
 		if (usuario != null) {
 			txtNome.setText(usuario.getNome());
 			txtCpf.setText(usuario.getCpf());
+			txtCpf.setEnabled(false);
 			txtEmail.setText(usuario.getEmail());
 			txtTelefone.setText(usuario.getTelefone());
-			txtUsuario.setEnabled(false);
 			txtUsuario.setText(usuario.getNomeUsuario());
-			passwordField.setEnabled(false);
-			passwordFieldConfirm.setEnabled(false);
+			txtUsuario.setEnabled(false);
+			passwordField.setText(usuario.getSenha());
+			passwordFieldConfirm.setText(usuario.getSenha());
 			datePicker.setDate(usuario.getDtNascimento());
-			cbxTipoUsuario.setSelectedItem(usuario.getNivel());
-			if (tipoUsuario.equals(UsuarioVO.NIVEL_MEDICO)) {
+			if (usuario.getNivel().equals(UsuarioVO.NIVEL_MEDICO)) {
 				MedicoVO medico = (MedicoVO) usuario;
 				txtCrm.setText(medico.getCrm());
 				txtEspecialidade.setText(medico.getEspecialidade());
+				txtEspecialidade.setEnabled(false);
+			} else {
+				txtCrm.setText("");
+				txtEspecialidade.setText("");
+			}
+			cbxTipoUsuario.setSelectedItem(usuario.getNivel());
+			cbxTipoUsuario.setEnabled(false);
+			txtCrm.setEnabled(false);
+		} else if (tipoUsuario != null) {
+			if (tipoUsuario.equals(UsuarioVO.NIVEL_FUNCIONARIO) || tipoUsuario.equals(UsuarioVO.NIVEL_ADMIN)) {
+				txtNome.setEnabled(true);
+				txtCpf.setEnabled(true);
+				txtEmail.setEnabled(true);
+				txtTelefone.setEnabled(true);
+				txtUsuario.setEnabled(true);
+				passwordField.setEnabled(true);
+				passwordFieldConfirm.setEnabled(true);
+				txtCrm.setEnabled(false);
+				txtEspecialidade.setEnabled(false);
+				datePicker.setEnabled(true);
+			} else if (tipoUsuario.equals(UsuarioVO.NIVEL_MEDICO)) {
+				txtNome.setEnabled(true);
+				txtCpf.setEnabled(true);
+				txtEmail.setEnabled(true);
+				txtTelefone.setEnabled(true);
+				txtUsuario.setEnabled(true);
+				passwordField.setEnabled(true);
+				passwordFieldConfirm.setEnabled(true);
+				txtCrm.setEnabled(true);
+				txtEspecialidade.setEnabled(true);
+				datePicker.setEnabled(true);
 			}
 		}
 	}
@@ -315,7 +353,9 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 	public void listarUsuarios() {
 		ControllerUsuario controller = new ControllerUsuario();
 		usuarios = controller.listarUsuarios();
+		usuarios.add(0, null);
 		cbxUsuarios.setModel(new DefaultComboBoxModel(usuarios.toArray()));
 		cbxUsuarios.setSelectedIndex(-1);
 	}
+
 }

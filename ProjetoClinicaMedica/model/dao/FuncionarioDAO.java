@@ -117,7 +117,7 @@ public class FuncionarioDAO {
 
 	public boolean atualizarFuncionario(FuncionarioVO funcionario) {
 		boolean sucesso = false;
-		String query = "UPDATE FUNCIONARIO SET NOME=?, CPF=?, TELEFONE=?, EMAIL=?, DATA_NASCIMENTO=? WHERE IDFUNCIONARIO=?";
+		String query = "UPDATE FUNCIONARIO SET NOME=?, CPF=?, TELEFONE=?, EMAIL=?, DATA_NASCIMENTO=? WHERE IDUSUARIO=?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
@@ -128,12 +128,15 @@ public class FuncionarioDAO {
 			prepStmt.setString(3, funcionario.getTelefone());
 			prepStmt.setString(4, funcionario.getEmail());
 			prepStmt.setDate(5, Date.valueOf(funcionario.getDtNascimento()));
-			prepStmt.setInt(6, funcionario.getIdFuncionario());
+			prepStmt.setInt(6, funcionario.getIdUsuario());
 
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			boolean sucessoUsuario = usuarioDAO.atualizarUsuario(funcionario);
 			int resultado = prepStmt.executeUpdate();
-			if (resultado == 1) {
+			if (resultado > 0 || sucessoUsuario == true) {
 				sucesso = true;
 			}
+
 		} catch (SQLException e) {
 			System.out.println("Erro ao atualizar Funcionário: \n " + e.getMessage());
 		} finally {

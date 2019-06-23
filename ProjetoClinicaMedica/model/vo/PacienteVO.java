@@ -3,8 +3,9 @@ package model.vo;
 import java.time.LocalDate;
 
 public class PacienteVO extends PessoaVO {
-	public static final String SEXO_MASCULINO = "M";
-	public static final String SEXO_FEMININO = "F";
+	public static final String SEXO_MASCULINO = "Masculino";
+	public static final String SEXO_FEMININO = "Feminino";
+	public static final String CONVENIO_PARTICULAR = "Particular";
 	public static final String CONVENIO_UNIMED = "Unimed";
 	public static final String CONVENIO_AGEMED = "Agemed";
 	public static final String CONVENIO_AMIL = "Amil";

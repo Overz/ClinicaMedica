@@ -47,7 +47,7 @@ public class MedicoVO extends UsuarioVO {
 
 	@Override
 	public String toString() {
-		return this.especialidade + " " + this.getNome() + " - " + this.crm;
+		return this.especialidade + " " + this.getNome() + " - CRM: " + this.crm;
 	}
 
 }

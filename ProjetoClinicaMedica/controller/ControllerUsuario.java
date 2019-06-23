@@ -20,8 +20,8 @@ public class ControllerUsuario {
 	}
 
 	public ArrayList<UsuarioVO> listarUsuarios() {
-		// TODO Auto-generated method stub
-		return null;
+		UsuarioBO bo = new UsuarioBO();
+		return bo.listarUsuarios();
 	}
 
 	public String salvarUsuario(String nome, String cpf, String telefone, String email, String crm,

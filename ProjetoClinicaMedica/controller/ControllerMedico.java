@@ -46,47 +46,29 @@ public class ControllerMedico {
 		medico.setSenha(senha);
 		medico.setDtNascimento(dataNascimento);
 		medico.setNivel(nivel);
+		medico.setIdUsuario(idUsuario);
 
 		MedicoBO bo = new MedicoBO();
-		mensagem = bo.cadastrarMedico(medico);
+		mensagem = bo.atualizarMedico(medico);
 
 		return mensagem;
 	}
 
 	public String validarTelaInternaMedico(LocalDate date) {
 		String mensagem = "";
-		
-		//TODO DATA
-		if (date == null ) {
-			
+
+		// TODO DATA
+		if (date == null) {
+
 		}
-		
+
 		return mensagem;
 	}
-	
+
 	public boolean validarEMail(String email) {
 		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-	      return email.matches(regex);
-	 
-	}
+		return email.matches(regex);
 
-	public String validarAgendaMedica(String nomeMedico, String nomeAgenda, String telefone, String email, String texto) {
-		String mensagem = "";
-
-		if (nomeAgenda == null || nomeMedico.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo Nome!";
-		}
-		if (nomeAgenda == null || nomeAgenda.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo AGENDA, se Referindo ao Nome da Agenda.";
-		}
-		if (telefone == null || telefone.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo TELEFONE!";
-		}
-		if (!validarEMail(email)) {
-			mensagem += "Por Favor, Digite um EMAIL Valido!";
-		}
-		
-		return mensagem;
 	}
 
 }

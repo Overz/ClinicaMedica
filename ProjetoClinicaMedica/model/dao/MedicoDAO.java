@@ -102,7 +102,7 @@ public class MedicoDAO {
 
 	public boolean atualizarMedico(MedicoVO medicoVO) {
 		boolean sucesso = false;
-		String query = "UPDATE MEDICO SET NOME=?, CPF=?,TELEFONE=?, EMAIL=?, CRM=?, ESPECIALIDADE=?, DATA_NASCIMENTO=? WHERE IDMEDICO=?";
+		String query = "UPDATE MEDICO SET NOME=?, CPF=?,TELEFONE=?, EMAIL=?, CRM=?, ESPECIALIDADE=?, DATA_NASCIMENTO=? WHERE IDUSUARIO=?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
@@ -115,12 +115,15 @@ public class MedicoDAO {
 			prepStmt.setString(5, medicoVO.getCrm());
 			prepStmt.setString(6, medicoVO.getEspecialidade());
 			prepStmt.setDate(7, Date.valueOf(medicoVO.getDtNascimento()));
-			prepStmt.setInt(8, medicoVO.getIdMedico());
+			prepStmt.setInt(8, medicoVO.getIdUsuario());
 
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			boolean sucessoUsuario = usuarioDAO.atualizarUsuario(medicoVO);
 			int resultado = prepStmt.executeUpdate();
-			if (resultado == 1) {
+			if (resultado > 0 || sucessoUsuario == true) {
 				sucesso = true;
 			}
+
 		} catch (SQLException e) {
 			System.out.println("Erro ao atualizar Médico: \n " + e.getMessage());
 		} finally {
