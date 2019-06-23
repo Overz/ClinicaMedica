@@ -124,12 +124,6 @@ public class ControllerPaciente {
 		return vo;
 	}
 
-	public boolean validarEMail(String email) {
-		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-		return email.matches(regex);
-
-	}
-
 	/**
 	 * Método para validar os campos antes de cadastrar os dados do usuario no
 	 * banco.
@@ -196,17 +190,11 @@ public class ControllerPaciente {
 
 		return mensagem;
 	}
+	
+	public boolean validarEMail(String email) {
+		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+		return email.matches(regex);
 
-	/**
-	 * Reaproveitação de Método, com mesmos campos.
-	 * 
-	 * @param nome
-	 * @param cpfCrm
-	 * @param data
-	 * @return
-	 */
-	public String ValidarCamposConsultasEHorarios(String nome, String cpfCrm, LocalDate data) {
-		return bo.validarTelaBuscarPaciente(nome, cpfCrm, data);
 	}
 
 	public ArrayList<PacienteVO> consultarTodos() {

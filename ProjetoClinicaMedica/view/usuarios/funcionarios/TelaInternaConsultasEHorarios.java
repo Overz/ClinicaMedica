@@ -143,8 +143,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		this.lblPaciente.setText("Paciente: " + paciente.toString());
 	}
 
-	public void atualizarCampos() {
-		if (this.medico == null || )
-	}
-
+	/*public void atualizarCampos() {
+		if (this.medico != null || )
+	}*/
 }

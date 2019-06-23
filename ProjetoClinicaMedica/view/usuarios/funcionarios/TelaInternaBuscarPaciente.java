@@ -50,7 +50,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 
 	public TelaInternaBuscarPaciente() {
 		super("Clínica Médica - Buscar Paciente", false, true, false, false);
-		setBounds(100, 100, 1190, 842);
+		setBounds(100, 100, 1017, 743);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane()
 				.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]",
@@ -137,13 +137,13 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		table.setModel(new DefaultTableModel(data, columnNames));
 		getContentPane().add(table, "cell 1 5 7 1,grow");
-
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(btnCancelar, "cell 5 7,alignx right");
+		
+				btnCancelar = new JButton("Cancelar");
+				btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
+				getContentPane().add(btnCancelar, "cell 5 7,grow");
 
 		btnSelecionarPaciente = new JButton("Selecionar Paciente");
 		btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(btnSelecionarPaciente, "cell 7 7");
+		getContentPane().add(btnSelecionarPaciente, "cell 7 7,grow");
 	}
 }

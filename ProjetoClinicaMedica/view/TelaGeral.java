@@ -48,13 +48,14 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mntmAgendaMedica;
 	private JMenuItem mntmProntuario;
 	private JMenuItem mntmGerarRelatorioDeConsultas;
-	private JMenuItem mntmGerarRelatorio_0001;
+	private JMenuItem mntmGerarRelatorioPaciente;
 	private JMenuItem mnExcluirPacientes;
 	private JMenuItem mnCadastroDePaciente;
 	private JMenuItem mntmExcluirUsuarios;
 	private JMenuItem mntmCadastroDeUsuarios;
 	private JMenuItem mntmAgenda;
 	private JMenuItem mntmGerarRelatorio_0002;
+	private JMenuItem mntmRelatorioDeProntuarios;
 
 	private UsuarioVO usuario;
 	private PacienteVO paciente;
@@ -71,7 +72,6 @@ public class TelaGeral extends JFrame {
 
 	int width_int;
 	int height_int;
-	private JMenuItem mntmRelatorioDeProntuarios;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -87,6 +87,11 @@ public class TelaGeral extends JFrame {
 		});
 	}
 
+	/**
+	 * Criação de parametros para o JFrame.
+	 * Se a Tela no Design não abrir, comentar ' setBounds(x, y, width_int, height_int); ', e substituir pelo outro padrão com numeros.
+	 * @param usuario
+	 */
 	public TelaGeral(UsuarioVO usuario) {
 		this.setUsuario(usuario);
 		// Abrir a janelinha em posição X,Y preferencial
@@ -177,7 +182,7 @@ public class TelaGeral extends JFrame {
 
 		mntmProntuario = new JMenuItem("Prontuario");
 		mntmProntuario
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
+		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
 		mnMedico.add(mntmProntuario);
 		mntmProntuario.addActionListener(e -> {
 			adicionarInternalFrame(janelinhaProntuario);
@@ -191,11 +196,11 @@ public class TelaGeral extends JFrame {
 
 		mntmGerarRelatorioDeConsultas = new JMenuItem("Relatorio de Consultas");
 		mntmGerarRelatorioDeConsultas
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
+		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
 		mnRelatorios.add(mntmGerarRelatorioDeConsultas);
-		mntmGerarRelatorio_0001 = new JMenuItem("Relatorio de Pacientes");
-		mnRelatorios.add(mntmGerarRelatorio_0001);
-		mntmGerarRelatorio_0001.addActionListener(e -> {
+		mntmGerarRelatorioPaciente = new JMenuItem("Relatorio de Pacientes");
+		mnRelatorios.add(mntmGerarRelatorioPaciente);
+		mntmGerarRelatorioPaciente.addActionListener(e -> {
 			JFileChooser jfc = new JFileChooser();
 			jfc.setDialogTitle("Salvar relatório em...");
 
@@ -213,13 +218,13 @@ public class TelaGeral extends JFrame {
 
 		mntmRelatorioDeProntuarios = new JMenuItem("Relatorio de Prontuários");
 		mntmRelatorioDeProntuarios
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
+		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
 		mnRelatorios.add(mntmRelatorioDeProntuarios);
 		mntmGerarRelatorioDeConsultas.addActionListener(e -> {
 
 			mntmGerarRelatorio_0002 = new JMenuItem("Relatorio de Médicos");
 			mnRelatorios.add(mntmGerarRelatorio_0002);
-//		mntmGerarRelatorio_0002.addActionListener(e -> {
+			//		mntmGerarRelatorio_0002.addActionListener(e -> {
 
 		});
 
@@ -235,7 +240,7 @@ public class TelaGeral extends JFrame {
 
 		JMenu mnUsuarios = new JMenu("Usuarios");
 		mnUsuarios
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
+		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
 		mnAdm.add(mnUsuarios);
 
 		mntmExcluirUsuarios = new JMenuItem("Excluir Usuarios");
@@ -306,6 +311,28 @@ public class TelaGeral extends JFrame {
 		});
 	}
 
+
+	public void verificarPermissaoParaTela() {
+
+		if (UsuarioVO.NIVEL_FUNCIONARIO.equals(this.usuario.getNivel())) {
+			//mntmAgenda.add(janelinhaPrincipalRecepcao);
+			mnMedico.setEnabled(false);
+			mnAdm.setEnabled(false);
+			// chamar telas agenda e/ou cadastro paciente
+		} else if (UsuarioVO.NIVEL_MEDICO.equals(this.usuario.getNivel())) {
+			//mntmAgenda.add(janelinhaAgendaMedica);
+			mnPaciente.setEnabled(false);
+			mnAdm.setEnabled(false);
+			janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
+			adicionarInternalFrame(janelinhaAgendaMedica);
+		} else if (UsuarioVO.NIVEL_ADMIN.equals(this.usuario.getNivel())) {
+			//mntmAgenda.add(janelinhaPrincipalRecepcao);
+			mnPaciente.setEnabled(true);
+			mnMedico.setEnabled(false);
+			mnAdm.setEnabled(true);
+		}
+	}
+
 	public UsuarioVO getUsuario() {
 		return this.usuario;
 	}
@@ -320,26 +347,5 @@ public class TelaGeral extends JFrame {
 
 	public void setPaciente(PacienteVO paciente) {
 		this.paciente = paciente;
-	}
-
-	public void verificarPermissaoParaTela() {
-
-		if (UsuarioVO.NIVEL_FUNCIONARIO.equals(this.usuario.getNivel())) {
-//			mntmAgenda.add(janelinhaPrincipalRecepcao);
-			mnMedico.setEnabled(false);
-			mnAdm.setEnabled(false);
-			// chamar telas agenda e/ou cadastro paciente
-		} else if (UsuarioVO.NIVEL_MEDICO.equals(this.usuario.getNivel())) {
-//			mntmAgenda.add(janelinhaAgendaMedica);
-			mnPaciente.setEnabled(false);
-			mnAdm.setEnabled(false);
-			janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
-			adicionarInternalFrame(janelinhaAgendaMedica);
-		} else if (UsuarioVO.NIVEL_ADMIN.equals(this.usuario.getNivel())) {
-//			mntmAgenda.add(janelinhaPrincipalRecepcao);
-			mnPaciente.setEnabled(true);
-			mnMedico.setEnabled(false);
-			mnAdm.setEnabled(true);
-		}
 	}
 }
