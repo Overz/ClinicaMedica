@@ -168,7 +168,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 
 		PacienteTableModel modelo = (PacienteTableModel) tblPacientes.getModel();
 		modelo.limpar();
-		modelo.addPacientes(controller.buscarPaciente(seletor));
+		modelo.addPacientes(controller.listarPacientes(seletor));
 
 	}
 }

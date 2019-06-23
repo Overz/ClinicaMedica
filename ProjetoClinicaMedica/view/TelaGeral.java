@@ -23,6 +23,7 @@ import javax.swing.event.InternalFrameEvent;
 
 import controller.ControllerPaciente;
 import controller.ControllerRelatorio;
+import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import model.vo.UsuarioVO;
@@ -129,6 +130,7 @@ public class TelaGeral extends JFrame {
 		mntmAgenda.addActionListener(e -> {
 			if (usuario.getNivel().equals(UsuarioVO.NIVEL_ADMIN)
 					|| usuario.getNivel().equals(UsuarioVO.NIVEL_FUNCIONARIO)) {
+				janelinhaPrincipalRecepcao.setFuncionario((FuncionarioVO) usuario);
 				adicionarInternalFrame(janelinhaPrincipalRecepcao);
 			} else if (usuario.getNivel().equals(UsuarioVO.NIVEL_MEDICO)) {
 				janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
@@ -325,18 +327,18 @@ public class TelaGeral extends JFrame {
 	public void verificarPermissaoParaTela() {
 
 		if (UsuarioVO.NIVEL_FUNCIONARIO.equals(this.usuario.getNivel())) {
-//			mntmAgenda.add(janelinhaPrincipalRecepcao);
 			mnMedico.setEnabled(false);
 			mnAdm.setEnabled(false);
-			// chamar telas agenda e/ou cadastro paciente
+			janelinhaPrincipalRecepcao = new TelaInternaConsultasEHorarios();
+			janelinhaPrincipalRecepcao.setFuncionario((FuncionarioVO) usuario);
+			adicionarInternalFrame(janelinhaPrincipalRecepcao);
 		} else if (UsuarioVO.NIVEL_MEDICO.equals(this.usuario.getNivel())) {
-//			mntmAgenda.add(janelinhaAgendaMedica);
 			mnPaciente.setEnabled(false);
 			mnAdm.setEnabled(false);
 			janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
 			adicionarInternalFrame(janelinhaAgendaMedica);
 		} else if (UsuarioVO.NIVEL_ADMIN.equals(this.usuario.getNivel())) {
-//			mntmAgenda.add(janelinhaPrincipalRecepcao);
+			mntmAgenda.setEnabled(false);
 			mnPaciente.setEnabled(true);
 			mnMedico.setEnabled(false);
 			mnAdm.setEnabled(true);

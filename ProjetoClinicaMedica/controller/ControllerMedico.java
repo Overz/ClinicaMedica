@@ -1,8 +1,10 @@
 package controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import model.bo.MedicoBO;
+import model.seletor.SeletorUsuario;
 import model.vo.MedicoVO;
 
 public class ControllerMedico {
@@ -69,6 +71,11 @@ public class ControllerMedico {
 		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 		return email.matches(regex);
 
+	}
+
+	public ArrayList<MedicoVO> listarMedicos(SeletorUsuario seletor) {
+		MedicoBO bo = new MedicoBO();
+		return bo.listarMedicos(seletor);
 	}
 
 }

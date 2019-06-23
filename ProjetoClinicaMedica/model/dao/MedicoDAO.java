@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.banco.Banco;
+import model.seletor.SeletorUsuario;
 import model.vo.MedicoVO;
 import model.vo.UsuarioVO;
 
@@ -159,14 +160,84 @@ public class MedicoDAO {
 		return sucesso;
 	}
 
-	public ArrayList<MedicoVO> buscarMedico(MedicoVO medico) {
-		// TODO Implementar método para consulta com seletor
-		return null;
+	public ArrayList<MedicoVO> listarrMedico(SeletorUsuario seletor) {
+		String query = "SELECT * FROM MEDICO INNER JOIN USUARIO ON MEDICO.IDUSUARIO = USUARIO.IDUSUARIO";
+		if (seletor.temFiltro()) {
+			query = criarFiltros(seletor, query);
+		}
+		if (seletor.temPaginacao()) {
+			query += " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
+		}
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		ArrayList<MedicoVO> medicos = new ArrayList<MedicoVO>();
+
+		try {
+			ResultSet resultado = prepStmt.executeQuery();
+
+			while (resultado.next()) {
+				MedicoVO medico = montarMedico(resultado);
+				medicos.add(medico);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao listar Usuários: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+
+		return medicos;
 	}
 
-	public String construirFiltros() {
-		// TODO Implementar método de construção de filtros
-		return null;
+	public String criarFiltros(SeletorUsuario seletor, String query) {
+		query += " WHERE ";
+		boolean primeiro = true;
+
+		if (seletor.getNome() != null && !seletor.getNome().trim().isEmpty()) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIOS.NOME LIKE '%" + seletor.getNome() + "%' ";
+			primeiro = false;
+		}
+		if (seletor.getCpf() != null && !seletor.getNome().trim().isEmpty()) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIOS.CPF LIKE '%" + seletor.getCpf() + "%' ";
+			primeiro = false;
+		}
+		if (seletor.getCrm() != null && !seletor.getCrm().trim().isEmpty()) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIOS.CRM LIKE '%" + seletor.getCrm() + "%' ";
+			primeiro = false;
+		}
+		if (seletor.getEspecialidade() != null && !seletor.getEspecialidade().trim().isEmpty()) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIOS.ESPECIALIDADE LIKE '%" + seletor.getEspecialidade() + "%'";
+			primeiro = false;
+		}
+		if (seletor.getNivel() != null && !seletor.getNivel().trim().isEmpty()) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIO.NIVEL LIKE '%" + seletor.getNivel() + "%'";
+			primeiro = false;
+		}
+		if (seletor.getDataNascimento() != null) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIOS.DATA_NASCIMENTO = " + seletor.getDataNascimento();
+			primeiro = false;
+		}
+		return query;
 	}
 
 	public MedicoVO montarMedico(ResultSet resultado) throws SQLException {
@@ -213,7 +284,7 @@ public class MedicoDAO {
 	}
 
 	public MedicoVO buscarMedicoPorId(int idMedico) {
-		String query = "SELECT * FROM MEDICO WHERE IDMEDICO = ?";
+		String query = "SELECT * FROM MEDICO INNER JOIN USUARIO ON MEDICO.IDUSUARIO = USUARIO.IDUSUARIO WHERE IDMEDICO = ?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);

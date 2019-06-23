@@ -184,7 +184,7 @@ public class FuncionarioDAO {
 	}
 
 	public FuncionarioVO buscarFuncionarioPorId(int idFuncionario) {
-		String query = "SELECT * FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
+		String query = "SELECT * FROM FUNCIONARIO INNER JOIN USUARIO ON FUNCIONARIO.IDUSUARIO = USUARIO.IDUSUARIO WHERE IDFUNCIONARIO = ?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);

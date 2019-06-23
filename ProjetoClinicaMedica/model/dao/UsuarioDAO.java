@@ -295,7 +295,7 @@ public class UsuarioDAO {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "USUARIOS.DATA_NASCIMENTO BETWEEN " + seletor.getDataNascimento();
+			query += "USUARIOS.DATA_NASCIMENTO = " + seletor.getDataNascimento();
 			primeiro = false;
 		}
 		return query;

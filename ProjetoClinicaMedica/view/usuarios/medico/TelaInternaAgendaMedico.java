@@ -34,6 +34,7 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 	private MedicoVO medico;
 	private JTable tblConsultas;
 	private ArrayList<ConsultaVO> listaConsultas;
+	private JButton btnListarAgendamentos;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -68,14 +69,23 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 
 		lblData = new JLabel("Data:");
 		lblData.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblData, "cell 5 1");
+		getContentPane().add(lblData, "cell 1 1");
 		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 22));
 		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 22));
 
 		datePicker.setSettings(dateSettings);
 		datePicker.setToolTipText("Selecione a Data");
-		getContentPane().add(datePicker, "cell 7 1,grow");
+		getContentPane().add(datePicker, "cell 3 1,grow");
 		datePicker.setDate(LocalDate.now());
+
+		btnListarAgendamentos = new JButton("Listar Agendamentos");
+		btnListarAgendamentos.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnListarAgendamentos, "cell 7 1");
+		btnListarAgendamentos.addActionListener(e -> {
+			if (datePicker.getDate() != null) {
+				preencherListaAgendamentos(datePicker.getDate());
+			}
+		});
 
 		JScrollPane scrollPane = new JScrollPane();
 		getContentPane().add(scrollPane, "cell 1 2 7 3,grow");
@@ -88,7 +98,6 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		tblConsultas.setModel(consultasTableModel);
 		scrollPane.setViewportView(tblConsultas);
 		tblConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
 		preencherListaAgendamentos(datePicker.getDate());
 
 		btnCancelar = new JButton("Cancelar");
@@ -104,7 +113,7 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		btnAtender.addActionListener(e -> {
 			ConsultasTableModel modelo = (ConsultasTableModel) tblConsultas.getModel();
 			PacienteVO paciente = modelo.getPaciente(tblConsultas.getSelectedRow());
-			if (paciente.getNome().trim().isEmpty()) {
+			if (!paciente.getNome().trim().isEmpty()) {
 				TelaInternaProntuarioMedico telaAtendimento = new TelaInternaProntuarioMedico(medico, paciente);
 				getDesktopPane().add(telaAtendimento);
 				telaAtendimento.setVisible(true);
