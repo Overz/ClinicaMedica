@@ -1,16 +1,10 @@
 package model.bo;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 import model.dao.FuncionarioDAO;
 import model.dao.UsuarioDAO;
 import model.vo.FuncionarioVO;
 
 public class FuncionarioBO {
-
-	private FuncionarioBO bo;
-	private FuncionarioDAO dao;
 
 	public String cadastrarFuncionario(FuncionarioVO funcionario) {
 		String mensagem = "";
@@ -20,7 +14,7 @@ public class FuncionarioBO {
 		}
 		if (funcionario.getNomeUsuario().length() < 5) {
 			mensagem += "Nome de Usuário precisa ter mais do que 5 caracteres!\n";
-		} else if (funcionario.getNome().length() > 45) {
+		} else if (funcionario.getNomeUsuario().length() > 45) {
 			mensagem += "Nome de Usuário pode ter no máximo 45 caracteres!\n";
 		}
 		if (funcionario.getSenha().length() < 5 || funcionario.getSenha().length() > 45) {
@@ -91,30 +85,6 @@ public class FuncionarioBO {
 			}
 		}
 		return mensagem;
-	}
-
-<<<<<<< HEAD
-	public String ValidarSalvarCadastroPaciente(String nome, String cpf, String rg, LocalDate data, int sexo,
-=======
-	public ArrayList<FuncionarioVO> consultarFuncionarioADM(String nome, String cpf) {
-		return null; //TODO dao.consultarFuncionarioADM(nome, cpf);
-	}
-
-	public String ValidarSalvarCadastroPaciente(String nome, String cpf, String rg, LocalDate date, int sexo,
->>>>>>> branch 'master' of https://github.com/Overz/ClinicaMedica.git
-			int estadoCivil, int tipoSangue, String cidade, String bairro, String rua, String numero, String telefone,
-			String celular, String email) {
-<<<<<<< HEAD
-
-		String mensagem = "";
-
-		// TODO Continuar
-
-		return mensagem;
-=======
-		// TODO Auto-generated method stub
-		return null;
->>>>>>> branch 'master' of https://github.com/Overz/ClinicaMedica.git
 	}
 
 }

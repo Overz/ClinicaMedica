@@ -15,7 +15,7 @@ public class MedicoBO {
 		}
 		if (medico.getNomeUsuario().length() < 5) {
 			mensagem += "Nome de Usuário precisa ter mais do que 5 caracteres!\n";
-		} else if (medico.getNome().length() > 45) {
+		} else if (medico.getNomeUsuario().length() > 45) {
 			mensagem += "Nome de Usuário pode ter no máximo 45 caracteres!\n";
 		}
 		if (medico.getSenha().length() < 5 || medico.getSenha().length() > 45) {

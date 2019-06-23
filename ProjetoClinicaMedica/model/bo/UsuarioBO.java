@@ -3,6 +3,7 @@ package model.bo;
 import java.util.ArrayList;
 
 import model.dao.UsuarioDAO;
+import model.seletor.SeletorUsuario;
 import model.vo.UsuarioVO;
 
 public class UsuarioBO {
@@ -15,6 +16,22 @@ public class UsuarioBO {
 	public ArrayList<UsuarioVO> listarUsuarios() {
 		UsuarioDAO dao = new UsuarioDAO();
 		return dao.listarUsuarios();
+	}
+
+	public ArrayList<UsuarioVO> listarUsuarios(SeletorUsuario seletor) {
+		UsuarioDAO dao = new UsuarioDAO();
+		return dao.listarUsuarios(seletor);
+	}
+
+	public String excluirUsuario(UsuarioVO usuario) {
+		String mensagem = "";
+		UsuarioDAO dao = new UsuarioDAO();
+		if (dao.excluirUsuario(usuario)) {
+			mensagem += "Usuário excluído com sucesso!";
+		} else {
+			mensagem += "Erro ao excluir Usuário!";
+		}
+		return mensagem;
 	}
 
 }

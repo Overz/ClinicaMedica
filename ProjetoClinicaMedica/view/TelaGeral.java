@@ -26,7 +26,7 @@ import controller.ControllerRelatorio;
 import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import model.vo.UsuarioVO;
-import view.adm.paciente.TelaInternaCadastrarAtualizarPaciente;
+import view.adm.paciente.TelaInternaExcluirPaciente;
 import view.adm.usuario.TelaInternaCadastroUsuario;
 import view.adm.usuario.TelaInternaExcluirUsuario;
 import view.usuarios.funcionarios.TelaInternaBuscarPaciente;
@@ -49,9 +49,7 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mntmProntuario;
 	private JMenuItem mntmGerarRelatorioDeConsultas;
 	private JMenuItem mntmGerarRelatorio_0001;
-	private JMenuItem mntmCadastrarAtualizarFuncionarios;
-	private JMenuItem mntmBuscarExcluirFuncionario;
-	private JMenuItem mnBuscarExcluirPacienteADM;
+	private JMenuItem mnExcluirPacientes;
 	private JMenuItem mnCadastroDePaciente;
 	private JMenuItem mntmExcluirUsuarios;
 	private JMenuItem mntmCadastroDeUsuarios;
@@ -69,7 +67,7 @@ public class TelaGeral extends JFrame {
 	private TelaInternaProntuarioMedico janelinhaProntuario = new TelaInternaProntuarioMedico();
 	private TelaInternaExcluirUsuario janelinhaExcluirUsuario = new TelaInternaExcluirUsuario();
 	private TelaInternaCadastroUsuario janelinhaUsuario = new TelaInternaCadastroUsuario();
-	private TelaInternaCadastrarAtualizarPaciente janelinhaCadastrarAtualizarPaciente = new TelaInternaCadastrarAtualizarPaciente();
+	private TelaInternaExcluirPaciente janelinhaExcluirPaciente = new TelaInternaExcluirPaciente();
 
 	int width_int;
 	int height_int;
@@ -200,15 +198,15 @@ public class TelaGeral extends JFrame {
 		mntmGerarRelatorio_0001.addActionListener(e -> {
 			JFileChooser jfc = new JFileChooser();
 			jfc.setDialogTitle("Salvar relatório em...");
-			
+
 			int resultado = jfc.showSaveDialog(null);
-			if(resultado == JFileChooser.APPROVE_OPTION){
+			if (resultado == JFileChooser.APPROVE_OPTION) {
 				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
 				ControllerPaciente controllerPaciente = new ControllerPaciente();
-				List<PacienteVO>vo = controllerPaciente.consultarTodos();
+				List<PacienteVO> vo = controllerPaciente.consultarTodos();
 				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
 				String mensagem = controllerRelatorio.gerarRelatorio(vo, caminhoEscolhido);
-			
+
 				JOptionPane.showMessageDialog(null, mensagem);
 			}
 		});
@@ -219,10 +217,10 @@ public class TelaGeral extends JFrame {
 		mnRelatorios.add(mntmRelatorioDeProntuarios);
 		mntmGerarRelatorioDeConsultas.addActionListener(e -> {
 
-		mntmGerarRelatorio_0002 = new JMenuItem("Relatorio de Médicos");
-		mnRelatorios.add(mntmGerarRelatorio_0002);
-		mntmGerarRelatorio_0002.addActionListener(e -> {
-			
+			mntmGerarRelatorio_0002 = new JMenuItem("Relatorio de Médicos");
+			mnRelatorios.add(mntmGerarRelatorio_0002);
+//		mntmGerarRelatorio_0002.addActionListener(e -> {
+
 		});
 
 		// MENU ADM
@@ -234,10 +232,6 @@ public class TelaGeral extends JFrame {
 		JMenu mnPacientes = new JMenu("Pacientes");
 		mnPacientes.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-fila.png")));
 		mnAdm.add(mnPacientes);
-
-		JMenu mnFuncionarios = new JMenu("Funcionarios");
-		mnFuncionarios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-suporte-on-line-filled.png")));
-		mnAdm.add(mnFuncionarios);
 
 		JMenu mnUsuarios = new JMenu("Usuarios");
 		mnUsuarios
@@ -259,25 +253,14 @@ public class TelaGeral extends JFrame {
 		mnCadastroDePaciente = new JMenuItem("Cadastro de Pacientes");
 		mnPacientes.add(mnCadastroDePaciente);
 		mnCadastroDePaciente.addActionListener(e -> {
-			adicionarInternalFrame(janelinhaCadastrarAtualizarPaciente);
+			adicionarInternalFrame(janelinhaCadastroPaciente);
 		});
 
-		mnBuscarExcluirPacienteADM = new JMenuItem("Buscar/Excluir Cadastro de Paciente");
-		mnPacientes.add(mnBuscarExcluirPacienteADM);
-		mnBuscarExcluirPacienteADM.addActionListener(e -> {
-
-		});
-
-		mntmCadastrarAtualizarFuncionarios = new JMenuItem("Cadastrar/Atualizar Funcionario");
-		mnFuncionarios.add(mntmCadastrarAtualizarFuncionarios);
-		mntmCadastrarAtualizarFuncionarios.addActionListener(e -> {
-
-		});
-
-		mntmBuscarExcluirFuncionario = new JMenuItem("Buscar/Excluir Funcionario");
-		mnFuncionarios.add(mntmBuscarExcluirFuncionario);
-		mntmBuscarExcluirFuncionario.addActionListener(e -> {
-
+		mnExcluirPacientes = new JMenuItem("Excluir Pacientes");
+		mnPacientes.add(mnExcluirPacientes);
+		mnExcluirPacientes.addActionListener(e -> {
+			adicionarInternalFrame(janelinhaExcluirPaciente);
+			this.repaint();
 		});
 
 		JMenu mnSair = new JMenu("Sair");

@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.banco.Banco;
+import model.seletor.SeletorUsuario;
+import model.vo.FuncionarioVO;
+import model.vo.MedicoVO;
 import model.vo.UsuarioVO;
 
 public class UsuarioDAO {
@@ -66,7 +69,7 @@ public class UsuarioDAO {
 		return sucesso;
 	}
 
-	public boolean excluirUsuario(int idUsuario) {
+	public boolean excluirUsuario(UsuarioVO usuario) {
 		boolean sucesso = false;
 
 		String query = " DELETE FROM USUARIO " + " WHERE IDUSUARIO = ? ";
@@ -75,16 +78,28 @@ public class UsuarioDAO {
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, query);
 
 		try {
-			prepStmt.setInt(1, idUsuario);
+			prepStmt.setInt(1, usuario.getIdUsuario());
 
-			int codigoRetorno = prepStmt.executeUpdate();
+			int resultado = 0;
+			if (usuario instanceof MedicoVO) {
+				MedicoDAO medicoDAO = new MedicoDAO();
+				if (medicoDAO.excluirMedico((MedicoVO) usuario)) {
+					resultado = prepStmt.executeUpdate();
+				}
+			} else if (usuario instanceof FuncionarioVO) {
+				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+				if (funcionarioDAO.excluirFuncionario((FuncionarioVO) usuario)) {
+					resultado = prepStmt.executeUpdate();
+				}
+			}
 
-			if (codigoRetorno == 1) {
+			if (resultado > 0) {
 				sucesso = true;
 			}
 
 		} catch (SQLException e) {
-			System.out.println("Erro ao remover Usuário. Id = " + idUsuario + ". Causa: " + e.getMessage());
+			System.out
+					.println("Erro ao remover Usuário. Id = " + usuario.getIdUsuario() + ". Causa: " + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conexao);
@@ -118,11 +133,6 @@ public class UsuarioDAO {
 		}
 
 		return usuario;
-	}
-
-	public String construirFiltros() {
-		// TODO Implementar método de construção de filtros
-		return null;
 	}
 
 	public UsuarioVO login(String usuario, String senha) {
@@ -204,6 +214,91 @@ public class UsuarioDAO {
 			Banco.closeConnection(conn);
 		}
 		return usuarios;
+	}
+
+	public ArrayList<UsuarioVO> listarUsuarios(SeletorUsuario seletor) {
+		String query = "SELECT USUARIO.IDUSUARIO, USUARIO.USUARIO, USUARIO.SENHA, USUARIO.NIVEL, USUARIOS.IDFUNCIONARIO, USUARIOS.IDMEDICO, "
+				+ "USUARIOS.NOME, USUARIOS.CPF, USUARIOS.TELEFONE, USUARIOS.EMAIL, USUARIOS.DATA_NASCIMENTO, USUARIOS.CRM, USUARIOS.ESPECIALIDADE "
+				+ "FROM USUARIO LEFT JOIN ((SELECT MEDICO.IDMEDICO, 0 AS IDFUNCIONARIO, MEDICO.NOME, MEDICO.CPF, MEDICO.TELEFONE, MEDICO.EMAIL, "
+				+ "MEDICO.DATA_NASCIMENTO, MEDICO.CRM, MEDICO.ESPECIALIDADE, MEDICO.IDUSUARIO FROM MEDICO) UNION (SELECT 0 AS IDMEDICO, FUNCIONARIO.IDFUNCIONARIO, "
+				+ "FUNCIONARIO.NOME, FUNCIONARIO.CPF, FUNCIONARIO.TELEFONE, FUNCIONARIO.EMAIL, FUNCIONARIO.DATA_NASCIMENTO, \"\" AS CRM, \"\" AS ESPECIALIDADE, FUNCIONARIO.IDUSUARIO "
+				+ "FROM FUNCIONARIO)) AS USUARIOS ON USUARIO.IDUSUARIO = USUARIOS.IDUSUARIO";
+		if (seletor.temFiltro()) {
+			query = criarFiltros(seletor, query);
+		}
+		if (seletor.temPaginacao()) {
+			query += " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
+		}
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		ArrayList<UsuarioVO> usuarios = new ArrayList<UsuarioVO>();
+
+		try {
+			ResultSet resultado = prepStmt.executeQuery();
+
+			while (resultado.next()) {
+				UsuarioVO usuario = montarUsuario(resultado);
+				usuarios.add(usuario);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao listar Usuários: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+
+		return usuarios;
+	}
+
+	private String criarFiltros(SeletorUsuario seletor, String query) {
+		query += " WHERE ";
+		boolean primeiro = true;
+
+		if (seletor.getNome() != null && !seletor.getNome().trim().isEmpty()) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIOS.NOME LIKE '%" + seletor.getNome() + "%' ";
+			primeiro = false;
+		}
+		if (seletor.getCpf() != null && !seletor.getNome().trim().isEmpty()) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIOS.CPF LIKE '%" + seletor.getCpf() + "%' ";
+			primeiro = false;
+		}
+		if (seletor.getCrm() != null && !seletor.getCrm().trim().isEmpty()) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIOS.CRM LIKE '%" + seletor.getCrm() + "%' ";
+			primeiro = false;
+		}
+		if (seletor.getEspecialidade() != null && !seletor.getEspecialidade().trim().isEmpty()) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIOS.ESPECIALIDADE LIKE '%" + seletor.getEspecialidade() + "%'";
+			primeiro = false;
+		}
+		if (seletor.getNivel() != null && !seletor.getNivel().trim().isEmpty()) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIO.NIVEL LIKE '%" + seletor.getNivel() + "%'";
+			primeiro = false;
+		}
+		if (seletor.getDataNascimento() != null) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "USUARIOS.DATA_NASCIMENTO BETWEEN " + seletor.getDataNascimento();
+			primeiro = false;
+		}
+		return query;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import model.bo.UsuarioBO;
+import model.seletor.SeletorUsuario;
 import model.vo.UsuarioVO;
 
 public class ControllerUsuario {
@@ -22,6 +23,11 @@ public class ControllerUsuario {
 	public ArrayList<UsuarioVO> listarUsuarios() {
 		UsuarioBO bo = new UsuarioBO();
 		return bo.listarUsuarios();
+	}
+
+	public ArrayList<UsuarioVO> listarUsuarios(SeletorUsuario seletor) {
+		UsuarioBO bo = new UsuarioBO();
+		return bo.listarUsuarios(seletor);
 	}
 
 	public String salvarUsuario(String nome, String cpf, String telefone, String email, String crm,
@@ -74,13 +80,11 @@ public class ControllerUsuario {
 		if (usuario == null || usuario.trim().equals("")) {
 			mensagem += "O campo Usuário é obrigatório!\n";
 		}
-		if (idUsuario == 0) {
-			if (senha == null || senha.trim().equals("")) {
-				mensagem += "O campo Senha é obrigatório!\n";
-			}
-			if (!senha.equals(confirmacaoSenha)) {
-				mensagem += "Confirmação de senha e senha não são iguais!\n";
-			}
+		if (senha == null || senha.trim().equals("")) {
+			mensagem += "O campo Senha é obrigatório!\n";
+		}
+		if (!senha.equals(confirmacaoSenha)) {
+			mensagem += "Confirmação de senha e senha não são iguais!\n";
 		}
 		if (cpf == null || cpf.trim().equals("")) {
 			mensagem += "O campo CPF é obrigatório!\n";
@@ -114,13 +118,11 @@ public class ControllerUsuario {
 		if (usuario == null || usuario.trim().equals("")) {
 			mensagem += "O campo Usuário é obrigatório!\n";
 		}
-		if (idUsuario == 0) {
-			if (senha == null || senha.trim().equals("")) {
-				mensagem += "O campo Senha é obrigatório!\n";
-			}
-			if (!senha.equals(confirmacaoSenha)) {
-				mensagem += "Confirmação de senha e senha não são iguais!\n";
-			}
+		if (senha == null || senha.trim().equals("")) {
+			mensagem += "O campo Senha é obrigatório!\n";
+		}
+		if (!senha.equals(confirmacaoSenha)) {
+			mensagem += "Confirmação de senha e senha não são iguais!\n";
 		}
 		if (cpf == null || cpf.trim().equals("")) {
 			mensagem += "O campo CPF é obrigatório!\n";
@@ -133,6 +135,11 @@ public class ControllerUsuario {
 		}
 
 		return mensagem;
+	}
+
+	public String excluirUsuario(UsuarioVO usuario) {
+		UsuarioBO bo = new UsuarioBO();
+		return bo.excluirUsuario(usuario);
 	}
 
 }

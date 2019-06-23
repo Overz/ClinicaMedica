@@ -133,7 +133,7 @@ public class MedicoDAO {
 		return sucesso;
 	}
 
-	public boolean excluirMedico(int idMedico) {
+	public boolean excluirMedico(MedicoVO medico) {
 		boolean sucesso = false;
 
 		String query = " DELETE FROM MEDICO " + " WHERE IDMEDICO = ? ";
@@ -142,7 +142,7 @@ public class MedicoDAO {
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, query);
 
 		try {
-			prepStmt.setInt(1, idMedico);
+			prepStmt.setInt(1, medico.getIdMedico());
 
 			int codigoRetorno = prepStmt.executeUpdate();
 
@@ -151,7 +151,7 @@ public class MedicoDAO {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("Erro ao remover Médico. Id = " + idMedico + ". Causa: " + e.getMessage());
+			System.out.println("Erro ao remover Médico. Id = " + medico.getIdMedico() + ". Causa: " + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conexao);

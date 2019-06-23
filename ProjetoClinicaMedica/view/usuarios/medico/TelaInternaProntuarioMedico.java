@@ -93,7 +93,7 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		getContentPane().add(lblSexo, "cell 1 2");
 
 		JScrollPane scrollPane = new JScrollPane();
-		getContentPane().add(scrollPane, "cell 5 2 6 17,grow");
+		getContentPane().add(scrollPane, "cell 5 2 6 15,grow");
 
 		tblProntuarios = new JTable();
 		scrollPane.setViewportView(tblProntuarios);
@@ -126,7 +126,7 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 
 		JLabel lblObservacoes = new JLabel("Observações:");
 		lblObservacoes.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblObservacoes, "cell 1 19 2 1,alignx left,growy");
+		getContentPane().add(lblObservacoes, "cell 1 18,alignx left,growy");
 
 		txtObservacoes = new JTextArea();
 		txtObservacoes.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -134,7 +134,7 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		txtObservacoes.setWrapStyleWord(true);
 		txtObservacoes.setEnabled(false);
 
-		getContentPane().add(txtObservacoes, "cell 1 20 10 1,grow");
+		getContentPane().add(txtObservacoes, "cell 1 19 10 2,grow");
 
 		JButton btnSelecionarPaciente = new JButton("Selecionar Paciente");
 		btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));

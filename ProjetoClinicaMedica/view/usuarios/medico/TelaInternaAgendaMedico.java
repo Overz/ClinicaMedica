@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -21,7 +22,7 @@ import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
-import view.ConsultasTableModel;
+import util.TableModels.ConsultasTableModel;
 
 public class TelaInternaAgendaMedico extends JInternalFrame {
 
@@ -86,6 +87,7 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		consultasTableModel.setHorarios(datePicker.getDate());
 		tblConsultas.setModel(consultasTableModel);
 		scrollPane.setViewportView(tblConsultas);
+		tblConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		preencherListaAgendamentos(datePicker.getDate());
 

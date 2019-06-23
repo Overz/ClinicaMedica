@@ -151,8 +151,11 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		getContentPane().add(cbxUsuarios, "cell 3 1 2 1,grow");
 		cbxUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(),
-						(UsuarioVO) cbxUsuarios.getModel().getSelectedItem());
+				if ((UsuarioVO) cbxUsuarios.getModel().getSelectedItem() == null) {
+					limparCampos();
+				} else {
+					preencherCampos((UsuarioVO) cbxUsuarios.getModel().getSelectedItem());
+				}
 			}
 		});
 
@@ -225,7 +228,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		cbxTipoUsuario.setSelectedIndex(-1);
 		cbxTipoUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem(), null);
+				atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem());
 			}
 		});
 
@@ -277,6 +280,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 	public void limparCampos() {
 		cbxUsuarios.setSelectedIndex(-1);
 		cbxTipoUsuario.setSelectedIndex(-1);
+		cbxTipoUsuario.setEnabled(true);
 		txtNome.setText("");
 		txtNome.setEnabled(false);
 		txtCpf.setText("");
@@ -299,7 +303,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		txtEspecialidade.setEnabled(false);
 	}
 
-	public void atualizarCampos(String tipoUsuario, UsuarioVO usuario) {
+	public void preencherCampos(UsuarioVO usuario) {
 		if (usuario != null) {
 			txtNome.setText(usuario.getNome());
 			txtCpf.setText(usuario.getCpf());
@@ -323,7 +327,11 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 			cbxTipoUsuario.setSelectedItem(usuario.getNivel());
 			cbxTipoUsuario.setEnabled(false);
 			txtCrm.setEnabled(false);
-		} else if (tipoUsuario != null) {
+		}
+	}
+
+	public void atualizarCampos(String tipoUsuario) {
+		if (tipoUsuario != null) {
 			if (tipoUsuario.equals(UsuarioVO.NIVEL_FUNCIONARIO) || tipoUsuario.equals(UsuarioVO.NIVEL_ADMIN)) {
 				txtNome.setEnabled(true);
 				txtCpf.setEnabled(true);
@@ -347,6 +355,8 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 				txtEspecialidade.setEnabled(true);
 				datePicker.setEnabled(true);
 			}
+		} else if (tipoUsuario == null) {
+			limparCampos();
 		}
 	}
 

@@ -146,7 +146,7 @@ public class FuncionarioDAO {
 		return sucesso;
 	}
 
-	public boolean excluirFuncionario(int idFuncionario) {
+	public boolean excluirFuncionario(FuncionarioVO funcionario) {
 		boolean sucesso = false;
 
 		String query = " DELETE FROM FUNCIONARIO " + " WHERE ID = ? ";
@@ -155,7 +155,7 @@ public class FuncionarioDAO {
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, query);
 
 		try {
-			prepStmt.setInt(1, idFuncionario);
+			prepStmt.setInt(1, funcionario.getIdFuncionario());
 
 			int codigoRetorno = prepStmt.executeUpdate();
 
@@ -164,7 +164,8 @@ public class FuncionarioDAO {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("Erro ao remover Funcionário. Id = " + idFuncionario + ". Causa: " + e.getMessage());
+			System.out.println("Erro ao remover Funcionário. Id = " + funcionario.getIdFuncionario() + ". Causa: "
+					+ e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conexao);

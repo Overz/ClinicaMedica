@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import model.banco.Banco;
 import model.seletor.SeletorPaciente;
@@ -59,7 +58,7 @@ public class PacienteDAO {
 	public boolean atualizarPaciente(PacienteVO paciente) {
 		boolean sucesso = false;
 		String query = "UPDATE PACIENTE SET NOME=?, CPF=?, TELEFONE=?, EMAIL=?, SEXO=?, "
-				+ "TIPO_SANGUINEO=?, DATA_NASCIMENTO=?, CONVENIO=? RUA=?, NUMERO=?, BAIRRO=?, CIDADE=?, "
+				+ "TIPO_SANGUINEO=?, DATA_NASCIMENTO=?, CONVENIO=?, RUA=?, NUMERO=?, BAIRRO=?, CIDADE=?, "
 				+ "ESTADO=?, CEP=? WHERE IDPACIENTE = ?";
 
 		Connection conn = Banco.getConnection();
@@ -98,7 +97,7 @@ public class PacienteDAO {
 	public boolean excluirPaciente(int idPaciente) {
 		boolean sucesso = false;
 
-		String query = " DELETE FROM PACIENTE " + " WHERE ID = ? ";
+		String query = " DELETE FROM PACIENTE " + " WHERE IDPACIENTE = ? ";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, query);
@@ -119,16 +118,6 @@ public class PacienteDAO {
 			Banco.closeConnection(conexao);
 		}
 		return sucesso;
-	}
-
-	public ArrayList<PacienteVO> buscarPaciente(PacienteVO paciente) {
-		// TODO Implementar método para consulta com seletor
-		return null;
-	}
-
-	public String construirFiltros() {
-		// TODO Implementar método de construção de filtros
-		return null;
 	}
 
 	public PacienteVO montarPaciente(ResultSet resultado) {
@@ -187,43 +176,70 @@ public class PacienteDAO {
 		query += " WHERE ";
 		boolean primeiro = true;
 
-		if (seletor.getNome() != null) {
+		if (seletor.getNome() != null && !seletor.getNome().trim().isEmpty()) {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += " NOME = " + seletor.getNome().toUpperCase();
+			query += "NOME LIKE '%" + seletor.getNome() + "%'";
 		}
-		if (seletor.getCpf() != null) {
+		if (seletor.getCpf() != null && !seletor.getCpf().trim().isEmpty()) {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += " CPF = " + seletor.getCpf().toUpperCase();
+			query += "CPF LIKE '%" + seletor.getCpf() + "%'";
 		}
 		if (seletor.getDate() != null) {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += " DATA_NASCIMENTO = " + seletor.getDate();
+			query += "DATA_NASCIMENTO BETWEEN " + seletor.getDate();
 		}
 		return query;
 	}
 
-	public PacienteVO buscarDadosPacienteCpfNomeData(SeletorPaciente seletor) {
-		String query = "SELECT * FROM PACIENTE ";
+	public ArrayList<PacienteVO> buscarPaciente(SeletorPaciente seletor) {
+		String query = "SELECT * FROM PACIENTE";
 
 		if (seletor.temFiltro()) {
 			query = criarFiltro(seletor, query);
 		}
+		if (seletor.temPaginacao()) {
+			query += " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
+		}
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
-		PacienteVO paciente = null;
+		ArrayList<PacienteVO> pacientes = new ArrayList<PacienteVO>();
 
 		try {
 			ResultSet resultado = prepStmt.executeQuery();
 
+			while (resultado.next()) {
+				PacienteVO paciente = montarPaciente(resultado);
+				pacientes.add(paciente);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar Pacientes: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return pacientes;
+	}
+
+	public ArrayList<PacienteVO> buscarPaciente() {
+		String query = " SELECT * FROM PACIENTE";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		ArrayList<PacienteVO> pacientes = new ArrayList<PacienteVO>();
+		try {
+			ResultSet resultado = prepStmt.executeQuery();
+
 			if (resultado.next()) {
-				paciente = montarPaciente(resultado);
+				PacienteVO paciente = montarPaciente(resultado);
+				pacientes.add(paciente);
 			}
 			resultado.close();
 		} catch (SQLException e) {
@@ -232,29 +248,33 @@ public class PacienteDAO {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
 		}
-		return paciente;
+		return pacientes;
+
 	}
 
-	public List<PacienteVO> consultarTodos() {
-		String query = " SELECT * FROM PACIENTE ";
+	public boolean existePacientePorCpf(PacienteVO paciente) {
+		boolean sucesso = false;
+		String query = "SELECT * FROM PACIENTE WHERE CPF = ? AND IDPACIENTE != ?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
-		List<PacienteVO> paciente = null;
+
 		try {
+			prepStmt.setString(1, paciente.getCpf());
+			prepStmt.setInt(2, paciente.getIdPaciente());
 			ResultSet resultado = prepStmt.executeQuery();
 
 			if (resultado.next()) {
-				paciente = (List<PacienteVO>) montarPaciente(resultado);
+				sucesso = true;
 			}
 			resultado.close();
 		} catch (SQLException e) {
-			System.out.println("Erro ao buscar Paciente por ID: " + e.getMessage());
+			System.out.println("Erro ao verificar se existe Paciente por CPF: " + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
 		}
-		return paciente;
-
+		return sucesso;
 	}
+
 }
