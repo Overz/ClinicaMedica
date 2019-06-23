@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.mysql.cj.protocol.Resultset;
 
 import model.banco.Banco;
 import model.vo.ConsultaVO;
@@ -126,7 +129,7 @@ public class ConsultaDAO {
 			consulta.setFuncionario(funcionario);
 		} catch (SQLException e) {
 			System.out.println("Erro ao construir Consulta: \n" + e.getMessage());
-		}
+		} 
 
 		return consulta;
 	}
@@ -159,6 +162,33 @@ public class ConsultaDAO {
 		}
 
 		return consultas;
+	}
+	
+	public List<ConsultaVO> consultarTudo() {
+		String query = " SELECT * FROM CONSULTA ";
+		
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		ArrayList<ConsultaVO> consulta = new ArrayList<ConsultaVO>();
+		
+		try {
+			
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				ConsultaVO consultas = montarConsulta(resultado);
+				consulta.add(consultas);
+			}
+			resultado.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao Gerar Relatorio de Todas as Consultas Realizadas no Banco.\n" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		
+		return consulta;
 	}
 
 }

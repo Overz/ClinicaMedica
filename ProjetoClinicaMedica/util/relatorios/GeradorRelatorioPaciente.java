@@ -1,4 +1,4 @@
-package util;
+package util.relatorios;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,18 +15,18 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import model.vo.PacienteVO;
 
-public class GeradorPlanilha {
+public class GeradorRelatorioPaciente {
 	
 
 	/**
 	 * Gera uma planilha Excel (formato .xlsx) a partir de uma lista de produtos
 	 * 
 	 * @param caminhoArquivo onde a planilha será salva
-	 * @param produtos       a lista de produtos
+	 * @param List<> a lista do objeto que deseja fazer o relatorio
 	 * 
 	 * @return uma mensagem informando ao usuário o que ocorreu.
 	 */
-	public String gerarPlanilhaProdutos(List<PacienteVO> paciente, String caminhoArquivo) {
+	public String gerarPlanilhaPaciente(List<PacienteVO> consulta, String caminhoArquivo) {
 		// Criar a planilha (Workbook)
 		XSSFWorkbook planilha = new XSSFWorkbook();
 
@@ -40,30 +40,30 @@ public class GeradorPlanilha {
 				"Estado", "Cidade", "Bairro", "Rua", "Numero", "CEP" };
 		criarCabecalho(nomesColunas, aba, linhaAtual);
 
-		// Preencher as linhas com os produtos
-		criarLinhasProdutos(paciente, aba, linhaAtual);
+		// Preencher as linhas com os pacientes
+		criarLinhasPaciente(consulta, aba, linhaAtual);
 
 		// Salvar o arquivo gerado no disco
 		return salvarNoDisco(planilha, caminhoArquivo, ".xlsx");
 	}
 
-	private void criarLinhasProdutos(List<PacienteVO> pacientes, XSSFSheet aba, int posicaoLinhaAtual) {
-		for (PacienteVO p : pacientes) {
+	private void criarLinhasPaciente(List<PacienteVO> consulta, XSSFSheet aba, int posicaoLinhaAtual) {
+		for (PacienteVO p : consulta) {
 			XSSFRow linhaAtual = aba.createRow(posicaoLinhaAtual);
 			
 			linhaAtual.createCell(0).setCellValue(p.getIdPaciente());
 			linhaAtual.createCell(1).setCellValue(p.getNome());
-			linhaAtual.createCell(1).setCellValue(Date.valueOf(p.getDtNascimento()));
-			linhaAtual.createCell(1).setCellValue(p.getCpf());
-			linhaAtual.createCell(1).setCellValue(p.getTelefone());
-			linhaAtual.createCell(1).setCellValue(p.getSexo());
-			linhaAtual.createCell(1).setCellValue(p.getTipoSanguineo());
-			linhaAtual.createCell(1).setCellValue(p.getEstado());
-			linhaAtual.createCell(1).setCellValue(p.getCidade());
-			linhaAtual.createCell(1).setCellValue(p.getBairro());
-			linhaAtual.createCell(1).setCellValue(p.getRua());
-			linhaAtual.createCell(1).setCellValue(p.getNumero());
-			linhaAtual.createCell(1).setCellValue(p.getCep());
+			linhaAtual.createCell(2).setCellValue(Date.valueOf(p.getDtNascimento()));
+			linhaAtual.createCell(3).setCellValue(p.getCpf());
+			linhaAtual.createCell(4).setCellValue(p.getTelefone());
+			linhaAtual.createCell(5).setCellValue(p.getSexo());
+			linhaAtual.createCell(6).setCellValue(p.getTipoSanguineo());
+			linhaAtual.createCell(7).setCellValue(p.getEstado());
+			linhaAtual.createCell(8).setCellValue(p.getCidade());
+			linhaAtual.createCell(9).setCellValue(p.getBairro());
+			linhaAtual.createCell(10).setCellValue(p.getRua());
+			linhaAtual.createCell(11).setCellValue(p.getNumero());
+			linhaAtual.createCell(12).setCellValue(p.getCep());
 			
 			posicaoLinhaAtual++;
 		}
@@ -106,8 +106,6 @@ public class GeradorPlanilha {
 			}
 		}
 		
-		return null;
+		return mensagem;
 	}
-
-
 }
