@@ -14,6 +14,8 @@ import model.vo.ConsultaVO;
 import model.vo.PacienteVO;
 
 public class ConsultasTableModel extends AbstractTableModel {
+
+	private static final long serialVersionUID = -3291514113008354236L;
 	private static final int HORARIO = 0;
 	private static final int PACIENTE = 1;
 

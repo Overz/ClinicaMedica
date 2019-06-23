@@ -18,6 +18,8 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import controller.ControllerFuncionario;
+import controller.ControllerPaciente;
+import model.seletor.SeletorPaciente;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaBuscarPaciente extends JInternalFrame {
@@ -105,14 +107,20 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 				String nome = ftfNome.getText();
 				String cpf = ftfCpf.getText();
 				LocalDate date = datePicker.getDate();
+				
 
-				ControllerFuncionario controller = new ControllerFuncionario();
-				String mensagem = controller.validarTelaBuscarPaciente(nome, cpf, date);
+				ControllerPaciente controller = new ControllerPaciente();
+				SeletorPaciente seletor = new SeletorPaciente();
+				seletor.setNome(nome);
+				seletor.setCpf(cpf);
+				seletor.setDate(date);
+				
+				String mensagem = controller.validarCamposPesquisarCadastroPaciente(seletor);
 
 				if (!(mensagem == null)) {
 					JOptionPane.showMessageDialog(null, mensagem);
 				} else {
-					// TODO trazer busca dos campos selecionados
+					
 				}
 			} catch (Exception e2) {
 				System.out

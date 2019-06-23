@@ -26,10 +26,11 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import controller.ControllerFuncionario;
-import controller.ControllerValidacao;
+import controller.ControllerRelatorio;
 import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import net.miginfocom.swing.MigLayout;
+import view.ConsultasTableModel;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
@@ -141,8 +142,8 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		getContentPane().add(btnPesquisarPorCampos, "cell 3 7 4 1,grow");
 		btnPesquisarPorCampos.addActionListener(e -> {
 
-			ControllerFuncionario controller = new ControllerFuncionario();
 			try {
+				ControllerFuncionario controller = new ControllerFuncionario();
 				String nome = ftfNome.getText();
 				String cpfCrm = ftfCampoCpfCrm.getText();
 				LocalDate date = datePicker.getDate();
@@ -181,15 +182,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
-				int row = table.getSelectedRow();
-				int column = table.getSelectedColumn();
 				table.setSelectionBackground(Color.YELLOW);
-
-
-				PacienteVO object = (PacienteVO) table.getModel().getValueAt(row, column);
-				String value = (String) table.getValueAt(row, column);
-				valoresDaTabela(value, object);
 			}
 		});
 
@@ -200,19 +193,11 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		btnCadastrarConsulta.addActionListener(e -> {
 
 			//TODO Cadastrar consulta no banco.
-
+			
 
 
 		});
 		this.repaint();
-	}
-
-	private String valoresDaTabela(String value, PacienteVO object) {
-
-		ControllerValidacao controller = new ControllerValidacao();
-		String mensagem = controller.valoresDaTabela(value, object);
-
-		return mensagem;
 	}
 
 	public void verificarCamposCbBox() {

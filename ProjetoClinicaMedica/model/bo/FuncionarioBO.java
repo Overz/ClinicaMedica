@@ -1,12 +1,16 @@
 package model.bo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import model.dao.FuncionarioDAO;
 import model.dao.UsuarioDAO;
 import model.vo.FuncionarioVO;
 
 public class FuncionarioBO {
+
+	private FuncionarioBO bo;
+	private FuncionarioDAO dao;
 
 	public String cadastrarFuncionario(FuncionarioVO funcionario) {
 		String mensagem = "";
@@ -80,15 +84,15 @@ public class FuncionarioBO {
 		return mensagem;
 	}
 
-	public String  ValidarSalvarCadastroPaciente(String nome, String cpf, String rg, LocalDate data, int sexo,
+	public ArrayList<FuncionarioVO> consultarFuncionarioADM(String nome, String cpf) {
+		return null; //TODO dao.consultarFuncionarioADM(nome, cpf);
+	}
+
+	public String ValidarSalvarCadastroPaciente(String nome, String cpf, String rg, LocalDate date, int sexo,
 			int estadoCivil, int tipoSangue, String cidade, String bairro, String rua, String numero, String telefone,
 			String celular, String email) {
-		
-		String mensagem = "";
-		
-		// TODO Continuar
-		
-		return mensagem;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

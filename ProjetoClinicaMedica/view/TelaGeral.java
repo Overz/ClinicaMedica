@@ -7,17 +7,22 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
+import controller.ControllerPaciente;
+import controller.ControllerRelatorio;
 import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import model.vo.UsuarioVO;
@@ -42,13 +47,14 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mntmCadastrarPaciente;
 	private JMenuItem mntmAgendaMedica;
 	private JMenuItem mntmProntuario;
-	private JMenuItem mntmGerarRelatorioDeConsultas;
+	private JMenuItem mntmGerarRelatorio_0001;
 	private JMenuItem mntmCadastrarAtualizarFuncionarios;
 	private JMenuItem mntmBuscarExcluirFuncionario;
 	private JMenuItem mnBuscarExcluirPacienteADM;
 	private JMenuItem mnCadastrarAtualizarPacienteADM;
 	private JMenuItem mntmExcluirUsuarios;
 	private JMenuItem mntmCadastrarUsuarios;
+	private JMenuItem mntmGerarRelatorio_0002;
 
 	private UsuarioVO usuario;
 	private PacienteVO paciente;
@@ -65,7 +71,6 @@ public class TelaGeral extends JFrame {
 
 	int width_int;
 	int height_int;
-	private JMenuItem mntmRelatorioDeProntuarios;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -169,13 +174,28 @@ public class TelaGeral extends JFrame {
 		menuBar.add(mnRelatorios);
 		mnRelatorios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-gráfico-combinado.png")));
 
-		mntmGerarRelatorioDeConsultas = new JMenuItem("Relatorio de Consultas");
-		mnRelatorios.add(mntmGerarRelatorioDeConsultas);
+		mntmGerarRelatorio_0001 = new JMenuItem("Relatorio de Pacientes");
+		mnRelatorios.add(mntmGerarRelatorio_0001);
+		mntmGerarRelatorio_0001.addActionListener(e -> {
+			JFileChooser jfc = new JFileChooser();
+			jfc.setDialogTitle("Salvar relatório em...");
+			
+			int resultado = jfc.showSaveDialog(null);
+			if(resultado == JFileChooser.APPROVE_OPTION){
+				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
+				ControllerPaciente controllerPaciente = new ControllerPaciente();
+				List<PacienteVO>vo = controllerPaciente.consultarTodos();
+				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
+				String mensagem = controllerRelatorio.gerarRelatorio(vo, caminhoEscolhido);
+			
+				JOptionPane.showMessageDialog(null, mensagem);
+			}
+		});
 
-		mntmRelatorioDeProntuarios = new JMenuItem("Relatorio de Prontuários");
-		mnRelatorios.add(mntmRelatorioDeProntuarios);
-		mntmGerarRelatorioDeConsultas.addActionListener(e -> {
-
+		mntmGerarRelatorio_0002 = new JMenuItem("Relatorio de Médicos");
+		mnRelatorios.add(mntmGerarRelatorio_0002);
+		mntmGerarRelatorio_0002.addActionListener(e -> {
+			
 		});
 
 		// MENU ADM

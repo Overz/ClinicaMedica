@@ -3,6 +3,8 @@ package model.vo;
 import java.time.LocalDate;
 
 public class PacienteVO extends PessoaVO {
+	
+	//Convenio
 	public static final String SEXO_MASCULINO = "M";
 	public static final String SEXO_FEMININO = "F";
 	public static final String CONVENIO_UNIMED = "Unimed";
@@ -14,6 +16,15 @@ public class PacienteVO extends PessoaVO {
 	public static final String CONVENIO_GOLDEN_CROSS = "Golden Cross";
 	public static final String CONVENIO_INTERMEDICA = "Intermédica";
 	public static final String CONVENIO_NOTRE_DAME_SEGURO_SAUDE = "Notre Dame Seguro Saúde";
+	//Tipo Sanguineo
+	public static final String A = "A+";
+	public static final String a = "A-";
+	public static final String B = "B+";
+	public static final String b = "B-";
+	public static final String AB = "AB+";
+	public static final String ab = "AB-";
+	public static final String O = "O+";
+	public static final String o = "O-";
 
 	private int idPaciente;
 	private String sexo;
@@ -28,7 +39,6 @@ public class PacienteVO extends PessoaVO {
 
 	public PacienteVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public PacienteVO(int idPaciente, String sexo, String tipoSanguineo, String rua, int numero, String bairro,

@@ -1,6 +1,7 @@
 package controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import model.bo.FuncionarioBO;
 import model.vo.FuncionarioVO;
@@ -58,132 +59,14 @@ public class ControllerFuncionario {
 	 * @param data
 	 * @return resultado da pesquisa se encontrado.
 	 */
-	public String validarTelaBuscarPaciente(String nome, String cpf, LocalDate data) {
-		String mensagem = "";
 
-		if (cpf == null || cpf.trim().isEmpty()) {
-			mensagem = "Por favor, Digite algum Campo Acima!";
-		}
-		if (nome == null || nome.trim().isEmpty()) {
-			mensagem = "Por favor, Digite algum Campo Acima!";
-		}
-		//TODO DATA
-		if (data == null ) {
-			mensagem = "Por favor, Digite algum Campo Acima!";
-		}
-
-		return mensagem;
+	public ArrayList<FuncionarioVO> ConsultarFuncionarioADM(String nome, String cpf) {
+		return bo.consultarFuncionarioADM(nome, cpf);
 	}
 
-	/**
-	 * Método para TelaInterna de Cadastrar Paciente, que valida os campos de busca
-	 * @param nome
-	 * @param cpf
-	 * @param rg
-	 * @return resultado da pesquisa se encontrado.
-	 */
-	public String validarCamposPesquisarCadastroPaciente(String nome, String cpf, String rg) {
-		String mensagem = "";
-
-		if (nome == null || nome.trim().isEmpty()) {
-			mensagem = "Por favor, Digite algum Campo Acima!";
-		}
-		if (cpf == null || cpf.trim().isEmpty()) {
-			mensagem = "Por favor, Digite algum Campo Acima!";
-		}
-		if (rg == null || rg.trim().isEmpty()) {
-			mensagem = "Por favor, Digite algum Campo Acima!";
-		}
-
-		return mensagem;
-	}
-	
-	public boolean validarEMail(String email) {
-		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-	      return email.matches(regex);
-	 
-	}
-	
-	/**
-	 * Método para validar os campos antes de cadastrar os dados do usuario no banco.
-	 * @param nome
-	 * @param cpf
-	 * @param rg
-	 * @param dataString
-	 * @param sexo
-	 * @param estadoCivil
-	 * @param tipoSangue
-	 * @param cidade
-	 * @param bairro
-	 * @param rua
-	 * @param numero
-	 * @param telefone
-	 * @param celular
-	 * @param email
-	 * @return mensagem de sucesso caso os dados sejam cadastrados de maneira correta.
-	 */
-	public String validarSalvarCadastroPaciente(String nome, String cpf, String rg, LocalDate date, int sexo,
-			int estadoCivil, int tipoSangue, String cidade, String bairro, String rua, String numero, String telefone,
-			String celular, String email) {
-
-		String mensagem = "";
-
-		if (nome == null || nome.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo NOME Acima!\n";
-		}
-		if (cpf == null || cpf.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo CPF Acima!\n";
-		}
-		if (rg == null || rg.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo RG Acima!\n";
-		}
-		//TODO DATA
-		if (date == null ) {
-			mensagem += "Por favor, Selecione o Campo DATA Acima!\n";
-		}
-		if (sexo == -1) {
-			mensagem += "Por favor, Escolha o Campo SEXO Acima!\n";
-		}
-		if (estadoCivil == -1) {
-			mensagem += "Por favor, Escolha o campo ESTADO CIVIL Acima!\n";
-		}
-		if (cidade == null || cidade.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo CIDADE Acima!\n";
-		}
-		if (bairro == null || bairro.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo BAIRRO Acima!";
-		}
-		if (rua == null || rua.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o campo RUA Acima!";
-		}
-		if (numero == null || numero.trim().isEmpty()) {
-			mensagem += "Por favor, Digite o Campo NUMERO Acima";
-		}
-		if (telefone == null || telefone.trim().isEmpty()) {
-			if (celular == null || celular.trim().isEmpty()) {
-				mensagem += "Por favor, Digite TELEFONE ou CELULAR Acima";
-			}
-		}
-		if (!validarEMail(email)) {
-			mensagem += "Por favor, Digite um EMAIL Valido!";
-		}
-		
-		if (mensagem == null || mensagem.trim().isEmpty()) {
-			mensagem += bo.ValidarSalvarCadastroPaciente(nome, cpf, rg, date, sexo, estadoCivil, tipoSangue, cidade, bairro, rua, numero, telefone, celular, email);
-		}
-
-		return mensagem;
-	}
-
-	/**
-	 * Reaproveitação de Método, com mesmos campos.
-	 * @param nome
-	 * @param cpfCrm
-	 * @param data
-	 * @return
-	 */
-	public String ValidarCamposConsultasEHorarios(String nome, String cpfCrm, LocalDate data) {
-		return validarTelaBuscarPaciente(nome, cpfCrm, data);
+	public String ValidarCamposConsultasEHorarios(String nome, String cpfCrm, LocalDate date) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
