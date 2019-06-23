@@ -7,8 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.banco.Banco;
+import model.seletor.SeletorPaciente;
 import model.vo.PacienteVO;
 
 public class PacienteDAO {
@@ -180,4 +182,79 @@ public class PacienteDAO {
 		return paciente;
 	}
 
+	public String criarFiltro(SeletorPaciente seletor, String query) {
+
+		query += " WHERE ";
+		boolean primeiro = true;
+
+		if (seletor.getNome() != null) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += " NOME = " + seletor.getNome().toUpperCase();
+		}
+		if (seletor.getCpf() != null) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += " CPF = " + seletor.getCpf().toUpperCase();
+		}
+		if (seletor.getDate() != null) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += " DATA_NASCIMENTO = " + seletor.getDate();
+		}
+		return query;
+	}
+
+	public PacienteVO buscarDadosPacienteCpfNomeData(SeletorPaciente seletor) {
+		String query = "SELECT * FROM PACIENTE ";
+
+		if (seletor.temFiltro()) {
+			query = criarFiltro(seletor, query);
+		}
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		PacienteVO paciente = null;
+
+		try {
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				paciente = montarPaciente(resultado);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar Paciente por ID: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return paciente;
+	}
+
+	public List<PacienteVO> consultarTodos() {
+		String query = " SELECT * FROM PACIENTE ";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		List<PacienteVO> paciente = null;
+		try {
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				paciente = (List<PacienteVO>) montarPaciente(resultado);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar Paciente por ID: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return paciente;
+
+	}
 }

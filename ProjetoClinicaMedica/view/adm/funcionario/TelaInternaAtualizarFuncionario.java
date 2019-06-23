@@ -15,22 +15,24 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import controller.ControllerConsulta;
+import controller.ControllerFuncionario;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaInternaAtualizarFuncionario extends JInternalFrame {
 
 	private static final long serialVersionUID = -5960289086930711613L;
 	private JButton btnPesquisar;
-	private JTextField txtNome;
 	private JFormattedTextField ftfCpf;
 	private JButton btnLimpar;
 	private JButton btnPesquisarTodos;
 	private JButton btnSalvar;
 	private JButton btnApagar;
-	private JTable tableClientes;
+	private JTable table;
 	private JCheckBox chckbxFuncionario;
 	private JCheckBox chckbxMedico;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JFormattedTextField ftfNome;
 	
 
 	public static void main(String[] args) {
@@ -61,7 +63,7 @@ public class TelaInternaAtualizarFuncionario extends JInternalFrame {
 		getContentPane().add(lblFuncionario, "cell 1 1,alignx center,growy");
 		
 		JLabel lblNome = new JLabel("Nome:");
-		getContentPane().add(lblNome, "cell 1 2,alignx center,growy");
+		getContentPane().add(lblNome, "cell 1 2,alignx trailing,growy");
 		
 		JLabel lblCpf = new JLabel("CPF:");
 		getContentPane().add(lblCpf, "cell 1 4,alignx center,growy");
@@ -73,9 +75,8 @@ public class TelaInternaAtualizarFuncionario extends JInternalFrame {
 		buttonGroup.add(chckbxFuncionario);
 		buttonGroup.add(chckbxMedico);
 
-		txtNome = new JTextField();
-		getContentPane().add(txtNome, "cell 2 2 4 1,grow");
-		txtNome.setColumns(10);
+		ftfNome = new JFormattedTextField();
+		getContentPane().add(ftfNome, "cell 2 2 4 1,grow");
 
 		ftfCpf = new JFormattedTextField();
 		getContentPane().add(ftfCpf, "cell 2 4 4 1,grow");
@@ -89,13 +90,20 @@ public class TelaInternaAtualizarFuncionario extends JInternalFrame {
 		btnLimpar = new JButton("Limpar Campos");
 		getContentPane().add(btnLimpar, "flowx,cell 2 5 2 1,grow");
 		btnLimpar.addActionListener(e -> {
-			txtNome.setText("");
+			ftfNome.setText("");
 			ftfCpf.setText("");
 		});
 
-		btnPesquisarTodos = new JButton("Pesquisar Todos");
+		btnPesquisarTodos = new JButton("Pesquisar");
 		getContentPane().add(btnPesquisarTodos, "cell 5 5 3 1,grow");
 		btnPesquisarTodos.addActionListener(e -> {
+			
+			if (chckbxFuncionario.isSelected()) {
+				String nome = ftfNome.getText();
+				String cpf = ftfCpf.getText();
+				ControllerFuncionario controller = new ControllerFuncionario();
+				controller.ConsultarFuncionarioADM(nome, cpf);
+			}
 
 		});
 
@@ -118,9 +126,9 @@ public class TelaInternaAtualizarFuncionario extends JInternalFrame {
 		Object[] columnNames = new String[] { "#", "Nome", "CPF", "DT Nascimento", "Telefone", "Celular", "E-Mail" };
 
 
-		tableClientes = new JTable();
-		getContentPane().add(tableClientes, "cell 1 7 7 1,grow");
-		tableClientes.setModel(new DefaultTableModel(data, columnNames));
+		table = new JTable();
+		getContentPane().add(table, "cell 1 7 7 1,grow");
+		table.setModel(new DefaultTableModel(data, columnNames));
 		
 		JCheckBox chkbApagarCliente = new JCheckBox("Apagar Clientes");
 		getContentPane().add(chkbApagarCliente, "cell 7 9,alignx leading,growy");
