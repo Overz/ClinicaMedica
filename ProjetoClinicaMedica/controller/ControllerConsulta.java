@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.bo.ConsultaBO;
 import model.vo.ConsultaVO;
@@ -13,11 +14,13 @@ import model.vo.PacienteVO;
 
 public class ControllerConsulta {
 
+	private ConsultaBO bo;
+
 	public ArrayList<ConsultaVO> pesquisarConsultasPorDataEMedico(LocalDate data, MedicoVO medico) {
-		ConsultaBO bo = new ConsultaBO();
 		return bo.pesquisarConsultasPorDataEMedico(data, medico);
 	}
 
+<<<<<<< HEAD
 	public String agendarConsulta(MedicoVO medico, PacienteVO paciente, LocalDate data, LocalTime horario,
 			FuncionarioVO funcionario) {
 		String mensagem = "";
@@ -51,6 +54,10 @@ public class ControllerConsulta {
 		consulta.setPaciente(paciente);
 
 		return consulta;
+=======
+	public List<ConsultaVO> consultarTodos() {
+		return bo.consultarTudo();
+>>>>>>> branch 'master' of https://github.com/Overz/ClinicaMedica.git
 	}
 
 }

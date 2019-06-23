@@ -2,6 +2,7 @@ package model.bo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.dao.PacienteDAO;
 import model.seletor.SeletorPaciente;
@@ -88,12 +89,6 @@ public class PacienteBO {
 		} else {
 			mensagem += "Erro ao Cadastrar o Paciente";
 		}
-
-		return mensagem;
-	}
-
-	public String validarTelaBuscarPaciente(String nome, String cpfCrm, LocalDate data) {
-		String mensagem = "";
 
 		return mensagem;
 	}

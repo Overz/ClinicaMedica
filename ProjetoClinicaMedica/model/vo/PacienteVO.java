@@ -35,7 +35,7 @@ public class PacienteVO extends PessoaVO {
 	private String estado;
 	private String cep;
 	private String convenio;
-
+	
 	public PacienteVO() {
 		super();
 	}

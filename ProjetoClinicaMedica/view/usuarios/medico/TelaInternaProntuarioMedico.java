@@ -173,9 +173,10 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		this.lblEmail.setText(this.paciente.getEmail());
 
 		ControllerProntuario controller = new ControllerProntuario();
-		ArrayList<ProntuarioVO> prontuarios = controller.listarProntuariosPorPacienteEMedico(this.paciente,
-				this.medico);
+		ArrayList<ProntuarioVO> prontuarios = controller.listarProntuariosPorPacienteEMedico(this.paciente,	this.medico);
 
+		//TODO CONTINUAR
+		
 		DefaultTableModel modelo = (DefaultTableModel) tblProntuarios.getModel();
 
 		for (ProntuarioVO prontuario : prontuarios) {

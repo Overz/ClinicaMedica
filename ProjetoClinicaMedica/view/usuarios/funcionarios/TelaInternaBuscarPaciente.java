@@ -18,6 +18,7 @@ import javax.swing.text.MaskFormatter;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
+import controller.ControllerFuncionario;
 import controller.ControllerPaciente;
 import model.seletor.SeletorPaciente;
 import model.vo.PacienteVO;

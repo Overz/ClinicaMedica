@@ -52,21 +52,7 @@ public class ControllerFuncionario {
 		return mensagem;
 	}
 
-	/**
-	 * Método para TelaInternaBuscarPaciente que valida os campos de buscas.
-	 * @param cpf
-	 * @param nome
-	 * @param data
-	 * @return resultado da pesquisa se encontrado.
-	 */
-
 	public ArrayList<FuncionarioVO> ConsultarFuncionarioADM(String nome, String cpf) {
 		return bo.consultarFuncionarioADM(nome, cpf);
 	}
-
-	public String ValidarCamposConsultasEHorarios(String nome, String cpfCrm, LocalDate date) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
