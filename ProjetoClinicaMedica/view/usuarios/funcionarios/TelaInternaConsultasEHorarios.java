@@ -1,28 +1,25 @@
 package view.usuarios.funcionarios;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.text.MaskFormatter;
+import javax.swing.ListSelectionModel;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
-import controller.ControllerFuncionario;
+import model.vo.ConsultaVO;
+import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import net.miginfocom.swing.MigLayout;
+import util.TableModels.ConsultasTableModel;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
@@ -32,10 +29,13 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	private JButton btnSelecionarMedico;
 	private JButton btnCadastrarConsulta;
 	private JButton btnLimparCampos;
-	private MaskFormatter mascaraNome;
-	private MaskFormatter mascaraCpfCrm;
-	private JTable table;
+	private JTable tblConsultas;
 	private final DatePicker datePicker = new DatePicker();
+	private JButton btnSelecionarPaciente;
+
+	private MedicoVO medico;
+	private PacienteVO paciente;
+	private ArrayList<ConsultaVO> consultas = new ArrayList<ConsultaVO>();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -72,18 +72,14 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
 	private void initialize() {
 
-		try {
-			mascaraNome = new MaskFormatter(
-					"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-			mascaraCpfCrm = new MaskFormatter("####################");
-		} catch (ParseException e1) {
-			System.out.println("Erro ao criar Mascara" + e1.getMessage());
-		}
-
 		lblPaciente = new JLabel("Paciente: ");
 		lblPaciente.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(lblPaciente, "cell 1 1,alignx trailing,growy");
 		lblPaciente.setVisible(true);
+
+		btnSelecionarPaciente = new JButton("Selecionar Paciente");
+		btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 22));
+		getContentPane().add(btnSelecionarPaciente, "cell 6 1,grow");
 
 		lblMedico = new JLabel("Médico: ");
 		lblMedico.setFont(new Font("Verdana", Font.PLAIN, 22));
@@ -97,29 +93,14 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
 		datePicker.setSettings(dateSettings);
 		datePicker.setToolTipText("Selecione a Data para Consulta");
-		getContentPane().add(datePicker, "cell 6 1,grow");
+		getContentPane().add(datePicker, "cell 6 7,grow");
+		datePicker.setDate(LocalDate.now());
 
 		btnSelecionarMedico = new JButton("Selecionar Médico");
 		btnSelecionarMedico.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(btnSelecionarMedico, "cell 6 5,grow");
 		btnSelecionarMedico.addActionListener(e -> {
 
-			try {
-				ControllerFuncionario controller = new ControllerFuncionario();
-				String nome = ftfNome.getText();
-				String cpfCrm = ftfCampoCpfCrm.getText();
-				LocalDate date = datePicker.getDate();
-				String mensagem = controller.ValidarCamposConsultasEHorarios(nome, cpfCrm, date);
-				if (mensagem != null) {
-					JOptionPane.showMessageDialog(null, mensagem);
-				}
-			} catch (NullPointerException e2) {
-				System.out.println(
-						"Tela: Consultas e Horarios. Erro ao Validar os Campos para consulta.\n" + e2.getMessage());
-			}
-
-			// ArrayList<PacienteVO> vo = controller.consultarData(data);
-			// atualizarTabela(vo);
 		});
 
 		btnLimparCampos = new JButton("Limpar Campos");
@@ -127,26 +108,19 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		getContentPane().add(btnLimparCampos, "cell 3 18 2 1,grow");
 		btnLimparCampos.addActionListener(e -> {
 
-			cbOpcaoPesquisa.setSelectedIndex(0);
-			datePicker.setDate(null);
-			ftfNome.setText("");
-			ftfCampoCpfCrm.setText("");
-
 		});
 
-		Object[][] data = new Object[][] { { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" }, };
-		Object[] columnNames = new String[] { "Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade" };
+		JScrollPane scrollPane = new JScrollPane();
+		getContentPane().add(scrollPane, "cell 1 9 8 8,grow");
 
-		table = new JTable();
-		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		table.setModel(new DefaultTableModel(data, columnNames));
-		getContentPane().add(table, "cell 1 9 8 8,grow");
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				table.setSelectionBackground(Color.YELLOW);
-			}
-		});
+		tblConsultas = new JTable();
+		tblConsultas.setFont(new Font("Verdana", Font.PLAIN, 18));
+		tblConsultas.setRowHeight(50);
+		ConsultasTableModel consultasTableModel = new ConsultasTableModel();
+		consultasTableModel.setHorarios(datePicker.getDate());
+		tblConsultas.setModel(consultasTableModel);
+		scrollPane.setViewportView(tblConsultas);
+		tblConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		btnCadastrarConsulta = new JButton("Cadastrar Consulta");
 		btnCadastrarConsulta.setFont(new Font("Verdana", Font.PLAIN, 22));
@@ -155,31 +129,22 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		getContentPane().add(btnCadastrarConsulta, "cell 6 18,grow");
 		btnCadastrarConsulta.addActionListener(e -> {
 
-			// TODO Cadastrar consulta no banco.
-
 		});
 		this.repaint();
 	}
 
-	private void atualizarTabela(ArrayList<PacienteVO> paciente) {
-
-		/*
-		 * Object novaLinha[] = new Object[5]; for (PacienteVO pacienteVO : paciente) {
-		 * novaLinha[0] = pacienteVO.getNome(); novaLinha[1] =
-		 * pacienteVO.getCliente().getHoraConsulta(); novaLinha[2] =
-		 * pacienteVO.getCliente().getCpf(); novaLinha[3] =
-		 * pacienteVO.getCliente().getTelefone(); novaLinha[4] = pacienteVO.getNome();
-		 * novaLinha[5] = pacienteVO.getEspecialidade();
-		 * 
-		 * model.addRow(novaLinha);
-		 */
-
+	public void setMedico(MedicoVO medico) {
+		this.medico = medico;
+		this.lblMedico.setText("Médico: " + medico.toString());
 	}
 
-	/*
-	 * private void limparTabela() { table.setModel(new DefaultTableModel( new
-	 * Object[][] {{"Nome", "Data", "Hora", "Telefone", "Médico", "Especialidade"}},
-	 * new String[] {"Nome", "Data", "Hora", "Telefone", "Médico",
-	 * "Especialidade"})); }
-	 */
+	public void setPaciente(PacienteVO paciente) {
+		this.paciente = paciente;
+		this.lblPaciente.setText("Paciente: " + paciente.toString());
+	}
+
+	public void atualizarCampos() {
+		if (this.medico == null || )
+	}
+
 }
