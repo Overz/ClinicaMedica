@@ -2,7 +2,6 @@ package controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import model.bo.ProntuarioBO;
 import model.vo.MedicoVO;
@@ -20,9 +19,9 @@ public class ControllerProntuario {
 		return prontuarios;
 	}
 
-	public List<ProntuarioVO> consultarTodos() {
-
-		return null;
+	public ArrayList<?> consultarTodos() {
+		ProntuarioBO bo = new ProntuarioBO();
+		return bo.consultarTodos();
 	}
 
 	public String salvarProntuario(MedicoVO medico, PacienteVO paciente, String observacoes) {

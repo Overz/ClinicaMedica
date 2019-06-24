@@ -332,7 +332,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 	public void listarPacientes() {
 		ControllerPaciente controller = new ControllerPaciente();
-		pacientes = controller.consultarTodos();
+		pacientes = (ArrayList<PacienteVO>) controller.consultarTodos();
 		pacientes.add(0, null);
 		cbxPacientes.setModel(new DefaultComboBoxModel(pacientes.toArray()));
 		cbxPacientes.setSelectedIndex(-1);

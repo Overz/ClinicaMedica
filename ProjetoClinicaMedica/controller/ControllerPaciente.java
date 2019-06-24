@@ -87,33 +87,6 @@ public class ControllerPaciente {
 	}
 
 	/**
-	 * Método para TelaInterna de Cadastrar Paciente, que valida os campos de busca
-	 * 
-	 * @param nome
-	 * @param cpf
-	 * @param rg
-	 * @return resultado da pesquisa se encontrado.
-	 */
-//	public String validarCamposPesquisarCadastroPaciente(SeletorPaciente seletor) {
-//		String mensagem = "";
-
-//		if (seletor.getNome() == null || seletor.getNome().isEmpty()) {
-//			mensagem += "Por favor, Digite algum Campo Acima!";
-//		}
-//		if (seletor.getCpf() == null || seletor.getCpf().isEmpty()) {
-//			mensagem += "Por favor, Digite algum Campo Acima!";
-//		}
-//		if (seletor.getDate() == null) {
-//			mensagem += "Por favor, Digite algum Campo Acima!";
-//		}
-//		if (mensagem == null || mensagem.trim().isEmpty()) {
-//			vo = bo.buscarPaciente(seletor);
-//			setarDadosNaTela(vo);
-//		}
-//		return mensagem;
-//	}
-
-	/**
 	 * Método Auxiliar para setar os dados na tela.
 	 * 
 	 * @param validarCamposPesquisarCadastroPaciente(Seletor)
@@ -190,14 +163,14 @@ public class ControllerPaciente {
 
 		return mensagem;
 	}
-	
+
 	public boolean validarEMail(String email) {
 		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 		return email.matches(regex);
 
 	}
 
-	public ArrayList<PacienteVO> consultarTodos() {
+	public ArrayList<?> consultarTodos() {
 		return bo.consultarTodos();
 	}
 

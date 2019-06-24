@@ -109,7 +109,7 @@ public class ProntuarioDAO {
 
 		try {
 			prontuario.setIdProntuario(resultado.getInt("IDPRONTUARIO"));
-			prontuario.setDtProntuario(resultado.getTimestamp(("DATA_PRONTUARIO")).toLocalDateTime().minusHours(3));
+			prontuario.setDtProntuario(resultado.getTimestamp(("DATA_PRONTUARIO")).toLocalDateTime());
 			prontuario.setObservacoes(resultado.getString("OBSERVACOES"));
 
 			PacienteVO paciente = new PacienteVO();
@@ -148,6 +148,29 @@ public class ProntuarioDAO {
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conexao);
+		}
+		return prontuarios;
+	}
+
+	public ArrayList<?> consultarTodos() {
+		String query = " SELECT * FROM PRONTUARIO ";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		ArrayList<ProntuarioVO> prontuarios = new ArrayList<ProntuarioVO>();
+
+		try {
+			ResultSet resultado = prepStmt.executeQuery();
+			while (resultado.next()) {
+				ProntuarioVO prontuario = montarProntuario(resultado);
+				prontuarios.add(prontuario);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao Consultar Todos os Prontuarios.\n" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
 		}
 		return prontuarios;
 	}

@@ -8,6 +8,13 @@ import model.vo.ProntuarioVO;
 
 public class ProntuarioBO {
 
+	private ProntuarioDAO dao;
+
+	public ArrayList<?> consultarTodos() {
+		dao = new ProntuarioDAO();
+		return dao.consultarTodos();
+	}
+
 	public ArrayList<ProntuarioVO> listarProntuariosPorPaciente(PacienteVO paciente) {
 		ProntuarioDAO dao = new ProntuarioDAO();
 		return dao.listarProntuariosPorPaciente(paciente);

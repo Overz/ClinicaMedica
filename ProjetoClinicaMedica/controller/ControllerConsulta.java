@@ -54,8 +54,8 @@ public class ControllerConsulta {
 		return consulta;
 	}
 
-//	public List<ConsultaVO> consultarTodos() {
-//		return bo.consultarTudo();
-//	}
+	public ArrayList<?> consultarTodos() {
+		return bo.consultarTudos();
+	}
 
 }

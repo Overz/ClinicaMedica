@@ -229,8 +229,8 @@ public class PacienteDAO {
 		return pacientes;
 	}
 
-	public ArrayList<PacienteVO> buscarPaciente() {
-		String query = " SELECT * FROM PACIENTE";
+	public ArrayList<?> consultarTodos() {
+		String query = " SELECT * FROM PACIENTE ";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
@@ -238,19 +238,18 @@ public class PacienteDAO {
 		try {
 			ResultSet resultado = prepStmt.executeQuery();
 
-			if (resultado.next()) {
+			while (resultado.next()) {
 				PacienteVO paciente = montarPaciente(resultado);
 				pacientes.add(paciente);
 			}
 			resultado.close();
 		} catch (SQLException e) {
-			System.out.println("Erro ao buscar Paciente por ID: " + e.getMessage());
+			System.out.println("Erro ao buscar Todos os Pacientes.\n" + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
 		}
 		return pacientes;
-
 	}
 
 	public boolean existePacientePorCpf(PacienteVO paciente) {

@@ -7,9 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mysql.cj.protocol.Resultset;
 
 import model.banco.Banco;
 import model.vo.ConsultaVO;
@@ -158,7 +168,7 @@ public class ConsultaDAO {
 		return consultas;
 	}
 
-	public List<ConsultaVO> consultarTudo() {
+	public ArrayList<?> consultarTudos() {
 		String query = " SELECT * FROM CONSULTA ";
 
 		Connection conn = Banco.getConnection();
@@ -169,14 +179,14 @@ public class ConsultaDAO {
 
 			ResultSet resultado = prepStmt.executeQuery();
 
-			if (resultado.next()) {
+			while (resultado.next()) {
 				ConsultaVO consultas = montarConsulta(resultado);
 				consulta.add(consultas);
 			}
 			resultado.close();
 
 		} catch (SQLException e) {
-			System.out.println("Erro ao Gerar Relatorio de Todas as Consultas Realizadas no Banco.\n" + e.getMessage());
+			System.out.println("Erro ao Buscar Todas as Consultas.\n" + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
@@ -184,7 +194,7 @@ public class ConsultaDAO {
 
 		return consulta;
 	}
-
+	
 	public boolean existeConsultaPorDataEMedico(ConsultaVO consulta) {
 		boolean sucesso = false;
 		String query = "SELECT * FROM CONSULTA WHERE IDMEDICO = ? AND DATE(DATA_CONSULTA) = ?";

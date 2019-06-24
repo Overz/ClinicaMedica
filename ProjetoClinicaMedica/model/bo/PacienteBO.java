@@ -93,8 +93,8 @@ public class PacienteBO {
 		return mensagem;
 	}
 
-	public ArrayList<PacienteVO> consultarTodos() {
-		return dao.buscarPaciente();
+	public ArrayList<?> consultarTodos() {
+		return dao.consultarTodos();
 	}
 
 	public String excluirPaciene(PacienteVO paciente) {
