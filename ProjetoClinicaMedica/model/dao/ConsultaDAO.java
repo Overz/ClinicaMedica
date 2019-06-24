@@ -163,32 +163,27 @@ public class ConsultaDAO {
 
 		return consultas;
 	}
-	
-	public List<ConsultaVO> consultarTudo() {
+
+	public ArrayList<?> consultarTudos() {
 		String query = " SELECT * FROM CONSULTA ";
-		
+
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
 		ArrayList<ConsultaVO> consulta = new ArrayList<ConsultaVO>();
-		
 		try {
-			
 			ResultSet resultado = prepStmt.executeQuery();
 
-			if (resultado.next()) {
+			while (resultado.next()) {
 				ConsultaVO consultas = montarConsulta(resultado);
 				consulta.add(consultas);
 			}
 			resultado.close();
-			
 		} catch (SQLException e) {
-			System.out.println("Erro ao Gerar Relatorio de Todas as Consultas Realizadas no Banco.\n" + e.getMessage());
+			System.out.println("Erro ao Buscar Todas as Consultas.\n" + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
 		}
-		
 		return consulta;
 	}
-
 }

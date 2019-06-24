@@ -53,13 +53,12 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mntmProntuario;
 	private JMenuItem mntmGerarRelatorioDeConsultas;
 	private JMenuItem mntmGerarRelatorioPaciente;
+	private JMenuItem mntmRelatorioDeProntuarios;
 	private JMenuItem mnExcluirPacientes;
 	private JMenuItem mnCadastroDePaciente;
 	private JMenuItem mntmExcluirUsuarios;
 	private JMenuItem mntmCadastroDeUsuarios;
 	private JMenuItem mntmAgenda;
-	private JMenuItem mntmGerarRelatorio_0002;
-	private JMenuItem mntmRelatorioDeProntuarios;
 
 	private UsuarioVO usuario;
 	private PacienteVO paciente;
@@ -76,7 +75,10 @@ public class TelaGeral extends JFrame {
 
 	int width_int;
 	int height_int;
-
+	private ArrayList<PacienteVO> pacienteVO;
+	private ArrayList<ConsultaVO> consultasVO;
+	private ArrayList<ProntuarioVO> prontuarioVO;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -212,15 +214,13 @@ public class TelaGeral extends JFrame {
 				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
 				ControllerConsulta controllerConsulta = new ControllerConsulta();
 				
-				List<ConsultaVO> vo = controllerConsulta.consultarTodos();
-				
+				ArrayList<ConsultaVO> vo = (ArrayList<ConsultaVO>) controllerConsulta.consultarTodos();
+				atualizarListas(vo);
 				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
-				String mensagem = controllerRelatorio.gerarRelatorioConsultas(vo, caminhoEscolhido);
+				String mensagem = controllerRelatorio.gerarRelatorioConsultas(consultasVO , caminhoEscolhido);
 
 				JOptionPane.showMessageDialog(null, mensagem);
 			}
-			
-
 		});
 		
 		mntmGerarRelatorioPaciente = new JMenuItem("Relatorio de Pacientes");
@@ -233,11 +233,16 @@ public class TelaGeral extends JFrame {
 
 			int resultado = jfc.showSaveDialog(null);
 			if (resultado == JFileChooser.APPROVE_OPTION) {
+
+				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
+				
 				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
 				ControllerPaciente controllerPaciente = new ControllerPaciente();
-				List<PacienteVO> vo = controllerPaciente.consultarTodos();
-				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
-				String mensagem = controllerRelatorio.gerarRelatorioPaciente(vo, caminhoEscolhido);
+				
+				ArrayList<PacienteVO> vo =  (ArrayList<PacienteVO>) controllerPaciente.consultarTodos();
+				atualizarListas(vo);
+				
+				String mensagem = controllerRelatorio.gerarRelatorioPaciente(pacienteVO, caminhoEscolhido);
 
 				JOptionPane.showMessageDialog(null, mensagem);
 			}
@@ -253,10 +258,16 @@ public class TelaGeral extends JFrame {
 			
 			int resultado = jfc.showSaveDialog(null);
 			if (resultado == JFileChooser.APPROVE_OPTION) {
+				
+				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
+				
 				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
 				ControllerProntuario controllerProntuario = new ControllerProntuario();
-				List<ProntuarioVO> vo = controllerProntuario.consultarTodos();
 				
+				ArrayList<ProntuarioVO> vo = (ArrayList<ProntuarioVO>) controllerProntuario.consultarTodos(); // TODO REALIZAR CONSULTA NO DAO
+				atualizarListas(vo);
+				
+				String mensagem = controllerRelatorio.gerarRelatorio(prontuarioVO, caminhoEscolhido);
 			}
 		});
 
@@ -320,13 +331,20 @@ public class TelaGeral extends JFrame {
 		});
 
 		this.verificarPermissaoParaTela();
-
 	}
 
+	/**
+	 * Método que impede abrir o mesmo JInternalFrame mais de uma vez.
+	 * @param janelinha
+	 */
 	public void fecharJanelinha(JInternalFrame janelinha) {
 		componentesDaTela.remove(janelinha);
 	}
 
+	/**
+	 * Método que confere se o JInternalFrame esta Aberto ou não, se sim, impede de abrir o mesmo novamente.
+	 * @param janelinha
+	 */
 	private void adicionarInternalFrame(JInternalFrame janelinha) {
 		if (!componentesDaTela.contains(janelinha)) {
 			desktopPane.add(janelinha);
@@ -344,6 +362,9 @@ public class TelaGeral extends JFrame {
 	}
 
 
+	/**
+	 * Método que verifica a permissão do usuario logado, para disponibilizar Apenas os campos necessarios na tela.
+	 */
 	protected void verificarPermissaoParaTela() {
 
 		if (UsuarioVO.NIVEL_FUNCIONARIO.equals(this.usuario.getNivel())) {
@@ -365,24 +386,19 @@ public class TelaGeral extends JFrame {
 		}
 	}
 	
-	private void gerarRelatorio () {
+	/**
+	 * Atualizar lista para gerar o Relatorio;
+	 * @param lista
+	 */
+	private void atualizarListas(ArrayList<?> lista) {
 		
-		JFileChooser jfc = new JFileChooser();
-		jfc.setDialogTitle("Salvar relatório em...");
-
-		int resultado = jfc.showSaveDialog(null);
-		if (resultado == JFileChooser.APPROVE_OPTION) {
-			ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
-			ControllerPaciente controllerPaciente = new ControllerPaciente();
-			List<PacienteVO> vo = controllerPaciente.consultarTodos();
-			String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
-			//String mensagem = controllerRelatorio.gerarRelatorio(vo, caminhoEscolhido);
-
-			//JOptionPane.showMessageDialog(null, mensagem);
-		}
-
+		this.pacienteVO = (ArrayList<PacienteVO>) lista;
+		this.consultasVO = (ArrayList<ConsultaVO>) lista;
+		this.prontuarioVO = (ArrayList<ProntuarioVO>) lista;
+		
 	}
-
+	
+	// Getter Setter
 	public UsuarioVO getUsuario() {
 		return this.usuario;
 	}

@@ -2,6 +2,7 @@ package controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.bo.PacienteBO;
 import model.seletor.SeletorPaciente;
@@ -197,7 +198,7 @@ public class ControllerPaciente {
 
 	}
 
-	public ArrayList<PacienteVO> consultarTodos() {
+	public ArrayList<?> consultarTodos() {
 		return bo.consultarTodos();
 	}
 

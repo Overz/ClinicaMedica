@@ -2,12 +2,10 @@ package model.bo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import model.dao.ConsultaDAO;
 import model.vo.ConsultaVO;
 import model.vo.MedicoVO;
-import model.vo.PacienteVO;
 
 public class ConsultaBO {
 
@@ -17,8 +15,8 @@ public class ConsultaBO {
 		return dao.pesquisarConsultasPorDataEMedico(data, medico);
 	}
 
-	public List<ConsultaVO> consultarTudo() {
-		return dao.consultarTudo();
+	public ArrayList<?> consultarTudos() {
+		return dao.consultarTudos();
 	}
 
 }
