@@ -58,34 +58,6 @@ public class ControllerPaciente {
 		return bo.excluirPaciene(paciente);
 	}
 
-	public String validar(PacienteVO paciente) {
-		String mensagem = "";
-		if (paciente == null) {
-			mensagem += "Paciente está vazio";
-		}
-		if (paciente.getNome() == null || paciente.getNome().trim().isEmpty()) {
-			mensagem += "O campo NOME é obrigatório!\n";
-		}
-		if (paciente.getCpf() == null || paciente.getCpf().trim().isEmpty()) {
-			mensagem += "O campo CPF é obrigatório!\n";
-		}
-		if (paciente.getTelefone() == null || paciente.getTelefone().trim().isEmpty()) {
-			mensagem += "O campo TELEFONE é obrigatório!\n";
-		}
-		if (paciente.getTipoSanguineo() == null || paciente.getTipoSanguineo().trim().isEmpty()) {
-			mensagem += "O campo TIPO SANGUÍNEO é obrigatório!\n";
-		}
-		if (paciente.getSexo() == null || paciente.getSexo().trim().isEmpty()) {
-			mensagem += "O campo SEXO é obrigatório!\n";
-		}
-		if (paciente.getConvenio() == null || paciente.getConvenio().trim().isEmpty()) {
-			mensagem += "O campo CONVENIO é obrigatório!\n";
-		}
-
-		// TODO
-		return mensagem;
-	}
-
 	/**
 	 * Método Auxiliar para setar os dados na tela.
 	 * 
@@ -164,6 +136,11 @@ public class ControllerPaciente {
 		return mensagem;
 	}
 
+	/**
+	 * Método para validar email, contendo um @ obrigatorio, dominio(.com.br) obrigatorio.
+	 * @param email
+	 * @return
+	 */
 	public boolean validarEMail(String email) {
 		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 		return email.matches(regex);
