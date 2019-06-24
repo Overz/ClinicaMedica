@@ -21,6 +21,7 @@ import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import model.vo.ProntuarioVO;
 import net.miginfocom.swing.MigLayout;
+import view.usuarios.funcionarios.TelaInternaBuscarPaciente;
 
 public class TelaInternaProntuarioMedico extends JInternalFrame {
 
@@ -140,7 +141,9 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnSelecionarPaciente, "cell 2 21");
 		btnSelecionarPaciente.addActionListener(e -> {
-			// CHAMAR TELA DE BUSCA DE PACIENTE
+			TelaInternaBuscarPaciente telaInternaBuscarPaciente = new TelaInternaBuscarPaciente();
+			getDesktopPane().add(telaInternaBuscarPaciente);
+			telaInternaBuscarPaciente.setVisible(true);
 
 			if (this.paciente != null) {
 				preencherCampos();
@@ -153,12 +156,15 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		btnSalvar.setEnabled(false);
 		btnSalvar.addActionListener(e -> {
 			String observacoes = txtObservacoes.getText();
-			if (observacoes == null || observacoes.trim().isEmpty()) {
-				JOptionPane.showMessageDialog(this, "Prontuário está vazio!");
-			} else {
-
-			}
+			ControllerProntuario controller = new ControllerProntuario();
+			String mensagem = controller.salvarProntuario(medico, paciente, observacoes);
+			JOptionPane.showMessageDialog(this, mensagem);
+			txtObservacoes.setText("");
 		});
+
+		if (this.paciente != null) {
+			preencherCampos();
+		}
 
 	}
 
@@ -173,10 +179,8 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		this.lblEmail.setText(this.paciente.getEmail());
 
 		ControllerProntuario controller = new ControllerProntuario();
-		ArrayList<ProntuarioVO> prontuarios = controller.listarProntuariosPorPacienteEMedico(this.paciente,	this.medico);
+		ArrayList<ProntuarioVO> prontuarios = controller.listarProntuariosPorPaciente(this.paciente);
 
-		//TODO CONTINUAR
-		
 		DefaultTableModel modelo = (DefaultTableModel) tblProntuarios.getModel();
 
 		for (ProntuarioVO prontuario : prontuarios) {

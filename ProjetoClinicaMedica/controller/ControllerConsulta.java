@@ -13,22 +13,11 @@ import model.vo.PacienteVO;
 
 public class ControllerConsulta {
 
-	private ConsultaBO bo;
+	private ConsultaBO bo = new ConsultaBO();
 
 	public ArrayList<ConsultaVO> pesquisarConsultasPorDataEMedico(LocalDate data, MedicoVO medico) {
 		return bo.pesquisarConsultasPorDataEMedico(data, medico);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	public String agendarConsulta(MedicoVO medico, PacienteVO paciente, LocalDate data, LocalTime horario,
 			FuncionarioVO funcionario) {

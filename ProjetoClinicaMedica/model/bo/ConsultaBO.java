@@ -10,12 +10,12 @@ import model.vo.MedicoVO;
 
 public class ConsultaBO {
 
-	private ConsultaDAO dao;
+	private ConsultaDAO dao = new ConsultaDAO();
 
 	public ArrayList<ConsultaVO> pesquisarConsultasPorDataEMedico(LocalDate data, MedicoVO medico) {
 		return dao.pesquisarConsultasPorDataEMedico(data, medico);
 	}
-	
+
 	public String agendarConsulta(ConsultaVO consulta) {
 		String mensagem = "";
 

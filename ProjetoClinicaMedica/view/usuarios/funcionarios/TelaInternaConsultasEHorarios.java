@@ -178,7 +178,8 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		this.funcionario = funcionario;
 	}
 
-	/*public void atualizarCampos() {
-		if (this.medico != null || )
-	}*/
+	public void atualizarCampos() {
+
+	}
+
 }

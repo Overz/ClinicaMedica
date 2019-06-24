@@ -36,7 +36,6 @@ public class ConsultaDAO {
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query, Statement.RETURN_GENERATED_KEYS);
-		Date sqlDate = localTimeToDate(consulta.getData_consulta());
 
 		try {
 			prepStmt.setTimestamp(1, Timestamp.valueOf(consulta.getData_consulta()));
@@ -134,7 +133,7 @@ public class ConsultaDAO {
 			consulta.setFuncionario(funcionario);
 		} catch (SQLException e) {
 			System.out.println("Erro ao construir Consulta: \n" + e.getMessage());
-		} 
+		}
 
 		return consulta;
 	}
@@ -142,7 +141,7 @@ public class ConsultaDAO {
 	public ArrayList<ConsultaVO> pesquisarConsultasPorDataEMedico(LocalDate data, MedicoVO medico) {
 		String query = "SElECT * FROM CONSULTA INNER JOIN MEDICO ON CONSULTA.IDMEDICO = MEDICO.IDMEDICO "
 				+ "INNER JOIN PACIENTE ON CONSULTA.IDPACIENTE = PACIENTE.IDPACIENTE WHERE CONSULTA.IDMEDICO = ? "
-				+ "AND DATA_CONSULTA = ?";
+				+ "AND DATE(DATA_CONSULTA) = ?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
@@ -175,7 +174,9 @@ public class ConsultaDAO {
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
 		ArrayList<ConsultaVO> consulta = new ArrayList<ConsultaVO>();
+
 		try {
+
 			ResultSet resultado = prepStmt.executeQuery();
 
 			while (resultado.next()) {
@@ -183,24 +184,27 @@ public class ConsultaDAO {
 				consulta.add(consultas);
 			}
 			resultado.close();
+
 		} catch (SQLException e) {
 			System.out.println("Erro ao Buscar Todas as Consultas.\n" + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
 		}
+
 		return consulta;
 	}
+	
 	public boolean existeConsultaPorDataEMedico(ConsultaVO consulta) {
 		boolean sucesso = false;
-		String query = "SELECT * FROM CONSULTA WHERE IDMEDICO = ? AND DATA_CONSULTA = ?";
+		String query = "SELECT * FROM CONSULTA WHERE IDMEDICO = ? AND DATE(DATA_CONSULTA) = ?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
 
 		try {
 			prepStmt.setInt(1, consulta.getMedico().getIdMedico());
-			prepStmt.setDate(2, conversorLocalDateTimeSqlDate(consulta.getData_consulta()));
+			prepStmt.setTimestamp(2, Timestamp.valueOf(consulta.getData_consulta()));
 
 			ResultSet resultado = prepStmt.executeQuery();
 
@@ -216,30 +220,6 @@ public class ConsultaDAO {
 		}
 		return sucesso;
 
-	}
-
-	public Date conversorLocalDateTimeSqlDate(LocalDateTime data) {
-		LocalDateTime dateValue = data;
-		java.util.Date utilDate;
-		String dateFormat = "yyyy-MM-dd'T'HH:mm:ss";
-		DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern(dateFormat);
-		SimpleDateFormat sdf1 = new SimpleDateFormat(dateFormat);
-		try {
-			utilDate = sdf1.parse(dateValue.format(dtf1));
-		} catch (ParseException e) {
-			System.out.println("Erro ao converter de LocalDateTime para sql.Date: " + e.getMessage());
-			utilDate = null;
-		}
-		return new java.sql.Date(utilDate.getTime());
-	}
-
-	public static java.sql.Date localTimeToDate(LocalDateTime lt) {
-		ZonedDateTime localDateTime = lt.atZone(ZoneId.systemDefault());
-		Instant instant = localDateTime.toInstant();
-		long longDate = instant.toEpochMilli();
-		LocalDateTime localDate = LocalDateTime.ofEpoch	Second(longDate, 0, ZoneOffset.)
-		Date sqlDate = new Date(longDate);
-		return sqlDate;
 	}
 
 }
