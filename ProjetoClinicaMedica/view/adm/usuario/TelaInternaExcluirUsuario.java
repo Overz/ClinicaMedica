@@ -65,8 +65,7 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 		super("Clinica Médica - Exclusão de Usuario", false, false, false, false);
 		setBounds(100, 100, 840, 638);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][1px][150px][50px:50px:50px][200px:200px:200px,grow][10]",
-				"[40][40][40][40][][grow][40][10]"));
+		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[40][40][40][40][][grow][40][10]"));
 
 		initialize();
 	}
@@ -83,7 +82,7 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 
 		lblNivel = new JLabel("Nível:");
 		lblNivel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(lblNivel, "cell 3 0,alignx trailing");
+		getContentPane().add(lblNivel, "cell 3 0,grow");
 
 		cbxNivel = new JComboBox();
 		cbxNivel.setModel(new DefaultComboBoxModel(
@@ -162,7 +161,7 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(btnCancelar, "cell 2 6,alignx right");
+		getContentPane().add(btnCancelar, "cell 2 6,grow");
 		btnCancelar.addActionListener(e -> {
 			this.dispose();
 		});

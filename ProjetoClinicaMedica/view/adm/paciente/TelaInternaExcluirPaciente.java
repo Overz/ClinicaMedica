@@ -3,7 +3,6 @@ package view.adm.paciente;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -31,18 +30,15 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 	private static final long serialVersionUID = -4416105711278801014L;
 	private JTable tblPacientes;
 	private JFormattedTextField txtCpf;
+	private MaskFormatter mascaraCpf;
 	private JButton btnExcluirUsuario;
 	private JButton btnLimpar;
 	private JButton btnPesquisar;
 	private JLabel lblDataDeNascimento;
+	private JButton btnCancelar;
 	private JTextField txtNome;
 	private final DatePicker datePicker = new DatePicker();
-	private JButton btnCancelar;
-	private ArrayList<PacienteVO> pacientes;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -56,31 +52,20 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaInternaExcluirPaciente() {
-		super("Clinica Médica - Exclusão de Usuario", false, false, false, false);
-		setBounds(100, 100, 840, 638);
+		super("Clinica Médica - Exclusão de Usuario", false, true, false, false);
+		setBounds(100, 100, 865, 708);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][1px][150px][50px:50px:50px][200px:200px:200px,grow][10]",
-				"[40][40][40][40][][grow][40][10]"));
+		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[10][50][50][50][10][grow][10][60][10]"));
 
 		initialize();
 	}
 
 	private void initialize() {
 
-		MaskFormatter mascaraCpf;
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 
-			txtNome = new JTextField();
-			txtNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			getContentPane().add(txtNome, "cell 2 2,grow");
-			txtCpf = new JFormattedTextField(mascaraCpf);
-			txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			getContentPane().add(txtCpf, "cell 2 3,grow");
 		} catch (ParseException e1) {
 			System.out.println("Erro ao criar máscara de CPF: " + e1.getMessage());
 		}
@@ -90,32 +75,40 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(lblNome, "cell 1 2,grow");
+		getContentPane().add(lblNome, "cell 1 1,grow");
+
+		datePicker.setSettings(dateSettings);
+		getContentPane().add(datePicker, "cell 2 3,grow");
+		datePicker.setEnabled(false);
+
+		JLabel lblCpf = new JLabel("CPF:");
+		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(lblCpf, "cell 1 2,grow");
+
+		lblDataDeNascimento = new JLabel("Data de Nascimento:");
+		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(lblDataDeNascimento, "cell 1 3,grow");
+		
+		txtNome = new JTextField();
+		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(txtNome, "cell 2 1,grow");
 
 		btnLimpar = new JButton("Limpar Campos");
 		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(btnLimpar, "cell 4 3,grow");
+		getContentPane().add(btnLimpar, "cell 4 1,grow");
 		btnLimpar.addActionListener(e -> {
 			txtNome.setText("");
 			txtCpf.setText("");
 			datePicker.setDate(null);
 		});
-
-		datePicker.setSettings(dateSettings);
-		getContentPane().add(datePicker, "cell 2 4, grow");
-		datePicker.setEnabled(false);
-
-		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(lblCpf, "cell 1 3,grow");
-
-		lblDataDeNascimento = new JLabel("Data de Nascimento:");
-		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(lblDataDeNascimento, "cell 1 4");
+		
+		txtCpf = new JFormattedTextField(mascaraCpf);
+		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(txtCpf, "cell 2 2,grow");
 
 		btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(btnPesquisar, "cell 4 4,grow");
+		getContentPane().add(btnPesquisar, "cell 4 2 1 2,grow");
 		btnPesquisar.addActionListener(e -> {
 			consultarPacientes();
 		});
@@ -132,14 +125,14 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(btnCancelar, "cell 2 6,alignx right");
+		getContentPane().add(btnCancelar, "cell 2 7,grow");
 		btnCancelar.addActionListener(e -> {
 			this.dispose();
 		});
 
-		btnExcluirUsuario = new JButton("Excluir Usuário");
+		btnExcluirUsuario = new JButton("Excluir Paciente");
 		btnExcluirUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(btnExcluirUsuario, "cell 4 6,grow");
+		getContentPane().add(btnExcluirUsuario, "cell 4 7,grow");
 		btnExcluirUsuario.addActionListener(e -> {
 			PacienteTableModel modelo = (PacienteTableModel) tblPacientes.getModel();
 			PacienteVO paciente = modelo.getPaciente(tblPacientes.getSelectedRow());

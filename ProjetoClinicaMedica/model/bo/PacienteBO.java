@@ -1,8 +1,6 @@
 package model.bo;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import model.dao.PacienteDAO;
 import model.seletor.SeletorPaciente;
