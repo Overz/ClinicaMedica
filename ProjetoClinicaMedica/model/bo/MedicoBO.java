@@ -1,7 +1,10 @@
 package model.bo;
 
+import java.util.ArrayList;
+
 import model.dao.MedicoDAO;
 import model.dao.UsuarioDAO;
+import model.seletor.SeletorUsuario;
 import model.vo.MedicoVO;
 
 public class MedicoBO {
@@ -89,6 +92,11 @@ public class MedicoBO {
 		}
 
 		return mensagem;
+	}
+
+	public ArrayList<MedicoVO> listarMedicos(SeletorUsuario seletor) {
+		MedicoDAO dao = new MedicoDAO();
+		return dao.listarrMedico(seletor);
 	}
 
 }

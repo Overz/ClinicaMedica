@@ -25,6 +25,7 @@ import controller.ControllerConsulta;
 import controller.ControllerPaciente;
 import controller.ControllerProntuario;
 import controller.ControllerRelatorio;
+import model.vo.FuncionarioVO;
 import model.vo.ConsultaVO;
 import model.vo.MedicoVO;
 import model.vo.PacienteVO;
@@ -140,6 +141,7 @@ public class TelaGeral extends JFrame {
 		mntmAgenda.addActionListener(e -> {
 			if (usuario.getNivel().equals(UsuarioVO.NIVEL_ADMIN)
 					|| usuario.getNivel().equals(UsuarioVO.NIVEL_FUNCIONARIO)) {
+				janelinhaPrincipalRecepcao.setFuncionario((FuncionarioVO) usuario);
 				adicionarInternalFrame(janelinhaPrincipalRecepcao);
 			} else if (usuario.getNivel().equals(UsuarioVO.NIVEL_MEDICO)) {
 				janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
@@ -188,7 +190,7 @@ public class TelaGeral extends JFrame {
 
 		mntmProntuario = new JMenuItem("Prontuario");
 		mntmProntuario
-		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
 		mnMedico.add(mntmProntuario);
 		mntmProntuario.addActionListener(e -> {
 			adicionarInternalFrame(janelinhaProntuario);
@@ -202,7 +204,8 @@ public class TelaGeral extends JFrame {
 		menuBar.add(mnRelatorios);
 
 		mntmGerarRelatorioDeConsultas = new JMenuItem("Relatorio de Consultas");
-		mntmGerarRelatorioDeConsultas.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
+		mntmGerarRelatorioDeConsultas
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
 		mnRelatorios.add(mntmGerarRelatorioDeConsultas);
 		mntmGerarRelatorioDeConsultas.addActionListener(e -> {
 			JFileChooser jfc = new JFileChooser();
@@ -249,7 +252,8 @@ public class TelaGeral extends JFrame {
 		});
 
 		mntmRelatorioDeProntuarios = new JMenuItem("Relatorio de Prontuários");
-		mntmRelatorioDeProntuarios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
+		mntmRelatorioDeProntuarios
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
 		mnRelatorios.add(mntmRelatorioDeProntuarios);
 		mntmRelatorioDeProntuarios.addActionListener(e -> {
 			
@@ -283,7 +287,7 @@ public class TelaGeral extends JFrame {
 
 		JMenu mnUsuarios = new JMenu("Usuarios");
 		mnUsuarios
-		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
 		mnAdm.add(mnUsuarios);
 
 		mntmExcluirUsuarios = new JMenuItem("Excluir Usuarios");
@@ -368,18 +372,22 @@ public class TelaGeral extends JFrame {
 	protected void verificarPermissaoParaTela() {
 
 		if (UsuarioVO.NIVEL_FUNCIONARIO.equals(this.usuario.getNivel())) {
+
 			//mntmAgenda.add(janelinhaPrincipalRecepcao);
 			mnMedico.setEnabled(false);
 			mnAdm.setEnabled(false);
-			// chamar telas agenda e/ou cadastro paciente
+			janelinhaPrincipalRecepcao = new TelaInternaConsultasEHorarios();
+			janelinhaPrincipalRecepcao.setFuncionario((FuncionarioVO) usuario);
+			adicionarInternalFrame(janelinhaPrincipalRecepcao);
 		} else if (UsuarioVO.NIVEL_MEDICO.equals(this.usuario.getNivel())) {
+
 			//mntmAgenda.add(janelinhaAgendaMedica);
 			mnPaciente.setEnabled(false);
 			mnAdm.setEnabled(false);
 			janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
 			adicionarInternalFrame(janelinhaAgendaMedica);
 		} else if (UsuarioVO.NIVEL_ADMIN.equals(this.usuario.getNivel())) {
-			//mntmAgenda.add(janelinhaPrincipalRecepcao);
+			mntmAgenda.setEnabled(false);
 			mnPaciente.setEnabled(true);
 			mnMedico.setEnabled(false);
 			mnAdm.setEnabled(true);

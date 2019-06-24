@@ -132,4 +132,10 @@ public class UsuariosTableModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 
+	public void addMedicos(ArrayList<MedicoVO> medicos) {
+		int indice = getRowCount();
+		linhas.addAll(medicos);
+		fireTableRowsInserted(indice, indice + medicos.size());
+	}
+
 }

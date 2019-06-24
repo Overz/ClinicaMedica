@@ -3,11 +3,13 @@ package view.usuarios.funcionarios;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -15,7 +17,9 @@ import javax.swing.ListSelectionModel;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
+import controller.ControllerConsulta;
 import model.vo.ConsultaVO;
+import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import net.miginfocom.swing.MigLayout;
@@ -35,6 +39,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
 	private MedicoVO medico;
 	private PacienteVO paciente;
+	private FuncionarioVO funcionario;
 	private ArrayList<ConsultaVO> consultas = new ArrayList<ConsultaVO>();
 
 	public static void main(String[] args) {
@@ -80,11 +85,16 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		btnSelecionarPaciente = new JButton("Selecionar Paciente");
 		btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(btnSelecionarPaciente, "cell 6 1,grow");
+		btnSelecionarPaciente.addActionListener(e -> {
+			TelaInternaBuscarPaciente telaInternaBuscarPaciente = new TelaInternaBuscarPaciente();
+			getDesktopPane().add(telaInternaBuscarPaciente);
+			telaInternaBuscarPaciente.setVisible(true);
+		});
 
 		lblMedico = new JLabel("Médico: ");
 		lblMedico.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(lblMedico, "cell 1 5,alignx trailing,growy");
-		lblMedico.setVisible(false);
+		lblMedico.setVisible(true);
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
@@ -100,14 +110,18 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		btnSelecionarMedico.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(btnSelecionarMedico, "cell 6 5,grow");
 		btnSelecionarMedico.addActionListener(e -> {
-
+			TelaInternaBuscarMedico telaInternaBuscarMedico = new TelaInternaBuscarMedico();
+			getDesktopPane().add(telaInternaBuscarMedico);
+			telaInternaBuscarMedico.setVisible(true);
 		});
 
 		btnLimparCampos = new JButton("Limpar Campos");
 		btnLimparCampos.setFont(new Font("Verdana", Font.PLAIN, 22));
 		getContentPane().add(btnLimparCampos, "cell 3 18 2 1,grow");
 		btnLimparCampos.addActionListener(e -> {
-
+			TelaInternaBuscarPaciente telaInternaBuscarPaciente = new TelaInternaBuscarPaciente();
+			getDesktopIcon().add(telaInternaBuscarPaciente);
+			telaInternaBuscarPaciente.setVisible(true);
 		});
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -128,14 +142,31 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 				"Selecione uma Linha, e Registre os Dados em Ordem na Tabela, para Realizar o Cadastro das Consultas.");
 		getContentPane().add(btnCadastrarConsulta, "cell 6 18,grow");
 		btnCadastrarConsulta.addActionListener(e -> {
-
+			ConsultasTableModel modelo = (ConsultasTableModel) tblConsultas.getModel();
+			LocalDate data = datePicker.getDate();
+			LocalTime horario = modelo.getHorario(tblConsultas.getSelectedRow());
+			ControllerConsulta controller = new ControllerConsulta();
+			String mensagem = controller.agendarConsulta(medico, paciente, data, horario, funcionario);
+			JOptionPane.showMessageDialog(this, mensagem);
 		});
 		this.repaint();
+	}
+
+	public MedicoVO getMedico() {
+		return this.medico;
 	}
 
 	public void setMedico(MedicoVO medico) {
 		this.medico = medico;
 		this.lblMedico.setText("Médico: " + medico.toString());
+		if (datePicker.getDate() != null) {
+			ControllerConsulta controller = new ControllerConsulta();
+			controller.pesquisarConsultasPorDataEMedico(datePicker.getDate(), medico);
+		}
+	}
+
+	public PacienteVO getPaciente() {
+		return this.paciente;
 	}
 
 	public void setPaciente(PacienteVO paciente) {
@@ -143,7 +174,18 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		this.lblPaciente.setText("Paciente: " + paciente.toString());
 	}
 
+<<<<<<< HEAD
+	public void setFuncionario(FuncionarioVO funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public void atualizarCampos() {
+
+	}
+
+=======
 	/*public void atualizarCampos() {
 		if (this.medico != null || )
 	}*/
+>>>>>>> branch 'master' of https://github.com/Overz/ClinicaMedica.git
 }
