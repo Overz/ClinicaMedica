@@ -50,8 +50,12 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 	}
 
 	public TelaInternaAgendaMedico(MedicoVO medico) {
-		super("Clínica Médica - Agenda Médica", false, true, false, false);
+		super("Clínica Médica - Agenda Médica", false, false, false, false);
 		this.medico = medico;
+		
+		((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+		this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		
 		setBounds(100, 100, 1077, 783);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane()
@@ -80,7 +84,7 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 
 		btnListarAgendamentos = new JButton("Listar Agendamentos");
 		btnListarAgendamentos.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(btnListarAgendamentos, "cell 7 1");
+		getContentPane().add(btnListarAgendamentos, "cell 7 1,grow");
 		btnListarAgendamentos.addActionListener(e -> {
 			if (datePicker.getDate() != null) {
 				preencherListaAgendamentos(datePicker.getDate());

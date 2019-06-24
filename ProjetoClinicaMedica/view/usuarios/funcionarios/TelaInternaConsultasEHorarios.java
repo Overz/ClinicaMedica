@@ -24,6 +24,8 @@ import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import net.miginfocom.swing.MigLayout;
 import util.TableModels.ConsultasTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
@@ -41,6 +43,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	private PacienteVO paciente;
 	private FuncionarioVO funcionario;
 	private ArrayList<ConsultaVO> consultas = new ArrayList<ConsultaVO>();
+	private JButton btnCencelarConsulta;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -68,9 +71,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		// this.setBounds(0, 0, 821, 609);
 		this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
-		this.getContentPane().setLayout(new MigLayout("",
-				"[10][grow][10][100px:100px:100px,grow][grow][10][grow][100px:100px:100px,grow][grow][10]",
-				"[10][38,grow][5][grow][5][grow,fill][5][38,grow][5][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][5][38,grow,fill][5]"));
+		this.getContentPane().setLayout(new MigLayout("", "[10][grow][10][100px:100px:100px,grow][10][grow][10][grow][10]", "[10][38,grow][5][grow][5][grow,fill][5][38,grow][5][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][5][38,grow,fill][5]"));
 
 		initialize();
 	}
@@ -84,7 +85,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
 		btnSelecionarPaciente = new JButton("Selecionar Paciente");
 		btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 22));
-		getContentPane().add(btnSelecionarPaciente, "cell 6 1,grow");
+		getContentPane().add(btnSelecionarPaciente, "cell 7 1,grow");
 		btnSelecionarPaciente.addActionListener(e -> {
 			TelaInternaBuscarPaciente telaInternaBuscarPaciente = new TelaInternaBuscarPaciente();
 			getDesktopPane().add(telaInternaBuscarPaciente);
@@ -103,21 +104,33 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
 		datePicker.setSettings(dateSettings);
 		datePicker.setToolTipText("Selecione a Data para Consulta");
-		getContentPane().add(datePicker, "cell 6 7,grow");
+		getContentPane().add(datePicker, "cell 7 7,grow");
 		datePicker.setDate(LocalDate.now());
 
 		btnSelecionarMedico = new JButton("Selecionar Médico");
 		btnSelecionarMedico.setFont(new Font("Verdana", Font.PLAIN, 22));
-		getContentPane().add(btnSelecionarMedico, "cell 6 5,grow");
+		getContentPane().add(btnSelecionarMedico, "cell 7 5,grow");
 		btnSelecionarMedico.addActionListener(e -> {
 			TelaInternaBuscarMedico telaInternaBuscarMedico = new TelaInternaBuscarMedico();
 			getDesktopPane().add(telaInternaBuscarMedico);
 			telaInternaBuscarMedico.setVisible(true);
 		});
+		
+		btnCencelarConsulta = new JButton("Cencelar Consulta");
+		btnCencelarConsulta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = tblConsultas.getSelectedRow();
+				ConsultaVO consultaSelecionada = consultas.get(row);
+				ControllerConsulta controller = new ControllerConsulta();
+				controller.deletarConsulta(consultaSelecionada);
+			}
+		});
+		btnCencelarConsulta.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnCencelarConsulta, "cell 1 18 3 1,grow");
 
 		btnLimparCampos = new JButton("Limpar Campos");
 		btnLimparCampos.setFont(new Font("Verdana", Font.PLAIN, 22));
-		getContentPane().add(btnLimparCampos, "cell 3 18 2 1,grow");
+		getContentPane().add(btnLimparCampos, "cell 5 18,grow");
 		btnLimparCampos.addActionListener(e -> {
 			TelaInternaBuscarPaciente telaInternaBuscarPaciente = new TelaInternaBuscarPaciente();
 			getDesktopIcon().add(telaInternaBuscarPaciente);
@@ -125,7 +138,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		});
 
 		JScrollPane scrollPane = new JScrollPane();
-		getContentPane().add(scrollPane, "cell 1 9 8 8,grow");
+		getContentPane().add(scrollPane, "cell 1 9 7 8,grow");
 
 		tblConsultas = new JTable();
 		tblConsultas.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -135,12 +148,12 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		tblConsultas.setModel(consultasTableModel);
 		scrollPane.setViewportView(tblConsultas);
 		tblConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		btnCadastrarConsulta = new JButton("Cadastrar Consulta");
-		btnCadastrarConsulta.setFont(new Font("Verdana", Font.PLAIN, 22));
-		btnCadastrarConsulta.setToolTipText(
-				"Selecione uma Linha, e Registre os Dados em Ordem na Tabela, para Realizar o Cadastro das Consultas.");
-		getContentPane().add(btnCadastrarConsulta, "cell 6 18,grow");
+				
+						btnCadastrarConsulta = new JButton("Cadastrar Consulta");
+						btnCadastrarConsulta.setFont(new Font("Verdana", Font.PLAIN, 22));
+						btnCadastrarConsulta.setToolTipText(
+								"Selecione uma Linha, e Registre os Dados em Ordem na Tabela, para Realizar o Cadastro das Consultas.");
+						getContentPane().add(btnCadastrarConsulta, "cell 7 18,grow");
 		btnCadastrarConsulta.addActionListener(e -> {
 			ConsultasTableModel modelo = (ConsultasTableModel) tblConsultas.getModel();
 			LocalDate data = datePicker.getDate();

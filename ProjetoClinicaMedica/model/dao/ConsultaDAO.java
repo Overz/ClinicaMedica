@@ -222,4 +222,28 @@ public class ConsultaDAO {
 
 	}
 
+	public Boolean deletarConsulta(ConsultaVO consultaSelecionada) {
+		boolean sucesso = false;
+		String query = "DELETE FROM CONSULTA WHERE IDCONSULTA = ? ";
+		
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		
+		try {
+			prepStmt.setInt(1, consultaSelecionada.getIdConsulta());
+			ResultSet resultado = prepStmt.executeQuery();
+			if (resultado.next()) {
+				sucesso = true;
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao Excluir a Consulta.\n" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		
+		return sucesso;
+	}
+
 }

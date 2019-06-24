@@ -42,4 +42,8 @@ public class ConsultaBO {
 		return dao.consultarTudos();
 	}
 
+	public Boolean deletarConsulta(ConsultaVO consultaSelecionada) {
+		return dao.deletarConsulta(consultaSelecionada);
+	}
+
 }

@@ -24,7 +24,7 @@ public class GeradorRelatorioProntuario {
 	 * @return uma mensagem informando ao usuário o que ocorreu.
 	 */
 	public String gerarPlanilhaConsulta(List<ProntuarioVO> consulta, String caminhoArquivo) {
-		String[] columnName = { "# Prontuario", "Data do Prontuario", "# Paciênte", "Nome Paciênte", "# Médico", "Observações" };
+		String[] columnName = { "# Prontuario", "Data do Prontuario", "# Paciênte", "Nome Paciênte", "# Médico","Nome Médico", "Observações" };
 
 		// Criar a planilha (Workbook)
 		XSSFWorkbook planilha = new XSSFWorkbook();

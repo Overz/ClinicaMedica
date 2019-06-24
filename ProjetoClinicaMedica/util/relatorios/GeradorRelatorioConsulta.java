@@ -24,7 +24,7 @@ public class GeradorRelatorioConsulta {
 	 * @return uma mensagem informando ao usuário o que ocorreu.
 	 */
 	public String gerarPlanilhaConsulta(List<ConsultaVO> vo, String caminhoArquivo) {
-		String[] columnNames = { "# Consulta", "Data de Nascimento", "# Paciênte", "Nome Paciênte", "# Funcionario", "Funcionario Atendente" };
+		String[] columnNames = { "# Consulta", "Data de Nascimento", "# Paciênte", "Nome Paciênte", "# Medico", "Nome Médico", "# Funcionario", "Nome Funcionario" };
 
 		// Criar a planilha (Workbook)
 		XSSFWorkbook planilha = new XSSFWorkbook();

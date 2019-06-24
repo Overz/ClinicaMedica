@@ -58,4 +58,8 @@ public class ControllerConsulta {
 		return bo.consultarTudos();
 	}
 
+	public Boolean deletarConsulta(ConsultaVO consultaSelecionada) {
+		return bo.deletarConsulta(consultaSelecionada);
+	}
+
 }

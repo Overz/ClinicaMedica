@@ -212,6 +212,7 @@ public class TelaGeral extends JFrame {
 				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
 		mnRelatorios.add(mntmGerarRelatorioDeConsultas);
 		mntmGerarRelatorioDeConsultas.addActionListener(e -> {
+		
 			JFileChooser jfc = new JFileChooser();
 			jfc.setDialogTitle("Salvar relatório em...");
 
@@ -219,19 +220,14 @@ public class TelaGeral extends JFrame {
 			if (resultado == JFileChooser.APPROVE_OPTION) {
 
 				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
-				ControllerConsulta controllerConsulta = new ControllerConsulta();
 
-//				List<ConsultaVO> vo = controllerConsulta.consultarTodos();
+				atualizarListas();
 
-				ArrayList<ConsultaVO> vo = (ArrayList<ConsultaVO>) controllerConsulta.consultarTodos();
-				atualizarListas(vo);
 				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
-//				String mensagem = controllerRelatorio.gerarRelatorioConsultas(vo, caminhoEscolhido);
 				String mensagem = controllerRelatorio.gerarRelatorioConsultas(consultasVO, caminhoEscolhido);
 
 				JOptionPane.showMessageDialog(null, mensagem);
 			}
-
 		});
 
 		mntmGerarRelatorioPaciente = new JMenuItem("Relatorio de Pacientes");
@@ -246,14 +242,11 @@ public class TelaGeral extends JFrame {
 			int resultado = jfc.showSaveDialog(null);
 			if (resultado == JFileChooser.APPROVE_OPTION) {
 
-				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
-
 				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
-				ControllerPaciente controllerPaciente = new ControllerPaciente();
 
-				ArrayList<PacienteVO> vo = (ArrayList<PacienteVO>) controllerPaciente.consultarTodos();
-				atualizarListas(vo);
+				atualizarListas();
 
+				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
 				String mensagem = controllerRelatorio.gerarRelatorioPaciente(pacienteVO, caminhoEscolhido);
 
 				JOptionPane.showMessageDialog(null, mensagem);
@@ -272,14 +265,11 @@ public class TelaGeral extends JFrame {
 			int resultado = jfc.showSaveDialog(null);
 			if (resultado == JFileChooser.APPROVE_OPTION) {
 
-				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
-
 				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
-				ControllerProntuario controllerProntuario = new ControllerProntuario();
 				
-				ArrayList<ProntuarioVO> vo = (ArrayList<ProntuarioVO>) controllerProntuario.consultarTodos();
-				atualizarListas(vo);
+				atualizarListas();
 
+				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
 				String mensagem = controllerRelatorio.gerarRelatorio(prontuarioVO, caminhoEscolhido);
 				
 				JOptionPane.showMessageDialog(null, mensagem);
@@ -413,13 +403,15 @@ public class TelaGeral extends JFrame {
 	 * 
 	 * @param lista
 	 */
-	private void atualizarListas(ArrayList<?> lista) {
+	private void atualizarListas() {
 
-		this.pacienteVO = (ArrayList<PacienteVO>) lista;
-		this.consultasVO = (ArrayList<ConsultaVO>) lista;
-		this.prontuarioVO = (ArrayList<ProntuarioVO>) lista;
+		ControllerPaciente p = new ControllerPaciente();
+		ControllerConsulta c = new ControllerConsulta();
+		ControllerProntuario pro = new ControllerProntuario();
 		
-		
+		this.pacienteVO = (ArrayList<PacienteVO>) p.consultarTodos();
+		this.consultasVO = (ArrayList<ConsultaVO>) c.consultarTodos();
+		this.prontuarioVO = (ArrayList<ProntuarioVO>) pro.consultarTodos();
 		
 	}
 
