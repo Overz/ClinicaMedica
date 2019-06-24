@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -26,12 +26,13 @@ public class GeradorRelatorioConsulta {
 	public String gerarPlanilhaConsulta(List<ConsultaVO> vo, String caminhoArquivo) {
 		String[] columnNames = { "# Consulta", "Data de Nascimento", "# Paciênte", "Nome Paciênte", "# Funcionario", "Funcionario Atendente" };
 
+		// Criar a planilha (Workbook)
 		XSSFWorkbook planilha = new XSSFWorkbook();
 
 		//Cria uma aba na planilha (Sheet)
 		XSSFSheet abaPlanilha = planilha.createSheet("Consultas");
 
-		Row headerRow = abaPlanilha.createRow(0);
+		XSSFRow headerRow = abaPlanilha.createRow(0);
 
 		//Cria o cabeçalho a partir de um array columns
 		for (int i = 0; i < columnNames.length; i++) {
@@ -39,10 +40,10 @@ public class GeradorRelatorioConsulta {
 			cell.setCellValue(columnNames[i]);
 		}
 
-		// Preencher as linhas com os produtos
+		// Preencher as linhas com os Objetos
 		int row = 1;
 		for (ConsultaVO c : vo) {
-			Row linhaAtual = abaPlanilha.createRow(row++);
+			XSSFRow linhaAtual = abaPlanilha.createRow(row++);
 
 			linhaAtual.createCell(0).setCellValue(c.getIdConsulta());
 			linhaAtual.createCell(1).setCellValue(c.getData_consulta().toLocalDate().toString());

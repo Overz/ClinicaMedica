@@ -129,8 +129,25 @@ public class ProntuarioDAO {
 	}
 
 	public ArrayList<?> consultarTodos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		String query = " SELECT * FROM PRONTUARIO ";
 
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		ArrayList<ProntuarioVO> prontuarios = new ArrayList<ProntuarioVO>();
+
+		try {
+			ResultSet resultado = prepStmt.executeQuery();
+			while (resultado.next()) {
+				ProntuarioVO prontuario = montarProntuario(resultado);
+				prontuarios.add(prontuario);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao Consultar Todos os Prontuarios.\n" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return prontuarios;
+	}
 }

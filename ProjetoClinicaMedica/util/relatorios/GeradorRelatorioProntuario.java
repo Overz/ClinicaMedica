@@ -30,15 +30,16 @@ public class GeradorRelatorioProntuario {
 		XSSFWorkbook planilha = new XSSFWorkbook();
 
 		// Criar uma aba (Sheet)
-		XSSFSheet abaPlanilha = planilha.createSheet("Consultas");
-
+		XSSFSheet abaPlanilha = planilha.createSheet("Prontuarios");
 
 		XSSFRow headerRow = abaPlanilha.createRow(0);
+		
 		//Criar cabeçalho apartir do array
 		for (int i = 0; i < columnName.length; i++) {
 			Cell novaCelula = headerRow.createCell(i);
 			novaCelula.setCellValue(columnName[i]);
 		}
+		
 		// Preencher as linhas com os objetos
 		int row = 1;
 		for (ProntuarioVO p : consulta) {
@@ -46,11 +47,11 @@ public class GeradorRelatorioProntuario {
 
 			linhaAtual.createCell(0).setCellValue(p.getIdProntuario());
 			linhaAtual.createCell(1).setCellValue(p.getDtProntuario().toLocalDate().toString());			
-			linhaAtual.createCell(1).setCellValue(p.getPaciente().getIdPaciente());
-			linhaAtual.createCell(1).setCellValue(p.getPaciente().getNome());
-			linhaAtual.createCell(1).setCellValue(p.getMedico().getIdMedico());
-			linhaAtual.createCell(1).setCellValue(p.getMedico().getNome());
-			linhaAtual.createCell(1).setCellValue(p.getObservacoes());
+			linhaAtual.createCell(2).setCellValue(p.getPaciente().getIdPaciente());
+			linhaAtual.createCell(3).setCellValue(p.getPaciente().getNome());
+			linhaAtual.createCell(4).setCellValue(p.getMedico().getIdMedico());
+			linhaAtual.createCell(5).setCellValue(p.getMedico().getNome());
+			linhaAtual.createCell(6).setCellValue(p.getObservacoes());
 		}
 
 		//Ajusta o Tamanho de todas as colunas conforme o conteúdo

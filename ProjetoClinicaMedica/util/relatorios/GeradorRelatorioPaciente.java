@@ -15,7 +15,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import model.vo.PacienteVO;
 
 public class GeradorRelatorioPaciente {
-	
 
 	/**
 	 * Gera uma planilha Excel (formato .xlsx) a partir de uma lista de produtos
@@ -29,7 +28,7 @@ public class GeradorRelatorioPaciente {
 		String[] columnName = { "#", "Nome", "Data de Nascimento", "CPF", "Telefone", "Sexo", "Tipo Sanguíneo",
 				"Estado", "Cidade", "Bairro", "Rua", "Numero", "CEP" };
 
-		//Cria Planilha
+		// Criar a planilha (Workbook)
 		XSSFWorkbook planilha = new XSSFWorkbook();
 
 		// Criar uma aba (Sheet)

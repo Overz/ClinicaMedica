@@ -7,7 +7,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -74,8 +73,8 @@ public class TelaGeral extends JFrame {
 	private TelaInternaCadastroUsuario janelinhaUsuario = new TelaInternaCadastroUsuario();
 	private TelaInternaExcluirPaciente janelinhaExcluirPaciente = new TelaInternaExcluirPaciente();
 
-	int width_int;
-	int height_int;
+	private int width_int;
+	private int height_int;
 	private ArrayList<PacienteVO> pacienteVO;
 	private ArrayList<ConsultaVO> consultasVO;
 	private ArrayList<ProntuarioVO> prontuarioVO;
@@ -268,10 +267,12 @@ public class TelaGeral extends JFrame {
 				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
 				ControllerProntuario controllerProntuario = new ControllerProntuario();
 				
-				ArrayList<ProntuarioVO> vo = (ArrayList<ProntuarioVO>) controllerProntuario.consultarTodos(); // TODO REALIZAR CONSULTA NO DAO
+				ArrayList<ProntuarioVO> vo = (ArrayList<ProntuarioVO>) controllerProntuario.consultarTodos();
 				atualizarListas(vo);
 				
 				String mensagem = controllerRelatorio.gerarRelatorio(prontuarioVO, caminhoEscolhido);
+				
+				JOptionPane.showMessageDialog(null, mensagem);
 			}
 		});
 
@@ -403,6 +404,8 @@ public class TelaGeral extends JFrame {
 		this.pacienteVO = (ArrayList<PacienteVO>) lista;
 		this.consultasVO = (ArrayList<ConsultaVO>) lista;
 		this.prontuarioVO = (ArrayList<ProntuarioVO>) lista;
+		
+		
 		
 	}
 	
