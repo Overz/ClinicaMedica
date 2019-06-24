@@ -142,7 +142,7 @@ public class PacienteDAO {
 			paciente.setEstado(resultado.getString("ESTADO"));
 			paciente.setCep(resultado.getString("CEP"));
 		} catch (SQLException e) {
-			System.out.println("Erro ao construir Paciente: \n" + e.getMessage());
+			System.out.println("Erro ao construir Paciente.\nErro:" + e.getMessage());
 		}
 
 		return paciente;
