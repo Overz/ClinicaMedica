@@ -74,7 +74,7 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(lblNome, "cell 1 0,grow");
-		
+
 		txtNome = new JTextField();
 		getContentPane().add(txtNome, "cell 2 0,grow");
 		txtNome.setColumns(10);
@@ -102,14 +102,14 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 		} catch (ParseException e1) {
 			System.out.println("Erro ao criar máscara de CPF: " + e1.getMessage());
 		}
-		
-				lblCrm = new JLabel("CRM:");
-				lblCrm.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				getContentPane().add(lblCrm, "cell 3 1,grow");
-		
-				txtCrm = new JFormattedTextField();
-				txtCrm.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				getContentPane().add(txtCrm, "cell 4 1,grow");
+
+		lblCrm = new JLabel("CRM:");
+		lblCrm.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(lblCrm, "cell 3 1,grow");
+
+		txtCrm = new JFormattedTextField();
+		txtCrm.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(txtCrm, "cell 4 1,grow");
 
 		lblDataDeNascimento = new JLabel("Data de Nascimento:");
 		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -121,32 +121,32 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 2 2, grow");
 		datePicker.setEnabled(false);
-		
-				lblEspecialidade = new JLabel("Especialidade:");
-				lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				getContentPane().add(lblEspecialidade, "cell 1 3,grow");
-		
+
+		lblEspecialidade = new JLabel("Especialidade:");
+		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(lblEspecialidade, "cell 1 3,grow");
+
 		txtEspecialidade = new JTextField();
 		getContentPane().add(txtEspecialidade, "cell 2 3,grow");
 		txtEspecialidade.setColumns(10);
-		
-				btnLimpar = new JButton("Limpar Campos");
-				btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				getContentPane().add(btnLimpar, "cell 2 5,grow");
-				btnLimpar.addActionListener(e -> {
-					txtNome.setText("");
-					txtCpf.setText("");
-					txtCrm.setText("");
-					txtEspecialidade.setText("");
-					datePicker.setDate(null);
-				});
-		
-				btnPesquisar = new JButton("Pesquisar");
-				btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				getContentPane().add(btnPesquisar, "cell 3 5 2 1,grow");
-				btnPesquisar.addActionListener(e -> {
-					consultarUsuarios();
-				});
+
+		btnLimpar = new JButton("Limpar Campos");
+		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(btnLimpar, "cell 2 5,grow");
+		btnLimpar.addActionListener(e -> {
+			txtNome.setText("");
+			txtCpf.setText("");
+			txtCrm.setText("");
+			txtEspecialidade.setText("");
+			datePicker.setDate(null);
+		});
+
+		btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(btnPesquisar, "cell 3 5 2 1,grow");
+		btnPesquisar.addActionListener(e -> {
+			consultarUsuarios();
+		});
 
 		JScrollPane scrollPane = new JScrollPane();
 		getContentPane().add(scrollPane, "cell 1 7 4 1,grow");
@@ -164,10 +164,10 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 		btnCancelar.addActionListener(e -> {
 			this.dispose();
 		});
-		
-				btnExcluirUsuario = new JButton("Excluir Usuário");
-				btnExcluirUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				getContentPane().add(btnExcluirUsuario, "cell 3 8 2 1,grow");
+
+		btnExcluirUsuario = new JButton("Excluir Usuário");
+		btnExcluirUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(btnExcluirUsuario, "cell 3 8 2 1,grow");
 		btnExcluirUsuario.addActionListener(e -> {
 			UsuariosTableModel modelo = (UsuariosTableModel) tblUsuarios.getModel();
 			UsuarioVO usuario = modelo.getUsuario(tblUsuarios.getSelectedRow());

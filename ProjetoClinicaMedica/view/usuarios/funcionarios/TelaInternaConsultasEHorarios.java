@@ -190,5 +190,4 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	public void setFuncionario(FuncionarioVO funcionario) {
 		this.funcionario = funcionario;
 	}
-
 }

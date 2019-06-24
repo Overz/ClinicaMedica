@@ -58,7 +58,7 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 	}
 
 	public TelaInternaBuscarMedico() {
-		super("Clinica Médica - Exclusão de Usuario", false, true, false, false);
+		super("Clinica Médica - Selecionar Médico", false, true, false, false);
 		setBounds(100, 100, 1013, 748);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[40][40][40][40][][grow][40][10]"));
@@ -75,60 +75,65 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 		}
 
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(lblNome, "cell 1 0,alignx trailing,growy");
+		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblNome, "cell 1 0,grow");
 		
 		txtNome = new JTextField();
+		txtNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtNome, "cell 2 0,grow");
 		txtNome.setColumns(10);
 
 		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblCpf, "cell 1 1,grow");
 
 		JLabel lblCrm = new JLabel("CRM:");
-		lblCrm.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblCrm.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblCrm, "cell 3 1,alignx left");
 
 		JLabel lblNivel = new JLabel("Nível:");
-		lblNivel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNivel.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblNivel, "cell 3 0,grow");
 
 		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
-		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblDataDeNascimento.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblDataDeNascimento, "cell 1 2");
 
 		JLabel lblEspecialidade = new JLabel("Especialidade:");
-		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(lblEspecialidade, "cell 3 2,alignx trailing,growy");
+		lblEspecialidade.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblEspecialidade, "cell 3 2,grow");
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
 
 		cbxNivel = new JComboBox();
+		cbxNivel.setFont(new Font("Verdana", Font.PLAIN, 20));
 		cbxNivel.setModel(new DefaultComboBoxModel(
 				new String[] { SELECIONE, UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO, UsuarioVO.NIVEL_ADMIN }));
 		getContentPane().add(cbxNivel, "cell 4 0,grow");
 		cbxNivel.setSelectedIndex(0);
+		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
+		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 2 2, grow");
 		datePicker.setEnabled(false);
 
 		txtCpf = new JFormattedTextField(mascaraCpf);
-		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtCpf, "cell 2 1,grow");
 
 		txtCrm = new JTextField();
-		txtCrm.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtCrm.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtCrm, "cell 4 1,grow");
 		
 		txtEspecialidade = new JTextField();
+		txtEspecialidade.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtEspecialidade, "cell 4 2,grow");
 		txtEspecialidade.setColumns(10);
 
 		btnLimpar = new JButton("Limpar Campos");
-		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnLimpar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnLimpar, "cell 2 4,grow");
 		btnLimpar.addActionListener(e -> {
 			txtNome.setText("");
@@ -140,7 +145,7 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 		});
 
 		btnPesquisar = new JButton("Pesquisar");
-		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnPesquisar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnPesquisar, "cell 3 4,grow");
 		btnPesquisar.addActionListener(e -> {
 			consultarMedicos();
@@ -157,14 +162,14 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 		tblMedicos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnCancelar, "cell 2 6,grow");
 		btnCancelar.addActionListener(e -> {
 			this.dispose();
 		});
 
 		JButton btnSelecionarMedico = new JButton("Selecionar Médico");
-		btnSelecionarMedico.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnSelecionarMedico.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnSelecionarMedico, "cell 3 6,grow");
 		btnSelecionarMedico.addActionListener(e -> {
 			UsuariosTableModel modelo = (UsuariosTableModel) tblMedicos.getModel();

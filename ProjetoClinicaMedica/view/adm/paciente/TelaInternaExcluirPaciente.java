@@ -53,7 +53,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 	}
 
 	public TelaInternaExcluirPaciente() {
-		super("Clinica Médica - Exclusão de Usuario", false, true, false, false);
+		super("Clinica Médica - Exclusão de Paciente", false, true, false, false);
 		setBounds(100, 100, 865, 708);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[10][50][50][50][10][grow][10][60][10]"));
