@@ -22,7 +22,7 @@ INSERT INTO `dbclinicamedica`.`paciente` (`IDPACIENTE`, `NOME`, `CPF`, `TELEFONE
 
 /*TABELA USUARIO*/
 INSERT INTO `dbclinicamedica`.`usuario` (`IDUSUARIO`, `USUARIO`, `SENHA`, `NIVEL`) VALUES ('1', 'admin', 'admin', 'Admin');
-INSERT INTO `dbclinicamedica`.`usuario` (`IDUSUARIO`, `USUARIO`, `SENHA`, `NIVEL`) VALUES ('2', 'funcionario', 'funcionario,', 'Funcionario');
+INSERT INTO `dbclinicamedica`.`usuario` (`IDUSUARIO`, `USUARIO`, `SENHA`, `NIVEL`) VALUES ('2', 'funcionario', 'funcionario', 'Funcionario');
 INSERT INTO `dbclinicamedica`.`usuario` (`IDUSUARIO`, `USUARIO`, `SENHA`, `NIVEL`) VALUES ('3', 'medico', 'medico', 'Médico');
 INSERT INTO `dbclinicamedica`.`usuario` (`IDUSUARIO`, `USUARIO`, `SENHA`, `NIVEL`) VALUES ('4', 'funcionario01', 'funcionario01', 'Funcionário');
 INSERT INTO `dbclinicamedica`.`usuario` (`IDUSUARIO`, `USUARIO`, `SENHA`, `NIVEL`) VALUES ('5', 'funcionario02', 'funcionario02', 'Funcionário');
