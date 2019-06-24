@@ -52,7 +52,7 @@ public class TelaDeLogin extends JFrame {
 
 		setTitle("Clinica Médica - Login");
 		// setBounds(0, 0, 496, 359);
-		setBounds(x, y, 496, 359);
+		setBounds(x, y, 496, 359); // Caso de problemas no Design(modo grafico, comente esta linha, e remova o comentario acima.
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("", "[10][183px,grow][grow][10]",
 				"[grow][grow][grow][25px,grow][29px,grow][grow][grow][grow][grow][grow][grow][grow]"));

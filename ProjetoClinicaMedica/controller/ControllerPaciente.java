@@ -10,7 +10,7 @@ import model.vo.PacienteVO;
 public class ControllerPaciente {
 
 	private static final String SELECIONE = "[SELEICONE]";
-	private PacienteVO vo = new PacienteVO();
+	private PacienteVO vo;
 	private PacienteBO bo = new PacienteBO();
 
 	public String salvarPaciente(int idPaciente, String nome, String cpf, LocalDate dtNascimento, String sexo,
@@ -34,39 +34,28 @@ public class ControllerPaciente {
 	private PacienteVO montarPaciente(int idPaciente, String nome, String cpf, LocalDate dtNascimento, String sexo,
 			String convenio, String tipoSangue, String estado, String cidade, String bairro, String rua, String cep,
 			int numero, String telefone, String email) {
-		PacienteVO paciente = new PacienteVO();
-		paciente.setIdPaciente(idPaciente);
-		paciente.setNome(nome);
-		paciente.setCpf(cpf);
-		paciente.setDtNascimento(dtNascimento);
-		paciente.setSexo(sexo);
-		paciente.setConvenio(convenio);
-		paciente.setTipoSanguineo(tipoSangue);
-		paciente.setEstado(estado);
-		paciente.setCidade(cidade);
-		paciente.setBairro(bairro);
-		paciente.setCep(cep);
-		paciente.setNumero(numero);
-		paciente.setTelefone(telefone);
-		paciente.setEmail(email);
-		paciente.setRua(rua);
+		vo = new PacienteVO();
+		vo.setIdPaciente(idPaciente);
+		vo.setNome(nome);
+		vo.setCpf(cpf);
+		vo.setDtNascimento(dtNascimento);
+		vo.setSexo(sexo);
+		vo.setConvenio(convenio);
+		vo.setTipoSanguineo(tipoSangue);
+		vo.setEstado(estado);
+		vo.setCidade(cidade);
+		vo.setBairro(bairro);
+		vo.setCep(cep);
+		vo.setNumero(numero);
+		vo.setTelefone(telefone);
+		vo.setEmail(email);
+		vo.setRua(rua);
 
-		return paciente;
+		return vo;
 	}
 
 	public String excluirPaciente(PacienteVO paciente) {
 		return bo.excluirPaciene(paciente);
-	}
-
-	/**
-	 * Método Auxiliar para setar os dados na tela.
-	 * 
-	 * @param validarCamposPesquisarCadastroPaciente(Seletor)
-	 * @param vo
-	 * @return
-	 */
-	public PacienteVO setarDadosNaTela(PacienteVO vo) {
-		return vo;
 	}
 
 	/**
@@ -124,10 +113,13 @@ public class ControllerPaciente {
 			mensagem += "Por favor, Digite o campo RUA Acima!";
 		}
 		if (numero <= 0) {
-			mensagem += "Por favor, Digite o Campo NUMERO Acima, com Valores Validos";
+			mensagem += "Por favor, Digite o Campo NUMERO Acima Com Valores VALIDOS!\n";
+		}
+		if (cep == null || cep.trim().isEmpty()) {
+			mensagem += "Por favor, Digite o Campo CEP Acima!";
 		}
 		if (telefone == null || telefone.trim().isEmpty()) {
-			mensagem += "Por favor, Digite TELEFONE ou CELULAR Acima";
+			mensagem += "Por favor, Digite TELEFONE ou CELULAR Acima!";
 		}
 		if (!validarEMail(email)) {
 			mensagem += "Por favor, Digite um EMAIL Valido!";
@@ -139,7 +131,7 @@ public class ControllerPaciente {
 	/**
 	 * Método para validar email, contendo um @ obrigatorio, dominio(.com.br) obrigatorio.
 	 * @param email
-	 * @return
+	 * @return String
 	 */
 	public boolean validarEMail(String email) {
 		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
@@ -147,10 +139,19 @@ public class ControllerPaciente {
 
 	}
 
+	/**
+	 * Método para consultar todos os Pacientes do Banco.
+	 * @return ArrayList<?>
+	 */
 	public ArrayList<?> consultarTodos() {
 		return bo.consultarTodos();
 	}
 
+	/**
+	 * Método q confere se existe filtros na consulta;
+	 * @param seletor
+	 * @return ArrayList<PacienteVO>
+	 */
 	public ArrayList<PacienteVO> listarPacientes(SeletorPaciente seletor) {
 		return bo.buscarPaciente(seletor);
 	}

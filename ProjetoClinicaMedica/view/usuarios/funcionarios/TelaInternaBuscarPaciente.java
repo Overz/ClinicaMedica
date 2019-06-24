@@ -53,12 +53,11 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	}
 
 	public TelaInternaBuscarPaciente() {
-		super("Clínica Médica - Buscar Paciente", false, true, true, false);
-		setBounds(100, 100, 1190, 842);
+		super("Clínica Médica - Buscar Paciente", false, true, false, false);
+		setBounds(100, 100, 1154, 816);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane()
-				.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]",
-						"[10][25px,grow][20][26px,grow][20][605px,grow][][][20]"));
+				.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]", "[10][50][20][50][20][605px,grow][][50][20]"));
 
 		initialize();
 	}
@@ -115,17 +114,17 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		tblPacientes.setModel(pacientesTableModel);
 		scrollPane.setViewportView(tblPacientes);
 		tblPacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(btnCancelar, "cell 5 7,alignx right");
-		btnCancelar.addActionListener(e -> {
-			this.dispose();
-		});
-
-		btnSelecionarPaciente = new JButton("Selecionar Paciente");
-		btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(btnSelecionarPaciente, "cell 7 7");
+		
+				btnCancelar = new JButton("Cancelar");
+				btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
+				getContentPane().add(btnCancelar, "cell 3 7,grow");
+				btnCancelar.addActionListener(e -> {
+					this.dispose();
+				});
+		
+				btnSelecionarPaciente = new JButton("Selecionar Paciente");
+				btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));
+				getContentPane().add(btnSelecionarPaciente, "cell 5 7 3 1,grow");
 		btnSelecionarPaciente.addActionListener(e -> {
 			PacienteTableModel modelo = (PacienteTableModel) tblPacientes.getModel();
 			PacienteVO paciente = modelo.getPaciente(tblPacientes.getSelectedRow());

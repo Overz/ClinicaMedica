@@ -115,7 +115,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 			getDesktopPane().add(telaInternaBuscarMedico);
 			telaInternaBuscarMedico.setVisible(true);
 		});
-		
+
 		btnCencelarConsulta = new JButton("Cencelar Consulta");
 		btnCencelarConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -148,12 +148,12 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		tblConsultas.setModel(consultasTableModel);
 		scrollPane.setViewportView(tblConsultas);
 		tblConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				
-						btnCadastrarConsulta = new JButton("Cadastrar Consulta");
-						btnCadastrarConsulta.setFont(new Font("Verdana", Font.PLAIN, 22));
-						btnCadastrarConsulta.setToolTipText(
-								"Selecione uma Linha, e Registre os Dados em Ordem na Tabela, para Realizar o Cadastro das Consultas.");
-						getContentPane().add(btnCadastrarConsulta, "cell 7 18,grow");
+
+		btnCadastrarConsulta = new JButton("Cadastrar Consulta");
+		btnCadastrarConsulta.setFont(new Font("Verdana", Font.PLAIN, 22));
+		btnCadastrarConsulta.setToolTipText(
+				"Selecione uma Linha, e Registre os Dados em Ordem na Tabela, para Realizar o Cadastro das Consultas.");
+		getContentPane().add(btnCadastrarConsulta, "cell 7 18,grow");
 		btnCadastrarConsulta.addActionListener(e -> {
 			ConsultasTableModel modelo = (ConsultasTableModel) tblConsultas.getModel();
 			LocalDate data = datePicker.getDate();
@@ -190,9 +190,4 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 	public void setFuncionario(FuncionarioVO funcionario) {
 		this.funcionario = funcionario;
 	}
-
-	public void atualizarCampos() {
-
-	}
-
 }
