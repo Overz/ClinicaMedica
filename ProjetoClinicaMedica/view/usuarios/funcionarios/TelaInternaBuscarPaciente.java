@@ -18,12 +18,12 @@ import javax.swing.text.MaskFormatter;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
-import controller.ControllerFuncionario;
 import controller.ControllerPaciente;
 import model.seletor.SeletorPaciente;
 import model.vo.PacienteVO;
 import net.miginfocom.swing.MigLayout;
 import util.TableModels.PacienteTableModel;
+import view.usuarios.medico.TelaInternaProntuarioMedico;
 
 public class TelaInternaBuscarPaciente extends JInternalFrame {
 
@@ -119,6 +119,9 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnCancelar, "cell 5 7,alignx right");
+		btnCancelar.addActionListener(e -> {
+			this.dispose();
+		});
 
 		btnSelecionarPaciente = new JButton("Selecionar Paciente");
 		btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -130,6 +133,10 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 				if (telaInterna instanceof TelaInternaConsultasEHorarios) {
 					TelaInternaConsultasEHorarios telaAgendamento = (TelaInternaConsultasEHorarios) telaInterna;
 					telaAgendamento.setPaciente(paciente);
+					this.dispose();
+				} else if (telaInterna instanceof TelaInternaProntuarioMedico) {
+					TelaInternaProntuarioMedico telaProntuario = (TelaInternaProntuarioMedico) telaInterna;
+					telaProntuario.setPaciente(paciente);
 					this.dispose();
 				}
 			}

@@ -174,7 +174,6 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		this.lblPaciente.setText("Paciente: " + paciente.toString());
 	}
 
-<<<<<<< HEAD
 	public void setFuncionario(FuncionarioVO funcionario) {
 		this.funcionario = funcionario;
 	}
@@ -183,9 +182,4 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
 	}
 
-=======
-	/*public void atualizarCampos() {
-		if (this.medico != null || )
-	}*/
->>>>>>> branch 'master' of https://github.com/Overz/ClinicaMedica.git
 }

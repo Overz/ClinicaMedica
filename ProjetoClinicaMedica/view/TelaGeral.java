@@ -28,8 +28,8 @@ import controller.ControllerRelatorio;
 import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
 import model.vo.PacienteVO;
-import model.vo.UsuarioVO;
 import model.vo.ProntuarioVO;
+import model.vo.UsuarioVO;
 import view.adm.paciente.TelaInternaExcluirPaciente;
 import view.adm.usuario.TelaInternaCadastroUsuario;
 import view.adm.usuario.TelaInternaExcluirUsuario;
@@ -76,7 +76,6 @@ public class TelaGeral extends JFrame {
 
 	int width_int;
 	int height_int;
-	private JMenuItem mntmRelatorioDeProntuarios;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -93,8 +92,10 @@ public class TelaGeral extends JFrame {
 	}
 
 	/**
-	 * Criação de parametros para o JFrame.
-	 * Se a Tela no Design não abrir, comentar ' setBounds(x, y, width_int, height_int); ', e substituir pelo outro padrão com numeros.
+	 * Criação de parametros para o JFrame. Se a Tela no Design não abrir, comentar
+	 * ' setBounds(x, y, width_int, height_int); ', e substituir pelo outro padrão
+	 * com numeros.
+	 * 
 	 * @param usuario
 	 */
 	public TelaGeral(UsuarioVO usuario) {
@@ -195,7 +196,7 @@ public class TelaGeral extends JFrame {
 			this.repaint();
 		});
 
-		//Menu Relatorio
+		// Menu Relatorio
 		JMenu mnRelatorios = new JMenu("Relatorios");
 		mnRelatorios.setFont(new Font("Arial", Font.BOLD, 16));
 		mnRelatorios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-gráfico-combinado.png")));
@@ -208,29 +209,29 @@ public class TelaGeral extends JFrame {
 		mntmGerarRelatorioDeConsultas.addActionListener(e -> {
 			JFileChooser jfc = new JFileChooser();
 			jfc.setDialogTitle("Salvar relatório em...");
-		
+
 			int resultado = jfc.showSaveDialog(null);
 			if (resultado == JFileChooser.APPROVE_OPTION) {
-				
+
 				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
 				ControllerConsulta controllerConsulta = new ControllerConsulta();
-				
-				List<ConsultaVO> vo = controllerConsulta.consultarTodos();
-				
-				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
-				String mensagem = controllerRelatorio.gerarRelatorioConsultas(vo, caminhoEscolhido);
 
-				JOptionPane.showMessageDialog(null, mensagem);
+//				List<ConsultaVO> vo = controllerConsulta.consultarTodos();
+
+				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
+//				String mensagem = controllerRelatorio.gerarRelatorioConsultas(vo, caminhoEscolhido);
+
+//				JOptionPane.showMessageDialog(null, mensagem);
 			}
-			
 
 		});
-		
+
 		mntmGerarRelatorioPaciente = new JMenuItem("Relatorio de Pacientes");
-		mntmGerarRelatorioPaciente.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-relatório-gráfico-filled-38.png")));
+		mntmGerarRelatorioPaciente
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-relatório-gráfico-filled-38.png")));
 		mnRelatorios.add(mntmGerarRelatorioPaciente);
 		mntmGerarRelatorioPaciente.addActionListener(e -> {
-			
+
 			JFileChooser jfc = new JFileChooser();
 			jfc.setDialogTitle("Salvar relatório em...");
 
@@ -251,16 +252,16 @@ public class TelaGeral extends JFrame {
 				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
 		mnRelatorios.add(mntmRelatorioDeProntuarios);
 		mntmRelatorioDeProntuarios.addActionListener(e -> {
-			
+
 			JFileChooser jfc = new JFileChooser();
 			jfc.setDialogTitle("Salvar relatório em...");
-			
+
 			int resultado = jfc.showSaveDialog(null);
 			if (resultado == JFileChooser.APPROVE_OPTION) {
 				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
 				ControllerProntuario controllerProntuario = new ControllerProntuario();
 				List<ProntuarioVO> vo = controllerProntuario.consultarTodos();
-				
+
 			}
 		});
 
@@ -367,7 +368,7 @@ public class TelaGeral extends JFrame {
 
 		if (UsuarioVO.NIVEL_FUNCIONARIO.equals(this.usuario.getNivel())) {
 
-			//mntmAgenda.add(janelinhaPrincipalRecepcao);
+			// mntmAgenda.add(janelinhaPrincipalRecepcao);
 			mnMedico.setEnabled(false);
 			mnAdm.setEnabled(false);
 			janelinhaPrincipalRecepcao = new TelaInternaConsultasEHorarios();
@@ -375,7 +376,7 @@ public class TelaGeral extends JFrame {
 			adicionarInternalFrame(janelinhaPrincipalRecepcao);
 		} else if (UsuarioVO.NIVEL_MEDICO.equals(this.usuario.getNivel())) {
 
-			//mntmAgenda.add(janelinhaAgendaMedica);
+			// mntmAgenda.add(janelinhaAgendaMedica);
 			mnPaciente.setEnabled(false);
 			mnAdm.setEnabled(false);
 			janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
@@ -387,9 +388,9 @@ public class TelaGeral extends JFrame {
 			mnAdm.setEnabled(true);
 		}
 	}
-	
-	private void gerarRelatorio () {
-		
+
+	private void gerarRelatorio() {
+
 		JFileChooser jfc = new JFileChooser();
 		jfc.setDialogTitle("Salvar relatório em...");
 
@@ -399,26 +400,11 @@ public class TelaGeral extends JFrame {
 			ControllerPaciente controllerPaciente = new ControllerPaciente();
 			List<PacienteVO> vo = controllerPaciente.consultarTodos();
 			String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
-			//String mensagem = controllerRelatorio.gerarRelatorio(vo, caminhoEscolhido);
+			// String mensagem = controllerRelatorio.gerarRelatorio(vo, caminhoEscolhido);
 
-			//JOptionPane.showMessageDialog(null, mensagem);
+			// JOptionPane.showMessageDialog(null, mensagem);
 		}
 
 	}
 
-	public UsuarioVO getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(UsuarioVO usuario) {
-		this.usuario = usuario;
-	}
-
-	public PacienteVO getPaciente() {
-		return this.paciente;
-	}
-
-	public void setPaciente(PacienteVO paciente) {
-		this.paciente = paciente;
-	}
 }

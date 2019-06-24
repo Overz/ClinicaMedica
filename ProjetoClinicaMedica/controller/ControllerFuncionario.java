@@ -1,7 +1,6 @@
 package controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import model.bo.FuncionarioBO;
 import model.vo.FuncionarioVO;
@@ -52,7 +51,4 @@ public class ControllerFuncionario {
 		return mensagem;
 	}
 
-	public ArrayList<FuncionarioVO> ConsultarFuncionarioADM(String nome, String cpf) {
-		return bo.consultarFuncionarioADM(nome, cpf);
-	}
 }

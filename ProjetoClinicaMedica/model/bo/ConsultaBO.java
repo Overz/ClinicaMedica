@@ -10,8 +10,9 @@ import model.vo.MedicoVO;
 
 public class ConsultaBO {
 
+	ConsultaDAO dao = new ConsultaDAO();
+
 	public ArrayList<ConsultaVO> pesquisarConsultasPorDataEMedico(LocalDate data, MedicoVO medico) {
-		ConsultaDAO dao = new ConsultaDAO();
 		return dao.pesquisarConsultasPorDataEMedico(data, medico);
 	}
 
@@ -36,5 +37,9 @@ public class ConsultaBO {
 		}
 		return mensagem;
 	}
+
+//	public List<ConsultaVO> consultarTodos() {
+//		return dao.consultarTudo();
+//	}
 
 }

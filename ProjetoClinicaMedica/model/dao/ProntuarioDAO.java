@@ -1,11 +1,11 @@
 package model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import model.banco.Banco;
@@ -15,7 +15,7 @@ import model.vo.ProntuarioVO;
 
 public class ProntuarioDAO {
 
-	public int cadastrarProntuario(ProntuarioVO prontuario) {
+	public int salvarProntuario(ProntuarioVO prontuario) {
 		int novoId = -1;
 		String query = "INSERT INTO PRONTUARIO (IDPACIENTE, IDMEDICO, OBSERVACOES, DATA_PRONTUARIO) "
 				+ "VALUES (?, ?, ?, ?)";
@@ -27,7 +27,7 @@ public class ProntuarioDAO {
 			prepStmt.setInt(1, prontuario.getPaciente().getIdPaciente());
 			prepStmt.setInt(2, prontuario.getMedico().getIdMedico());
 			prepStmt.setString(3, prontuario.getObservacoes());
-			prepStmt.setDate(4, Date.valueOf(prontuario.getDtProntuario().toLocalDate()));
+			prepStmt.setTimestamp(4, Timestamp.valueOf(prontuario.getDtProntuario()));
 
 			prepStmt.execute();
 
@@ -56,7 +56,7 @@ public class ProntuarioDAO {
 			prepStmt.setInt(1, prontuario.getPaciente().getIdPaciente());
 			prepStmt.setInt(2, prontuario.getMedico().getIdMedico());
 			prepStmt.setString(3, prontuario.getObservacoes());
-			prepStmt.setDate(4, Date.valueOf(prontuario.getDtProntuario().toLocalDate()));
+			prepStmt.setTimestamp(4, Timestamp.valueOf(prontuario.getDtProntuario()));
 			prepStmt.setInt(5, prontuario.getIdProntuario());
 
 			int resultado = prepStmt.executeUpdate();
@@ -109,7 +109,7 @@ public class ProntuarioDAO {
 
 		try {
 			prontuario.setIdProntuario(resultado.getInt("IDPRONTUARIO"));
-			prontuario.setDtProntuario(resultado.getTimestamp(("DATA_PRONTUARIO")).toLocalDateTime());
+			prontuario.setDtProntuario(resultado.getTimestamp(("DATA_PRONTUARIO")).toLocalDateTime().minusHours(3));
 			prontuario.setObservacoes(resultado.getString("OBSERVACOES"));
 
 			PacienteVO paciente = new PacienteVO();
@@ -125,6 +125,31 @@ public class ProntuarioDAO {
 		}
 
 		return prontuario;
+	}
+
+	public ArrayList<ProntuarioVO> listarProntuariosPorPaciente(PacienteVO paciente) {
+		String query = "SELECT * FROM PRONTUARIO WHERE IDPACIENTE = ?";
+		Connection conexao = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, query);
+
+		ArrayList<ProntuarioVO> prontuarios = new ArrayList<ProntuarioVO>();
+		try {
+			prepStmt.setInt(1, paciente.getIdPaciente());
+
+			ResultSet resultado = prepStmt.executeQuery();
+			while (resultado.next()) {
+				ProntuarioVO prontuario = montarProntuario(resultado);
+				prontuarios.add(prontuario);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println(
+					"Erro ao listar Prontuários do paciente " + paciente.getNome() + ". Causa: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conexao);
+		}
+		return prontuarios;
 	}
 
 }

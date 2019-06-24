@@ -84,7 +84,7 @@ public class ConsultasTableModel extends AbstractTableModel {
 	}
 
 	public void setHorarios(LocalDate data) {
-		for (int horario = 8; horario < 17; horario++) {
+		for (int horario = 8; horario <= 17; horario++) {
 			if (horario != 12) {
 				LocalTime localTime = LocalTime.of(horario, 0);
 				ConsultaVO consulta = new ConsultaVO();
@@ -112,6 +112,8 @@ public class ConsultasTableModel extends AbstractTableModel {
 				linhas.set(consulta.getData_consulta().getHour() - 9, consulta);
 			}
 		}
+
+		fireTableRowsUpdated(0, 8);
 	}
 
 }
