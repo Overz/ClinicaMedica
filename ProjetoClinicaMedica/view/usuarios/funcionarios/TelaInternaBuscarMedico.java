@@ -33,8 +33,6 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 	private static final String SELECIONE = "[SELECIONE]";
 	//Atributos
 	private JFormattedTextField txtCpf;
-	private JTextField txtEspecialidade;
-	private JTextField txtNome;
 	private JTextField txtCrm;
 	private MaskFormatter mascaraCpf;
 	private JButton btnLimpar;
@@ -43,6 +41,8 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 	private JComboBox cbxNivel;
 	private JTable tblMedicos;
 	private final DatePicker datePicker = new DatePicker();
+	private JTextField txtNome;
+	private JTextField txtEspecialidade;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -76,7 +76,11 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(lblNome, "cell 1 0,grow");
+		getContentPane().add(lblNome, "cell 1 0,alignx trailing,growy");
+		
+		txtNome = new JTextField();
+		getContentPane().add(txtNome, "cell 2 0,grow");
+		txtNome.setColumns(10);
 
 		JLabel lblCpf = new JLabel("CPF:");
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -96,11 +100,7 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 
 		JLabel lblEspecialidade = new JLabel("Especialidade:");
 		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(lblEspecialidade, "cell 3 2,grow");
-
-		txtEspecialidade = new JFormattedTextField();
-		txtEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(txtEspecialidade, "cell 4 2,grow");
+		getContentPane().add(lblEspecialidade, "cell 3 2,alignx trailing,growy");
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
@@ -115,11 +115,6 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 		getContentPane().add(datePicker, "cell 2 2, grow");
 		datePicker.setEnabled(false);
 
-
-		txtNome = new JFormattedTextField();
-		getContentPane().add(txtNome, "cell 2 0,grow");
-		txtNome.setColumns(10);
-
 		txtCpf = new JFormattedTextField(mascaraCpf);
 		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(txtCpf, "cell 2 1,grow");
@@ -127,6 +122,10 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 		txtCrm = new JTextField();
 		txtCrm.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(txtCrm, "cell 4 1,grow");
+		
+		txtEspecialidade = new JTextField();
+		getContentPane().add(txtEspecialidade, "cell 4 2,grow");
+		txtEspecialidade.setColumns(10);
 
 		btnLimpar = new JButton("Limpar Campos");
 		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -136,6 +135,7 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 			txtCpf.setText("");
 			txtCrm.setText("");
 			txtEspecialidade.setText("");
+			cbxNivel.setSelectedIndex(0);
 			datePicker.setDate(null);
 		});
 

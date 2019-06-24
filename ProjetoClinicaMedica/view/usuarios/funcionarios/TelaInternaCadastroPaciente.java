@@ -30,23 +30,16 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	private static final long serialVersionUID = -7169289567115539328L;
 	// Atributos
 	private static final String SELECIONE = "[SELEICONE]";
-	private JFormattedTextField ftfNome;
 	private JFormattedTextField ftfCPF;
 	private JFormattedTextField ftfTelefone;
-	private JFormattedTextField ftfCidade;
-	private JFormattedTextField ftfBairro;
-	private JFormattedTextField ftfRua;
 	private JFormattedTextField ftfNumero;
-	private JFormattedTextField ftfEmail;
 	private JFormattedTextField ftfCep;
 	private JFormattedTextField ftfEstado;
-	private MaskFormatter mascaraNome;
 	private MaskFormatter mascaraCpf;
 	private MaskFormatter mascaraTelefone;
 	private MaskFormatter mascaraEstado;
 	private MaskFormatter mascaraNumero;
 	private MaskFormatter mascaraCep;
-	private MaskFormatter mascaraEmail;
 	private JComboBox cbSexo;
 	private JComboBox cbTipoSanguineo;
 	private JComboBox cbConvenio;
@@ -58,6 +51,11 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	private ControllerPaciente controller;
 	private static TelaInternaCadastroPaciente window;
 	private static ArrayList<PacienteVO> pacientes = new ArrayList<PacienteVO>();
+	private JTextField txtNome;
+	private JTextField txtCidade;
+	private JTextField txtBairro;
+	private JTextField txtRua;
+	private JTextField txtEmail;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -84,13 +82,11 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	private void initialize() {
 
 		try {
-			mascaraNome = new MaskFormatter("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 			mascaraTelefone = new MaskFormatter("(##)#####-####");
 			mascaraEstado = new MaskFormatter("LL");
 			mascaraNumero = new MaskFormatter("####");
 			mascaraCep = new MaskFormatter("#####-###");
-			mascaraEmail = new MaskFormatter("********************************************");
 		} catch (ParseException e) {
 			System.out.println("Erro ao criar m�scaras. Causa: " + e.getMessage());
 		}
@@ -117,7 +113,11 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Verdana", Font.PLAIN, 18));
-		getContentPane().add(lblNome, "cell 1 5,alignx trailing,growy");
+		getContentPane().add(lblNome, "cell 1 5,grow");
+		
+		txtNome = new JTextField();
+		getContentPane().add(txtNome, "cell 2 5,grow");
+		txtNome.setColumns(10);
 		
 		JLabel lblCPF_CNPJ = new JLabel("CPF:");
 		lblCPF_CNPJ.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -145,7 +145,11 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 		JLabel lblCidade = new JLabel("Cidade:");
 		lblCidade.setFont(new Font("Verdana", Font.PLAIN, 18));
-		getContentPane().add(lblCidade, "cell 1 13,alignx left,growy");
+		getContentPane().add(lblCidade, "cell 1 13,grow");
+		
+		txtCidade = new JTextField();
+		getContentPane().add(txtCidade, "cell 2 13,grow");
+		txtCidade.setColumns(10);
 		
 		JLabel lblEstado = new JLabel("Estado:");
 		lblEstado.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -153,7 +157,11 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 		JLabel lblBairro = new JLabel("Bairro:");
 		lblBairro.setFont(new Font("Verdana", Font.PLAIN, 18));
-		getContentPane().add(lblBairro, "cell 1 14,alignx left,growy");
+		getContentPane().add(lblBairro, "cell 1 14,grow");
+		
+		txtBairro = new JTextField();
+		txtBairro.setColumns(10);
+		getContentPane().add(txtBairro, "cell 2 14,grow");
 		
 		JLabel lblCep = new JLabel("CEP:");
 		lblCep.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -161,7 +169,11 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 		JLabel lblRua = new JLabel("Rua:");
 		lblRua.setFont(new Font("Verdana", Font.PLAIN, 18));
-		getContentPane().add(lblRua, "cell 1 15,alignx left,growy");
+		getContentPane().add(lblRua, "cell 1 15,grow");
+		
+		txtRua = new JTextField();
+		txtRua.setColumns(10);
+		getContentPane().add(txtRua, "cell 2 15,grow");
 		
 		JLabel lblNumero = new JLabel("Numero:");
 		lblNumero.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -175,21 +187,9 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		lblNumeroTelefone.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblNumeroTelefone, "cell 1 20,alignx left,growy");
 		
-		ftfNome = new JFormattedTextField(mascaraNome);
-		getContentPane().add(ftfNome, "cell 2 5,grow");
-		
 		ftfCPF = new JFormattedTextField(mascaraCpf);
 		ftfCPF.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfCPF, "cell 5 5,grow");
-
-		ftfCidade = new JFormattedTextField(mascaraNome);
-		getContentPane().add(ftfCidade, "cell 2 13,grow");
-		
-		ftfBairro = new JFormattedTextField(mascaraNome);
-		getContentPane().add(ftfBairro, "cell 2 14,grow");
-		
-		ftfRua = new JFormattedTextField(mascaraNome);
-		getContentPane().add(ftfRua, "cell 2 15,grow");
 		
 		ftfNumero = new JFormattedTextField(mascaraNumero);
 		getContentPane().add(ftfNumero, "cell 2 16,grow");
@@ -205,9 +205,6 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		ftfTelefone = new JFormattedTextField(mascaraTelefone);
 		ftfTelefone.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(ftfTelefone, "cell 2 20,grow");
-		
-		ftfEmail = new JFormattedTextField(mascaraEmail);
-		getContentPane().add(ftfEmail, "cell 5 20,grow");
 
 		cbSexo = new JComboBox();
 		cbSexo.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -236,6 +233,10 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		lblEmail.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(lblEmail, "cell 4 20,alignx trailing,growy");
 		
+		txtEmail = new JTextField();
+		getContentPane().add(txtEmail, "cell 5 20,grow");
+		txtEmail.setColumns(10);
+		
 		btnLimpar = new JButton("Limpar Campos");
 		btnLimpar.setFont(new Font("Verdana", Font.PLAIN, 18));
 		getContentPane().add(btnLimpar, "cell 2 23,grow");
@@ -256,20 +257,20 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		getContentPane().add(btnCadastrar, "cell 4 23 2 1,grow");
 		btnCadastrar.addActionListener(e -> {
 
-			String nome = ftfNome.getText();
+			String nome = txtNome.getText();
 			String cpf = ftfCPF.getText();
 			LocalDate dtNascimento = datePicker.getDate();
 			String sexo = cbSexo.getSelectedItem().toString();
 			String convenio = cbConvenio.getSelectedItem().toString();
 			String tipoSangue = cbTipoSanguineo.getSelectedItem().toString();
 			String estado = ftfEstado.getText();
-			String cidade = ftfCidade.getText();
-			String bairro = ftfBairro.getText();
-			String rua = ftfRua.getText();
+			String cidade = txtCidade.getText();
+			String bairro = txtBairro.getText();
+			String rua = txtRua.getText();
 			String cep = ftfCep.getText();
 			int numero = Integer.parseInt(ftfNumero.getText());
 			String telefone = ftfTelefone.getText();
-			String email = ftfEmail.getText();
+			String email = txtEmail.getText();
 			
 			int idPaciente = 0;
 			if (cbxPacientes.getSelectedIndex() >= 0) {
@@ -292,7 +293,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 	protected void preencherCampos(PacienteVO paciente) {
 		// Info Pessoal
-		ftfNome.setText(paciente.getNome());
+		txtNome.setText(paciente.getNome());
 		ftfCPF.setText(paciente.getCpf());
 		cbConvenio.setSelectedItem(paciente.getConvenio());
 		cbSexo.setSelectedItem(paciente.getSexo());
@@ -302,32 +303,32 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		// Endereço
 		ftfEstado.setText(paciente.getEstado());
 		ftfCep.setText(paciente.getCep());
-		ftfCidade.setText(paciente.getCidade());
-		ftfBairro.setText(paciente.getBairro());
-		ftfRua.setText(paciente.getRua());
+		txtCidade.setText(paciente.getCidade());
+		txtBairro.setText(paciente.getBairro());
+		txtRua.setText(paciente.getRua());
 		ftfNumero.setText(Integer.toString(paciente.getNumero()));
 		// Contato
 		ftfTelefone.setText(paciente.getTelefone());
-		ftfEmail.setText(paciente.getEmail());
+		txtEmail.setText(paciente.getEmail());
 	}
 
 	protected void limparCampos() {
 		// Info Pessoal
-		ftfNome.setText("");
+		txtNome.setText("");
 		ftfCPF.setText("");
 		cbConvenio.setSelectedItem(SELECIONE);
 		cbSexo.setSelectedItem(SELECIONE);
 
 		datePicker.setDate(null);
 		// Endereço
-		ftfCidade.setText("");
-		ftfBairro.setText("");
-		ftfRua.setText("");
+		txtCidade.setText("");
+		txtBairro.setText("");
+		txtRua.setText("");
 		ftfNumero.setText("");
 		ftfEstado.setText("");
 		// Contato
 		ftfTelefone.setText("");
-		ftfEmail.setText("");
+		txtEmail.setText("");
 	}
 
 	public void listarPacientes() {
