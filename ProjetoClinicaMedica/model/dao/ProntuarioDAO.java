@@ -112,12 +112,12 @@ public class ProntuarioDAO {
 			prontuario.setDtProntuario(resultado.getTimestamp(("DATA_PRONTUARIO")).toLocalDateTime());
 			prontuario.setObservacoes(resultado.getString("OBSERVACOES"));
 
-			PacienteVO paciente = new PacienteVO();
-			paciente.setIdPaciente(resultado.getInt("IDPACIENTE"));
+			PacienteDAO pacienteDAO = new PacienteDAO();
+			PacienteVO paciente = pacienteDAO.buscarPacientePorId(resultado.getInt("IDPACIENTE"));
 			prontuario.setPaciente(paciente);
 
-			MedicoVO medico = new MedicoVO();
-			medico.setIdMedico(resultado.getInt("IDMEDICO"));
+			MedicoDAO medicoDAO = new MedicoDAO();
+			MedicoVO medico = medicoDAO.buscarMedicoPorId(resultado.getInt("IDMEDICO"));
 			prontuario.setMedico(medico);
 
 		} catch (SQLException e) {
@@ -128,7 +128,7 @@ public class ProntuarioDAO {
 	}
 
 	public ArrayList<ProntuarioVO> listarProntuariosPorPaciente(PacienteVO paciente) {
-		String query = "SELECT * FROM PRONTUARIO WHERE IDPACIENTE = ?";
+		String query = "SELECT * FROM PRONTUARIO INNER JOIN PACIENTE ON PRONTUARIO.IDPACIENTE = PACIENTE.IDPACIENTE INNER JOIN MEDICO ON PRONTUARIO.IDMEDICO = MEDICO.IDMEDICO WHERE PRONTUARIO.IDPACIENTE = ?";
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, query);
 

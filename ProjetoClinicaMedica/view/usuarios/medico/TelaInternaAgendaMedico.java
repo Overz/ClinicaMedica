@@ -52,10 +52,10 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 	public TelaInternaAgendaMedico(MedicoVO medico) {
 		super("Clínica Médica - Agenda Médica", false, false, false, false);
 		this.medico = medico;
-		
+
 		((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		
+
 		setBounds(100, 100, 1077, 783);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane()
@@ -81,6 +81,9 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		datePicker.setToolTipText("Selecione a Data");
 		getContentPane().add(datePicker, "cell 3 1,grow");
 		datePicker.setDate(LocalDate.now());
+		datePicker.addDateChangeListener(e -> {
+			preencherListaAgendamentos(datePicker.getDate());
+		});
 
 		btnListarAgendamentos = new JButton("Listar Agendamentos");
 		btnListarAgendamentos.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -139,6 +142,7 @@ public class TelaInternaAgendaMedico extends JInternalFrame {
 		listaConsultas = controller.pesquisarConsultasPorDataEMedico(data, medico);
 
 		if (!listaConsultas.isEmpty()) {
+			modelo.limpar(data);
 			modelo.setConsultas(listaConsultas);
 		}
 	}

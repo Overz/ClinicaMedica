@@ -56,17 +56,6 @@ public class ControllerMedico {
 		return mensagem;
 	}
 
-	public String validarTelaInternaMedico(LocalDate date) {
-		String mensagem = "";
-
-		// TODO DATA
-		if (date == null) {
-
-		}
-
-		return mensagem;
-	}
-
 	public boolean validarEMail(String email) {
 		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 		return email.matches(regex);

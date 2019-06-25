@@ -270,7 +270,10 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 						confirmacaoSenha, nivel, dataNascimento, idUsuario);
 
 				JOptionPane.showMessageDialog(null, mensagem);
-				limparCampos();
+				if (mensagem.contains("sucesso")) {
+					limparCampos();
+				}
+				listarUsuarios();
 			}
 		});
 

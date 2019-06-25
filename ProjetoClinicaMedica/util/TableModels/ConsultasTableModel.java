@@ -116,4 +116,10 @@ public class ConsultasTableModel extends AbstractTableModel {
 		fireTableRowsUpdated(0, 8);
 	}
 
+	public void limpar(LocalDate data) {
+		linhas.clear();
+		this.setHorarios(data);
+		fireTableRowsUpdated(0, 8);
+	}
+
 }

@@ -182,7 +182,7 @@ public class MedicoDAO {
 			}
 			resultado.close();
 		} catch (SQLException e) {
-			System.out.println("Erro ao listar Usuários: " + e.getMessage());
+			System.out.println("Erro ao listar Médicos: " + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
@@ -199,42 +199,42 @@ public class MedicoDAO {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "USUARIOS.NOME LIKE '%" + seletor.getNome() + "%' ";
+			query += "MEDICO.NOME LIKE '%" + seletor.getNome() + "%' ";
 			primeiro = false;
 		}
-		if (seletor.getCpf() != null && !seletor.getNome().trim().isEmpty()) {
+		if (seletor.getCpf() != null && !seletor.getCpf().trim().isEmpty()) {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "USUARIOS.CPF LIKE '%" + seletor.getCpf() + "%' ";
+			query += "MEDICO.CPF LIKE '%" + seletor.getCpf() + "%' ";
 			primeiro = false;
 		}
 		if (seletor.getCrm() != null && !seletor.getCrm().trim().isEmpty()) {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "USUARIOS.CRM LIKE '%" + seletor.getCrm() + "%' ";
+			query += "MEDICO.CRM LIKE '%" + seletor.getCrm() + "%' ";
 			primeiro = false;
 		}
 		if (seletor.getEspecialidade() != null && !seletor.getEspecialidade().trim().isEmpty()) {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "USUARIOS.ESPECIALIDADE LIKE '%" + seletor.getEspecialidade() + "%'";
+			query += "MEDICO.ESPECIALIDADE LIKE '%" + seletor.getEspecialidade() + "%'";
 			primeiro = false;
 		}
 		if (seletor.getNivel() != null && !seletor.getNivel().trim().isEmpty()) {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "USUARIO.NIVEL LIKE '%" + seletor.getNivel() + "%'";
+			query += "MEDICO.NIVEL LIKE '%" + seletor.getNivel() + "%'";
 			primeiro = false;
 		}
 		if (seletor.getDataNascimento() != null) {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "USUARIOS.DATA_NASCIMENTO = " + seletor.getDataNascimento();
+			query += "MEDICO.DATA_NASCIMENTO = " + seletor.getDataNascimento();
 			primeiro = false;
 		}
 		return query;

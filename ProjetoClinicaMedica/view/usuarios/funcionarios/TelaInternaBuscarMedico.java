@@ -2,12 +2,8 @@ package view.usuarios.funcionarios;
 
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.text.ParseException;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -15,30 +11,28 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
+import controller.ControllerConsulta;
 import controller.ControllerMedico;
 import model.seletor.SeletorUsuario;
 import model.vo.MedicoVO;
-import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
+import util.TableModels.ConsultasTableModel;
 import util.TableModels.UsuariosTableModel;
 
 public class TelaInternaBuscarMedico extends JInternalFrame {
 
 	private static final long serialVersionUID = -8419577180883062723L;
 	private static final String SELECIONE = "[SELECIONE]";
-	//Atributos
-	private JFormattedTextField txtCpf;
+	// Atributos
+	private JTextField txtCpf;
 	private JTextField txtCrm;
-	private MaskFormatter mascaraCpf;
 	private JButton btnLimpar;
 	private JButton btnPesquisar;
 	private JButton btnCancelar;
-	private JComboBox cbxNivel;
 	private JTable tblMedicos;
 	private final DatePicker datePicker = new DatePicker();
 	private JTextField txtNome;
@@ -61,23 +55,18 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 		super("Clinica Médica - Selecionar Médico", false, true, false, false);
 		setBounds(100, 100, 1013, 748);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[40][40][40][40][][grow][40][10]"));
+		getContentPane()
+				.setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[40][40][40][40][][grow][40][10]"));
 
 		initialize();
 	}
 
 	private void initialize() {
 
-		try {
-			mascaraCpf = new MaskFormatter("###.###.###-##");
-		} catch (ParseException e1) {
-			System.out.println("Erro ao criar máscara de CPF: " + e1.getMessage());
-		}
-
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblNome, "cell 1 0,grow");
-		
+
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtNome, "cell 2 0,grow");
@@ -91,10 +80,6 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 		lblCrm.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblCrm, "cell 3 1,alignx left");
 
-		JLabel lblNivel = new JLabel("Nível:");
-		lblNivel.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(lblNivel, "cell 3 0,grow");
-
 		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
 		lblDataDeNascimento.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblDataDeNascimento, "cell 1 2");
@@ -105,28 +90,20 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
-
-		cbxNivel = new JComboBox();
-		cbxNivel.setFont(new Font("Verdana", Font.PLAIN, 20));
-		cbxNivel.setModel(new DefaultComboBoxModel(
-				new String[] { SELECIONE, UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO, UsuarioVO.NIVEL_ADMIN }));
-		getContentPane().add(cbxNivel, "cell 4 0,grow");
-		cbxNivel.setSelectedIndex(0);
 		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
 		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 2 2, grow");
-		datePicker.setEnabled(false);
 
-		txtCpf = new JFormattedTextField(mascaraCpf);
+		txtCpf = new JTextField();
 		txtCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtCpf, "cell 2 1,grow");
 
 		txtCrm = new JTextField();
 		txtCrm.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtCrm, "cell 4 1,grow");
-		
+
 		txtEspecialidade = new JTextField();
 		txtEspecialidade.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtEspecialidade, "cell 4 2,grow");
@@ -140,8 +117,9 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 			txtCpf.setText("");
 			txtCrm.setText("");
 			txtEspecialidade.setText("");
-			cbxNivel.setSelectedIndex(0);
 			datePicker.setDate(null);
+			UsuariosTableModel modelo = (UsuariosTableModel) tblMedicos.getModel();
+			modelo.limpar();
 		});
 
 		btnPesquisar = new JButton("Pesquisar");
@@ -178,6 +156,10 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 				if (telaInterna instanceof TelaInternaConsultasEHorarios) {
 					TelaInternaConsultasEHorarios telaAgendamento = (TelaInternaConsultasEHorarios) telaInterna;
 					telaAgendamento.setMedico(medico);
+					ConsultasTableModel modeloConsultas = (ConsultasTableModel) telaAgendamento.getJTable().getModel();
+					ControllerConsulta controller = new ControllerConsulta();
+					modeloConsultas.setConsultas(controller
+							.pesquisarConsultasPorDataEMedico(telaAgendamento.getDatePicker().getDate(), medico));
 					this.dispose();
 				}
 			}
@@ -192,15 +174,11 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 		SeletorUsuario seletor = new SeletorUsuario();
 
 		seletor.setNome(txtNome.getText());
-		if (txtCpf.getText().trim().length() < 14) {
-			seletor.setCpf(null);
-		} else {
-			seletor.setCpf(txtCpf.getText());
-		}
+		seletor.setCpf(txtCpf.getText());
+
 		seletor.setCrm(txtCrm.getText());
 		seletor.setEspecialidade(txtEspecialidade.getText());
 		seletor.setDataNascimento(datePicker.getDate());
-		seletor.setNivel((String) cbxNivel.getModel().getSelectedItem());
 
 		UsuariosTableModel modelo = (UsuariosTableModel) tblMedicos.getModel();
 		modelo.limpar();

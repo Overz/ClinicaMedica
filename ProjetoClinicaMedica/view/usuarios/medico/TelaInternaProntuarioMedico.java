@@ -144,10 +144,6 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 			TelaInternaBuscarPaciente telaInternaBuscarPaciente = new TelaInternaBuscarPaciente();
 			getDesktopPane().add(telaInternaBuscarPaciente);
 			telaInternaBuscarPaciente.setVisible(true);
-
-			if (this.paciente != null) {
-				preencherCampos();
-			}
 		});
 
 		btnSalvar = new JButton("Salvar");
@@ -160,6 +156,7 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 			String mensagem = controller.salvarProntuario(medico, paciente, observacoes);
 			JOptionPane.showMessageDialog(this, mensagem);
 			txtObservacoes.setText("");
+			preencherCampos();
 		});
 
 		if (this.paciente != null) {
@@ -181,12 +178,14 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		ControllerProntuario controller = new ControllerProntuario();
 		ArrayList<ProntuarioVO> prontuarios = controller.listarProntuariosPorPaciente(this.paciente);
 
-		DefaultTableModel modelo = (DefaultTableModel) tblProntuarios.getModel();
+		tblProntuarios
+				.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Data", "Médico", "Observações" }));
 
 		for (ProntuarioVO prontuario : prontuarios) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			String dataFormatada = prontuario.getDtProntuario().format(formatter);
 			String[] novaLinha = { dataFormatada, prontuario.getMedico().toString(), prontuario.getObservacoes() };
+			DefaultTableModel modelo = (DefaultTableModel) tblProntuarios.getModel();
 			modelo.addRow(novaLinha);
 		}
 

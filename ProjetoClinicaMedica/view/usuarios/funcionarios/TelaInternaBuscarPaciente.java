@@ -2,18 +2,14 @@ package view.usuarios.funcionarios;
 
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.text.ParseException;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -29,15 +25,12 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 
 	private static final long serialVersionUID = -3439228926572831568L;
 	private final DatePicker datePicker = new DatePicker();
-	private JFormattedTextField ftfCpf;
+	private JTextField txtCpf;
 	private JTextField txtNome;
-	private MaskFormatter mascaraCPF;
 	private JButton btnPesquisar;
-	private JTable table;
 	private JButton btnSelecionarPaciente;
 	private JButton btnCancelar;
 	private JTable tblPacientes;
-	private ArrayList<PacienteVO> pacientes = new ArrayList<PacienteVO>();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -57,19 +50,13 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		setBounds(100, 100, 1154, 816);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane()
-				.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]", "[10][50][20][50][20][605px,grow][][50][20]"));
+				.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]",
+						"[10][50][20][50][20][605px,grow][][50][20]"));
 
 		initialize();
 	}
 
 	private void initialize() {
-
-		try {
-			mascaraCPF = new MaskFormatter("###.###.###-##");
-		} catch (ParseException e) {
-			System.out.println("Erro ao gerar a Mascar de CPF");
-			System.out.println(e.getMessage());
-		}
 
 		JLabel lblNome = new JLabel("Digite o Nome:");
 		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -90,9 +77,9 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 3 3,grow");
 
-		ftfCpf = new JFormattedTextField(mascaraCPF);
-		ftfCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(ftfCpf, "cell 7 1,grow");
+		txtCpf = new JTextField();
+		txtCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(txtCpf, "cell 7 1,grow");
 
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -114,17 +101,17 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		tblPacientes.setModel(pacientesTableModel);
 		scrollPane.setViewportView(tblPacientes);
 		tblPacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-				btnCancelar = new JButton("Cancelar");
-				btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
-				getContentPane().add(btnCancelar, "cell 3 7,grow");
-				btnCancelar.addActionListener(e -> {
-					this.dispose();
-				});
-		
-				btnSelecionarPaciente = new JButton("Selecionar Paciente");
-				btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));
-				getContentPane().add(btnSelecionarPaciente, "cell 5 7 3 1,grow");
+
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnCancelar, "cell 3 7,grow");
+		btnCancelar.addActionListener(e -> {
+			this.dispose();
+		});
+
+		btnSelecionarPaciente = new JButton("Selecionar Paciente");
+		btnSelecionarPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnSelecionarPaciente, "cell 5 7 3 1,grow");
 		btnSelecionarPaciente.addActionListener(e -> {
 			PacienteTableModel modelo = (PacienteTableModel) tblPacientes.getModel();
 			PacienteVO paciente = modelo.getPaciente(tblPacientes.getSelectedRow());
@@ -136,6 +123,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 				} else if (telaInterna instanceof TelaInternaProntuarioMedico) {
 					TelaInternaProntuarioMedico telaProntuario = (TelaInternaProntuarioMedico) telaInterna;
 					telaProntuario.setPaciente(paciente);
+					telaProntuario.preencherCampos();
 					this.dispose();
 				}
 			}
@@ -147,11 +135,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		SeletorPaciente seletor = new SeletorPaciente();
 
 		seletor.setNome(txtNome.getText());
-		if (ftfCpf.getText().trim().length() < 14) {
-			seletor.setCpf(null);
-		} else {
-			seletor.setCpf(ftfCpf.getText());
-		}
+		seletor.setCpf(txtCpf.getText());
 		seletor.setDate(datePicker.getDate());
 
 		PacienteTableModel modelo = (PacienteTableModel) tblPacientes.getModel();
