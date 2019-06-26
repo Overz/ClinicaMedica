@@ -6,7 +6,6 @@ import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -55,8 +54,9 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 	public TelaInternaExcluirPaciente() {
 		super("Clinica Médica - Exclusão de Paciente", false, true, false, false);
 		setBounds(100, 100, 865, 708);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[10][50][50][50][10][grow][10][60][10]"));
+		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(
+				new MigLayout("", "[10][grow][grow][grow][grow][10]", "[10][50][50][50][10][grow][10][60][10]"));
 
 		initialize();
 	}
@@ -88,7 +88,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		lblDataDeNascimento = new JLabel("Data de Nascimento:");
 		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(lblDataDeNascimento, "cell 1 3,grow");
-		
+
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(txtNome, "cell 2 1,grow");
@@ -101,7 +101,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 			txtCpf.setText("");
 			datePicker.setDate(null);
 		});
-		
+
 		txtCpf = new JFormattedTextField(mascaraCpf);
 		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(txtCpf, "cell 2 2,grow");

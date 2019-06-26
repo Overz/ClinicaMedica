@@ -26,12 +26,10 @@ import controller.ControllerProntuario;
 import controller.ControllerRelatorio;
 import model.vo.ConsultaVO;
 import model.vo.FuncionarioVO;
-import model.vo.ConsultaVO;
 import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import model.vo.ProntuarioVO;
 import model.vo.UsuarioVO;
-import model.vo.ProntuarioVO;
 import view.adm.paciente.TelaInternaExcluirPaciente;
 import view.adm.usuario.TelaInternaCadastroUsuario;
 import view.adm.usuario.TelaInternaExcluirUsuario;
@@ -212,7 +210,7 @@ public class TelaGeral extends JFrame {
 				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
 		mnRelatorios.add(mntmGerarRelatorioDeConsultas);
 		mntmGerarRelatorioDeConsultas.addActionListener(e -> {
-		
+
 			JFileChooser jfc = new JFileChooser();
 			jfc.setDialogTitle("Salvar relatório em...");
 
@@ -266,12 +264,12 @@ public class TelaGeral extends JFrame {
 			if (resultado == JFileChooser.APPROVE_OPTION) {
 
 				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
-				
+
 				atualizarListas();
 
 				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
 				String mensagem = controllerRelatorio.gerarRelatorio(prontuarioVO, caminhoEscolhido);
-				
+
 				JOptionPane.showMessageDialog(null, mensagem);
 			}
 		});
@@ -313,7 +311,6 @@ public class TelaGeral extends JFrame {
 		mnPacientes.add(mnExcluirPacientes);
 		mnExcluirPacientes.addActionListener(e -> {
 			adicionarInternalFrame(janelinhaExcluirPaciente);
-			this.repaint();
 		});
 
 		JMenu mnSair = new JMenu("Sair");
@@ -408,11 +405,11 @@ public class TelaGeral extends JFrame {
 		ControllerPaciente p = new ControllerPaciente();
 		ControllerConsulta c = new ControllerConsulta();
 		ControllerProntuario pro = new ControllerProntuario();
-		
+
 		this.pacienteVO = (ArrayList<PacienteVO>) p.consultarTodos();
 		this.consultasVO = (ArrayList<ConsultaVO>) c.consultarTodos();
 		this.prontuarioVO = (ArrayList<ProntuarioVO>) pro.consultarTodos();
-		
+
 	}
 
 	// Getter Setter
