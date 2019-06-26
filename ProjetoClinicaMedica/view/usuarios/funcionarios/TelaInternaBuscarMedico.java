@@ -52,7 +52,7 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 	}
 
 	public TelaInternaBuscarMedico() {
-		super("Clinica Médica - Selecionar Médico", false, true, false, false);
+		super("Clinica Médica - Selecionar Médico", true, true, false, false);
 		setBounds(100, 100, 1013, 748);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane()

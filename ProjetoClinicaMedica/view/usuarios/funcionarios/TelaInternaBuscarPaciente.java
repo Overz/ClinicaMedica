@@ -51,26 +51,26 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	}
 
 	public TelaInternaBuscarPaciente() {
-		super("Clínica Médica - Buscar Paciente", false, true, false, false);
+		super("Clínica Médica - Buscar Paciente", true, true, false, false);
 		setBounds(100, 100, 1154, 816);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane()
-				.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]",
-						"[10][50][20][50][20][605px,grow][][50][20]"));
+		.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]",
+				"[10][50][20][50][20][605px,grow][][50][20]"));
 
 		initialize();
 	}
 
 	private void initialize() {
-		
+
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##") {
-		        @Override
-		        public char getPlaceholderCharacter() {
-		            return '0'; // replaces default space characters with zeros
-		        }
-		    };
-		mascaraCpf.install(txtCpf);
+				@Override
+				public char getPlaceholderCharacter() {
+					return '0'; // replaces default space characters with zeros
+				}
+			};
+			mascaraCpf.install(txtCpf);
 		} catch (ParseException e) {
 			System.out.println("Erro ao criar a mascar.\n" + e.getMessage());
 		}
@@ -153,11 +153,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		ControllerPaciente controller = new ControllerPaciente();
 		SeletorPaciente seletor = new SeletorPaciente();
 
-		try {
-			seletor.setNome(String.valueOf(txtNome.getText()));
-		} catch (NullPointerException e) {
-			JOptionPane.showMessageDialog(null, "Por favor, Digite Nomes Validos!");
-		}
+		seletor.setNome(txtNome.getText());
 		if (txtCpf.getText().trim().length() < 14) {
 			seletor.setCpf(null);
 		} else {

@@ -34,7 +34,6 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 	private JButton btnExcluirUsuario;
 	private JButton btnLimpar;
 	private JButton btnPesquisar;
-	private JLabel lblDataDeNascimento;
 	private JButton btnCancelar;
 	private JTextField txtNome;
 	private final DatePicker datePicker = new DatePicker();
@@ -43,8 +42,8 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaExcluirPaciente frame = new TelaInternaExcluirPaciente();
-					frame.setVisible(true);
+					TelaInternaExcluirPaciente window = new TelaInternaExcluirPaciente();
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,7 +52,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 	}
 
 	public TelaInternaExcluirPaciente() {
-		super("Clinica Médica - Exclusão de Paciente", false, true, false, false);
+		super("Clinica Médica - Exclusão de Paciente", true, true, false, false);
 		setBounds(100, 100, 865, 708);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[10][50][50][50][10][grow][10][60][10]"));
@@ -76,10 +75,10 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblNome, "cell 1 1,grow");
-		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
-		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 
 		datePicker.setSettings(dateSettings);
+		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
+		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(datePicker, "cell 2 3,grow");
 		datePicker.setEnabled(false);
 
@@ -87,10 +86,10 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		lblCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblCpf, "cell 1 2,grow");
 
-		lblDataDeNascimento = new JLabel("Data de Nascimento:");
+		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
 		lblDataDeNascimento.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblDataDeNascimento, "cell 1 3,grow");
-		
+
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtNome, "cell 2 1,grow");
@@ -103,7 +102,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 			txtCpf.setText("");
 			datePicker.setDate(null);
 		});
-		
+
 		txtCpf = new JFormattedTextField(mascaraCpf);
 		txtCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtCpf, "cell 2 2,grow");

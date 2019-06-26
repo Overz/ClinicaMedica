@@ -72,7 +72,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	}
 
 	public TelaInternaCadastroPaciente() {
-		super("Clínica Médica - Cadastrar Paciente", false, true, false, false);
+		super("Clínica Médica - Cadastrar Paciente", true, true, false, false);
 		getContentPane().setFont(new Font("Verdana", Font.PLAIN, 14));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1293, 829);
@@ -299,9 +299,8 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, mensagem);
 			}
 		});
-		ftfCPF.setVisible(true);
-		listarPacientes();
 
+		listarPacientes();
 	}
 
 	protected void preencherCampos(PacienteVO paciente) {
@@ -320,6 +319,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		txtBairro.setText(paciente.getBairro());
 		txtRua.setText(paciente.getRua());
 		ftfNumero.setText(Integer.toString(paciente.getNumero()));
+		ftfEstado.setText(paciente.getEstado());
 		// Contato
 		ftfTelefone.setText(paciente.getTelefone());
 		txtEmail.setText(paciente.getEmail());

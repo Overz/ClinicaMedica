@@ -66,7 +66,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 	public TelaInternaCadastroUsuario() {
 
-		super("Clínica Médica - Cadastro de Usuarios", false, true, false, false);
+		super("Clínica Médica - Cadastro de Usuarios", true, true, false, false);
 		setBounds(100, 100, 777, 620);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("", "[10][grow,fill][grow,fill][grow,center][grow][10]", "[grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]"));
