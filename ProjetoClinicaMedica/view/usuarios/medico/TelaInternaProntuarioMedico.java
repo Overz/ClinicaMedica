@@ -56,7 +56,7 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 	}
 
 	public TelaInternaProntuarioMedico() {
-		super("Clínica Médica - Prontuario", false, true, false, false);
+		super("Clínica Médica - Prontuario", true, true, false, false);
 		setBounds(100, 100, 965, 788);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("",

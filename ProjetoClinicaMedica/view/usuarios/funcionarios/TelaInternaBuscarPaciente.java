@@ -2,14 +2,18 @@ package view.usuarios.funcionarios;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -25,12 +29,13 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 
 	private static final long serialVersionUID = -3439228926572831568L;
 	private final DatePicker datePicker = new DatePicker();
-	private JTextField txtCpf;
+	private JFormattedTextField txtCpf;
 	private JTextField txtNome;
 	private JButton btnPesquisar;
 	private JButton btnSelecionarPaciente;
 	private JButton btnCancelar;
 	private JTable tblPacientes;
+	private MaskFormatter mascaraCpf;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -46,17 +51,29 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	}
 
 	public TelaInternaBuscarPaciente() {
-		super("Clínica Médica - Buscar Paciente", false, true, false, false);
+		super("Clínica Médica - Buscar Paciente", true, true, false, false);
 		setBounds(100, 100, 1154, 816);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane()
-				.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]",
-						"[10][50][20][50][20][605px,grow][][50][20]"));
+		.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]",
+				"[10][50][20][50][20][605px,grow][][50][20]"));
 
 		initialize();
 	}
 
 	private void initialize() {
+
+		try {
+			mascaraCpf = new MaskFormatter("###.###.###-##") {
+				@Override
+				public char getPlaceholderCharacter() {
+					return '0'; // replaces default space characters with zeros
+				}
+			};
+			mascaraCpf.install(txtCpf);
+		} catch (ParseException e) {
+			System.out.println("Erro ao criar a mascar.\n" + e.getMessage());
+		}
 
 		JLabel lblNome = new JLabel("Digite o Nome:");
 		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -77,7 +94,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 3 3,grow");
 
-		txtCpf = new JTextField();
+		txtCpf = new JFormattedTextField(mascaraCpf);
 		txtCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtCpf, "cell 7 1,grow");
 
@@ -106,6 +123,8 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnCancelar, "cell 3 7,grow");
 		btnCancelar.addActionListener(e -> {
+			txtNome.setText("");
+			txtCpf.setText("");
 			this.dispose();
 		});
 
@@ -135,7 +154,11 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		SeletorPaciente seletor = new SeletorPaciente();
 
 		seletor.setNome(txtNome.getText());
-		seletor.setCpf(txtCpf.getText());
+		if (txtCpf.getText().trim().length() < 14) {
+			seletor.setCpf(null);
+		} else {
+			seletor.setCpf(txtCpf.getText());
+		}
 		seletor.setDate(datePicker.getDate());
 
 		PacienteTableModel modelo = (PacienteTableModel) tblPacientes.getModel();

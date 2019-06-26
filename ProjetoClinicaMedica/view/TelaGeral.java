@@ -192,7 +192,7 @@ public class TelaGeral extends JFrame {
 
 		mntmProntuario = new JMenuItem("Prontuario");
 		mntmProntuario
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
+		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
 		mnMedico.add(mntmProntuario);
 		mntmProntuario.addActionListener(e -> {
 			adicionarInternalFrame(janelinhaProntuario);
@@ -207,7 +207,7 @@ public class TelaGeral extends JFrame {
 
 		mntmGerarRelatorioDeConsultas = new JMenuItem("Relatorio de Consultas");
 		mntmGerarRelatorioDeConsultas
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
+		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
 		mnRelatorios.add(mntmGerarRelatorioDeConsultas);
 		mntmGerarRelatorioDeConsultas.addActionListener(e -> {
 
@@ -230,7 +230,7 @@ public class TelaGeral extends JFrame {
 
 		mntmGerarRelatorioPaciente = new JMenuItem("Relatorio de Pacientes");
 		mntmGerarRelatorioPaciente
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-relatório-gráfico-filled-38.png")));
+		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-relatório-gráfico-filled-38.png")));
 		mnRelatorios.add(mntmGerarRelatorioPaciente);
 		mntmGerarRelatorioPaciente.addActionListener(e -> {
 
@@ -253,7 +253,7 @@ public class TelaGeral extends JFrame {
 
 		mntmRelatorioDeProntuarios = new JMenuItem("Relatorio de Prontuários");
 		mntmRelatorioDeProntuarios
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
+		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
 		mnRelatorios.add(mntmRelatorioDeProntuarios);
 		mntmRelatorioDeProntuarios.addActionListener(e -> {
 
@@ -286,19 +286,19 @@ public class TelaGeral extends JFrame {
 
 		JMenu mnUsuarios = new JMenu("Usuarios");
 		mnUsuarios
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
+		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
 		mnAdm.add(mnUsuarios);
-
-		mntmExcluirUsuarios = new JMenuItem("Excluir Usuarios");
-		mnUsuarios.add(mntmExcluirUsuarios);
-		mntmExcluirUsuarios.addActionListener(e -> {
-			adicionarInternalFrame(janelinhaExcluirUsuario);
-		});
 
 		mntmCadastroDeUsuarios = new JMenuItem("Cadastro de Usuarios");
 		mnUsuarios.add(mntmCadastroDeUsuarios);
 		mntmCadastroDeUsuarios.addActionListener(e -> {
 			adicionarInternalFrame(janelinhaUsuario);
+		});
+
+		mntmExcluirUsuarios = new JMenuItem("Excluir Usuarios");
+		mnUsuarios.add(mntmExcluirUsuarios);
+		mntmExcluirUsuarios.addActionListener(e -> {
+			adicionarInternalFrame(janelinhaExcluirUsuario);
 		});
 
 		mnCadastroDePaciente = new JMenuItem("Cadastro de Pacientes");

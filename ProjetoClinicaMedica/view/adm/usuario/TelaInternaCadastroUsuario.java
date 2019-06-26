@@ -66,11 +66,10 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 	public TelaInternaCadastroUsuario() {
 
-		super("Clínica Médica - Cadastro de Usuarios", false, true, false, false);
+		super("Clínica Médica - Cadastro de Usuarios", true, true, false, false);
 		setBounds(100, 100, 777, 620);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][grow,fill][grow,fill][grow,center][grow][10]",
-				"[grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]"));
+		getContentPane().setLayout(new MigLayout("", "[10][grow,fill][grow,fill][grow,center][grow][10]", "[grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]"));
 
 		initialize();
 
@@ -148,7 +147,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		getContentPane().add(separator_2, "cell 1 17 4 1,grow");
 
 		cbxUsuarios = new JComboBox(usuarios.toArray());
-		getContentPane().add(cbxUsuarios, "cell 3 1 2 1,grow");
+		getContentPane().add(cbxUsuarios, "cell 3 1,grow");
 		cbxUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ((UsuarioVO) cbxUsuarios.getModel().getSelectedItem() == null) {

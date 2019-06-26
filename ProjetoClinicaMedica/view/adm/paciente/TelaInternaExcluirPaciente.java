@@ -33,7 +33,6 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 	private JButton btnExcluirUsuario;
 	private JButton btnLimpar;
 	private JButton btnPesquisar;
-	private JLabel lblDataDeNascimento;
 	private JButton btnCancelar;
 	private JTextField txtNome;
 	private final DatePicker datePicker = new DatePicker();
@@ -42,8 +41,8 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaExcluirPaciente frame = new TelaInternaExcluirPaciente();
-					frame.setVisible(true);
+					TelaInternaExcluirPaciente window = new TelaInternaExcluirPaciente();
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -52,7 +51,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 	}
 
 	public TelaInternaExcluirPaciente() {
-		super("Clinica Médica - Exclusão de Paciente", false, true, false, false);
+		super("Clinica Médica - Exclusão de Paciente", true, true, false, false);
 		setBounds(100, 100, 865, 708);
 		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(
@@ -74,27 +73,29 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		dateSettings.setAllowKeyboardEditing(false);
 
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblNome, "cell 1 1,grow");
 
 		datePicker.setSettings(dateSettings);
+		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
+		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(datePicker, "cell 2 3,grow");
 		datePicker.setEnabled(false);
 
 		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblCpf, "cell 1 2,grow");
 
-		lblDataDeNascimento = new JLabel("Data de Nascimento:");
-		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
+		lblDataDeNascimento.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblDataDeNascimento, "cell 1 3,grow");
 
 		txtNome = new JTextField();
-		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtNome, "cell 2 1,grow");
 
 		btnLimpar = new JButton("Limpar Campos");
-		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnLimpar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnLimpar, "cell 4 1,grow");
 		btnLimpar.addActionListener(e -> {
 			txtNome.setText("");
@@ -103,11 +104,11 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		});
 
 		txtCpf = new JFormattedTextField(mascaraCpf);
-		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtCpf, "cell 2 2,grow");
 
 		btnPesquisar = new JButton("Pesquisar");
-		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnPesquisar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnPesquisar, "cell 4 2 1 2,grow");
 		btnPesquisar.addActionListener(e -> {
 			consultarPacientes();
@@ -117,21 +118,21 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		getContentPane().add(scrollPane, "cell 1 5 4 1,grow");
 
 		tblPacientes = new JTable();
-		tblPacientes.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tblPacientes.setFont(new Font("Verdana", Font.PLAIN, 14));
 		PacienteTableModel pacientesTableModel = new PacienteTableModel();
 		tblPacientes.setModel(pacientesTableModel);
 		scrollPane.setViewportView(tblPacientes);
 		tblPacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnCancelar, "cell 2 7,grow");
 		btnCancelar.addActionListener(e -> {
 			this.dispose();
 		});
 
 		btnExcluirUsuario = new JButton("Excluir Paciente");
-		btnExcluirUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnExcluirUsuario.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnExcluirUsuario, "cell 4 7,grow");
 		btnExcluirUsuario.addActionListener(e -> {
 			PacienteTableModel modelo = (PacienteTableModel) tblPacientes.getModel();
