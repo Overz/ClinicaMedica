@@ -91,6 +91,9 @@ public class ControllerPaciente {
 		if (nome == null || nome.trim().isEmpty()) {
 			mensagem += "Por favor, Digite o Campo NOME Acima!\n";
 		}
+		if (!validarCampoStrings(nome)) {
+			mensagem += "Por favor, Digite o campo NOME Acima, Valido!";
+		}
 		if (cpf == null || cpf.trim().isEmpty()) {
 			mensagem += "Por favor, Digite o Campo CPF Acima!\n";
 		}
@@ -106,11 +109,20 @@ public class ControllerPaciente {
 		if (cidade == null || cidade.trim().isEmpty()) {
 			mensagem += "Por favor, Digite o Campo CIDADE Acima!\n";
 		}
+		if (!validarCampoStrings(cidade)) {
+			mensagem += "Por favor, Digite o Campo CIDADE Acima, Valido!";
+		}
 		if (bairro == null || bairro.trim().isEmpty()) {
 			mensagem += "Por favor, Digite o Campo BAIRRO Acima!";
 		}
+		if (!validarCampoStrings(bairro)) {
+			mensagem += "Por favor, Digite o Campo BAIRRO Acima, Valido!";
+		}
 		if (rua == null || rua.trim().isEmpty()) {
 			mensagem += "Por favor, Digite o campo RUA Acima!";
+		}
+		if (!validarCampoStrings(rua)) {
+			mensagem += "Por favor, Digite o Campo RUA Acima, Valido!";
 		}
 		if (numero <= 0) {
 			mensagem += "Por favor, Digite o Campo NUMERO Acima Com Valores VALIDOS!\n";
@@ -127,7 +139,6 @@ public class ControllerPaciente {
 
 		return mensagem;
 	}
-
 	/**
 	 * Método para validar email, contendo um @ obrigatorio, dominio(.com.br) obrigatorio.
 	 * @param email
@@ -138,7 +149,15 @@ public class ControllerPaciente {
 		return email.matches(regex);
 
 	}
-
+	/**
+	 * Método para validar campos com Strings
+	 * @param nome
+	 * @return regex ^[a-zA-Z]*$
+	 */
+	public boolean validarCampoStrings(String nome) {
+		String regex = "^[a-zA-Z]*$";
+		return nome.matches(regex);
+	}
 	/**
 	 * Método para consultar todos os Pacientes do Banco.
 	 * @return ArrayList<?>
@@ -155,5 +174,4 @@ public class ControllerPaciente {
 	public ArrayList<PacienteVO> listarPacientes(SeletorPaciente seletor) {
 		return bo.buscarPaciente(seletor);
 	}
-
 }

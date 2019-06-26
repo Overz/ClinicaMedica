@@ -92,15 +92,18 @@ public class TelaDeLogin extends JFrame {
 				UsuarioVO vo = controllerUsuario.login(usuario, senha);
 
 				if (vo != null) {
-
-					JOptionPane.showMessageDialog(window, "Login efetuado com sucesso!");
+					JLabel aprovado = new JLabel("Login efetuado com Sucesso!");
+					aprovado.setFont(new Font("Verdana", Font.PLAIN, 20));
+					JOptionPane.showMessageDialog(window, aprovado);
 					telaGeral = new TelaGeral(vo);
 					telaGeral.setExtendedState(MAXIMIZED_BOTH);
 					dispose();
 					telaGeral.setVisible(true);
 
 				} else {
-					JOptionPane.showMessageDialog(window, "Usuario e/ou senha inválidos.");
+					JLabel negado = new JLabel("Usuário e/ou senha Invádliso!");
+					negado.setFont(new Font("Verdana", Font.PLAIN, 20));
+					JOptionPane.showMessageDialog(window, negado);
 				}
 			}
 		});
