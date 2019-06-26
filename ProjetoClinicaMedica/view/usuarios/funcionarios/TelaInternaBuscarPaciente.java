@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -64,13 +63,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	private void initialize() {
 
 		try {
-			mascaraCpf = new MaskFormatter("###.###.###-##") {
-				@Override
-				public char getPlaceholderCharacter() {
-					return '0'; // replaces default space characters with zeros
-				}
-			};
-			mascaraCpf.install(txtCpf);
+			mascaraCpf = new MaskFormatter("###.###.###-##");
 		} catch (ParseException e) {
 			System.out.println("Erro ao criar a mascar.\n" + e.getMessage());
 		}
@@ -154,11 +147,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		SeletorPaciente seletor = new SeletorPaciente();
 
 		seletor.setNome(txtNome.getText());
-		if (txtCpf.getText().trim().length() < 14) {
-			seletor.setCpf(null);
-		} else {
-			seletor.setCpf(txtCpf.getText());
-		}
+		seletor.setCpf(txtCpf.getText());
 		seletor.setDate(datePicker.getDate());
 
 		PacienteTableModel modelo = (PacienteTableModel) tblPacientes.getModel();

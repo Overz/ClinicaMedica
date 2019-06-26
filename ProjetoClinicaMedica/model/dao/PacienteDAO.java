@@ -229,7 +229,7 @@ public class PacienteDAO {
 		return pacientes;
 	}
 
-	public ArrayList<?> consultarTodos() {
+	public ArrayList<PacienteVO> consultarTodos() {
 		String query = " SELECT * FROM PACIENTE ";
 
 		Connection conn = Banco.getConnection();

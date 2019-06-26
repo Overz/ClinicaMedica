@@ -91,7 +91,7 @@ public class PacienteBO {
 		return mensagem;
 	}
 
-	public ArrayList<?> consultarTodos() {
+	public ArrayList<PacienteVO> consultarTodos() {
 		return dao.consultarTodos();
 	}
 

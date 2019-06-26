@@ -16,7 +16,7 @@ public class ControllerPaciente {
 	public String salvarPaciente(int idPaciente, String nome, String cpf, LocalDate dtNascimento, String sexo,
 			String convenio, String tipoSangue, String estado, String cidade, String bairro, String rua, String cep,
 			int numero, String telefone, String email) {
-		String mensagem = validarPaciente(idPaciente, nome, cpf, dtNascimento, sexo, convenio, tipoSangue, estado,
+		String mensagem = validarPaciente(nome, cpf, dtNascimento, sexo, convenio, tipoSangue, estado,
 				cidade, bairro, rua, cep, numero, telefone, email);
 
 		if (mensagem == "") {
@@ -82,7 +82,7 @@ public class ControllerPaciente {
 	 * @return mensagem de sucesso caso os dados sejam cadastrados de maneira
 	 *         correta.
 	 */
-	public String validarPaciente(int idPaciente, String nome, String cpf, LocalDate dtNascimento, String sexo,
+	public String validarPaciente(String nome, String cpf, LocalDate dtNascimento, String sexo,
 			String convenio, String tipoSangue, String estado, String cidade, String bairro, String rua, String cep,
 			int numero, String telefone, String email) {
 
@@ -94,7 +94,7 @@ public class ControllerPaciente {
 		if (!validarCampoStrings(nome)) {
 			mensagem += "Por favor, Digite o campo NOME Acima, Valido!";
 		}
-		if (cpf == null || cpf.trim().isEmpty()) {
+		if (cpf == null || cpf.replaceAll("\\.\\.-", "").trim().isEmpty()) {
 			mensagem += "Por favor, Digite o Campo CPF Acima!\n";
 		}
 		if (dtNascimento == null) {
@@ -155,14 +155,14 @@ public class ControllerPaciente {
 	 * @return regex ^[a-zA-Z]*$
 	 */
 	public boolean validarCampoStrings(String nome) {
-		String regex = "^[a-zA-Z]*$";
+		String regex = "^[A-Za-z ãáâéêíîóôõúü]+$";
 		return nome.matches(regex);
 	}
 	/**
 	 * Método para consultar todos os Pacientes do Banco.
-	 * @return ArrayList<?>
+	 * @return ArrayList<PacienteVO>
 	 */
-	public ArrayList<?> consultarTodos() {
+	public ArrayList<PacienteVO> consultarTodos() {
 		return bo.consultarTodos();
 	}
 
@@ -172,6 +172,9 @@ public class ControllerPaciente {
 	 * @return ArrayList<PacienteVO>
 	 */
 	public ArrayList<PacienteVO> listarPacientes(SeletorPaciente seletor) {
+		if (seletor.getCpf().replaceAll("\\.\\.-", "").trim().isEmpty()) {
+			seletor.setCpf(null);
+		}
 		return bo.buscarPaciente(seletor);
 	}
 }

@@ -38,7 +38,7 @@ public class ConsultaBO {
 		return mensagem;
 	}
 
-	public ArrayList<?> consultarTudos() {
+	public ArrayList<ConsultaVO> consultarTudos() {
 		return dao.consultarTudos();
 	}
 

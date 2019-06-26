@@ -336,7 +336,6 @@ public class TelaGeral extends JFrame {
 		});
 
 		this.verificarPermissaoParaTela();
-
 	}
 
 	/**
@@ -409,9 +408,9 @@ public class TelaGeral extends JFrame {
 		ControllerConsulta c = new ControllerConsulta();
 		ControllerProntuario pro = new ControllerProntuario();
 
-		this.pacienteVO = (ArrayList<PacienteVO>) p.consultarTodos();
-		this.consultasVO = (ArrayList<ConsultaVO>) c.consultarTodos();
-		this.prontuarioVO = (ArrayList<ProntuarioVO>) pro.consultarTodos();
+		this.pacienteVO = p.consultarTodos();
+		this.consultasVO = c.consultarTodos();
+		this.prontuarioVO = pro.consultarTodos();
 
 	}
 

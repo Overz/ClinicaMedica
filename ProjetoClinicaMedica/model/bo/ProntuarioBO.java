@@ -10,7 +10,7 @@ public class ProntuarioBO {
 
 	private ProntuarioDAO dao;
 
-	public ArrayList<?> consultarTodos() {
+	public ArrayList<ProntuarioVO> consultarTodos() {
 		dao = new ProntuarioDAO();
 		return dao.consultarTodos();
 	}

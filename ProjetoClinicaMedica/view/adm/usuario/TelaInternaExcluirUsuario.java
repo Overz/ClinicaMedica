@@ -33,19 +33,19 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 	private static final long serialVersionUID = -4416105711278801014L;
 	private JTable tblUsuarios;
 	private JFormattedTextField txtCpf;
+	private JTextField txtNome;
+	private JTextField txtEspecialidade;
+	private JTextField txtCrm;
+	private JLabel lblDataDeNascimento;
+	private JLabel lblCrm;
+	private JLabel lblNivel;
+	private JLabel lblEspecialidade;
 	private JButton btnExcluirUsuario;
 	private JButton btnLimpar;
 	private JButton btnPesquisar;
-	private JLabel lblDataDeNascimento;
-	private final DatePicker datePicker = new DatePicker();
-	private JLabel lblCrm;
-	private JTextField txtCrm;
 	private JButton btnCancelar;
-	private JLabel lblEspecialidade;
 	private JComboBox cbxNivel;
-	private JLabel lblNivel;
-	private JTextField txtNome;
-	private JTextField txtEspecialidade;
+	private final DatePicker datePicker = new DatePicker();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -63,7 +63,7 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 	public TelaInternaExcluirUsuario() {
 		super("Clinica Médica - Exclusão de Usuario", true, true, false, false);
 		setBounds(100, 100, 996, 774);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[40][40][40][40][10][][10][grow][40][10]"));
 
 		initialize();
@@ -120,7 +120,6 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 2 2, grow");
-		datePicker.setEnabled(false);
 
 		lblEspecialidade = new JLabel("Especialidade:");
 		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
