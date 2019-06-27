@@ -31,20 +31,17 @@ import util.TableModels.UsuariosTableModel;
 public class TelaInternaExcluirUsuario extends JInternalFrame {
 
 	private static final long serialVersionUID = -4416105711278801014L;
-	private JTable tblUsuarios;
-	private JFormattedTextField txtCpf;
+	private JTextField txtCrm;
 	private JTextField txtNome;
 	private JTextField txtEspecialidade;
-	private JTextField txtCrm;
-	private JLabel lblDataDeNascimento;
-	private JLabel lblCrm;
-	private JLabel lblNivel;
-	private JLabel lblEspecialidade;
+	private JFormattedTextField txtCpf;
+	private MaskFormatter mascaraCpf;
 	private JButton btnExcluirUsuario;
 	private JButton btnLimpar;
 	private JButton btnPesquisar;
 	private JButton btnCancelar;
 	private JComboBox cbxNivel;
+	private JTable tblUsuarios;
 	private final DatePicker datePicker = new DatePicker();
 
 	public static void main(String[] args) {
@@ -70,64 +67,65 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 	}
 
 	private void initialize() {
+		
+		try {
+			mascaraCpf = new MaskFormatter("###########");
+			
+		} catch (ParseException e1) {
+			System.out.println("Erro ao criar máscara de CPF(Tela Excluir Úsuario).\n" + e1.getMessage());
+		}
 
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(lblNome, "cell 1 0,grow");
 
-		txtNome = new JTextField();
-		getContentPane().add(txtNome, "cell 2 0,grow");
-		txtNome.setColumns(10);
-
-		lblNivel = new JLabel("Nível:");
+		JLabel lblNivel = new JLabel("Nível:");
 		lblNivel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(lblNivel, "cell 3 0,grow");
-
-		cbxNivel = new JComboBox();
-		cbxNivel.setModel(new DefaultComboBoxModel(
-				new String[] { "", UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO, UsuarioVO.NIVEL_ADMIN }));
-		getContentPane().add(cbxNivel, "cell 4 0,grow");
-		cbxNivel.setSelectedIndex(-1);
+		
+		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
+		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(lblDataDeNascimento, "cell 1 2");
 
 		JLabel lblCpf = new JLabel("CPF:");
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(lblCpf, "cell 1 1,grow");
+		
+		JLabel lblEspecialidade = new JLabel("Especialidade:");
+		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(lblEspecialidade, "cell 1 3,grow");
 
-		MaskFormatter mascaraCpf;
-		try {
-			mascaraCpf = new MaskFormatter("###.###.###-##");
-			txtCpf = new JFormattedTextField(mascaraCpf);
-			txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			getContentPane().add(txtCpf, "cell 2 1,grow");
-		} catch (ParseException e1) {
-			System.out.println("Erro ao criar máscara de CPF: " + e1.getMessage());
-		}
-
-		lblCrm = new JLabel("CRM:");
+		JLabel lblCrm = new JLabel("CRM:");
 		lblCrm.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(lblCrm, "cell 3 1,grow");
+		
+		txtNome = new JTextField();
+		getContentPane().add(txtNome, "cell 2 0,grow");
+		txtNome.setColumns(10);
+		
+		txtCpf = new JFormattedTextField(mascaraCpf);
+		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		getContentPane().add(txtCpf, "cell 2 1,grow");
 
 		txtCrm = new JFormattedTextField();
 		txtCrm.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		getContentPane().add(txtCrm, "cell 4 1,grow");
 
-		lblDataDeNascimento = new JLabel("Data de Nascimento:");
-		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(lblDataDeNascimento, "cell 1 2");
-
+		txtEspecialidade = new JTextField();
+		getContentPane().add(txtEspecialidade, "cell 2 3,grow");
+		txtEspecialidade.setColumns(10);
+		
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
 
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 2 2, grow");
-
-		lblEspecialidade = new JLabel("Especialidade:");
-		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getContentPane().add(lblEspecialidade, "cell 1 3,grow");
-
-		txtEspecialidade = new JTextField();
-		getContentPane().add(txtEspecialidade, "cell 2 3,grow");
-		txtEspecialidade.setColumns(10);
+		
+		cbxNivel = new JComboBox();
+		cbxNivel.setModel(new DefaultComboBoxModel(
+				new String[] { "", UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO, UsuarioVO.NIVEL_ADMIN }));
+		getContentPane().add(cbxNivel, "cell 4 0,grow");
+		cbxNivel.setSelectedIndex(-1);
 
 		btnLimpar = new JButton("Limpar Campos");
 		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 20));

@@ -40,7 +40,7 @@ public class SeletorPaciente {
 
 	// Getter Setter
 	public String getCpf() {
-		return cpf.replaceAll("\\.\\.-", "").trim();
+			return cpf;
 	}
 
 	public void setCpf(String cpf) {

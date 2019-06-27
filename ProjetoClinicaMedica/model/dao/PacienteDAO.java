@@ -181,25 +181,25 @@ public class PacienteDAO {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "NOME LIKE '%" + seletor.getNome() + "%'";
+			query += " NOME LIKE '% " + seletor.getNome() + "%'";
 		}
 		if (seletor.getCpf() != null && !seletor.getCpf().trim().isEmpty()) {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "CPF LIKE '%" + seletor.getCpf() + "%'";
+			query += " CPF LIKE '% " + seletor.getCpf() + "%'";
 		}
 		if (seletor.getDate() != null) {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "DATA_NASCIMENTO BETWEEN " + seletor.getDate();
+			query += " DATA_NASCIMENTO = ' " + seletor.getDate() + " ' ";
 		}
 		return query;
 	}
 
 	public ArrayList<PacienteVO> buscarPaciente(SeletorPaciente seletor) {
-		String query = "SELECT * FROM PACIENTE";
+		String query = " SELECT * FROM PACIENTE ";
 
 		if (seletor.temFiltro()) {
 			query = criarFiltro(seletor, query);

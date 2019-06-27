@@ -2,8 +2,10 @@ package view.usuarios.funcionarios;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -11,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -26,9 +29,8 @@ import util.TableModels.UsuariosTableModel;
 public class TelaInternaBuscarMedico extends JInternalFrame {
 
 	private static final long serialVersionUID = -8419577180883062723L;
-	private static final String SELECIONE = "[SELECIONE]";
 	// Atributos
-	private JTextField txtCpf;
+	private JFormattedTextField ftfCpf;
 	private JTextField txtCrm;
 	private JButton btnLimpar;
 	private JButton btnPesquisar;
@@ -37,6 +39,7 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 	private final DatePicker datePicker = new DatePicker();
 	private JTextField txtNome;
 	private JTextField txtEspecialidade;
+	private MaskFormatter mascaraCpf;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -63,14 +66,14 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 
 	private void initialize() {
 
+		try {
+			mascaraCpf = new MaskFormatter("###########");
+		} catch (ParseException e1) {
+			System.out.println("Erro ao criar a Mascara de CPF(Tela Buscar Médico).\n" + e1.getMessage());
+		}
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblNome, "cell 1 0,grow");
-
-		txtNome = new JTextField();
-		txtNome.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(txtNome, "cell 2 0,grow");
-		txtNome.setColumns(10);
 
 		JLabel lblCpf = new JLabel("CPF:");
 		lblCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -90,15 +93,20 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
-		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
-		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 
 		datePicker.setSettings(dateSettings);
+		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
+		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(datePicker, "cell 2 2, grow");
 
-		txtCpf = new JTextField();
-		txtCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(txtCpf, "cell 2 1,grow");
+		txtNome = new JTextField();
+		txtNome.setFont(new Font("Verdana", Font.PLAIN, 20));
+		txtNome.setColumns(10);
+		getContentPane().add(txtNome, "cell 2 0,grow");
+		
+		ftfCpf = new JFormattedTextField(mascaraCpf);
+		ftfCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(ftfCpf, "cell 2 1,grow");
 
 		txtCrm = new JTextField();
 		txtCrm.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -114,7 +122,7 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 		getContentPane().add(btnLimpar, "cell 2 4,grow");
 		btnLimpar.addActionListener(e -> {
 			txtNome.setText("");
-			txtCpf.setText("");
+			ftfCpf.setText("");
 			txtCrm.setText("");
 			txtEspecialidade.setText("");
 			datePicker.setDate(null);
@@ -174,7 +182,7 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 		SeletorUsuario seletor = new SeletorUsuario();
 
 		seletor.setNome(txtNome.getText());
-		seletor.setCpf(txtCpf.getText());
+		seletor.setCpf(ftfCpf.getText());
 
 		seletor.setCrm(txtCrm.getText());
 		seletor.setEspecialidade(txtEspecialidade.getText());
