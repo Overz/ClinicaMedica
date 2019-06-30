@@ -80,7 +80,6 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
 		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(datePicker, "cell 2 3,grow");
-		datePicker.setEnabled(false);
 
 		JLabel lblCpf = new JLabel("CPF:");
 		lblCpf.setFont(new Font("Verdana", Font.PLAIN, 20));

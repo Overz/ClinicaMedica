@@ -102,7 +102,7 @@ public class TelaDeLogin extends JFrame {
 					telaGeral.setVisible(true);
 
 				} else {
-					JLabel negado = new JLabel("Usuário e/ou senha Invádliso!");
+					JLabel negado = new JLabel("Usuário e/ou senha Inválidos!");
 					negado.setFont(new Font("Verdana", Font.PLAIN, 20));
 					JOptionPane.showMessageDialog(window, negado);
 				}

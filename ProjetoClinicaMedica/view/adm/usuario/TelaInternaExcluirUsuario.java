@@ -3,7 +3,6 @@ package view.adm.usuario;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -64,7 +63,8 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 		super("Clinica Médica - Exclusão de Usuario", true, true, false, false);
 		setBounds(100, 100, 996, 774);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[40][40][40][40][10][][10][grow][40][10]"));
+		getContentPane().setLayout(
+				new MigLayout("", "[10][grow][grow][grow][grow][10]", "[40][40][40][40][10][][10][grow][40][10]"));
 
 		initialize();
 	}
@@ -120,7 +120,6 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 2 2, grow");
-		datePicker.setEnabled(false);
 
 		lblEspecialidade = new JLabel("Especialidade:");
 		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 20));

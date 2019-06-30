@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -55,8 +54,8 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		setBounds(100, 100, 1154, 816);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		getContentPane()
-		.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]",
-				"[10][50][20][50][20][605px,grow][][50][20]"));
+				.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]",
+						"[10][50][20][50][20][605px,grow][][50][20]"));
 
 		initialize();
 	}
@@ -64,13 +63,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	private void initialize() {
 
 		try {
-			mascaraCpf = new MaskFormatter("###.###.###-##") {
-				@Override
-				public char getPlaceholderCharacter() {
-					return '0'; // replaces default space characters with zeros
-				}
-			};
-			mascaraCpf.install(txtCpf);
+			mascaraCpf = new MaskFormatter("###.###.###-##");
 		} catch (ParseException e) {
 			System.out.println("Erro ao criar a mascar.\n" + e.getMessage());
 		}

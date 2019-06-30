@@ -7,19 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
-
-import com.mysql.cj.protocol.Resultset;
 
 import model.banco.Banco;
 import model.vo.ConsultaVO;
@@ -194,10 +183,10 @@ public class ConsultaDAO {
 
 		return consulta;
 	}
-	
+
 	public boolean existeConsultaPorDataEMedico(ConsultaVO consulta) {
 		boolean sucesso = false;
-		String query = "SELECT * FROM CONSULTA WHERE IDMEDICO = ? AND DATE(DATA_CONSULTA) = ?";
+		String query = "SELECT * FROM CONSULTA WHERE IDMEDICO = ? AND DATA_CONSULTA = ?";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
@@ -225,10 +214,10 @@ public class ConsultaDAO {
 	public Boolean deletarConsulta(ConsultaVO consultaSelecionada) {
 		boolean sucesso = false;
 		String query = "DELETE FROM CONSULTA WHERE IDCONSULTA = ? ";
-		
+
 		Connection conn = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
-		
+
 		try {
 			prepStmt.setInt(1, consultaSelecionada.getIdConsulta());
 			ResultSet resultado = prepStmt.executeQuery();
@@ -242,7 +231,7 @@ public class ConsultaDAO {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);
 		}
-		
+
 		return sucesso;
 	}
 

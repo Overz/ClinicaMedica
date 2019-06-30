@@ -9,7 +9,7 @@ import model.vo.PacienteVO;
 
 public class ControllerPaciente {
 
-	private static final String SELECIONE = "[SELEICONE]";
+	private static final String SELECIONE = "[SELECIONE]";
 	private PacienteVO vo;
 	private PacienteBO bo = new PacienteBO();
 
@@ -139,8 +139,11 @@ public class ControllerPaciente {
 
 		return mensagem;
 	}
+
 	/**
-	 * Método para validar email, contendo um @ obrigatorio, dominio(.com.br) obrigatorio.
+	 * Método para validar email, contendo um @ obrigatorio, dominio(.com.br)
+	 * obrigatorio.
+	 * 
 	 * @param email
 	 * @return String
 	 */
@@ -149,8 +152,10 @@ public class ControllerPaciente {
 		return email.matches(regex);
 
 	}
+
 	/**
 	 * Método para validar campos com Strings
+	 * 
 	 * @param nome
 	 * @return regex ^[a-zA-Z]*$
 	 */
@@ -158,8 +163,10 @@ public class ControllerPaciente {
 		String regex = "^[a-zA-Z]*$";
 		return nome.matches(regex);
 	}
+
 	/**
 	 * Método para consultar todos os Pacientes do Banco.
+	 * 
 	 * @return ArrayList<?>
 	 */
 	public ArrayList<?> consultarTodos() {
@@ -168,6 +175,7 @@ public class ControllerPaciente {
 
 	/**
 	 * Método q confere se existe filtros na consulta;
+	 * 
 	 * @param seletor
 	 * @return ArrayList<PacienteVO>
 	 */

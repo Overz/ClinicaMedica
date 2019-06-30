@@ -1,6 +1,5 @@
 package view.usuarios.funcionarios;
 
-import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -30,7 +29,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 	private static final long serialVersionUID = -7169289567115539328L;
 	// Atributos
-	private static final String SELECIONE = "[SELEICONE]";
+	private static final String SELECIONE = "[SELECIONE]";
 	private JFormattedTextField ftfCPF;
 	private JFormattedTextField ftfTelefone;
 	private JFormattedTextField ftfNumero;
@@ -76,7 +75,8 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		getContentPane().setFont(new Font("Verdana", Font.PLAIN, 14));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1293, 829);
-		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][grow][10]", "[10][38,grow][40][38,grow][30][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38px,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][36px][38,grow][38,grow][38,grow][][60][10][10]"));
+		getContentPane().setLayout(new MigLayout("", "[10][grow][grow][grow][grow][grow][10]",
+				"[10][38,grow][40][38,grow][30][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38px,grow][38,grow][38,grow][38,grow][38,grow][38,grow][38,grow][36px][38,grow][38,grow][38,grow][][60][10][10]"));
 		initialize();
 	}
 
@@ -95,33 +95,33 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		JLabel informacao = new JLabel("Informações Pessoais");
 		informacao.setFont(new Font("Arial", Font.BOLD, 25));
 		getContentPane().add(informacao, "cell 1 1 5 1,alignx center,growy");
-		
-				JLabel lblSelecioneUmPaciente = new JLabel("Selecione um Paciente para editar:");
-				lblSelecioneUmPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));
-				getContentPane().add(lblSelecioneUmPaciente, "cell 2 3,grow");
-		
-				cbxPacientes = new JComboBox(pacientes.toArray());
-				cbxPacientes.setFont(new Font("Verdana", Font.PLAIN, 20));
-				getContentPane().add(cbxPacientes, "cell 4 3 2 1,grow");
-				cbxPacientes.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if ((PacienteVO) cbxPacientes.getModel().getSelectedItem() == null) {
-							limparCampos();
-						} else {
-							preencherCampos((PacienteVO) cbxPacientes.getModel().getSelectedItem());
-						}
-					}
-				});
+
+		JLabel lblSelecioneUmPaciente = new JLabel("Selecione um Paciente para editar:");
+		lblSelecioneUmPaciente.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(lblSelecioneUmPaciente, "cell 2 3,grow");
+
+		cbxPacientes = new JComboBox(pacientes.toArray());
+		cbxPacientes.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(cbxPacientes, "cell 4 3 2 1,grow");
+		cbxPacientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if ((PacienteVO) cbxPacientes.getModel().getSelectedItem() == null) {
+					limparCampos();
+				} else {
+					preencherCampos((PacienteVO) cbxPacientes.getModel().getSelectedItem());
+				}
+			}
+		});
 
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblNome, "cell 1 5,grow");
-		
+
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtNome, "cell 2 5,grow");
 		txtNome.setColumns(10);
-		
+
 		JLabel lblCPF_CNPJ = new JLabel("CPF:");
 		lblCPF_CNPJ.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblCPF_CNPJ, "cell 4 5,alignx center,growy");
@@ -149,12 +149,12 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		JLabel lblCidade = new JLabel("Cidade:");
 		lblCidade.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblCidade, "cell 1 13,grow");
-		
+
 		txtCidade = new JTextField();
 		txtCidade.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtCidade, "cell 2 13,grow");
 		txtCidade.setColumns(10);
-		
+
 		JLabel lblEstado = new JLabel("Estado:");
 		lblEstado.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblEstado, "cell 4 13,alignx center,growy");
@@ -162,12 +162,12 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		JLabel lblBairro = new JLabel("Bairro:");
 		lblBairro.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblBairro, "cell 1 14,grow");
-		
+
 		txtBairro = new JTextField();
 		txtBairro.setFont(new Font("Verdana", Font.PLAIN, 20));
 		txtBairro.setColumns(10);
 		getContentPane().add(txtBairro, "cell 2 14,grow");
-		
+
 		JLabel lblCep = new JLabel("CEP:");
 		lblCep.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblCep, "cell 4 14,alignx center,growy");
@@ -175,16 +175,16 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		JLabel lblRua = new JLabel("Rua:");
 		lblRua.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblRua, "cell 1 15,grow");
-		
+
 		txtRua = new JTextField();
 		txtRua.setFont(new Font("Verdana", Font.PLAIN, 20));
 		txtRua.setColumns(10);
 		getContentPane().add(txtRua, "cell 2 15,grow");
-		
+
 		JLabel lblNumero = new JLabel("Numero:");
 		lblNumero.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblNumero, "cell 1 16,alignx left,growy");
-		
+
 		JLabel contato = new JLabel("Contato");
 		contato.setFont(new Font("Arial", Font.BOLD, 25));
 		getContentPane().add(contato, "cell 1 18 5 1,alignx center,growy");
@@ -192,15 +192,15 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		JLabel lblNumeroTelefone = new JLabel("Telefone:");
 		lblNumeroTelefone.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblNumeroTelefone, "cell 1 20,alignx left,growy");
-		
+
 		ftfCPF = new JFormattedTextField(mascaraCpf);
 		ftfCPF.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(ftfCPF, "cell 5 5,grow");
-		
+
 		ftfNumero = new JFormattedTextField(mascaraNumero);
 		ftfNumero.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(ftfNumero, "cell 2 16,grow");
-		
+
 		ftfEstado = new JFormattedTextField(mascaraEstado);
 		ftfEstado.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(ftfEstado, "cell 5 13,grow");
@@ -239,12 +239,12 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		JLabel lblEmail = new JLabel("E-Mail:");
 		lblEmail.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblEmail, "cell 4 20,alignx center,growy");
-		
+
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtEmail, "cell 5 20,grow");
 		txtEmail.setColumns(10);
-		
+
 		btnLimpar = new JButton("Limpar Campos");
 		btnLimpar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnLimpar, "cell 1 23 2 1,grow");
@@ -284,13 +284,13 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			}
 			String telefone = ftfTelefone.getText();
 			String email = txtEmail.getText();
-			
+
 			int idPaciente = 0;
 			if (cbxPacientes.getSelectedIndex() >= 0) {
 				PacienteVO pacienteVO = (PacienteVO) cbxPacientes.getModel().getSelectedItem();
 				idPaciente = pacienteVO.getIdPaciente();
 			}
-			
+
 			controller = new ControllerPaciente();
 			String mensagem = controller.salvarPaciente(idPaciente, nome, cpf, dtNascimento, sexo, convenio, tipoSangue,
 					estado, cidade, bairro, rua, cep, numero, telefone, email);
