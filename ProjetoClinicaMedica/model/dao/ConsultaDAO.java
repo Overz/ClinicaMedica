@@ -157,7 +157,7 @@ public class ConsultaDAO {
 		return consultas;
 	}
 
-	public ArrayList<?> consultarTudos() {
+	public ArrayList<ConsultaVO> consultarTudos() {
 		String query = " SELECT * FROM CONSULTA ";
 
 		Connection conn = Banco.getConnection();

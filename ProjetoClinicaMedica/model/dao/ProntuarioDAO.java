@@ -152,7 +152,7 @@ public class ProntuarioDAO {
 		return prontuarios;
 	}
 
-	public ArrayList<?> consultarTodos() {
+	public ArrayList<ProntuarioVO> consultarTodos() {
 		String query = " SELECT * FROM PRONTUARIO ";
 
 		Connection conn = Banco.getConnection();

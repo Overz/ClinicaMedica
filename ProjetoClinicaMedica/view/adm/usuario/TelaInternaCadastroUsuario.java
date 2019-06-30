@@ -67,7 +67,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 	public TelaInternaCadastroUsuario() {
 
 		super("Clínica Médica - Cadastro de Usuarios", true, true, false, false);
-		setBounds(100, 100, 777, 620);
+		setBounds(100, 100, 1419, 781);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("", "[10][grow,fill][grow,fill][grow,center][grow][10]", "[grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]"));
 
@@ -84,51 +84,51 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		}
 
 		JLabel lblSelecionarUsurio = new JLabel("Usuário");
-		lblSelecionarUsurio.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSelecionarUsurio.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblSelecionarUsurio, "cell 2 1,alignx left,growy");
 
 		JLabel lblUsuario = new JLabel("Usuário:");
-		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblUsuario.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblUsuario, "flowx,cell 1 5,grow");
 
 		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuário:");
-		lblTipoDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTipoDeUsuario.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblTipoDeUsuario, "flowx,cell 3 5,alignx center,growy");
 
 		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSenha.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblSenha, "flowx,cell 1 7,grow");
 
 		JLabel lblConfirmeSuaSenha = new JLabel("Confirme sua Senha:");
-		lblConfirmeSuaSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblConfirmeSuaSenha.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblConfirmeSuaSenha, "flowx,cell 3 7,alignx center,growy");
 
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblNome, "flowx,cell 1 11,grow");
 
 		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblCpf, "cell 3 11,alignx center,growy");
 
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEmail.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblEmail, "flowx,cell 1 13,grow");
 
 		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTelefone.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblTelefone, "cell 3 13,alignx center,growy");
 
 		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
-		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDataDeNascimento.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblDataDeNascimento, "cell 1 15,grow");
 
 		JLabel lblCrm = new JLabel("CRM:");
-		lblCrm.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCrm.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblCrm, "flowx,cell 1 19,grow");
 
 		JLabel lblEspecialidade = new JLabel("Especialidade:");
-		lblEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEspecialidade.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblEspecialidade, "cell 3 19,alignx center,growy");
 
 		JSeparator separator = new JSeparator();
@@ -147,7 +147,8 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		getContentPane().add(separator_2, "cell 1 17 4 1,grow");
 
 		cbxUsuarios = new JComboBox(usuarios.toArray());
-		getContentPane().add(cbxUsuarios, "cell 3 1,grow");
+		cbxUsuarios.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(cbxUsuarios, "cell 3 1 2 1,grow");
 		cbxUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ((UsuarioVO) cbxUsuarios.getModel().getSelectedItem() == null) {
@@ -159,68 +160,70 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		});
 
 		txtUsuario = new JTextField();
-		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtUsuario.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtUsuario, "cell 2 5,grow");
 		txtUsuario.setColumns(10);
 		txtUsuario.setEnabled(false);
 
 		txtNome = new JTextField();
-		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtNome, "cell 2 11,grow");
 		txtNome.setColumns(10);
 		txtNome.setEnabled(false);
 
 		txtEmail = new JTextField();
-		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtEmail.setFont(new Font("Verdana", Font.PLAIN, 20));
 		txtEmail.setColumns(10);
 		getContentPane().add(txtEmail, "cell 2 13,grow");
 		txtEmail.setEnabled(false);
 
 		txtCrm = new JTextField();
-		txtCrm.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtCrm.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtCrm, "cell 2 19,grow");
 		txtCrm.setColumns(10);
 		txtCrm.setEnabled(false);
 
 		txtCpf = new JFormattedTextField(mascaraCpf);
-		txtCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		txtCpf.setColumns(10);
 		getContentPane().add(txtCpf, "cell 4 11,grow");
 		txtCpf.setEnabled(false);
 
 		txtTelefone = new JFormattedTextField(mascaraTelefone);
-		txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtTelefone.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtTelefone, "cell 4 13,grow");
 		txtTelefone.setColumns(10);
 		txtTelefone.setEnabled(false);
 
 		txtEspecialidade = new JTextField();
-		txtEspecialidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtEspecialidade.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtEspecialidade, "cell 4 19,grow");
 		txtEspecialidade.setColumns(10);
 		txtEspecialidade.setEnabled(false);
 
 		passwordField = new JPasswordField();
 		passwordField.setColumns(10);
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		passwordField.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(passwordField, "cell 2 7,grow");
 		passwordField.setEnabled(false);
 
 		passwordFieldConfirm = new JPasswordField();
 		passwordFieldConfirm.setColumns(10);
-		passwordFieldConfirm.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		passwordFieldConfirm.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(passwordFieldConfirm, "cell 4 7,grow");
 		passwordFieldConfirm.setEnabled(false);
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
+		datePicker.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 20));
+		datePicker.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 20));
 
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 2 15,grow");
 		datePicker.setEnabled(false);
 
 		cbxTipoUsuario = new JComboBox();
-		cbxTipoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cbxTipoUsuario.setFont(new Font("Verdana", Font.PLAIN, 20));
 		cbxTipoUsuario.setModel(new DefaultComboBoxModel(
 				new String[] { UsuarioVO.NIVEL_FUNCIONARIO, UsuarioVO.NIVEL_MEDICO, UsuarioVO.NIVEL_ADMIN }));
 		getContentPane().add(cbxTipoUsuario, "cell 4 5,grow");
@@ -232,7 +235,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		});
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnCancelar, "cell 1 21 2 1,grow");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -241,7 +244,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		});
 
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnSalvar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnSalvar, "cell 3 21 2 1,grow");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

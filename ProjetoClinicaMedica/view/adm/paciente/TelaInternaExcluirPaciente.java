@@ -63,7 +63,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 	private void initialize() {
 
 		try {
-			mascaraCpf = new MaskFormatter("###.###.###-##");
+			mascaraCpf = new MaskFormatter("###########");
 
 		} catch (ParseException e1) {
 			System.out.println("Erro ao criar máscara de CPF: " + e1.getMessage());
@@ -143,7 +143,6 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		});
 
 		this.repaint();
-
 	}
 
 	public void consultarPacientes() {

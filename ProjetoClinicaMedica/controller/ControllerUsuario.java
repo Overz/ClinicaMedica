@@ -124,14 +124,14 @@ public class ControllerUsuario {
 		if (!senha.equals(confirmacaoSenha)) {
 			mensagem += "Confirmação de senha e senha não são iguais!\n";
 		}
-		if (cpf == null || cpf.trim().equals("")) {
+		if ((cpf == null || cpf.replaceAll("\\.\\.-", "").trim().isEmpty()) & (cpf.length() < 14)) {
 			mensagem += "O campo CPF é obrigatório!\n";
 		}
 		if (telefone == null || telefone.trim().equals("")) {
 			mensagem += "O campo Telefone é obrigatório!\n";
 		}
 		if (email == null || email.trim().equals("")) {
-			mensagem += "O campo Email é obrigatório! \n";
+			mensagem += "O campo Email é obrigatório!\n";
 		}
 
 		return mensagem;
@@ -141,5 +141,4 @@ public class ControllerUsuario {
 		UsuarioBO bo = new UsuarioBO();
 		return bo.excluirUsuario(usuario);
 	}
-
 }

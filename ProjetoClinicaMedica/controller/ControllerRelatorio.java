@@ -27,6 +27,4 @@ public class ControllerRelatorio {
 		GeradorRelatorioProntuario gerador = new GeradorRelatorioProntuario();
 		return gerador.gerarPlanilhaConsulta(prontuarioVO, caminhoEscolhido);
 	}
-	
-
 }

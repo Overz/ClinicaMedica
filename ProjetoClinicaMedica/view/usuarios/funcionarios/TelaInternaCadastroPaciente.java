@@ -266,7 +266,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		btnCadastrar.addActionListener(e -> {
 
 			String nome = txtNome.getText();
-			String cpf = ftfCPF.getText().trim();
+			String cpf = ftfCPF.getText();
 			LocalDate dtNascimento = datePicker.getDate();
 			String sexo = cbSexo.getSelectedItem().toString();
 			String convenio = cbConvenio.getSelectedItem().toString();

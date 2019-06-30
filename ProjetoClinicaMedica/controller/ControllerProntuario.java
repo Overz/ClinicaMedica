@@ -19,7 +19,7 @@ public class ControllerProntuario {
 		return prontuarios;
 	}
 
-	public ArrayList<?> consultarTodos() {
+	public ArrayList<ProntuarioVO> consultarTodos() {
 		ProntuarioBO bo = new ProntuarioBO();
 		return bo.consultarTodos();
 	}

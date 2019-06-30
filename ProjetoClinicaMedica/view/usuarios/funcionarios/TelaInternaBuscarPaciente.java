@@ -35,6 +35,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	private JButton btnCancelar;
 	private JTable tblPacientes;
 	private MaskFormatter mascaraCpf;
+	private JButton btnLimparCampos;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -63,13 +64,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	private void initialize() {
 
 		try {
-			mascaraCpf = new MaskFormatter("###.###.###-##") {
-				@Override
-				public char getPlaceholderCharacter() {
-					return '0'; // replaces default space characters with zeros
-				}
-			};
-			mascaraCpf.install(txtCpf);
+			mascaraCpf = new MaskFormatter("###########");
 		} catch (ParseException e) {
 			System.out.println("Erro ao criar a mascar.\n" + e.getMessage());
 		}
@@ -100,10 +95,19 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtNome, "cell 3 1,grow");
+		
+		btnLimparCampos = new JButton("Limpar Campos");
+		btnLimparCampos.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(btnLimparCampos, "cell 5 3,grow");
+		btnLimparCampos.addActionListener(e -> {
+			ftfCpf.setText("");
+			txtNome.setText("");
+			datePicker.setDate(null);
+		});
 
 		btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(btnPesquisar, "cell 5 3 3 1,grow");
+		getContentPane().add(btnPesquisar, "cell 6 3 2 1,grow");
 		btnPesquisar.addActionListener(e -> {
 			consultarPacientes();
 		});
@@ -153,11 +157,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		SeletorPaciente seletor = new SeletorPaciente();
 
 		seletor.setNome(txtNome.getText());
-		if (txtCpf.getText().trim().length() < 14) {
-			seletor.setCpf(null);
-		} else {
-			seletor.setCpf(txtCpf.getText());
-		}
+		seletor.setCpf(ftfCpf.getText());
 		seletor.setDate(datePicker.getDate());
 
 		PacienteTableModel modelo = (PacienteTableModel) tblPacientes.getModel();
