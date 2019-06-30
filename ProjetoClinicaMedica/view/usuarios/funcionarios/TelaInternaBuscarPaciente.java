@@ -63,7 +63,13 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	private void initialize() {
 
 		try {
-			mascaraCpf = new MaskFormatter("###.###.###-##");
+			mascaraCpf = new MaskFormatter("###.###.###-##") {
+				@Override
+				public char getPlaceholderCharacter() {
+					return '0'; // replaces default space characters with zeros
+				}
+			};
+			mascaraCpf.install(txtCpf);
 		} catch (ParseException e) {
 			System.out.println("Erro ao criar a mascar.\n" + e.getMessage());
 		}
