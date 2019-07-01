@@ -15,7 +15,7 @@ public class PacienteVO extends PessoaVO {
 	public static final String CONVENIO_GOLDEN_CROSS = "Golden Cross";
 	public static final String CONVENIO_INTERMEDICA = "Intermédica";
 	public static final String CONVENIO_NOTRE_DAME_SEGURO_SAUDE = "Notre Dame Seguro Saúde";
-	//Tipo Sanguineo
+	// Tipo Sanguineo
 	public static final String A = "A+";
 	public static final String a = "A-";
 	public static final String B = "B+";
@@ -35,7 +35,7 @@ public class PacienteVO extends PessoaVO {
 	private String estado;
 	private String cep;
 	private String convenio;
-	
+
 	public PacienteVO() {
 		super();
 	}

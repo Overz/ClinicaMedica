@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -35,6 +36,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					TelaInternaExcluirPaciente window = new TelaInternaExcluirPaciente();
@@ -49,7 +51,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 	public TelaInternaExcluirPaciente() {
 		super("Clinica Médica - Exclusão de Paciente", true, true, false, false);
 		setBounds(100, 100, 865, 708);
-		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(
 				new MigLayout("", "[10][grow][grow][grow][grow][10]", "[10][50][50][50][10][grow][10][60][10]"));
 

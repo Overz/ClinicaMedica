@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import com.github.lgooddatepicker.components.DatePicker;
@@ -43,6 +44,7 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					TelaInternaProntuarioMedico window = new TelaInternaProntuarioMedico(new MedicoVO(),
@@ -58,7 +60,7 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 	public TelaInternaProntuarioMedico() {
 		super("Clínica Médica - Prontuario", true, true, false, false);
 		setBounds(100, 100, 965, 788);
-		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("",
 				"[10][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]",
 				"[grow][grow][grow][13,grow][][grow][][13][grow][13][][13][grow][][][][][][][grow][154px,grow][33px,grow][10]"));
@@ -71,7 +73,7 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		this.medico = medico;
 		this.paciente = paciente;
 		setBounds(100, 100, 965, 788);
-		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("",
 				"[10][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]",
 				"[grow][grow][grow][13,grow][][grow][][13][grow][13][][13][grow][][][][][][][grow][154px,grow][33px,grow][10]"));

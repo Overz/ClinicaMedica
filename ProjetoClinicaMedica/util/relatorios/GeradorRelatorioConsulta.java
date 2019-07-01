@@ -19,22 +19,23 @@ public class GeradorRelatorioConsulta {
 	 * Gera uma planilha Excel (formato .xlsx) a partir de uma lista de produtos
 	 * 
 	 * @param caminhoEscolhido onde a planilha será salva
-	 * @param List<> a lista do objeto que deseja fazer o relatorio
+	 * @param                  List<> a lista do objeto que deseja fazer o relatorio
 	 * 
 	 * @return uma mensagem informando ao usuário o que ocorreu.
 	 */
 	public String gerarPlanilhaConsulta(ArrayList<ConsultaVO> vo, String caminhoEscolhido) {
-		String[] columnNames = { "# Consulta", "Data de Nascimento", "# Paciênte", "Nome Paciênte", "# Medico", "Nome Médico", "# Funcionario", "Nome Funcionario" };
+		String[] columnNames = { "# Consulta", "Data de Nascimento", "# Paciênte", "Nome Paciênte", "# Medico",
+				"Nome Médico", "# Funcionario", "Nome Funcionario" };
 
 		// Criar a planilha (Workbook)
 		XSSFWorkbook planilha = new XSSFWorkbook();
 
-		//Cria uma aba na planilha (Sheet)
+		// Cria uma aba na planilha (Sheet)
 		XSSFSheet abaPlanilha = planilha.createSheet("Consultas");
 
 		XSSFRow headerRow = abaPlanilha.createRow(0);
 
-		//Cria o cabeçalho a partir de um array columns
+		// Cria o cabeçalho a partir de um array columns
 		for (int i = 0; i < columnNames.length; i++) {
 			Cell cell = headerRow.createCell(i);
 			cell.setCellValue(columnNames[i]);
@@ -56,7 +57,7 @@ public class GeradorRelatorioConsulta {
 
 		}
 
-		//Ajusta o tamanho de todas as colunas conforme a largura do conteudo
+		// Ajusta o tamanho de todas as colunas conforme a largura do conteudo
 		for (int i = 0; i < columnNames.length; i++) {
 			abaPlanilha.autoSizeColumn(i);
 		}
@@ -67,35 +68,27 @@ public class GeradorRelatorioConsulta {
 
 	public String gerarPlanilhaConsultaComFiltro(ArrayList<ConsultaVO> vo, String caminhoEscolhido) {
 
-		String[] columnNames = { "# Consulta", "Data de Nascimento", "# Paciênte", "Nome Paciênte", "CPF", "Telefone", "Email",
-								"# Medico", "Nome Médico", "CPF", "CRM", "Especialidade", "Tipo de Usuário",
-								"# Consulta", "Data da Consulta"   };
+		String[] columnNames = { "# Consulta", "Data de Nascimento", "# Paciênte", "Nome Paciênte", "CPF", "Telefone",
+				"Email", "# Medico", "Nome Médico", "CPF", "CRM", "Especialidade", "Tipo de Usuário", "# Consulta",
+				"Data da Consulta" };
 
 		// Criar a planilha (Workbook)
 		XSSFWorkbook planilha = new XSSFWorkbook();
 
-		//Cria uma aba na planilha (Sheet)
+		// Cria uma aba na planilha (Sheet)
 		XSSFSheet abaPlanilha = planilha.createSheet("Consultas");
 
 		XSSFRow headerRow = abaPlanilha.createRow(0);
 
-		//Cria o cabeçalho a partir de um array columns
+		// Cria o cabeçalho a partir de um array columns
 		for (int i = 0; i < columnNames.length; i++) {
 			Cell cell = headerRow.createCell(i);
 			cell.setCellValue(columnNames[i]);
 		}
 
-		//TODO 
-		
-		
-		
-		
-		
-		
-		
-		
+		// TODO
 
-		return  salvarNoDisco(planilha, caminhoEscolhido);
+		return salvarNoDisco(planilha, caminhoEscolhido);
 	}
 
 	// Criação do Caminho para salvar

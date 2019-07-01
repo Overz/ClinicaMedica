@@ -63,6 +63,7 @@ public abstract class PessoaVO {
 		this.email = email;
 	}
 
+	@Override
 	public abstract String toString();
 
 }

@@ -20,7 +20,7 @@ public class GeradorRelatorioPaciente {
 	 * Gera uma planilha Excel (formato .xlsx) a partir de uma lista de produtos
 	 * 
 	 * @param caminhoArquivo onde a planilha será salva
-	 * @param List<> a lista do objeto que deseja fazer o relatorio
+	 * @param                List<> a lista do objeto que deseja fazer o relatorio
 	 * 
 	 * @return uma mensagem informando ao usuário o que ocorreu.
 	 */
@@ -35,7 +35,7 @@ public class GeradorRelatorioPaciente {
 		XSSFSheet abaPlanilha = planilha.createSheet("Pacientes");
 
 		XSSFRow headerRow = abaPlanilha.createRow(0);
-		//Criar cabeçalho apartir do array
+		// Criar cabeçalho apartir do array
 		for (int i = 0; i < columnName.length; i++) {
 			Cell novaCelula = headerRow.createCell(i);
 			novaCelula.setCellValue(columnName[i]);
@@ -45,7 +45,7 @@ public class GeradorRelatorioPaciente {
 		int row = 1;
 		for (PacienteVO p : consulta) {
 			XSSFRow linhaAtual = abaPlanilha.createRow(row++);
-			
+
 			linhaAtual.createCell(0).setCellValue(p.getIdPaciente());
 			linhaAtual.createCell(1).setCellValue(p.getNome());
 			linhaAtual.createCell(2).setCellValue(Date.valueOf(p.getDtNascimento()));
@@ -59,22 +59,22 @@ public class GeradorRelatorioPaciente {
 			linhaAtual.createCell(10).setCellValue(p.getRua());
 			linhaAtual.createCell(11).setCellValue(p.getNumero());
 			linhaAtual.createCell(12).setCellValue(p.getCep());
-			
+
 		}
-		
-		//Ajusta o Tamanho de todas as colunas conforme o conteúdo
+
+		// Ajusta o Tamanho de todas as colunas conforme o conteúdo
 		for (int i = 0; i < columnName.length; i++) {
 			abaPlanilha.autoSizeColumn(i);
 		}
 		// Salvar o arquivo gerado no disco
 		return salvarNoDisco(planilha, caminhoArquivo);
 	}
-	
+
 	// Criação do Caminho para salvar
 	private String salvarNoDisco(XSSFWorkbook planilha, String caminhoArquivo) {
 		String mensagem = "";
 		FileOutputStream saida = null;
-		
+
 		try {
 			saida = new FileOutputStream(new File(caminhoArquivo + ".xlsx"));
 			planilha.write(saida);
@@ -96,7 +96,7 @@ public class GeradorRelatorioPaciente {
 				}
 			}
 		}
-		
+
 		return mensagem;
 	}
 }

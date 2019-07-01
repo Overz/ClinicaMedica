@@ -1,14 +1,17 @@
 package view.usuarios.relatorios;
 
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import net.miginfocom.swing.MigLayout;
-import util.tableModels.ConsultasTableModel;
-import view.usuarios.funcionarios.TelaInternaBuscarMedico;
-import view.usuarios.funcionarios.TelaInternaBuscarPaciente;
-
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
@@ -24,17 +27,10 @@ import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import model.vo.ProntuarioVO;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-
-import java.awt.Font;
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import javax.swing.JFileChooser;
-import javax.swing.JButton;
+import net.miginfocom.swing.MigLayout;
+import util.tableModels.ConsultasTableModel;
+import view.usuarios.funcionarios.TelaInternaBuscarMedico;
+import view.usuarios.funcionarios.TelaInternaBuscarPaciente;
 
 public class TelaInternaFiltrarRelatorio extends JInternalFrame {
 
@@ -62,6 +58,7 @@ public class TelaInternaFiltrarRelatorio extends JInternalFrame {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					TelaInternaFiltrarRelatorio window = new TelaInternaFiltrarRelatorio();
@@ -77,7 +74,9 @@ public class TelaInternaFiltrarRelatorio extends JInternalFrame {
 		super("Clínica Médica - Filtrar Relatorio de Consultas", true, true, false, false);
 		setBounds(100, 100, 1042, 805);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setLayout(new MigLayout("", "[10][grow][10][100px:100px:100px,grow][10,grow][grow][10][grow][10]", "[10][38,grow][5][grow][5][grow,fill][5][38,grow][5][grow][5][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][5][38,grow,fill][5]"));
+		this.getContentPane().setLayout(new MigLayout("",
+				"[10][grow][10][100px:100px:100px,grow][10,grow][grow][10][grow][10]",
+				"[10][38,grow][5][grow][5][grow,fill][5][38,grow][5][grow][5][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][5][38,grow,fill][5]"));
 
 		initialize();
 	}
@@ -185,7 +184,7 @@ public class TelaInternaFiltrarRelatorio extends JInternalFrame {
 		});
 
 		this.repaint();
-	}		
+	}
 
 	public MedicoVO getMedico() {
 		return this.medico;

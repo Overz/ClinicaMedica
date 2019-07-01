@@ -7,7 +7,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -42,6 +42,7 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					TelaInternaExcluirUsuario window = new TelaInternaExcluirUsuario();
@@ -56,7 +57,7 @@ public class TelaInternaExcluirUsuario extends JInternalFrame {
 	public TelaInternaExcluirUsuario() {
 		super("Clinica Médica - Exclusão de Usuario", true, true, false, false);
 		setBounds(100, 100, 996, 774);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(
 				new MigLayout("", "[10][grow][grow][grow][grow][10]", "[40][40][40][40][10][][10][grow][40][10]"));
 

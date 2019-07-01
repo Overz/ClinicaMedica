@@ -19,12 +19,13 @@ public class GeradorRelatorioProntuario {
 	 * Gera uma planilha Excel (formato .xlsx) a partir de uma lista de produtos
 	 * 
 	 * @param caminhoArquivo onde a planilha será salva
-	 * @param List<> a lista do objeto que deseja fazer o relatorio
+	 * @param                List<> a lista do objeto que deseja fazer o relatorio
 	 * 
 	 * @return uma mensagem informando ao usuário o que ocorreu.
 	 */
 	public String gerarPlanilhaConsulta(List<ProntuarioVO> consulta, String caminhoArquivo) {
-		String[] columnName = { "# Prontuario", "Data do Prontuario", "# Paciênte", "Nome Paciênte", "# Médico","Nome Médico", "Observações" };
+		String[] columnName = { "# Prontuario", "Data do Prontuario", "# Paciênte", "Nome Paciênte", "# Médico",
+				"Nome Médico", "Observações" };
 
 		// Criar a planilha (Workbook)
 		XSSFWorkbook planilha = new XSSFWorkbook();
@@ -33,20 +34,20 @@ public class GeradorRelatorioProntuario {
 		XSSFSheet abaPlanilha = planilha.createSheet("Prontuarios");
 
 		XSSFRow headerRow = abaPlanilha.createRow(0);
-		
-		//Criar cabeçalho apartir do array
+
+		// Criar cabeçalho apartir do array
 		for (int i = 0; i < columnName.length; i++) {
 			Cell novaCelula = headerRow.createCell(i);
 			novaCelula.setCellValue(columnName[i]);
 		}
-		
+
 		// Preencher as linhas com os objetos
 		int row = 1;
 		for (ProntuarioVO p : consulta) {
 			XSSFRow linhaAtual = abaPlanilha.createRow(row++);
 
 			linhaAtual.createCell(0).setCellValue(p.getIdProntuario());
-			linhaAtual.createCell(1).setCellValue(p.getDtProntuario().toLocalDate().toString());			
+			linhaAtual.createCell(1).setCellValue(p.getDtProntuario().toLocalDate().toString());
 			linhaAtual.createCell(2).setCellValue(p.getPaciente().getIdPaciente());
 			linhaAtual.createCell(3).setCellValue(p.getPaciente().getNome());
 			linhaAtual.createCell(4).setCellValue(p.getMedico().getIdMedico());
@@ -54,11 +55,11 @@ public class GeradorRelatorioProntuario {
 			linhaAtual.createCell(6).setCellValue(p.getObservacoes());
 		}
 
-		//Ajusta o Tamanho de todas as colunas conforme o conteúdo
+		// Ajusta o Tamanho de todas as colunas conforme o conteúdo
 		for (int i = 0; i < columnName.length; i++) {
 			abaPlanilha.autoSizeColumn(i);
 		}
-		
+
 		// Salvar o arquivo gerado no disco
 		return salvarNoDisco(planilha, caminhoArquivo);
 	}

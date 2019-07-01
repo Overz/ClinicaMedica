@@ -31,6 +31,7 @@ public class TelaDeLogin extends JFrame {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					window = new TelaDeLogin();
@@ -84,6 +85,7 @@ public class TelaDeLogin extends JFrame {
 		btnLogin.setFont(new Font("Arial", Font.BOLD, 16));
 		getContentPane().add(btnLogin, "cell 1 8 2 1,grow");
 		btnLogin.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				ControllerUsuario controllerUsuario = new ControllerUsuario();

@@ -58,6 +58,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					window = new TelaInternaCadastroPaciente();
@@ -102,6 +103,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		cbxPacientes.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(cbxPacientes, "cell 4 3 2 1,grow");
 		cbxPacientes.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if ((PacienteVO) cbxPacientes.getModel().getSelectedItem() == null) {
 					limparCampos();
@@ -342,7 +344,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 
 	public void listarPacientes() {
 		controller = new ControllerPaciente();
-		pacientes = (ArrayList<PacienteVO>) controller.consultarTodos();
+		pacientes = controller.consultarTodos();
 		pacientes.add(0, null);
 		cbxPacientes.setModel(new DefaultComboBoxModel(pacientes.toArray()));
 		cbxPacientes.setSelectedIndex(-1);

@@ -13,13 +13,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
@@ -53,6 +53,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					TelaInternaCadastroUsuario frame = new TelaInternaCadastroUsuario();
@@ -68,7 +69,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 
 		super("Clínica Médica - Cadastro de Usuarios", true, true, false, false);
 		setBounds(100, 100, 1419, 781);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("", "[10][grow,fill][grow,fill][grow,center][grow][10]",
 				"[grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][grow][10]"));
 
@@ -151,6 +152,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		cbxUsuarios.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(cbxUsuarios, "cell 3 1 2 1,grow");
 		cbxUsuarios.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if ((UsuarioVO) cbxUsuarios.getModel().getSelectedItem() == null) {
 					limparCampos();
@@ -230,6 +232,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		getContentPane().add(cbxTipoUsuario, "cell 4 5,grow");
 		cbxTipoUsuario.setSelectedIndex(-1);
 		cbxTipoUsuario.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				atualizarCampos((String) cbxTipoUsuario.getModel().getSelectedItem());
 			}
@@ -239,6 +242,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnCancelar, "cell 1 21 2 1,grow");
 		btnCancelar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
@@ -248,6 +252,7 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 		btnSalvar.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnSalvar, "cell 3 21 2 1,grow");
 		btnSalvar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				String mensagem = "";
 

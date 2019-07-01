@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -35,6 +36,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					TelaInternaBuscarPaciente window = new TelaInternaBuscarPaciente();
@@ -49,7 +51,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 	public TelaInternaBuscarPaciente() {
 		super("Clínica Médica - Buscar Paciente", true, true, false, false);
 		setBounds(100, 100, 1154, 816);
-		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		getContentPane()
 				.setLayout(new MigLayout("", "[10][138px,grow][10][158.00px,grow][10][76.00px,grow][10][grow][10]",
 						"[10][50][20][50][20][605px,grow][][50][20]"));
