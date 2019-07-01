@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import model.bo.ConsultaBO;
+import model.seletor.SeletorConsulta;
 import model.vo.ConsultaVO;
 import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
@@ -60,6 +61,10 @@ public class ControllerConsulta {
 
 	public Boolean deletarConsulta(ConsultaVO consultaSelecionada) {
 		return bo.deletarConsulta(consultaSelecionada);
+	}
+
+	public ArrayList<ConsultaVO> buscarConsultas(SeletorConsulta seletor) {
+		return bo.buscarConsultas(seletor);
 	}
 
 }

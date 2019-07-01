@@ -112,7 +112,7 @@ public class MedicoBO {
 
 	public ArrayList<MedicoVO> listarMedicos(SeletorUsuario seletor) {
 		MedicoDAO dao = new MedicoDAO();
-		return dao.listarrMedico(seletor);
+		return dao.listarMedico(seletor);
 	}
 
 	/**
@@ -147,6 +147,11 @@ public class MedicoBO {
 			mensagem += "Erro ao excluir médico! Médico possui prontuários cadastrados no seu nome!\n";
 		}
 		return mensagem;
+	}
+
+	public ArrayList<MedicoVO> consultarTodosMedicos() {
+		MedicoDAO dao = new MedicoDAO();
+		return dao.consultarTodosMedicos();
 	}
 
 }

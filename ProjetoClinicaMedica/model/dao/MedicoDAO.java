@@ -160,7 +160,7 @@ public class MedicoDAO {
 		return sucesso;
 	}
 
-	public ArrayList<MedicoVO> listarrMedico(SeletorUsuario seletor) {
+	public ArrayList<MedicoVO> listarMedico(SeletorUsuario seletor) {
 		String query = "SELECT * FROM MEDICO INNER JOIN USUARIO ON MEDICO.IDUSUARIO = USUARIO.IDUSUARIO";
 		if (seletor.temFiltro()) {
 			query = criarFiltros(seletor, query);
@@ -355,6 +355,31 @@ public class MedicoDAO {
 			Banco.closeConnection(conn);
 		}
 		return sucesso;
+	}
+
+	public ArrayList<MedicoVO> consultarTodosMedicos() {
+		String query = "SELECT * FROM MEDICO INNER JOIN USUARIO ON MEDICO.IDUSUARIO = USUARIO.IDUSUARIO";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		ArrayList<MedicoVO> medicos = new ArrayList<MedicoVO>();
+
+		try {
+			ResultSet resultado = prepStmt.executeQuery();
+
+			while (resultado.next()) {
+				MedicoVO medico = montarMedico(resultado);
+				medicos.add(medico);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao listar Médicos: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+
+		return medicos;
 	}
 
 }

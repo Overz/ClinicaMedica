@@ -38,7 +38,7 @@ import view.usuarios.funcionarios.TelaInternaCadastroPaciente;
 import view.usuarios.funcionarios.TelaInternaConsultasEHorarios;
 import view.usuarios.medico.TelaInternaAgendaMedico;
 import view.usuarios.medico.TelaInternaProntuarioMedico;
-import view.usuarios.relatorios.TelaInternaFiltrarRelatorio;
+import view.usuarios.relatorios.RelatorioConsultas;
 
 public class TelaGeral extends JFrame {
 
@@ -61,7 +61,6 @@ public class TelaGeral extends JFrame {
 	private JMenuItem jmenuRelatorioConsultas;
 	private JMenuItem jmenuRelatorioPaciente;
 	private JMenuItem jmenuRelatorioProntuarios;
-	private JMenuItem jmenuRelatorioComFiltro;
 
 	private UsuarioVO usuario;
 	private PacienteVO paciente;
@@ -75,7 +74,7 @@ public class TelaGeral extends JFrame {
 	private TelaInternaExcluirUsuario janelinhaExcluirUsuario = new TelaInternaExcluirUsuario();
 	private TelaInternaCadastroUsuario janelinhaUsuario = new TelaInternaCadastroUsuario();
 	private TelaInternaExcluirPaciente janelinhaExcluirPaciente = new TelaInternaExcluirPaciente();
-	TelaInternaFiltrarRelatorio janelinhaFiltrarRelatorio = new TelaInternaFiltrarRelatorio();
+	private RelatorioConsultas janelinhaRelatorioConsultas = new RelatorioConsultas();
 
 	private int width_int;
 	private int height_int;
@@ -83,9 +82,11 @@ public class TelaGeral extends JFrame {
 	private ArrayList<PacienteVO> pacienteVO;
 	private ArrayList<ConsultaVO> consultasVO;
 	private ArrayList<ProntuarioVO> prontuarioVO;
-	
+
 	/**
-	 * Main Method. Initialize the frame maximided, with option to change the X, Y Bounds.
+	 * Main Method. Initialize the frame maximided, with option to change the X, Y
+	 * Bounds.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -204,14 +205,14 @@ public class TelaGeral extends JFrame {
 		mntmProntuario = new JMenuItem("Prontuario");
 		mntmProntuario.setFont(new Font("Verdana", Font.PLAIN, 14));
 		mntmProntuario
-		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
 		mnMedico.add(mntmProntuario);
 		mntmProntuario.addActionListener(e -> {
 			adicionarInternalFrame(janelinhaProntuario);
 			this.repaint();
 		});
 
-		//MENU RELATORIO
+		// MENU RELATORIO
 		jmenuRelatorios = new JMenu("Relatorios");
 		jmenuRelatorios.setFont(new Font("Arial", Font.BOLD, 16));
 		jmenuRelatorios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-gráfico-combinado.png")));
@@ -219,37 +220,21 @@ public class TelaGeral extends JFrame {
 
 		jmenuRelatorioConsultas = new JMenuItem("Relatorio de Consultas");
 		jmenuRelatorioConsultas.setFont(new Font("Verdana", Font.PLAIN, 14));
-		jmenuRelatorioConsultas.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
+		jmenuRelatorioConsultas
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
 		jmenuRelatorios.add(jmenuRelatorioConsultas);
 		jmenuRelatorioConsultas.addActionListener(e -> {
-			
-			//TODAS AS CONSULTAS
-
-			JFileChooser jfc = new JFileChooser();
-			jfc.setDialogTitle("Salvar relatório em...");
-
-			int resultado = jfc.showSaveDialog(null);
-			if (resultado == JFileChooser.APPROVE_OPTION) {
-
-				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
-
-				atualizarListas();
-
-				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
-				String mensagem = controllerRelatorio.gerarRelatorioConsultas(consultasVO, caminhoEscolhido);
-
-				JOptionPane.showMessageDialog(null, mensagem);
-
-			}
+			adicionarInternalFrame(janelinhaRelatorioConsultas);
 		});
 
 		jmenuRelatorioPaciente = new JMenuItem("Relatorio de Pacientes");
 		jmenuRelatorioPaciente.setFont(new Font("Verdana", Font.PLAIN, 14));
-		jmenuRelatorioPaciente.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-relatório-gráfico-filled-38.png")));
+		jmenuRelatorioPaciente
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-relatório-gráfico-filled-38.png")));
 		jmenuRelatorios.add(jmenuRelatorioPaciente);
 		jmenuRelatorioPaciente.addActionListener(e -> {
-			
-			//TODOS OS PACIENTES
+
+			// TODOS OS PACIENTES
 
 			JFileChooser jfc = new JFileChooser();
 			jfc.setDialogTitle("Salvar relatório em...");
@@ -271,11 +256,12 @@ public class TelaGeral extends JFrame {
 
 		jmenuRelatorioProntuarios = new JMenuItem("Relatorio de Prontuários");
 		jmenuRelatorioProntuarios.setFont(new Font("Verdana", Font.PLAIN, 14));
-		jmenuRelatorioProntuarios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
+		jmenuRelatorioProntuarios
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
 		jmenuRelatorios.add(jmenuRelatorioProntuarios);
 		jmenuRelatorioProntuarios.addActionListener(e -> {
-			
-			//TODOS OS PRONTUARIOS
+
+			// TODOS OS PRONTUARIOS
 
 			JFileChooser jfc = new JFileChooser();
 			jfc.setDialogTitle("Salvar relatório em...");
@@ -294,13 +280,6 @@ public class TelaGeral extends JFrame {
 
 			}
 		});
-		
-		jmenuRelatorioComFiltro = new JMenuItem("Filtrar Relatorios");
-		jmenuRelatorioComFiltro.setFont(new Font("Verdana", Font.PLAIN, 14));
-		jmenuRelatorios.add(jmenuRelatorioComFiltro);
-		jmenuRelatorioComFiltro.addActionListener(e -> {
-			adicionarInternalFrame(janelinhaFiltrarRelatorio);
-			});
 
 		// MENU ADM
 		mnAdm = new JMenu("Administração");
@@ -314,7 +293,7 @@ public class TelaGeral extends JFrame {
 
 		JMenu mnUsuarios = new JMenu("Usuarios");
 		mnUsuarios
-		.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
+				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino.png")));
 		mnAdm.add(mnUsuarios);
 
 		mntmCadastroDeUsuarios = new JMenuItem("Cadastro de Usuarios");
