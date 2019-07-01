@@ -91,9 +91,6 @@ public class ControllerPaciente {
 		if (nome == null || nome.trim().isEmpty()) {
 			mensagem += "Por favor, Digite o Campo NOME Acima!\n";
 		}
-		if (!validarCampoStrings(nome)) {
-			mensagem += "Por favor, Digite o campo NOME Acima, Valido!";
-		}
 		if (cpf == null || cpf.replaceAll("\\.\\.-", "").trim().isEmpty()) {
 			mensagem += "Por favor, Digite o Campo CPF Acima!\n";
 		}
@@ -109,20 +106,11 @@ public class ControllerPaciente {
 		if (cidade == null || cidade.trim().isEmpty()) {
 			mensagem += "Por favor, Digite o Campo CIDADE Acima!\n";
 		}
-		if (!validarCampoStrings(cidade)) {
-			mensagem += "Por favor, Digite o Campo CIDADE Acima, Valido!";
-		}
 		if (bairro == null || bairro.trim().isEmpty()) {
 			mensagem += "Por favor, Digite o Campo BAIRRO Acima!";
 		}
-		if (!validarCampoStrings(bairro)) {
-			mensagem += "Por favor, Digite o Campo BAIRRO Acima, Valido!";
-		}
 		if (rua == null || rua.trim().isEmpty()) {
 			mensagem += "Por favor, Digite o campo RUA Acima!";
-		}
-		if (!validarCampoStrings(rua)) {
-			mensagem += "Por favor, Digite o Campo RUA Acima, Valido!";
 		}
 		if (numero <= 0) {
 			mensagem += "Por favor, Digite o Campo NUMERO Acima Com Valores VALIDOS!\n";
@@ -133,49 +121,21 @@ public class ControllerPaciente {
 		if (telefone == null || telefone.trim().isEmpty()) {
 			mensagem += "Por favor, Digite TELEFONE ou CELULAR Acima!";
 		}
-		if (!validarEMail(email)) {
-			mensagem += "Por favor, Digite um EMAIL Valido!";
-		}
 
 		return mensagem;
 	}
 
 	/**
-	 * Método para validar email, contendo um @ obrigatorio, dominio(.com.br) obrigatorio.
-	 * @param email
-	 * @return String
-	 */
-	public boolean validarEMail(String email) {
-		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-		return email.matches(regex);
-
-	}
-
-	/**
-	 * Método para validar campos com Strings
-	 * @param nome
-	 * @return regex ^[a-zA-Z]*$
-	 */
-	public boolean validarCampoStrings(String nome) {
-		String regex = "^[A-Za-z ãáâéêíîóôõúü]+$";
-		return nome.matches(regex);
-	}
-
-	/**
 	 * Método para consultar todos os Pacientes do Banco.
+	 * 
 	 * @return ArrayList<PacienteVO>
 	 */
 	public ArrayList<PacienteVO> consultarTodos() {
 		return bo.consultarTodos();
 	}
 
-	/**
-	 * Método q confere se existe filtros na consulta;
-	 * @param seletor
-	 * @return ArrayList<PacienteVO>
-	 */
 	public ArrayList<PacienteVO> listarPacientes(SeletorPaciente seletor) {
-		if (seletor.getCpf().replaceAll("\\.\\.-", "").trim().isEmpty()) {
+		if (seletor.getCpf().replaceAll("\\.|-", "").trim().isEmpty()) {
 			seletor.setCpf(null);
 		}
 		return bo.buscarPaciente(seletor);

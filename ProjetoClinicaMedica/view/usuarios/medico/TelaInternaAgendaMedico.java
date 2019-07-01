@@ -22,7 +22,7 @@ import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import model.vo.UsuarioVO;
 import net.miginfocom.swing.MigLayout;
-import util.TableModels.ConsultasTableModel;
+import util.tableModels.ConsultasTableModel;
 
 public class TelaInternaAgendaMedico extends JInternalFrame {
 

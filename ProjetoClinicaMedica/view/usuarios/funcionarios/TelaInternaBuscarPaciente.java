@@ -2,17 +2,14 @@ package view.usuarios.funcionarios;
 
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.text.ParseException;
 
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -21,20 +18,19 @@ import controller.ControllerPaciente;
 import model.seletor.SeletorPaciente;
 import model.vo.PacienteVO;
 import net.miginfocom.swing.MigLayout;
-import util.TableModels.PacienteTableModel;
+import util.tableModels.PacienteTableModel;
 import view.usuarios.medico.TelaInternaProntuarioMedico;
 
 public class TelaInternaBuscarPaciente extends JInternalFrame {
 
 	private static final long serialVersionUID = -3439228926572831568L;
 	private final DatePicker datePicker = new DatePicker();
-	private JFormattedTextField txtCpf;
+	private JTextField txtCpf;
 	private JTextField txtNome;
 	private JButton btnPesquisar;
 	private JButton btnSelecionarPaciente;
 	private JButton btnCancelar;
 	private JTable tblPacientes;
-	private MaskFormatter mascaraCpf;
 	private JButton btnLimparCampos;
 
 	public static void main(String[] args) {
@@ -63,12 +59,6 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 
 	private void initialize() {
 
-		try {
-			mascaraCpf = new MaskFormatter("###########");
-		} catch (ParseException e) {
-			System.out.println("Erro ao criar a mascar.\n" + e.getMessage());
-		}
-
 		JLabel lblNome = new JLabel("Digite o Nome:");
 		lblNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(lblNome, "cell 1 1,grow");
@@ -88,14 +78,14 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		datePicker.setSettings(dateSettings);
 		getContentPane().add(datePicker, "cell 3 3,grow");
 
-		txtCpf = new JFormattedTextField(mascaraCpf);
+		txtCpf = new JTextField();
 		txtCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtCpf, "cell 7 1,grow");
 
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtNome, "cell 3 1,grow");
-		
+
 		btnLimparCampos = new JButton("Limpar Campos");
 		btnLimparCampos.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnLimparCampos, "cell 5 3,grow");

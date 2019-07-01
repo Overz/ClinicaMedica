@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import model.dao.UsuarioDAO;
 import model.seletor.SeletorUsuario;
+import model.vo.FuncionarioVO;
+import model.vo.MedicoVO;
 import model.vo.UsuarioVO;
 
 public class UsuarioBO {
@@ -25,11 +27,20 @@ public class UsuarioBO {
 
 	public String excluirUsuario(UsuarioVO usuario) {
 		String mensagem = "";
-		UsuarioDAO dao = new UsuarioDAO();
-		if (dao.excluirUsuario(usuario)) {
-			mensagem += "Usuário excluído com sucesso!";
+		if (usuario.getNivel().equals(UsuarioVO.NIVEL_MEDICO)) {
+			MedicoBO medicoBO = new MedicoBO();
+			mensagem += medicoBO.excluirMedico((MedicoVO) usuario);
 		} else {
-			mensagem += "Erro ao excluir Usuário!";
+			FuncionarioBO funcionarioBO = new FuncionarioBO();
+			mensagem += funcionarioBO.excluirFuncionario((FuncionarioVO) usuario);
+		}
+		if (mensagem.equals("")) {
+			UsuarioDAO dao = new UsuarioDAO();
+			if (dao.excluirUsuario(usuario)) {
+				mensagem += "Usuário excluído com sucesso!";
+			} else {
+				mensagem += "Erro ao excluir Usuário!";
+			}
 		}
 		return mensagem;
 	}

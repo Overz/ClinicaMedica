@@ -124,7 +124,7 @@ public class UsuarioDAO {
 			if (resultado.getString("NIVEL").equals("Médico")) {
 				MedicoDAO medico = new MedicoDAO();
 				usuario = medico.buscarMedicoPorUsuario(usuario);
-			} else if (resultado.getString("NIVEL").equals("Funcionário")) {
+			} else {
 				FuncionarioDAO funcionario = new FuncionarioDAO();
 				usuario = funcionario.buscarFuncionarioPorUsuario(usuario);
 			}
@@ -263,7 +263,7 @@ public class UsuarioDAO {
 			query += "USUARIOS.NOME LIKE '%" + seletor.getNome() + "%' ";
 			primeiro = false;
 		}
-		if (seletor.getCpf() != null && !seletor.getNome().trim().isEmpty()) {
+		if (seletor.getCpf() != null && !seletor.getCpf().trim().isEmpty()) {
 			if (!primeiro) {
 				query += " AND ";
 			}
@@ -295,7 +295,7 @@ public class UsuarioDAO {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "USUARIOS.DATA_NASCIMENTO = " + seletor.getDataNascimento();
+			query += "USUARIOS.DATA_NASCIMENTO = '" + seletor.getDataNascimento() + "'";
 			primeiro = false;
 		}
 		return query;

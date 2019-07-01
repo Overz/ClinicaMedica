@@ -2,10 +2,8 @@ package view.adm.paciente;
 
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.text.ParseException;
 
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,7 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -22,14 +19,13 @@ import controller.ControllerPaciente;
 import model.seletor.SeletorPaciente;
 import model.vo.PacienteVO;
 import net.miginfocom.swing.MigLayout;
-import util.TableModels.PacienteTableModel;
+import util.tableModels.PacienteTableModel;
 
 public class TelaInternaExcluirPaciente extends JInternalFrame {
 
 	private static final long serialVersionUID = -4416105711278801014L;
 	private JTable tblPacientes;
-	private JFormattedTextField txtCpf;
-	private MaskFormatter mascaraCpf;
+	private JTextField txtCpf;
 	private JButton btnExcluirUsuario;
 	private JButton btnLimpar;
 	private JButton btnPesquisar;
@@ -61,13 +57,6 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 	}
 
 	private void initialize() {
-
-		try {
-			mascaraCpf = new MaskFormatter("###########");
-
-		} catch (ParseException e1) {
-			System.out.println("Erro ao criar máscara de CPF: " + e1.getMessage());
-		}
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
@@ -102,7 +91,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 			datePicker.setDate(null);
 		});
 
-		txtCpf = new JFormattedTextField(mascaraCpf);
+		txtCpf = new JTextField();
 		txtCpf.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(txtCpf, "cell 2 2,grow");
 
@@ -150,12 +139,7 @@ public class TelaInternaExcluirPaciente extends JInternalFrame {
 		SeletorPaciente seletor = new SeletorPaciente();
 
 		seletor.setNome(txtNome.getText());
-		if (txtCpf.getText().trim().length() < 14) {
-			seletor.setCpf(null);
-		} else {
-			seletor.setCpf(txtCpf.getText());
-		}
-
+		seletor.setCpf(txtCpf.getText());
 		seletor.setDate(datePicker.getDate());
 
 		PacienteTableModel modelo = (PacienteTableModel) tblPacientes.getModel();

@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import model.banco.Banco;
 import model.vo.FuncionarioVO;
@@ -149,7 +148,7 @@ public class FuncionarioDAO {
 	public boolean excluirFuncionario(FuncionarioVO funcionario) {
 		boolean sucesso = false;
 
-		String query = " DELETE FROM FUNCIONARIO " + " WHERE ID = ? ";
+		String query = " DELETE FROM FUNCIONARIO " + " WHERE IDFUNCIONARIO = ? ";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, query);
@@ -171,16 +170,6 @@ public class FuncionarioDAO {
 			Banco.closeConnection(conexao);
 		}
 		return sucesso;
-	}
-
-	public ArrayList<FuncionarioVO> buscarFuncionario(FuncionarioVO funcionario) {
-		// TODO Implementar método para consulta com seletor
-		return null;
-	}
-
-	public String construirFiltros() {
-		// TODO Implementar método de construção de filtros
-		return null;
 	}
 
 	public FuncionarioVO buscarFuncionarioPorId(int idFuncionario) {
@@ -205,6 +194,31 @@ public class FuncionarioDAO {
 			Banco.closeConnection(conn);
 		}
 		return funcionario;
+	}
+
+	public boolean funcionarioPossuiConsultas(FuncionarioVO funcionario) {
+		boolean sucesso = false;
+		String query = "SELECT * FROM FUNCIONARIO INNER JOIN CONSULTA ON FUNCIONARIO.IDFUNCIONARIO = CONSULTA.IDFUNCIONARIO WHERE FUNCIONARIO.IDFUNCIONARIO = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		try {
+			prepStmt.setInt(1, funcionario.getIdFuncionario());
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				sucesso = true;
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar se Funcionário " + funcionario.getNome() + " possui consultas: "
+					+ e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return sucesso;
 	}
 
 }

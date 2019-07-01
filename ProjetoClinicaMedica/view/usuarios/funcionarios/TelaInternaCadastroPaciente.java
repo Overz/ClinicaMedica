@@ -32,13 +32,12 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 	private static final String SELECIONE = "[SELECIONE]";
 	private JFormattedTextField ftfCPF;
 	private JFormattedTextField ftfTelefone;
-	private JFormattedTextField ftfNumero;
+	private JTextField txtNumero;
 	private JFormattedTextField ftfCep;
 	private JFormattedTextField ftfEstado;
 	private MaskFormatter mascaraCpf;
 	private MaskFormatter mascaraTelefone;
 	private MaskFormatter mascaraEstado;
-	private MaskFormatter mascaraNumero;
 	private MaskFormatter mascaraCep;
 	private JComboBox cbSexo;
 	private JComboBox cbTipoSanguineo;
@@ -85,8 +84,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 			mascaraTelefone = new MaskFormatter("(##)#####-####");
-			mascaraEstado = new MaskFormatter("LL");
-			mascaraNumero = new MaskFormatter("####");
+			mascaraEstado = new MaskFormatter("UU");
 			mascaraCep = new MaskFormatter("#####-###");
 		} catch (ParseException e) {
 			System.out.println("Erro ao criar m�scaras. Causa: " + e.getMessage());
@@ -197,9 +195,9 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		ftfCPF.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(ftfCPF, "cell 5 5,grow");
 
-		ftfNumero = new JFormattedTextField(mascaraNumero);
-		ftfNumero.setFont(new Font("Verdana", Font.PLAIN, 20));
-		getContentPane().add(ftfNumero, "cell 2 16,grow");
+		txtNumero = new JTextField();
+		txtNumero.setFont(new Font("Verdana", Font.PLAIN, 20));
+		getContentPane().add(txtNumero, "cell 2 16,grow");
 
 		ftfEstado = new JFormattedTextField(mascaraEstado);
 		ftfEstado.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -276,12 +274,8 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			String bairro = txtBairro.getText();
 			String rua = txtRua.getText();
 			String cep = ftfCep.getText();
-			int numero = 0;
-			try {
-				numero = Integer.parseInt(ftfNumero.getText());
-			} catch (Exception e2) {
-				JOptionPane.showMessageDialog(null, "Por favor, Digite um Numero Valido!");
-			}
+			int numero = Integer.parseInt(txtNumero.getText());
+
 			String telefone = ftfTelefone.getText();
 			String email = txtEmail.getText();
 
@@ -294,10 +288,9 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			controller = new ControllerPaciente();
 			String mensagem = controller.salvarPaciente(idPaciente, nome, cpf, dtNascimento, sexo, convenio, tipoSangue,
 					estado, cidade, bairro, rua, cep, numero, telefone, email);
+			JOptionPane.showMessageDialog(null, mensagem);
+			listarPacientes();
 
-			if (mensagem != null || (!(mensagem.trim().isEmpty()))) {
-				JOptionPane.showMessageDialog(null, mensagem);
-			}
 		});
 
 		listarPacientes();
@@ -318,7 +311,7 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		txtCidade.setText(paciente.getCidade());
 		txtBairro.setText(paciente.getBairro());
 		txtRua.setText(paciente.getRua());
-		ftfNumero.setText(Integer.toString(paciente.getNumero()));
+		txtNumero.setText(Integer.toString(paciente.getNumero()));
 		ftfEstado.setText(paciente.getEstado());
 		// Contato
 		ftfTelefone.setText(paciente.getTelefone());
@@ -337,11 +330,14 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 		txtCidade.setText("");
 		txtBairro.setText("");
 		txtRua.setText("");
-		ftfNumero.setText("");
+		txtNumero.setText("");
 		ftfEstado.setText("");
+		ftfCep.setText("");
 		// Contato
 		ftfTelefone.setText("");
 		txtEmail.setText("");
+		cbxPacientes.setSelectedIndex(-1);
+		cbTipoSanguineo.setSelectedItem(SELECIONE);
 	}
 
 	public void listarPacientes() {

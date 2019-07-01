@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import model.banco.Banco;
 import model.seletor.SeletorPaciente;
@@ -181,13 +180,13 @@ public class PacienteDAO {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += " NOME LIKE '% " + seletor.getNome() + "%'";
+			query += " NOME LIKE '%" + seletor.getNome() + "%'";
 		}
 		if (seletor.getCpf() != null && !seletor.getCpf().trim().isEmpty()) {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += " CPF LIKE '% " + seletor.getCpf() + "%'";
+			query += " CPF LIKE '%" + seletor.getCpf() + "%'";
 		}
 		if (seletor.getDate() != null) {
 			if (!primeiro) {
@@ -270,6 +269,56 @@ public class PacienteDAO {
 			resultado.close();
 		} catch (SQLException e) {
 			System.out.println("Erro ao verificar se existe Paciente por CPF: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return sucesso;
+	}
+
+	public boolean pacientePossuiConsultas(PacienteVO paciente) {
+		boolean sucesso = false;
+		String query = "SELECT * FROM PACIENTE INNER JOIN CONSULTA ON PACIENTE.IDPACIENTE = CONSULTA.IDPACIENTE WHERE PACIENTE.IDPACIENTE = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		try {
+			prepStmt.setInt(1, paciente.getIdPaciente());
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				sucesso = true;
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar se Paciente " + paciente.getNome() + " possui consultas agendadas: "
+					+ e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return sucesso;
+	}
+
+	public boolean pacientePossuiProntuarios(PacienteVO paciente) {
+		boolean sucesso = false;
+		String query = "SELECT * FROM PACIENTE INNER JOIN PRONTUARIO ON PACIENTE.IDPACIENTE = PRONTUARIO.IDPACIENTE WHERE PACIENTE.IDPACIENTE = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		try {
+			prepStmt.setInt(1, paciente.getIdPaciente());
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				sucesso = true;
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar se Paciente " + paciente.getNome()
+					+ " possui prontuários cadastrados: " + e.getMessage());
 		} finally {
 			Banco.closePreparedStatement(prepStmt);
 			Banco.closeConnection(conn);

@@ -1,4 +1,4 @@
-package util.TableModels;
+package util.tableModels;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

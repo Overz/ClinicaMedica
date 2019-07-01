@@ -86,7 +86,7 @@ public class ControllerUsuario {
 		if (!senha.equals(confirmacaoSenha)) {
 			mensagem += "Confirmação de senha e senha não são iguais!\n";
 		}
-		if (cpf == null || cpf.trim().equals("")) {
+		if (cpf == null || cpf.trim().replaceAll("\\.|-", "").equals("")) {
 			mensagem += "O campo CPF é obrigatório!\n";
 		}
 		if (telefone == null || telefone.trim().equals("")) {
@@ -124,7 +124,7 @@ public class ControllerUsuario {
 		if (!senha.equals(confirmacaoSenha)) {
 			mensagem += "Confirmação de senha e senha não são iguais!\n";
 		}
-		if ((cpf == null || cpf.replaceAll("\\.\\.-", "").trim().isEmpty()) & (cpf.length() < 14)) {
+		if (cpf == null || cpf.trim().replaceAll("\\.|-", "").equals("")) {
 			mensagem += "O campo CPF é obrigatório!\n";
 		}
 		if (telefone == null || telefone.trim().equals("")) {
