@@ -56,12 +56,6 @@ public class ControllerMedico {
 		return mensagem;
 	}
 
-	public boolean validarEMail(String email) {
-		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-		return email.matches(regex);
-
-	}
-
 	public ArrayList<MedicoVO> listarMedicos(SeletorUsuario seletor) {
 		MedicoBO bo = new MedicoBO();
 		return bo.listarMedicos(seletor);

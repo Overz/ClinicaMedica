@@ -21,7 +21,7 @@ import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import net.miginfocom.swing.MigLayout;
-import util.TableModels.ConsultasTableModel;
+import util.tableModels.ConsultasTableModel;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
 

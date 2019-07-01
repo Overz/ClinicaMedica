@@ -137,7 +137,7 @@ public class MedicoDAO {
 	public boolean excluirMedico(MedicoVO medico) {
 		boolean sucesso = false;
 
-		String query = " DELETE FROM MEDICO " + " WHERE IDMEDICO = ? ";
+		String query = " DELETE FROM MEDICO WHERE IDMEDICO = ? ";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, query);
@@ -234,7 +234,7 @@ public class MedicoDAO {
 			if (!primeiro) {
 				query += " AND ";
 			}
-			query += "MEDICO.DATA_NASCIMENTO = " + seletor.getDataNascimento();
+			query += "MEDICO.DATA_NASCIMENTO = '" + seletor.getDataNascimento() + "'";
 			primeiro = false;
 		}
 		return query;
@@ -305,6 +305,56 @@ public class MedicoDAO {
 			Banco.closeConnection(conn);
 		}
 		return medico;
+	}
+
+	public boolean medicoPossuiConsultas(MedicoVO medico) {
+		boolean sucesso = false;
+		String query = "SELECT * FROM MEDICO INNER JOIN CONSULTA ON MEDICO.IDMEDICO = CONSULTA.IDMEDICO WHERE MEDICO.IDMEDICO = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		try {
+			prepStmt.setInt(1, medico.getIdMedico());
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				sucesso = true;
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar se Médico " + medico.getNome() + " possui consultas agendadas: "
+					+ e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return sucesso;
+	}
+
+	public boolean medicoPossuiProntuarios(MedicoVO medico) {
+		boolean sucesso = false;
+		String query = "SELECT * FROM MEDICO INNER JOIN PRONTUARIO ON MEDICO.IDMEDICO = PRONTUARIO.IDMEDICO WHERE MEDICO.IDMEDICO = ?";
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+
+		try {
+			prepStmt.setInt(1, medico.getIdMedico());
+			ResultSet resultado = prepStmt.executeQuery();
+
+			if (resultado.next()) {
+				sucesso = true;
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar se Médico " + medico.getNome() + " possui prontuários cadastrados: "
+					+ e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+		return sucesso;
 	}
 
 }
