@@ -1,12 +1,11 @@
 package view.usuarios.relatorios;
 
-import java.awt.Container;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import net.miginfocom.swing.MigLayout;
-import util.TableModels.ConsultasTableModel;
+import util.tableModels.ConsultasTableModel;
 import view.usuarios.funcionarios.TelaInternaBuscarMedico;
 import view.usuarios.funcionarios.TelaInternaBuscarPaciente;
 
@@ -27,17 +26,13 @@ import model.vo.PacienteVO;
 import model.vo.ProntuarioVO;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import java.awt.Font;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
 public class TelaInternaFiltrarRelatorioConsulta extends JInternalFrame {
