@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import model.dao.ConsultaDAO;
+import model.seletor.SeletorConsulta;
 import model.vo.ConsultaVO;
 import model.vo.MedicoVO;
 
@@ -44,6 +45,10 @@ public class ConsultaBO {
 
 	public Boolean deletarConsulta(ConsultaVO consultaSelecionada) {
 		return dao.deletarConsulta(consultaSelecionada);
+	}
+
+	public ArrayList<ConsultaVO> buscarConsultas(SeletorConsulta seletor) {
+		return dao.buscarConsultas(seletor);
 	}
 
 }

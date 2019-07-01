@@ -280,8 +280,8 @@ public class TelaInternaCadastroUsuario extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, mensagem);
 				if (mensagem.contains("sucesso")) {
 					limparCampos();
+					listarUsuarios();
 				}
-				listarUsuarios();
 			}
 		});
 

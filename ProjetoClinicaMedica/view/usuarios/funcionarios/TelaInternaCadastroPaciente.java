@@ -291,8 +291,9 @@ public class TelaInternaCadastroPaciente extends JInternalFrame {
 			String mensagem = controller.salvarPaciente(idPaciente, nome, cpf, dtNascimento, sexo, convenio, tipoSangue,
 					estado, cidade, bairro, rua, cep, numero, telefone, email);
 			JOptionPane.showMessageDialog(null, mensagem);
-			listarPacientes();
-
+			if (mensagem.contains("sucesso")) {
+				listarPacientes();
+			}
 		});
 
 		listarPacientes();

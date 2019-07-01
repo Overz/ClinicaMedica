@@ -39,7 +39,7 @@ import view.usuarios.funcionarios.TelaInternaCadastroPaciente;
 import view.usuarios.funcionarios.TelaInternaConsultasEHorarios;
 import view.usuarios.medico.TelaInternaAgendaMedico;
 import view.usuarios.medico.TelaInternaProntuarioMedico;
-import view.usuarios.relatorios.TelaInternaFiltrarRelatorio;
+import view.usuarios.relatorios.RelatorioConsultas;
 
 public class TelaGeral extends JFrame {
 
@@ -62,7 +62,6 @@ public class TelaGeral extends JFrame {
 	private JMenuItem jmenuRelatorioConsultas;
 	private JMenuItem jmenuRelatorioPaciente;
 	private JMenuItem jmenuRelatorioProntuarios;
-	private JMenuItem jmenuRelatorioComFiltro;
 
 	private UsuarioVO usuario;
 	private PacienteVO paciente;
@@ -76,7 +75,7 @@ public class TelaGeral extends JFrame {
 	private TelaInternaExcluirUsuario janelinhaExcluirUsuario = new TelaInternaExcluirUsuario();
 	private TelaInternaCadastroUsuario janelinhaUsuario = new TelaInternaCadastroUsuario();
 	private TelaInternaExcluirPaciente janelinhaExcluirPaciente = new TelaInternaExcluirPaciente();
-	TelaInternaFiltrarRelatorio janelinhaFiltrarRelatorio = new TelaInternaFiltrarRelatorio();
+	private RelatorioConsultas janelinhaRelatorioConsultas = new RelatorioConsultas();
 
 	private int width_int;
 	private int height_int;
@@ -97,7 +96,7 @@ public class TelaGeral extends JFrame {
 			public void run() {
 				try {
 					TelaGeral window = new TelaGeral(new UsuarioVO());
-					window.setExtendedState(Frame.MAXIMIZED_BOTH);
+					window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -227,25 +226,7 @@ public class TelaGeral extends JFrame {
 				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
 		jmenuRelatorios.add(jmenuRelatorioConsultas);
 		jmenuRelatorioConsultas.addActionListener(e -> {
-
-			// TODAS AS CONSULTAS
-
-			JFileChooser jfc = new JFileChooser();
-			jfc.setDialogTitle("Salvar relatório em...");
-
-			int resultado = jfc.showSaveDialog(null);
-			if (resultado == JFileChooser.APPROVE_OPTION) {
-
-				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
-
-				atualizarListas();
-
-				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
-				String mensagem = controllerRelatorio.gerarRelatorioConsultas(consultasVO, caminhoEscolhido);
-
-				JOptionPane.showMessageDialog(null, mensagem);
-
-			}
+			adicionarInternalFrame(janelinhaRelatorioConsultas);
 		});
 
 		jmenuRelatorioPaciente = new JMenuItem("Relatorio de Pacientes");
@@ -300,13 +281,6 @@ public class TelaGeral extends JFrame {
 				JOptionPane.showMessageDialog(null, mensagem);
 
 			}
-		});
-
-		jmenuRelatorioComFiltro = new JMenuItem("Filtrar Relatorios");
-		jmenuRelatorioComFiltro.setFont(new Font("Verdana", Font.PLAIN, 14));
-		jmenuRelatorios.add(jmenuRelatorioComFiltro);
-		jmenuRelatorioComFiltro.addActionListener(e -> {
-			adicionarInternalFrame(janelinhaFiltrarRelatorio);
 		});
 
 		// MENU ADM

@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import model.banco.Banco;
+import model.seletor.SeletorConsulta;
 import model.vo.ConsultaVO;
 import model.vo.FuncionarioVO;
 import model.vo.MedicoVO;
@@ -233,6 +234,78 @@ public class ConsultaDAO {
 		}
 
 		return sucesso;
+	}
+
+	public ArrayList<ConsultaVO> buscarConsultas(SeletorConsulta seletor) {
+		String query = " SELECT * FROM CONSULTA ";
+		if (seletor.temFiltro()) {
+			query = criarFiltros(seletor, query);
+		}
+		if (seletor.temPaginacao()) {
+			query += " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
+		}
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conn, query);
+		ArrayList<ConsultaVO> consultas = new ArrayList<ConsultaVO>();
+
+		try {
+			ResultSet resultado = prepStmt.executeQuery();
+
+			while (resultado.next()) {
+				ConsultaVO consulta = montarConsulta(resultado);
+				consultas.add(consulta);
+			}
+			resultado.close();
+		} catch (SQLException e) {
+			System.out.println("Erro ao listar Consultas: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conn);
+		}
+
+		return consultas;
+	}
+
+	private String criarFiltros(SeletorConsulta seletor, String query) {
+		query += " WHERE ";
+		boolean primeiro = true;
+
+		if (seletor.getMedico() != null) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "IDMEDICO = " + seletor.getMedico().getIdMedico();
+			primeiro = false;
+		}
+		if (seletor.getPaciente() != null) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "IDPACIENTE = " + seletor.getPaciente().getIdPaciente();
+			primeiro = false;
+		}
+		if ((seletor.getDataInicio() != null) && (seletor.getDataFim() != null)) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "DATA_CONSULTA >= '" + seletor.getDataInicio() + "' AND DATA_CONSULTA <= '" + seletor.getDataFim()
+					+ "'";
+			primeiro = false;
+		} else if (seletor.getDataInicio() != null) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "p.dataCadastro >= '" + seletor.getDataInicio() + "'";
+			primeiro = false;
+		} else if (seletor.getDataFim() != null) {
+			if (!primeiro) {
+				query += " AND ";
+			}
+			query += "p.dataCadastro <= '" + seletor.getDataFim() + "'";
+			primeiro = false;
+		}
+		return query;
 	}
 
 }

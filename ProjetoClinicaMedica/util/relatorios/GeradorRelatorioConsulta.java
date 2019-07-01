@@ -68,9 +68,7 @@ public class GeradorRelatorioConsulta {
 
 	public String gerarPlanilhaConsultaComFiltro(ArrayList<ConsultaVO> vo, String caminhoEscolhido) {
 
-		String[] columnNames = { "# Consulta", "Data de Nascimento", "# Paciênte", "Nome Paciênte", "CPF", "Telefone",
-				"Email", "# Medico", "Nome Médico", "CPF", "CRM", "Especialidade", "Tipo de Usuário", "# Consulta",
-				"Data da Consulta" };
+		String[] columnNames = { "Data", "Médico", "Especialidade", "CRM", "Paciente", "Funcionário" };
 
 		// Criar a planilha (Workbook)
 		XSSFWorkbook planilha = new XSSFWorkbook();
@@ -87,7 +85,25 @@ public class GeradorRelatorioConsulta {
 		}
 
 		// TODO
+		// Preencher as linhas com os Objetos
+		int row = 1;
+		for (ConsultaVO c : vo) {
+			XSSFRow linhaAtual = abaPlanilha.createRow(row++);
 
+			linhaAtual.createCell(0).setCellValue(c.getData_consulta().toString());
+			linhaAtual.createCell(1).setCellValue(c.getMedico().getNome());
+			linhaAtual.createCell(2).setCellValue(c.getMedico().getEspecialidade());
+			linhaAtual.createCell(3).setCellValue(c.getMedico().getCrm());
+			linhaAtual.createCell(4).setCellValue(c.getPaciente().toString());
+			linhaAtual.createCell(5).setCellValue(c.getFuncionario().toString());
+
+		}
+
+		// Ajusta o tamanho de todas as colunas conforme a largura do conteudo
+		for (int i = 0; i < columnNames.length; i++) {
+			abaPlanilha.autoSizeColumn(i);
+		}
+		// Salvar o arquivo gerado no disco
 		return salvarNoDisco(planilha, caminhoEscolhido);
 	}
 

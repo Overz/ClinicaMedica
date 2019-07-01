@@ -61,4 +61,9 @@ public class ControllerMedico {
 		return bo.listarMedicos(seletor);
 	}
 
+	public ArrayList<MedicoVO> consultarTodos() {
+		MedicoBO bo = new MedicoBO();
+		return bo.consultarTodosMedicos();
+	}
+
 }
