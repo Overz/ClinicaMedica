@@ -38,6 +38,7 @@ import view.usuarios.funcionarios.TelaInternaCadastroPaciente;
 import view.usuarios.funcionarios.TelaInternaConsultasEHorarios;
 import view.usuarios.medico.TelaInternaAgendaMedico;
 import view.usuarios.medico.TelaInternaProntuarioMedico;
+import view.usuarios.relatorios.TelaInternaFiltrarRelatorio;
 
 public class TelaGeral extends JFrame {
 
@@ -74,6 +75,7 @@ public class TelaGeral extends JFrame {
 	private TelaInternaExcluirUsuario janelinhaExcluirUsuario = new TelaInternaExcluirUsuario();
 	private TelaInternaCadastroUsuario janelinhaUsuario = new TelaInternaCadastroUsuario();
 	private TelaInternaExcluirPaciente janelinhaExcluirPaciente = new TelaInternaExcluirPaciente();
+	TelaInternaFiltrarRelatorio janelinhaFiltrarRelatorio = new TelaInternaFiltrarRelatorio();
 
 	private int width_int;
 	private int height_int;
@@ -297,28 +299,8 @@ public class TelaGeral extends JFrame {
 		jmenuRelatorioComFiltro.setFont(new Font("Verdana", Font.PLAIN, 14));
 		jmenuRelatorios.add(jmenuRelatorioComFiltro);
 		jmenuRelatorioComFiltro.addActionListener(e -> {
-
-
-			// FILTRAR CONSULTAS
-			//ATUALIZAR
-			
-			JFileChooser jfc = new JFileChooser();
-			jfc.setDialogTitle("Salvar relatório em...");
-
-			int resultado = jfc.showSaveDialog(null);
-			if (resultado == JFileChooser.APPROVE_OPTION) {
-
-				ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
-
-				atualizarListas();
-
-				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
-				String mensagem = controllerRelatorio.gerarRelatorioConsultaComFiltro(consultasVO, caminhoEscolhido);
-				
-				JOptionPane.showMessageDialog(null, mensagem);
-
-			}
-		});
+			adicionarInternalFrame(janelinhaFiltrarRelatorio);
+			});
 
 		// MENU ADM
 		mnAdm = new JMenu("Administração");

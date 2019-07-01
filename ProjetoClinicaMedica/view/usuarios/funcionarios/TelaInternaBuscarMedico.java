@@ -55,7 +55,7 @@ public class TelaInternaBuscarMedico extends JInternalFrame {
 		setBounds(100, 100, 1013, 748);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane()
-				.setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[40][40][40][40][][grow][40][10]"));
+		.setLayout(new MigLayout("", "[10][grow][grow][grow][grow][10]", "[40][40][40][40][][grow][40][10]"));
 
 		initialize();
 	}

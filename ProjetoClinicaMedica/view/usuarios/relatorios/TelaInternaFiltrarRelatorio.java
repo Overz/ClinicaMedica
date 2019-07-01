@@ -26,6 +26,7 @@ import model.vo.PacienteVO;
 import model.vo.ProntuarioVO;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import java.awt.Font;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JButton;
 
-public class TelaInternaFiltrarRelatorioConsulta extends JInternalFrame {
+public class TelaInternaFiltrarRelatorio extends JInternalFrame {
 
 	private static final long serialVersionUID = 6117203682713531593L;
 
@@ -56,12 +57,14 @@ public class TelaInternaFiltrarRelatorioConsulta extends JInternalFrame {
 	private ArrayList<PacienteVO> pacienteVO;
 	private ArrayList<ConsultaVO> consultasVO;
 	private ArrayList<ProntuarioVO> prontuarioVO;
-	
+	private JButton btnCancelar;
+	private JButton btnPesquisar;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInternaFiltrarRelatorioConsulta window = new TelaInternaFiltrarRelatorioConsulta();
+					TelaInternaFiltrarRelatorio window = new TelaInternaFiltrarRelatorio();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,14 +73,13 @@ public class TelaInternaFiltrarRelatorioConsulta extends JInternalFrame {
 		});
 	}
 
-	public TelaInternaFiltrarRelatorioConsulta() {
-		//super("Clínica Médica - Filtrar Relatorio de Consultas", true, true, false, false);
+	public TelaInternaFiltrarRelatorio() {
+		super("Clínica Médica - Filtrar Relatorio de Consultas", true, true, false, false);
 		setBounds(100, 100, 1042, 805);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setLayout(new MigLayout("", "[10][grow][10][100px:100px:100px,grow][10,grow][grow][10][grow][10]", "[10][38,grow][5][grow][5][grow,fill][5][38,grow][][5][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][5][38,grow,fill][5]"));
+		this.getContentPane().setLayout(new MigLayout("", "[10][grow][10][100px:100px:100px,grow][10,grow][grow][10][grow][10]", "[10][38,grow][5][grow][5][grow,fill][5][38,grow][5][grow][5][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][5][38,grow,fill][5]"));
 
 		initialize();
-
 	}
 
 	private void initialize() {
@@ -96,49 +98,53 @@ public class TelaInternaFiltrarRelatorioConsulta extends JInternalFrame {
 			telaInternaBuscarPaciente.setVisible(true);
 		});
 
-		lblMedico = new JLabel("Médico: ");
-		lblMedico.setFont(new Font("Verdana", Font.PLAIN, 22));
-		getContentPane().add(lblMedico, "cell 1 5,alignx trailing,growy");
-		lblMedico.setVisible(true);
-
 		DatePickerSettings dateSettings = new DatePickerSettings();
 		dateSettings.setAllowKeyboardEditing(false);
 
-		lblDe = new JLabel("De:");
-		lblDe.setFont(new Font("Verdana", Font.PLAIN, 22));
-		getContentPane().add(lblDe, "cell 1 7,alignx trailing,growy");
+		lblMedico = new JLabel("Médico: ");
+		lblMedico.setFont(new Font("Verdana", Font.PLAIN, 22));
+		getContentPane().add(lblMedico, "cell 1 3,alignx trailing,growy");
+		lblMedico.setVisible(true);
 
 		btnSelecionarMedico = new JButton("Selecionar Médico");
 		btnSelecionarMedico.setFont(new Font("Verdana", Font.PLAIN, 22));
-		getContentPane().add(btnSelecionarMedico, "cell 7 5,grow");
+		getContentPane().add(btnSelecionarMedico, "cell 7 3,grow");
 		btnSelecionarMedico.addActionListener(e -> {
 			TelaInternaBuscarMedico telaInternaBuscarMedico = new TelaInternaBuscarMedico();
 			getDesktopPane().add(telaInternaBuscarMedico);
 			telaInternaBuscarMedico.setVisible(true);
 		});
 
+		lblDe = new JLabel("De:");
+		lblDe.setFont(new Font("Verdana", Font.PLAIN, 22));
+		getContentPane().add(lblDe, "cell 1 5,alignx trailing,growy");
+
 		datePickerAtual = new DatePicker();
 		datePickerAtual.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 22));
 		datePickerAtual.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 22));
 		datePickerAtual.setToolTipText("Selecione a Data para Consulta");
-		getContentPane().add(datePickerAtual, "cell 7 7,grow");
+		getContentPane().add(datePickerAtual, "cell 7 5,grow");
 
 		lblAt = new JLabel("Até:");
 		lblAt.setFont(new Font("Verdana", Font.PLAIN, 22));
-		getContentPane().add(lblAt, "cell 1 8,alignx trailing,growy");
+		getContentPane().add(lblAt, "cell 1 7,alignx trailing,growy");
 		datePickerFinal.getComponentDateTextField().setFont(new Font("Verdana", Font.PLAIN, 22));
 		datePickerFinal.getComponentToggleCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 22));
 
 		datePickerFinal.setSettings(dateSettings);
 		datePickerFinal.setToolTipText("Selecione a Data para Consulta");
-		getContentPane().add(datePickerFinal, "cell 7 8,grow");
+		getContentPane().add(datePickerFinal, "cell 7 7,grow");
 		datePickerFinal.setDate(LocalDate.now());
 		datePickerFinal.addDateChangeListener(e -> {
 			atualizarTabela();
 		});
 
+		btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setFont(new Font("Verdana", Font.PLAIN, 22));
+		getContentPane().add(btnPesquisar, "cell 7 9,grow");
+
 		JScrollPane scrollPane = new JScrollPane();
-		getContentPane().add(scrollPane, "cell 1 10 7 8,grow");
+		getContentPane().add(scrollPane, "cell 1 11 7 8,grow");
 
 		tblConsultas = new JTable();
 		tblConsultas.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -149,9 +155,16 @@ public class TelaInternaFiltrarRelatorioConsulta extends JInternalFrame {
 		scrollPane.setViewportView(tblConsultas);
 		tblConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 22));
+		getContentPane().add(btnCancelar, "cell 3 20 2 1,grow");
+		btnCancelar.addActionListener(e -> {
+			this.dispose();
+		});
+
 		btnCadastrarConsulta = new JButton("Gerar Relatorio");
 		btnCadastrarConsulta.setFont(new Font("Verdana", Font.PLAIN, 22));
-		getContentPane().add(btnCadastrarConsulta, "cell 7 19,grow");
+		getContentPane().add(btnCadastrarConsulta, "cell 7 20,grow");
 		btnCadastrarConsulta.addActionListener(e -> {
 
 			JFileChooser jfc = new JFileChooser();
@@ -167,7 +180,7 @@ public class TelaInternaFiltrarRelatorioConsulta extends JInternalFrame {
 				String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
 				String mensagem = controllerRelatorio.gerarRelatorioConsultaComFiltro(consultasVO, caminhoEscolhido);
 
-
+				JOptionPane.showMessageDialog(null, mensagem);
 			}
 		});
 
