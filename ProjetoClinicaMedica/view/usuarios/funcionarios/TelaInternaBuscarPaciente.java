@@ -100,7 +100,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		btnLimparCampos.setFont(new Font("Verdana", Font.PLAIN, 20));
 		getContentPane().add(btnLimparCampos, "cell 5 3,grow");
 		btnLimparCampos.addActionListener(e -> {
-			ftfCpf.setText("");
+			txtCpf.setText("");
 			txtNome.setText("");
 			datePicker.setDate(null);
 		});
@@ -157,7 +157,7 @@ public class TelaInternaBuscarPaciente extends JInternalFrame {
 		SeletorPaciente seletor = new SeletorPaciente();
 
 		seletor.setNome(txtNome.getText());
-		seletor.setCpf(ftfCpf.getText());
+		seletor.setCpf(txtCpf.getText());
 		seletor.setDate(datePicker.getDate());
 
 		PacienteTableModel modelo = (PacienteTableModel) tblPacientes.getModel();

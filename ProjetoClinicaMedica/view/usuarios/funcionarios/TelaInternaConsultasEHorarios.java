@@ -129,14 +129,14 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 //		btnCencelarConsulta.setFont(new Font("Verdana", Font.PLAIN, 20));
 //		getContentPane().add(btnCencelarConsulta, "cell 1 18 3 1,grow");
 
-		btnLimparCampos = new JButton("Limpar Campos");
-		btnLimparCampos.setFont(new Font("Verdana", Font.PLAIN, 22));
-		getContentPane().add(btnLimparCampos, "cell 5 18,grow");
-		btnLimparCampos.addActionListener(e -> {
-			TelaInternaBuscarPaciente telaInternaBuscarPaciente = new TelaInternaBuscarPaciente();
-			getDesktopIcon().add(telaInternaBuscarPaciente);
-			telaInternaBuscarPaciente.setVisible(true);
-		});
+//		btnLimparCampos = new JButton("Limpar Campos");
+//		btnLimparCampos.setFont(new Font("Verdana", Font.PLAIN, 22));
+//		getContentPane().add(btnLimparCampos, "cell 5 18,grow");
+//		btnLimparCampos.addActionListener(e -> {
+//			TelaInternaBuscarPaciente telaInternaBuscarPaciente = new TelaInternaBuscarPaciente();
+//			getDesktopIcon().add(telaInternaBuscarPaciente);
+//			telaInternaBuscarPaciente.setVisible(true);
+//		});
 
 		JScrollPane scrollPane = new JScrollPane();
 		getContentPane().add(scrollPane, "cell 1 9 7 8,grow");
