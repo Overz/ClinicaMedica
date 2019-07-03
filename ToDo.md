@@ -19,4 +19,4 @@
 - [ ] Enviar por email?
 - [ ] Assinatura digital nos Atesteados e Recibos?
 - [ ] API para pesquisar CID?
-- [ ] Permitir médico consultar sua agenda
+  - [ ] Permitir médico consultar sua agenda
