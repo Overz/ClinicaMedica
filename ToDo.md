@@ -16,7 +16,7 @@
 - [ ] "Lista Negra" de pacientes que Cancelam/Não vão
 - [ ] Cobrar Antecipado para confirmar consultas de pacientes na "Lista Negra"
 - [ ] Emitir PDF de Atestado
+  - [ ] API para pesquisar CID?
 - [ ] Enviar por email?
 - [ ] Assinatura digital nos Atesteados e Recibos?
-- [ ] API para pesquisar CID?
-  - [ ] Permitir médico consultar sua agenda
+- [ ] Permitir médico consultar sua agenda
