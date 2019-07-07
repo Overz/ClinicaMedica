@@ -1,4 +1,4 @@
-package view.usuarios.funcionarios;
+package view.usuarios.func_E_medico;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -20,6 +20,7 @@ import model.seletor.SeletorPaciente;
 import model.vo.PacienteVO;
 import net.miginfocom.swing.MigLayout;
 import util.tableModels.PacienteTableModel;
+import view.usuarios.funcionarios.TelaInternaConsultasEHorarios;
 import view.usuarios.medico.TelaInternaProntuarioMedico;
 
 public class TelaInternaBuscarPaciente extends JInternalFrame {

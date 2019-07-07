@@ -34,12 +34,12 @@ import model.vo.UsuarioVO;
 import view.adm.paciente.TelaInternaExcluirPaciente;
 import view.adm.usuario.TelaInternaCadastroUsuario;
 import view.adm.usuario.TelaInternaExcluirUsuario;
-import view.usuarios.funcionarios.TelaInternaBuscarPaciente;
+import view.usuarios.extras.relatorios.RelatorioConsultas;
+import view.usuarios.func_E_medico.TelaInternaBuscarPaciente;
 import view.usuarios.funcionarios.TelaInternaCadastroPaciente;
 import view.usuarios.funcionarios.TelaInternaConsultasEHorarios;
 import view.usuarios.medico.TelaInternaAgendaMedico;
 import view.usuarios.medico.TelaInternaProntuarioMedico;
-import view.usuarios.relatorios.RelatorioConsultas;
 
 public class TelaGeral extends JFrame {
 
@@ -52,7 +52,6 @@ public class TelaGeral extends JFrame {
 	private JMenuItem mntmProntuario;
 	private JMenuItem mntmBuscarPaciente;
 	private JMenuItem mntmCadastrarPaciente;
-	private JMenuItem mntmAgendaMedica;
 	private JMenuItem mnExcluirPacientes;
 	private JMenuItem mnCadastroDePaciente;
 	private JMenuItem mntmExcluirUsuarios;
@@ -170,8 +169,7 @@ public class TelaGeral extends JFrame {
 
 		mntmCadastrarPaciente = new JMenuItem("Cadastrar/Atualizar Paciente");
 		mntmCadastrarPaciente.setFont(new Font("Verdana", Font.PLAIN, 14));
-		mntmCadastrarPaciente.setIcon(
-				new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino-38.png")));
+		mntmCadastrarPaciente.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-usuário-masculino-38.png")));
 		mnPaciente.add(mntmCadastrarPaciente);
 		mntmCadastrarPaciente.addActionListener(e -> {
 			adicionarInternalFrame(janelinhaCadastroPaciente);
@@ -194,20 +192,9 @@ public class TelaGeral extends JFrame {
 		mnMedico.setFont(new Font("Arial", Font.BOLD, 16));
 		menuBar.add(mnMedico);
 
-		mntmAgendaMedica = new JMenuItem("Agenda Medica");
-		mntmAgendaMedica.setFont(new Font("Verdana", Font.PLAIN, 14));
-		mntmAgendaMedica.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-pasta-dos-médicos-38.png")));
-		mnMedico.add(mntmAgendaMedica);
-		mntmAgendaMedica.addActionListener(e -> {
-			janelinhaAgendaMedica = new TelaInternaAgendaMedico((MedicoVO) usuario);
-			adicionarInternalFrame(janelinhaAgendaMedica);
-			this.repaint();
-		});
-
 		mntmProntuario = new JMenuItem("Prontuario");
 		mntmProntuario.setFont(new Font("Verdana", Font.PLAIN, 14));
-		mntmProntuario
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
+		mntmProntuario.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-adicionar-arquivo-filled-38.png")));
 		mnMedico.add(mntmProntuario);
 		mntmProntuario.addActionListener(e -> {
 			adicionarInternalFrame(janelinhaProntuario);
@@ -222,8 +209,7 @@ public class TelaGeral extends JFrame {
 
 		jmenuRelatorioConsultas = new JMenuItem("Relatorio de Consultas");
 		jmenuRelatorioConsultas.setFont(new Font("Verdana", Font.PLAIN, 14));
-		jmenuRelatorioConsultas
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
+		jmenuRelatorioConsultas.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-arquivo-estatístico-50.png")));
 		jmenuRelatorios.add(jmenuRelatorioConsultas);
 		jmenuRelatorioConsultas.addActionListener(e -> {
 			adicionarInternalFrame(janelinhaRelatorioConsultas);
@@ -231,8 +217,7 @@ public class TelaGeral extends JFrame {
 
 		jmenuRelatorioPaciente = new JMenuItem("Relatorio de Pacientes");
 		jmenuRelatorioPaciente.setFont(new Font("Verdana", Font.PLAIN, 14));
-		jmenuRelatorioPaciente
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-relatório-gráfico-filled-38.png")));
+		jmenuRelatorioPaciente.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-relatório-gráfico-filled-38.png")));
 		jmenuRelatorios.add(jmenuRelatorioPaciente);
 		jmenuRelatorioPaciente.addActionListener(e -> {
 
@@ -258,8 +243,7 @@ public class TelaGeral extends JFrame {
 
 		jmenuRelatorioProntuarios = new JMenuItem("Relatorio de Prontuários");
 		jmenuRelatorioProntuarios.setFont(new Font("Verdana", Font.PLAIN, 14));
-		jmenuRelatorioProntuarios
-				.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
+		jmenuRelatorioProntuarios.setIcon(new ImageIcon(TelaGeral.class.getResource("/icones/icons8-analisar-currículos-50.png")));
 		jmenuRelatorios.add(jmenuRelatorioProntuarios);
 		jmenuRelatorioProntuarios.addActionListener(e -> {
 

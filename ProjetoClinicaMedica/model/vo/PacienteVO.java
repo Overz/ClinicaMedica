@@ -35,10 +35,8 @@ public class PacienteVO extends PessoaVO {
 	private String estado;
 	private String cep;
 	private String convenio;
-
-	public PacienteVO() {
-		super();
-	}
+	
+	private CarteirinhaVO carterinha;
 
 	public PacienteVO(int idPaciente, String sexo, String tipoSanguineo, String rua, int numero, String bairro,
 			String cidade, String estado, String cep, String nome, LocalDate dtNascimento, String cpf, String telefone,
@@ -54,6 +52,10 @@ public class PacienteVO extends PessoaVO {
 		this.estado = estado;
 		this.cep = cep;
 		this.convenio = convenio;
+	}
+
+	public PacienteVO() {
+		super();
 	}
 
 	public int getIdPaciente() {
@@ -127,12 +129,7 @@ public class PacienteVO extends PessoaVO {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
-	@Override
-	public String toString() {
-		return "Nome: " + this.getNome() + " CPF: " + this.getCpf() + " Convênio: " + this.getConvenio();
-	}
-
+	
 	public String getConvenio() {
 		return this.convenio;
 	}
@@ -141,4 +138,16 @@ public class PacienteVO extends PessoaVO {
 		this.convenio = convenio;
 	}
 
+	public CarteirinhaVO getCarterinha() {
+		return carterinha;
+	}
+
+	public void setCarterinha(CarteirinhaVO carterinha) {
+		this.carterinha = carterinha;
+	}
+
+	@Override
+	public String toString() {
+		return "Nome: " + this.getNome() + " CPF: " + this.getCpf() + " Convênio: " + this.getConvenio();
+	}
 }

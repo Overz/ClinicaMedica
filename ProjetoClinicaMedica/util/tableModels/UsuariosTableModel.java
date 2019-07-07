@@ -10,6 +10,8 @@ import model.vo.UsuarioVO;
 
 public class UsuariosTableModel extends AbstractTableModel {
 
+	private static final long serialVersionUID = 8848439541375443885L;
+	
 	private static final int ID = 0;
 	private static final int TIPO_USUARIO = 1;
 	private static final int NOME = 2;

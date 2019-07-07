@@ -2,10 +2,10 @@
 
 - [ ] Implantar banco de dados em servidor "não local"
 - [ ] Cancelamentos de Consultas
-- [ ] Ausências
-- [ ] Atrasos (?)
+- [x] Atrasos (?) @Probleman: Checkbox marca que foi selecionado.
+- [ ] Ausências - R: De quem?
 - [ ] Histórico de cancelamentos/ausências
-- [ ] Confirmar agedamentos 1 dia antes por WhatsApp (?)
+- [ ] Confirmar agedamentos 1 dia antes por WhatsApp (?) - R: Isso não requer controle interno, apenas cancelar a consulta caso não atenda o telefone, ou não compareça.
 - [ ] Planos de Saúde
 - [ ] Incluir número da carteirinha
 - [ ] Incluir valores caso Consulta Particular
@@ -16,7 +16,7 @@
 - [ ] "Lista Negra" de pacientes que Cancelam/Não vão
 - [ ] Cobrar Antecipado para confirmar consultas de pacientes na "Lista Negra"
 - [ ] Emitir PDF de Atestado
-  - [ ] API para pesquisar CID?
+- [ ] API para pesquisar CID?
 - [ ] Enviar por email?
 - [ ] Assinatura digital nos Atesteados e Recibos?
 - [ ] Permitir médico consultar sua agenda

@@ -1,5 +1,6 @@
 package model.vo;
 
+import java.awt.Checkbox;
 import java.time.LocalDateTime;
 
 public class ConsultaVO {
@@ -9,19 +10,21 @@ public class ConsultaVO {
 	private PacienteVO paciente;
 	private LocalDateTime data_consulta;
 	private FuncionarioVO funcionario;
+	private boolean cbx;
 
 	public ConsultaVO() {
 		super();
 	}
 
 	public ConsultaVO(int idConsulta, MedicoVO medico, PacienteVO paciente, LocalDateTime data_consulta,
-			FuncionarioVO funcionario) {
+			FuncionarioVO funcionario, boolean cbx) {
 		super();
 		this.idConsulta = idConsulta;
 		this.medico = medico;
 		this.paciente = paciente;
 		this.data_consulta = data_consulta;
 		this.funcionario = funcionario;
+		this.cbx = cbx;
 	}
 
 	public int getIdConsulta() {
@@ -62,6 +65,14 @@ public class ConsultaVO {
 
 	public void setFuncionario(FuncionarioVO funcionario) {
 		this.funcionario = funcionario;
+	}
+
+	public boolean getCbx() {
+		return cbx;
+	}
+
+	public void setCbx(boolean cbx) {
+		this.cbx = cbx;
 	}
 
 }

@@ -23,6 +23,8 @@ import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import net.miginfocom.swing.MigLayout;
 import util.tableModels.ConsultasTableModel;
+import view.usuarios.func_E_medico.TelaInternaBuscarMedico;
+import view.usuarios.func_E_medico.TelaInternaBuscarPaciente;
 
 public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
@@ -67,18 +69,16 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 		this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		// this.setBounds(0, 0, 821, 609);
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.getContentPane().setLayout(new MigLayout("",
-				"[10][grow][10][100px:100px:100px,grow][10][grow][10][grow][10]",
-				"[10][38,grow][5][grow][5][grow,fill][5][38,grow][5][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][5][38,grow,fill][5]"));
+		this.getContentPane().setLayout(new MigLayout("", "[10][grow][10][100px:100px:100px,grow][10][grow][10][grow][10]", "[10][38,grow][5][grow][5][grow,fill][5][38,grow][5][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][38,grow,fill][5][38,grow,fill][5]"));
 
 		initialize();
 	}
 
 	private void initialize() {
 
-		lblPaciente = new JLabel("Paciente: ");
+		lblPaciente = new JLabel("Paciente:                  ");
 		lblPaciente.setFont(new Font("Verdana", Font.PLAIN, 22));
-		getContentPane().add(lblPaciente, "cell 1 1,alignx trailing,growy");
+		getContentPane().add(lblPaciente, "cell 1 1 5 1,alignx left,growy");
 		lblPaciente.setVisible(true);
 
 		btnSelecionarPaciente = new JButton("Selecionar Paciente");
@@ -90,9 +90,9 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 			telaInternaBuscarPaciente.setVisible(true);
 		});
 
-		lblMedico = new JLabel("Médico: ");
+		lblMedico = new JLabel("Médico:                  ");
 		lblMedico.setFont(new Font("Verdana", Font.PLAIN, 22));
-		getContentPane().add(lblMedico, "cell 1 5,alignx trailing,growy");
+		getContentPane().add(lblMedico, "cell 1 5 5 1,alignx left,growy");
 		lblMedico.setVisible(true);
 
 		DatePickerSettings dateSettings = new DatePickerSettings();
@@ -153,8 +153,7 @@ public class TelaInternaConsultasEHorarios extends JInternalFrame {
 
 		btnCadastrarConsulta = new JButton("Cadastrar Consulta");
 		btnCadastrarConsulta.setFont(new Font("Verdana", Font.PLAIN, 22));
-		btnCadastrarConsulta.setToolTipText(
-				"Selecione uma Linha, e Registre os Dados em Ordem na Tabela, para Realizar o Cadastro das Consultas.");
+		btnCadastrarConsulta.setToolTipText("Selecione uma Linha, e Registre os Dados em Ordem na Tabela, para Realizar o Cadastro das Consultas.");
 		getContentPane().add(btnCadastrarConsulta, "cell 7 18,grow");
 		btnCadastrarConsulta.addActionListener(e -> {
 			ConsultasTableModel modelo = (ConsultasTableModel) tblConsultas.getModel();

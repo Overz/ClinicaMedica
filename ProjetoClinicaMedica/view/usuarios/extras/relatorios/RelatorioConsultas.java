@@ -1,4 +1,4 @@
-package view.usuarios.relatorios;
+package view.usuarios.extras.relatorios;
 
 import java.awt.EventQueue;
 import java.awt.Font;

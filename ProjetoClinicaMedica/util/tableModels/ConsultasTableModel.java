@@ -18,9 +18,10 @@ public class ConsultasTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -3291514113008354236L;
 	private static final int HORARIO = 0;
 	private static final int PACIENTE = 1;
+	private static final int ATRASADO = 2;
 
 	private List<ConsultaVO> linhas;
-	private String[] colunas = new String[] { "Horário", "Paciente" };
+	private String[] colunas = new String[] { "Horário", "Paciente", "Atrasado?"};
 
 	public ConsultasTableModel() {
 		linhas = new ArrayList<ConsultaVO>();
@@ -52,6 +53,8 @@ public class ConsultasTableModel extends AbstractTableModel {
 			return LocalTime.class;
 		case PACIENTE:
 			return PacienteVO.class;
+		case ATRASADO:
+			return Boolean.class;
 		default:
 			throw new IndexOutOfBoundsException();
 		}
@@ -59,7 +62,17 @@ public class ConsultasTableModel extends AbstractTableModel {
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return false;
+
+		switch (columnIndex) {
+		case HORARIO:
+			return false;
+		case PACIENTE:
+			return false;
+		case ATRASADO:
+			return true;
+		default:
+			return false;
+		}
 	}
 
 	@Override
@@ -70,6 +83,8 @@ public class ConsultasTableModel extends AbstractTableModel {
 			return consulta.getData_consulta().toLocalTime().toString();
 		case PACIENTE:
 			return consulta.getPaciente().toString();
+		case ATRASADO:
+			return consulta.getCbx();
 		default:
 			throw new IndexOutOfBoundsException();
 		}
@@ -96,6 +111,10 @@ public class ConsultasTableModel extends AbstractTableModel {
 				linhas.add(consulta);
 			}
 		}
+	}
+
+	public boolean getAtrasado(int rowIndex) {
+		return linhas.get(rowIndex).getCbx();
 	}
 
 	public void setConsultas(List<ConsultaVO> consultas) {

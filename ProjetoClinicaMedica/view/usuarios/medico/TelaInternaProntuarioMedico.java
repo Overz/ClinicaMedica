@@ -22,7 +22,7 @@ import model.vo.MedicoVO;
 import model.vo.PacienteVO;
 import model.vo.ProntuarioVO;
 import net.miginfocom.swing.MigLayout;
-import view.usuarios.funcionarios.TelaInternaBuscarPaciente;
+import view.usuarios.func_E_medico.TelaInternaBuscarPaciente;
 
 public class TelaInternaProntuarioMedico extends JInternalFrame {
 
@@ -180,8 +180,7 @@ public class TelaInternaProntuarioMedico extends JInternalFrame {
 		ControllerProntuario controller = new ControllerProntuario();
 		ArrayList<ProntuarioVO> prontuarios = controller.listarProntuariosPorPaciente(this.paciente);
 
-		tblProntuarios
-				.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Data", "Médico", "Observações" }));
+		tblProntuarios.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Data", "Médico", "Observações" }));
 
 		for (ProntuarioVO prontuario : prontuarios) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

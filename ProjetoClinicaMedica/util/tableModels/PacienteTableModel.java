@@ -9,6 +9,7 @@ import model.vo.PacienteVO;
 
 public class PacienteTableModel extends AbstractTableModel {
 
+	private static final long serialVersionUID = -7293042480515762471L;
 	private static final int ID = 0;
 	private static final int NOME = 1;
 	private static final int CPF = 2;
